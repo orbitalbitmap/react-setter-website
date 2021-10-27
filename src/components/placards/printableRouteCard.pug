@@ -1,0 +1,105 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(http-equiv="X-UA-Compatible" content="IE=edge")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    script(src="/js/changeRoutePlacard.js" type="text/javascript")
+    link(rel="stylesheet" href="/css/styles.css")
+    link(rel="preconnect" href="https://fonts.gstatic.com")
+    link(href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;700&display=swap" rel="stylesheet")
+    title Route Placards
+    style.
+      @media print {
+        @page {
+          size: landscape;
+        }
+      }
+
+  body
+    include ../partials/navbar.pug
+
+    div(class="noprint selection-container-top")
+      div(class="route-selectors")
+        span Left:
+        select(class="route-selector-top" name="route1" onchange="changeRoutePlacard('1', this.value)")
+          option(name="climb" value=emptyClimb) Blank
+          each climb in climbs
+            option(name="climb" value=climb)= `Station #${climb.station}: ${climb.grade}`
+        div(class="arete-checkbox-container arete-on")
+          label Arete On:
+          input(type="checkbox" id="arete-on-1" class="checkbox" onclick="toggleAreteOn('slot1', 'arete-off-1', this.checked)" checked=false)
+        div(class="arete-checkbox-container")
+          label Arete Off:
+          input(type="checkbox" id="arete-off-1" class="checkbox" onclick="toggleAreteOff('slot1', 'arete-on-1', this.checked)" checked=false)
+
+      div(class="route-selectors")
+        span Middle:
+        select(class="route-selector-middle" name="route2" onchange="changeRoutePlacard('2', this.value)")
+          option(name="climb" value=emptyClimb) Blank
+          each climb in climbs
+            option(name="climb" value=climb)= `Station #${climb.station}: ${climb.grade}`
+        div(class="arete-checkbox-container arete-on")
+          label Arete On:
+          input(type="checkbox" id="arete-on-2" class="checkbox" onclick="toggleAreteOn('slot2', 'arete-off-2', this.checked)" checked=false)
+        div(class="arete-checkbox-container")
+          label Arete Off:
+          input(type="checkbox" id="arete-off-2" class="checkbox" onclick="toggleAreteOff('slot2', 'arete-on-2', this.checked)" checked=false)
+
+      div(class="route-selectors")
+        span Right:
+        select(class="route-selector-bottom" name="route3" onchange="changeRoutePlacard('3', this.value)")
+          option(name="climb" value=emptyClimb) Blank
+          each climb in climbs
+            option(name="climb" value=climb)= `Station #${climb.station}: ${climb.grade}`
+        div(class="arete-checkbox-container arete-on")
+          label Arete On:
+          input(type="checkbox" id="arete-on-3" class="checkbox" onclick="toggleAreteOn('slot3', 'arete-off-3', this.checked)" checked=false)
+        div(class="arete-checkbox-container")
+          label Arete Off:
+          input(type="checkbox" id="arete-off-3" class="checkbox" onclick="toggleAreteOff('slot3', 'arete-on-3', this.checked)" checked=false)
+
+    div(class="placard-container")
+      div(class="route-three-column-flex")
+        div(class="route-flex-row-container")
+          div(id="slot1" class="route-grades")
+            p(class="route-grade-value")
+            p(class="route-name")
+            p(class="route-arete-info")
+            div(class="route-info-container")
+              p(class="route-placard-info")
+              p(class="route-placard-info")
+              p(class="route-placard-info")
+
+          div(id="slot2" class="route-grades")
+            p(class="route-grade-value")
+            p(class="route-name")
+            p(class="route-arete-info")
+            div(class="route-info-container")
+              p(class="route-placard-info")
+              p(class="route-placard-info")
+              p(class="route-placard-info")
+
+          div(id="slot3" class="route-grades")
+            p(class="route-grade-value")
+            p(class="route-name")
+            p(class="route-arete-info")
+            div(class="route-info-container")
+              p(class="route-placard-info")
+              p(class="route-placard-info")
+              p(class="route-placard-info")
+
+        div(class="route-flex-row-container")
+          div(class="route-placard-images")
+            img(class="route-crg-logo" src="/images/CRG_Logo_Text_M.jpeg")
+          div(class="route-placard-images social-mdeia-flex-container")
+            //width: 4.375rem;
+            div
+              img(class="route-instagram-logo" src="/images/Facebook_logo.png")
+              p(class="route-insta-handle centered-text") Central Rock Worcester
+            div
+              img(class="route-instagram-logo" src="/images/Twitter_colored_logo.png")
+              p(class="route-insta-handle") @crgworcester
+            div
+              img(class="route-instagram-logo" src="/images/IG_logo.png")
+              p(class="route-insta-handle") @crgworcester

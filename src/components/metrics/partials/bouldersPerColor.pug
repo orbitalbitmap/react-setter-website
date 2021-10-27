@@ -1,0 +1,22 @@
+canvas(id="bouldersPerColorChart" width="2000" height="900")
+
+script.
+  const bouldersPerColor = JSON.parse('!{JSON.stringify(metrics.boulderColorCount)}');
+  const boulderColors = Object.keys(bouldersPerColor).map(color => color.toLowerCase());
+
+  const ctxBouldersPerColor = document.getElementById('bouldersPerColorChart');
+  const bouldersPerColorChart = new Chart(ctxBouldersPerColor, {
+    type: 'pie',
+    data: {
+      labels: Object.keys(bouldersPerColor),
+      datasets: [
+        {
+          borderColor: 'black',
+          borderWidth: 1,
+          data: Object.values(bouldersPerColor),
+          backgroundColor: boulderColors,
+          hoverOffset: 4
+        },
+      ]
+    }
+  });

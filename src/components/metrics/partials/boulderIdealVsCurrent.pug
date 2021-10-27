@@ -1,0 +1,69 @@
+canvas(id="boulderChart" width="2000" height="900")
+
+script.
+  const idealBoulderGrades = JSON.parse('!{JSON.stringify(metrics.idealBoulderGradeCount)}');
+  const currentBoulderGrades = JSON.parse('!{JSON.stringify(metrics.currentBoulderGradeCount)}');
+
+  const orderedIdealBoulderGrades = {
+    'VB': idealBoulderGrades['VB'],
+    'V0': idealBoulderGrades['V0'],
+    'V1': idealBoulderGrades['V1'],
+    'V2': idealBoulderGrades['V2'],
+    'V3': idealBoulderGrades['V3'],
+    'V4': idealBoulderGrades['V4'],
+    'V5': idealBoulderGrades['V5'],
+    'V6': idealBoulderGrades['V6'],
+    'V7': idealBoulderGrades['V7'],
+    'V8': idealBoulderGrades['V8'],
+    'V9': idealBoulderGrades['V9'],
+    'V10': idealBoulderGrades['V10'],
+    'V11': idealBoulderGrades['V11'],
+    'V12': idealBoulderGrades['V12'],
+    'V13': idealBoulderGrades['V13'],
+    'V14': idealBoulderGrades['V14'],
+    'V15': idealBoulderGrades['V15'],
+    'V16': idealBoulderGrades['V16']
+  }
+
+  const orderedCurrentBoulderGrades = {
+    'VB': currentBoulderGrades['VB'] || 0,
+    'V0': currentBoulderGrades['V0'] || 0,
+    'V1': currentBoulderGrades['V1'] || 0,
+    'V2': currentBoulderGrades['V2'] || 0,
+    'V3': currentBoulderGrades['V3'] || 0,
+    'V4': currentBoulderGrades['V4'] || 0,
+    'V5': currentBoulderGrades['V5'] || 0,
+    'V6': currentBoulderGrades['V6'] || 0,
+    'V7': currentBoulderGrades['V7'] || 0,
+    'V8': currentBoulderGrades['V8'] || 0,
+    'V9': currentBoulderGrades['V9'] || 0,
+    'V10': currentBoulderGrades['V10'] || 0,
+    'V11': currentBoulderGrades['V11'] || 0,
+    'V12': currentBoulderGrades['V12'] || 0,
+    'V13': currentBoulderGrades['V13'] || 0,
+    'V14': currentBoulderGrades['V14'] || 0,
+    'V15': currentBoulderGrades['V15'] || 0,
+    'V16': currentBoulderGrades['V16'] || 0
+  }
+
+  const ctxBoulders = document.getElementById('boulderChart');
+  const boulderChart = new Chart(ctxBoulders, {
+    type: 'bar',
+    data: {
+      labels: Object.keys(orderedIdealBoulderGrades),
+      datasets: [
+        {
+          data: Object.values(orderedIdealBoulderGrades),
+          label: 'Ideal Total',
+          backgroundColor: 'black',
+          fill: false
+        },
+        {
+          data: Object.values(orderedCurrentBoulderGrades),
+          label: 'Current Total',
+          backgroundColor: 'darkred',
+          fill: false
+        }
+      ]
+    }
+  });

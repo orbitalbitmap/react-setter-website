@@ -1,0 +1,28 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(http-equiv="X-UA-Compatible" content="IE=edge")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    link(rel="stylesheet" href="/css/styles.css")
+    title Distribution Editor
+
+  body
+    include ../partials/navbar.pug
+
+    if (grades)
+      form(action=`/api/saveDistribution/${type}` method="post" id="distribution-form")
+        input(class="hidden" name="gymId" value=gymId)
+        div(class="grid")
+          for value, key in grades
+            div(class="distribution-form-div")
+              label(class="distribution-form-label" for=key)= key[0] === '5' ? key.replace('_', '.') : key
+              select(name=key)
+                each grade in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+                  if grade === value
+                    option(name=key value=grade selected)= grade
+                  else
+                    option(value=grade)= grade
+        button(type="submit") Save Distribution
+    else
+      h2(class="centered-text") No distribution found.

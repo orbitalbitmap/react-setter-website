@@ -1,0 +1,47 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(http-equiv="X-UA-Compatible" content="IE=edge")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    link(rel="stylesheet" href="/css/styles.css")
+    title New Employee Form
+
+  body
+    include ../partials/navbar.pug
+
+    h1(class="centered-text") New Employee Information
+
+    form(action="/api/saveEmployee" method="post" id="employee-form")
+      div(class="employee-form-grid")
+        label(for="firstName") First Name:
+        input(name="firstName" placeholder="First name" required)
+
+        label(for="lastName") Last Name:
+        input(name="lastName" placeholder="Last name" required)
+
+        label(for="email") Email:
+        input(name="email" placeholder="Email" required)
+
+        label(for="password") Password:
+        input(name="password" type="password" placeholder="Password" required)
+
+        label(for="phoneNumber") Phone Number:
+        input(name="phoneNumber" placeholder="555-555-5555")
+
+        label(for="roleId") Role:
+        select(name="roleId" required)
+          option(value="1") Director of Routesetting
+          option(value="2") Regional Head Setter
+          option(value="3") Head Setter
+          option(value="4") Full Time Setter
+          option(value="5") Part Time Setter
+
+      h3(class="centered-text") Locations:
+      div(class="checkbox-grid")
+        each gym in gyms
+          div
+            label(for="gyms" form="employee-form")= `${gym.name}: `
+            input(type="checkbox" class="checkbox" form="employee-form" name="gyms" value=gym.id)
+
+      button(type="submit") Save Employee

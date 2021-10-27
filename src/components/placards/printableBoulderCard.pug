@@ -1,0 +1,168 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(http-equiv="X-UA-Compatible" content="IE=edge")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    script(src="/js/changeBoulderPlacard.js" type="text/javascript")
+    link(rel="stylesheet" href="/css/styles.css")
+    link(rel="preconnect" href="https://fonts.gstatic.com")
+    link(href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;700&display=swap" rel="stylesheet")
+    title Boulder Placards
+
+  body
+    include ../partials/navbar.pug
+
+    div(class="noprint selection-container-top")
+      div(class="boulder-selectors")
+        span Left:
+        select(class="boulder-selectors-top" name="boulder1" onchange="changeBoulderPlacard('1', this.value)")
+          option(name="climb" value=emptyClimb) Blank
+          each climb in climbs
+            option(name="climb" value=climb)= `${climb.color} ${climb.grade}`
+        div(class="arete-checkbox-container arete-on")
+          label Arete On:
+          input(type="checkbox" id="arete-on-1" class="checkbox" onclick="toggleAreteOn('boulder1', 'arete-off-1', this.checked)" checked=false)
+        div(class="arete-checkbox-container")
+          label Arete Off:
+          input(type="checkbox" id="arete-off-1" class="checkbox" onclick="toggleAreteOff('boulder1', 'arete-on-1', this.checked)" checked=false)
+
+      div(class="boulder-selectors boulder-selector-2")
+        span Middle:
+        select(class="boulder-selectors-middle" name="boulder2" onchange="changeBoulderPlacard('2', this.value)")
+          option(name="climb" value=emptyClimb) Blank
+          each climb in climbs
+            option(name="climb" value=climb)= `${climb.color} ${climb.grade}`
+        div(class="arete-checkbox-container arete-on")
+          label Arete On:
+          input(type="checkbox" id="arete-on-2" class="checkbox" onclick="toggleAreteOn('boulder2', 'arete-off-2', this.checked)" checked=false)
+        div(class="arete-checkbox-container")
+          label Arete Off:
+          input(type="checkbox" id="arete-off-2" class="checkbox" onclick="toggleAreteOff('boulder2', 'arete-on-2', this.checked)" checked=false)
+
+      div(class="boulder-selectors boulder-selector-3")
+        span Right:
+        select(class="boulder-selectors-bottom" name="boulder3" onchange="changeBoulderPlacard('3', this.value)")
+          option(name="climb" value=emptyClimb) Blank
+          each climb in climbs
+            option(name="climb" value=climb)= `${climb.color} ${climb.grade}`
+        div(class="arete-checkbox-container arete-on")
+          label Arete On:
+          input(type="checkbox" id="arete-on-3" class="checkbox" onclick="toggleAreteOn('boulder3', 'arete-off-3', this.checked)" checked=false)
+        div(class="arete-checkbox-container")
+          label Arete Off:
+          input(type="checkbox" id="arete-off-3" class="checkbox" onclick="toggleAreteOff('boulder3', 'arete-on-3', this.checked)" checked=false)
+
+    div(class="placard-container")
+      div(class="boulder-three-column-flex")
+        div(class="boulder-flex-row-container")
+          div(class="boulder-grades")
+            p(class="boulder-grade-value boulder1")
+            p(class="boulder-arete boulder1")
+          div(class="boulder-grades")
+            p(class="boulder-grade-value boulder2")
+            p(class="boulder-arete boulder2")
+          div(class="boulder-grades")
+            p(class="boulder-grade-value boulder3")
+            p(class="boulder-arete boulder3")
+
+        div(class="boulder-flex-row-container")
+          div(class="boulder-date-set")
+            p(class="boulder-date-value boulder1")
+          div(class="boulder-date-set")
+            p(class="boulder-date-value boulder2")
+          div(class="boulder-date-set")
+            p(class="boulder-date-value boulder3")
+
+        div(class="boulder-flex-row-container")
+          div(class="boulder-setter-name")
+            p(class="boulder-setter-value boulder1")
+          div(class="boulder-setter-name")
+            p(class="boulder-setter-value boulder2")
+          div(class="boulder-setter-name")
+            p(class="boulder-setter-value boulder3")
+
+        div(class="boulder-flex-row-container")
+          div(class="boulder-placard-images")
+            img(class="boulder-crg-logo" src="/images/CRG_Logo_Text_M.jpeg")
+          div(class="boulder-placard-images boulder-flex-row-container")
+            img(class="boulder-instagram-logo" src="/images/IG_logo.png")
+            p(class="boulder-insta-handle") @crgworcester
+
+    div(class="noprint selection-container-bottom")
+      div(class="boulder-selectors")
+        span Left:
+        select(class="boulder-selectors-top" name="boulder4" onchange="changeBoulderPlacard('4', this.value)")
+          option(name="climb" value=emptyClimb) Blank
+          each climb in climbs
+            option(name="climb" value=climb)= `${climb.color} ${climb.grade}`
+        div(class="arete-checkbox-container arete-on")
+          label Arete On:
+          input(type="checkbox" id="arete-on-4" class="checkbox" onclick="toggleAreteOn('boulder4', 'arete-off-4', this.checked)" checked=false)
+        div(class="arete-checkbox-container")
+          label Arete Off:
+          input(type="checkbox" id="arete-off-4" class="checkbox" onclick="toggleAreteOff('boulder4', 'arete-on-4', this.checked)" checked=false)
+
+      div(class="boulder-selectors")
+        span Middle:
+        select(class="boulder-selectors-middle" name="boulder5" onchange="changeBoulderPlacard('5', this.value)")
+          option(name="climb" value=emptyClimb) Blank
+          each climb in climbs
+            option(name="climb" value=climb)= `${climb.color} ${climb.grade}`
+        div(class="arete-checkbox-container arete-on")
+          label Arete On:
+          input(type="checkbox" id="arete-on-5" class="checkbox" onclick="toggleAreteOn('boulder5', 'arete-off-5', this.checked)" checked=false)
+        div(class="arete-checkbox-container")
+          label Arete Off:
+          input(type="checkbox" id="arete-off-5" class="checkbox" onclick="toggleAreteOff('boulder5', 'arete-on-5', this.checked)" checked=false)
+
+      div(class="boulder-selectors")
+        span Right:
+        select(class="boulder-selectors-bottom" name="boulder6" onchange="changeBoulderPlacard('6', this.value)")
+          option(name="climb" value=emptyClimb) Blank
+          each climb in climbs
+            option(name="climb" value=climb)= `${climb.color} ${climb.grade}`
+        div(class="arete-checkbox-container arete-on")
+          label Arete On:
+          input(type="checkbox" id="arete-on-6" class="checkbox" onclick="toggleAreteOn('boulder6', 'arete-off-6', this.checked)" checked=false)
+        div(class="arete-checkbox-container")
+          label Arete Off:
+          input(type="checkbox" id="arete-off-6" class="checkbox" onclick="toggleAreteOff('boulder6', 'arete-on-6', this.checked)" checked=false)
+
+    div(class="placard-container")
+      div(class="boulder-three-column-flex")
+        div(class="boulder-flex-row-container")
+          div(class="boulder-grades")
+            p(class="boulder-grade-value boulder4")
+            p(class="boulder-arete boulder4")
+          div(class="boulder-grades")
+            p(class="boulder-grade-value boulder5")
+            p(class="boulder-arete boulder5")
+          div(class="boulder-grades")
+            p(class="boulder-grade-value boulder6")
+            p(class="boulder-arete boulder6")
+
+        div(class="boulder-flex-row-container")
+          div(class="boulder-date-set")
+            p(class="boulder-date-value boulder4")
+          div(class="boulder-date-set")
+            p(class="boulder-date-value boulder5")
+          div(class="boulder-date-set")
+            p(class="boulder-date-value boulder6")
+
+        div(class="boulder-flex-row-container")
+          div(class="boulder-setter-name")
+            p(class="boulder-setter-value boulder4")
+          div(class="boulder-setter-name")
+            p(class="boulder-setter-value boulder5")
+          div(class="boulder-setter-name")
+            p(class="boulder-setter-value boulder6")
+
+        div(class="boulder-flex-row-container")
+          div(class="boulder-placard-images")
+            img(class="boulder-crg-logo" src="/images/CRG_Logo_Text_M.jpeg")
+          div(class="boulder-placard-images boulder-flex-row-container")
+            img(class="boulder-instagram-logo" src="/images/IG_logo.png")
+            p(class="boulder-insta-handle") @crgworcester
+
+    button(class="noprint" type="submit" onclick="window.print()") Print

@@ -1,0 +1,55 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(http-equiv="X-UA-Compatible" content="IE=edge")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    link(rel="stylesheet" type="text/css" href="/css/styles.css")
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.3.0/Chart.min.js")
+
+    title= `${gym} Metrics`
+
+  body
+    include ../partials/navbar.pug
+    h1(class="centered-text")= `${gym} Metrics`
+
+    div(class="idealVsCurrent-wrapper centered-text")
+      if metrics.boulderSetterCount !== null
+        h2 Boulders Per Setter
+        include partials/bouldersPerSetter.pug
+      else
+        h2(class="centered-text") No Data Found For Setters Per Boulders
+
+    div(class="idealVsCurrent-wrapper centered-text")
+      if metrics.routeSetterCount !== null
+        h2 Routes Per Setter
+        include partials/routesPerSetter.pug
+      else
+        h2(class="centered-text") No Data Found For Setters Per Routes
+
+    div(class="idealVsCurrent-wrapper centered-text")
+      if metrics.boulderColorCount !== null
+        h2 Boulders Per Color
+        include partials/bouldersPerColor.pug
+      else
+        h2(class="centered-text") No Data Found For Boulders Per Color
+
+    div(class="idealVsCurrent-wrapper centered-text")
+      if metrics.boulderColorCount !== null
+        h2 Routes Per Color
+        include partials/routesPerColor.pug
+      else
+        h2(class="centered-text") No Data Found For Routes Per Color
+
+    div(class="idealVsCurrent-wrapper centered-text")
+      if metrics.idealBoulderGradeCount !== null
+        h2 Ideal vs. Current Boulder Distribution
+        include partials/boulderIdealVsCurrent.pug
+      else
+        h2(class="centered-text") No Data Found For Ideal vs. Current Boulder Grades
+    div(class="idealVsCurrent-wrapper centered-text")
+      if metrics.idealBoulderGradeCount !== null
+        h2 Ideal vs. Current Route Distribution
+        include partials/routeIdealVsCurrent.pug
+      else
+        h2(class="centered-text") No Data Found For Ideal vs. Current Route Grades

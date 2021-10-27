@@ -1,0 +1,1037 @@
+/*********************************************************************************************************/
+/********************************************* Media Queries *********************************************/
+/*********************************************************************************************************/
+@media print {
+  * {
+    -webkit-print-color-adjust: exact;
+  }
+
+  .noprint {
+    display: none !important;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  #employee-form {
+    width: 80%;
+  }
+}
+
+@media screen and (max-width: 774px) {
+  .navbar {
+    display: none;
+  }
+
+  .navbar-container {
+    background-color: #202A56;
+    box-shadow: -0.063rem 0.063rem 0.25rem #202A56;
+    height: 1.875em;
+    padding: 0.5em 0 !important;
+    display: inline-block;
+    top: 0;
+    min-width: 100%;
+    z-index: 8888;
+  }
+
+  .mobile-navbar a {
+    color: #fff;
+    text-decoration: none;
+  }
+  
+  /* Hamburger */
+  .hamburger1 {
+    height: 2em;
+    margin: 0.25rem;
+    display: grid;
+    grid-template-rows: repeat(3, 1fr);
+    justify-items: center;
+    z-index: 9999;
+  }
+  
+  .hamburger1 div {
+    background-color: #fff;
+    position: relative;
+    width: 2rem;
+    height: 0.25em;
+    -webkit-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+  }
+  
+  #toggle1 {
+    display: none;
+  }
+  
+  #toggle1:checked + .hamburger1 .top {
+    transform: rotate(-45deg) translate(-0.35rem, 0.55rem);
+  }
+  
+  #toggle1:checked + .hamburger1 .meat {
+    transform: rotate(45deg) translate(0.025rem, -0.25rem);
+  }
+  
+  #toggle1:checked + .hamburger1 .bottom {
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  }
+  
+  #toggle1:checked ~ .menu1 {
+    height: 100vh;
+  }
+
+  
+  
+  /* Menu */
+  .menu1 {
+    background-color: #202A56;
+    clear: both;
+    display: grid;
+    grid-template-rows: repeat(5, 3rem);
+    height: 0rem;
+    list-style: none;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+    text-align: center;
+    transition: height .4s ease;
+    transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    width: 100vw;
+    z-index: 9999;
+  }
+
+  .link1 {
+    width: 100%;
+    margin: 0;
+    padding-top: 0.75rem;
+    font: 700 1.25rem 'Oswald', sans-serif;
+  }
+  
+  .link1:hover {
+    background-color: #fff;
+    color: rgb(61, 61, 61);
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+  }
+
+/* Printable Placards Mobile Styling */
+  .selection-container-top {
+    display: flex;
+    flex-direction: row;
+    padding-bottom: 2rem;
+    overflow-x: scroll;
+  }
+
+  .selection-container-bottom {
+    display: flex;
+    flex-direction: row;
+    padding-bottom: 2rem;
+    overflow-x: scroll;
+  }
+
+  .section-selectors-container {
+    overflow-x: scroll;
+  }
+
+  .distribution-holder {
+    overflow-x: scroll;
+  }
+
+  .placard-container {
+    overflow-x: scroll;
+  }
+}
+
+@media screen and (min-width: 776px) {
+  .mobile-navbar {
+    display: none;
+  }
+
+  /* Printable Placards Mobile Styling */
+  .selection-container-top {
+    font-size: 2rem; top: 7.813rem;
+    position: absolute;
+  }
+  
+  .selection-container-bottom {
+    font-size: 2rem; top: 39.063rem;
+    position: absolute;
+  }
+}
+
+/*********************************************************************************************************/
+/******************************************* Universal Styling *******************************************/
+/*********************************************************************************************************/
+body {
+  margin: 0;
+}
+
+.centered-text {
+  text-align: center;
+}
+
+.hidden {
+  display: none;
+}
+
+.inside-bullet {
+  list-style-position: inside;
+}
+
+.section-selectors {
+  display: inline-block;
+  font-size: 1.5rem;
+  margin: 1rem;
+  padding: 0.5rem;
+  cursor: pointer;
+}
+
+.section-selectors-container {
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+}
+
+.selected {
+  background-color: #374784;
+  border-radius: 0.5rem;
+  color: white;
+}
+
+
+/*********************************************************************************************************/
+/****************************************** Dashboard Styling ********************************************/ 
+/*********************************************************************************************************/
+.main-content {
+  margin: 0 0.5rem;
+}
+
+.main-content > ul {
+  margin-bottom: 1.5rem;
+}
+
+/*********************************************************************************************************/
+/******************************************** Forms Styling **********************************************/ 
+/*********************************************************************************************************/
+
+.employee-form-grid {
+  grid-gap: 1rem;
+  grid-template-columns: 5rem 1fr;
+  margin-bottom: 1rem;
+}
+
+.employee-form-grid label {
+  grid-column: 1 / 2;
+  text-align: right;
+}
+
+#employee-form input,
+#employee-form input,
+.gym-section-grid input {
+  width: 90%;
+}
+
+#employee-form select {
+  width: 96.79%;
+}
+
+.gym-section-grid select {
+  width: 97.38%;
+}
+
+#distribution-form button,
+#employee-form button {
+  width: 100%;
+}
+
+.employee-form-grid button,
+.employee-form-grid input,
+.employee-form-grid select {
+  grid-column: 2 / 3;
+}
+
+.section-details {
+  display: grid;
+  grid-gap: 1rem;
+  grid-template-columns: 100%;
+}
+
+.section-details label {
+  grid-column: 1 / 2;
+  text-align: right;
+}
+
+.gym-section-grid button,
+.gym-section-grid input,
+.gym-section-grid select {
+  grid-column: 2 / 3;
+}
+
+#distribution-form,
+.editable-section-form,
+#editable-gym-form,
+.employee-form-grid,
+.checkbox-grid {
+  display: grid;
+}
+
+#distribution-form,
+#employee-form,
+.editable-section-form,
+#editable-gym-form {
+  background: #f0f0f4;
+  border: 0.063em solid #c1c1c1;
+  border-radius: 0.5rem;
+  margin: 2rem auto 0 auto;
+  max-width: 25em;
+  padding: 1em 0.5em;
+}
+
+#distribution-form input,
+#distribution-form select,
+#employee-form input,
+#employee-form select,
+.editable-section-form input,
+.editable-section-form select,
+#editable-gym-form input,
+#editable-gym-form select {
+  background: #fff;
+  border: 0.063em solid #9c9c9c;
+  border-radius: 0.5rem;
+}
+
+#distribution-form button,
+#employee-form button,
+#editable-gym-form button/* ,
+.editable-section-form button */ {
+  background: #202A56;
+  border: 0;
+  border-radius: 0.5rem;
+  color: #fff;
+  padding: 0.7em;
+}
+
+#distribution-form button:hover,
+#employee-form button:hover,
+.editable-section-form button:hover,
+#editable-gym-form button:hover {
+  background: #374784;
+}
+
+#distribution-form label,
+#employee-form label,
+.editable-section-form label,
+#editable-gym-form label {
+  padding: 0.5em 0.5em 0.5em 0;
+}
+
+#distribution-form input,
+#distribution-form select,
+#employee-form input,
+#employee-form select,
+.editable-section-form input,
+.editable-section-form select,
+#editable-gym-form input,
+#editable-gym-form select {
+  margin-bottom: 0.5rem;
+  padding: 0.7em;
+}
+
+#distribution-form input:focus,
+#distribution-form select:focus,
+#employee-form input:focus,
+#employee-form select:focus,
+.editable-section-form input:focus,
+.editable-section-form select:focus,
+#editable-gym-form input:focus,
+#editable-gym-form select:focus {
+  outline: none;
+  box-shadow: 0 0 0.125em 0.125em #202A56;
+}
+
+.checkbox-grid {
+  align-items: center;
+  gap: 1.2rem;
+  grid-template-columns: repeat(auto-fit, 5rem);
+  justify-content: center;
+  margin: 1rem 1rem 2rem;
+}
+
+.checkbox-grid > div > label {
+  font-size: 1rem;
+}
+
+.checkbox-grid > div {
+  justify-items: center;
+  margin: 0 1rem;
+  text-align: center;
+}
+
+.checkbox {
+  height: 1.2rem !important;
+  width: 1.2rem !important;
+}
+
+.checkbox:focus {
+  box-shadow: 0 0 0.125em 0.125em #202A56;
+}
+
+/*  Distribution Form Specific Styling  */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 7.5rem);
+  grid-auto-flow: row;
+  gap: 1.2rem;
+  justify-content: space-evenly;
+}
+
+.distribution-holder {
+  width: 95%;
+  overflow-x: scroll;
+  margin: 0 auto;
+}
+
+#distribution-form {
+  width: 85%;
+  min-width: fit-content;
+}
+.distribution-form-div {
+  text-align: center;
+}
+
+/* Gym Section From Specific Styling */
+.gym-section-grid {
+  display: grid;
+  grid-template-columns: 7.5rem 1fr;
+}
+
+/*********************************************************************************************************/
+/************************************** DISTRIBUTION TABLE STYLING ***************************************/
+/*********************************************************************************************************/
+.distribution-table, .distribution-td, .distribution-th {
+  border: 0.25rem solid #202A56;
+}
+
+.distribution-th {
+  background-color: #374784;
+  color: #fff;
+  padding: 0.75rem;
+}
+
+.distribution-table {
+  border-collapse: collapse;
+  margin: 0 auto;
+  width: 95%;
+}
+
+.distribution-td {
+  padding-top: 0.5rem;
+  text-align: center;
+}
+
+.distribution-td select {
+  border: 0.125em solid #202A56;
+  border-radius: 0.5rem;
+  font-size: 1.125rem;
+  margin-bottom: 0.5rem;
+  padding: 0.7em;
+}
+
+.distribution-td input {
+  border: 0.125em solid #202A56;
+  border-radius: 0.5rem;
+  font-size: 1.125rem;
+  margin-bottom: 0.5rem;
+  padding: 0.5em;
+}
+
+.distribution-th {
+  font-size: 1.75rem;
+}
+
+.distribution-tr {
+  font-size: 1.25em;
+}
+
+.grid {
+  margin-bottom: 0.75rem;
+}
+
+.distribution-button-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 0.5rem 0;
+}
+
+.distribution-button {
+  background: #202A56;
+  border: 0;
+  border-radius: 0.5rem;
+  color: #fff;
+  font-size: 1.5rem;
+  margin: 0 0.5rem;
+  padding: 0.25em 0.4em;
+}
+
+.distribution-button:hover {
+  background: #374784;
+}
+
+.section-button-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 0.5rem;
+}
+
+.section-button {
+  background: #202A56;
+  border: 0;
+  border-radius: 0.5rem;
+  color: #fff;
+  font-size: 1.3rem;
+  margin: 0 0.5rem;
+  padding: 0.25em 0.4em;
+}
+
+.section-button:hover {
+  background: #374784;
+}
+
+.gray-background {
+  background-color: Lightgray;
+}
+
+.station-size {
+  padding: 0.5rem 0rem;
+  width: 4rem;
+}
+
+/* Color Classes */
+.red {
+  background-color: #ed3833;
+  color: #000
+}
+
+.pink {
+  background-color: #ee14ca;
+  color: #000
+}
+
+.blue {
+  background-color: #2046f5;
+  color: #000
+}
+
+.tan {
+  background-color: #bf9033;
+  color: #000
+}
+
+.black {
+  background-color: #000;
+  color: #fff
+}
+
+.orange {
+  background-color: #f3993e;
+  color: #000
+}
+
+.green {
+  background-color: #39811d;
+  color: #000
+}
+
+.purple {
+  background-color: #43026f;
+  color: #fff
+}
+
+.yellow {
+  background-color: #fdf851;
+  color: #000
+}
+
+.white {
+  background-color: #fff;
+  color: #000
+}
+
+.date-udpater-container {
+  display: flex;
+  gap: 0.25rem;
+  flex-direction: column;
+  left: 55rem;
+  margin-bottom: 0.5rem;
+  position: relative;
+  text-align: right;
+  width: 11rem;
+}
+
+.date-updater {
+  margin: 0 0.5rem;
+  border: 0;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  height: 1.75rem;
+  padding: .25rem;
+}
+.date-updater.button {
+  background: #202A56;
+  color: #fff;
+  height: 2.25rem;
+}
+
+#ropes-updater {
+  left: 66rem;
+}
+
+
+/*********************************************************************************************************/
+/*************************************** PRINTABLE PLACARD STYLING ***************************************/
+/*********************************************************************************************************/
+.boulder-grades {
+  height: 13.5rem;
+  width: 11.75rem;
+  top: 0.5rem;
+  text-shadow: black -1px 0px, black 0px 1px, black 1px 0px, black 0px -1px;
+}
+
+.boulder-crg-logo {
+  left: 0.5rem;
+  width: 10.25rem;
+}
+
+.route-crg-logo {
+  height: 7rem;
+  width: 17.6rem;
+  top: .75rem;
+  z-index: -10;
+}
+
+.boulder-placard-images {
+  width: 11.75rem;
+  height: 5rem;
+}
+
+.boulder-placard-images:nth-child(2) {
+  width: 23.65rem;
+}
+
+.boulder-crg-logo
+.route-crg-logo {
+  z-index: -1;
+}
+
+.boulder-date-set,
+.boulder-setter-name {
+  width: 11.75rem;
+}
+
+
+.boulder-date-set,
+.boulder-setter-name {
+  height: 3.75rem;
+  margin: 0;
+  text-align: center;
+}
+
+.boulder-date-value {
+  font-size: 1.875rem;
+}
+
+.boulder-date-value {
+  left: 50%;
+  margin: 0;
+  position: relative;
+  transform: translate(-50%, -50%);
+  top: 50%;
+}
+
+.boulder-flex-row-container {
+  width: 36rem;
+}
+
+.route-flex-row-container{
+  height: 29.75rem;
+  margin-left: 1.5rem;
+  width: 53.75rem;
+}
+
+.boulder-flex-row-container,
+.route-flex-row-container {
+  align-items: center;
+  background-color: transparent;
+  display: flex;
+  flex-direction: row;
+  font-family: 'Oswald', sans-serif;
+}
+
+.boulder-flex-row-container:nth-child(1) {
+  height: 14.375rem;
+}
+
+.boulder-flex-row-container:nth-child(5),
+.route-flex-row-container:nth-child(5) {
+  justify-content: center;
+  height: 5rem;
+}
+
+.social-mdeia-flex-container {
+  align-items: center;
+  text-align: center;
+  background-color: transparent;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  font-family: 'Oswald', sans-serif;
+  margin-left: 1.5rem;
+  width: 53.75rem;
+  font-size: 1.25rem;
+}
+
+.route-grades {
+  height: 20.75rem;
+  width: 17.813rem;
+}
+
+.boulder-grades,
+.route-grades {
+  text-align: center;
+}
+
+.boulder-arete {
+  font-weight: 300 !important;
+  font-size: 2rem;
+  top: -3.5rem;
+}
+
+.boulder-grade-value {
+  font-weight: bold;
+  font-size: 8.2rem;
+  left: 50%;
+  margin: 0;
+  position: relative;
+  transform: translate(-50%, -50%);
+  top: 50%;
+}
+
+.arete-checkbox-container {
+  font-size: 1.25rem;
+  left: 1.75rem;
+  position: relative;
+  margin-top: 0.125rem;
+}
+
+.arete-checkbox-container > * {
+  left: 1.75rem;
+  position: relative;
+}
+
+.arete-on {
+  left: 1.8rem;
+}
+
+.route-grade-value {
+  font-size: 8rem;
+  font-weight: bold;
+  letter-spacing: -0.125rem;
+  text-shadow: -0.063rem 0 black, 0 0.063rem black, 0.063rem 0 black, 0 -0.063rem black;
+  top: -9rem;
+}
+
+.boulder-insta-handle {
+  font-size: 1.5rem;
+  left: 25%;
+}
+
+.boulder-instagram-logo {
+  left: 20%;
+}
+
+.boulder-instagram-logo,
+.route-instagram-logo {
+  width: 3rem;
+}
+
+.route-instagram-logo {
+  top: 0.5rem;
+}
+
+.boulder-placard-images {
+  width: 11.75rem;
+}
+
+.route-placard-images {
+  height: 8.6875rem;
+  width: 17.913rem;
+}
+
+.boulder-placard-images,
+.route-placard-images {
+  border-bottom: 0.125em solid black;
+  margin: 0;
+}
+
+.route-placard-images:nth-child(2) {
+  width: 35.75rem;
+}
+
+.route-placard-info {
+  margin: 0;
+  padding: 0;
+}
+
+.route-name {
+  color: red;
+  font-size: 1.4rem;
+  font-weight: bold;
+  margin: 0; 
+  padding: 0; 
+  top: -17.5rem;
+}
+
+.route-arete-info {
+  font-size: 1.25rem;
+  margin: 0; 
+  padding: 0; 
+  top: -18rem;
+}
+
+.boulder-selector-containers {
+  margin: 0.75rem 0;
+}
+
+.boulder-selectors-top,
+.boulder-selectors-middle,
+.boulder-selectors-bottom,
+.route-selector-top,
+.route-selector-middle,
+.route-selector-bottom {
+  font-size: 1.125rem;
+}
+
+.boulder-selectors-top,
+.route-selector-top {
+  margin-left: 3.188rem;
+}
+
+.boulder-selectors-middle,
+.route-selector-middle {
+  margin-left: 0.75rem;
+}
+
+.boulder-selectors-bottom,
+.route-selector-bottom {
+  margin-left: 2.063rem;
+}
+
+.route-selectors,
+.boulder-selectors {
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 1rem;
+  padding-left: 0.25rem;
+}
+
+.route-selectors ~ .route-selectors {
+  margin-left: 0.75rem;
+  top: 7.813rem;
+}
+
+.route-selectors:nth-child(1),
+.route-selectors:nth-child(3) {
+  margin-left: 0.75rem;
+}
+
+.boulder-setter-value {
+  font-size: 1.875rem;
+  left: 50%;
+  margin: 0;
+  position: relative;
+  transform: translate(-50%, -50%);
+  top: 50%;
+}
+
+.boulder-three-column-flex *,
+.route-three-column-flex * {
+  position: relative;
+}
+
+.boulder-three-column-flex {
+  height: 30rem;
+  width: 36rem;
+}
+
+.route-three-column-flex {
+  height: 29.75rem;
+  width: 53.75rem;
+}
+
+.boulder-three-column-flex,
+.route-three-column-flex{
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  position: relative;
+  top: 0.5rem;
+}
+
+.boulder-three-column-flex:nth-child(1) {
+  margin: 0 auto 0.25em auto;
+}
+
+.route-placard-images:nth-child(1) {
+  padding-top: 0.0625rem;
+}
+
+.boulder-date-set:nth-child(1),
+.boulder-grades:nth-child(1),
+.boulder-placard-images:nth-child(1),
+.boulder-setter-name:nth-child(1),
+.route-grades:nth-child(1),
+.route-placard-images:nth-child(1) {
+  border-left: 0.125em solid black;
+  border-top: 0.125em solid black;
+}
+
+.boulder-date-set:nth-child(2),
+.boulder-grades:nth-child(2),
+.boulder-placard-images:nth-child(2),
+.boulder-setter-name:nth-child(2),
+.route-grades:nth-child(2),
+.route-placard-images:nth-child(2) {
+  border-left: 0.125em solid black;
+  border-right: 0.125em solid black;
+  border-top: 0.125em solid black;
+}
+
+.boulder-date-set:nth-child(3),
+.boulder-grades:nth-child(3),
+.boulder-placard-images:nth-child(3),
+.boulder-setter-name:nth-child(3),
+.route-grades:nth-child(3),
+.route-placard-images:nth-child(3) {
+  border-right: 0.125em solid black;
+  border-top: 0.125em solid black;
+}
+
+.route-info-container {
+  bottom: 0;
+  font-size: 1.4rem;
+  padding: 0; 
+  position: absolute;
+  width: 100%;
+}
+
+/*******************************************************
+********************* Navbar ***************************
+********************************************************/
+
+.child {
+  background-color: #202A56;
+  display: none;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+.child li {
+  background-color: #202A56;
+  line-height: 2rem;
+  margin: 0.25rem;
+  padding: 0.5rem;
+}
+
+.child li a{
+  color: #fff;
+}
+
+.expand {
+  /* font-size: 0.75rem; */
+  float: right;
+  margin-right: 0.25rem;
+}
+
+.menu > li:hover {
+  background-color: #374784;
+  border-radius: 0.5rem;
+}
+
+.parent {
+  background-color: #202A56;
+  display: block;
+  float: left;
+  position: relative;
+}
+
+.parent a, .parent span {
+  color: #fff;
+  margin: 0.625rem;
+  text-decoration: none;
+}
+
+.parent:hover > .child {
+  display: block;
+  position: absolute;
+}
+
+.menu > .parent > .child {
+  top: 2.5rem;
+}
+
+.parent li:hover {
+  background-color: #374784;
+  border-radius: 0.5rem;
+}
+
+.menu {
+  list-style: none;
+  margin: 0;
+  min-width: 10em;
+  padding: 0;
+}
+
+.menu > .parent {
+  margin: 0 0.5rem;
+  padding: 0.5rem;
+}
+
+.child .parent {
+  width: 8rem;
+}
+
+.parent .child .child {
+  left: 100%;
+  margin-left: 0.063rem;
+  top: -0.063rem;
+}
+
+.gym-dropdown {
+  max-height: 30rem;
+  overflow-y: scroll;
+}
+
+.navbar-container {
+  align-items: center;
+  background-color: #202A56;
+  box-shadow: -0.063rem 0.063rem 0.25rem #202A56;
+  display: flex;
+  flex-direction: column;
+  font-size: 1.25rem;
+  padding: 0.25rem 0;
+  position: sticky;
+  top: 0;
+  width: 100%;
+  z-index: 10;
+}
+
+/*******************************************************
+********************* Metrics ***************************
+********************************************************/
+
+.idealVsCurrent-wrapper {
+  max-width: 800px;
+  margin: 50px auto;
+}

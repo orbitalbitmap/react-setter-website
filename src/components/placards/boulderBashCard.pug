@@ -1,0 +1,127 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(http-equiv="X-UA-Compatible" content="IE=edge")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    link(rel="stylesheet" href="/css/boulderBashStyles.css")
+    link(rel="preconnect" href="https://fonts.gstatic.com")
+    link(href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;700&display=swap" rel="stylesheet")
+    script(src="/js/changeBoulderPlacard.js" type="text/javascript")
+    title Boulder Placards
+
+  body
+    include ../partials/navbar.pug
+
+    div(class="noprint" style="position: absolute; font-size: 32px; top: 125px;")
+      div(class="boulder-bash-selectors")
+        span Left:
+        select(name="boulder1" style="margin-left: 50px; font-size: 18px;" onchange="changeBoulderPlacard('boulder1', this.value)")
+          option(name="climb" value=emptyClimb) Blank
+          each climb in climbs
+            option(name="climb" value=climb)= `${climb.color} ${climb.grade}`
+
+      div(class="boulder-bash-selectors" style="margin: 12px 0;")
+        span Middle:
+        select(name="boulder2" style="margin-left: 12px; font-size: 18px;" onchange="changeBoulderPlacard('boulder2', this.value)")
+          option(name="climb" value=emptyClimb) Blank
+          each climb in climbs
+            option(name="climb" value=climb)= `${climb.color} ${climb.grade}`
+
+      div(class="boulder-bash-selectors")
+        span Right:
+        select(name="boulder3" style="margin-left: 33px; font-size: 18px;" onchange="changeBoulderPlacard('boulder3', this.value)")
+          option(name="climb" value=emptyClimb) Blank
+          each climb in climbs
+            option(name="climb" value=climb)= `${climb.color} ${climb.grade}`
+
+    div(class="boulder-bash-three-column-flex")
+      div(class="boulder-bash-flex-row-container")
+        div(class="boulder-bash-grades")
+          p(class="boulder-bash-grade-value boulder1" style="text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black; font-weight: bold;")
+        div(class="boulder-bash-grades")
+          p(class="boulder-bash-grade-value boulder2" style="text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black; font-weight: bold;")
+        div(class="boulder-bash-grades")
+          p(class="boulder-bash-grade-value boulder3" style="text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black; font-weight: bold;")
+
+      div(class="boulder-bash-flex-row-container")
+        div(class="boulder-bash-date-set")
+          p(class="boulder-bash-date-value boulder1")
+        div(class="boulder-bash-date-set")
+          p(class="boulder-bash-date-value boulder2")
+        div(class="boulder-bash-date-set")
+          p(class="boulder-bash-date-value boulder3")
+
+      div(class="boulder-bash-flex-row-container")
+        div(class="boulder-bash-setter-name")
+          // font-size = 1.7rem for V10 and Greater
+          p(class="boulder-bash-setter-value boulder1")
+        div(class="boulder-bash-setter-name")
+          // font-size = 1.7rem for V10 and Greater
+          p(class="boulder-bash-setter-value boulder2")
+        div(class="boulder-bash-setter-name")
+          // font-size = 1.7rem for V10 and Greater
+          p(class="boulder-bash-setter-value boulder3")
+
+      div(class="boulder-bash-flex-row-container")
+        div(class="boulder-bash-placard-images")
+          img(class="boulder-bash-crg-logo" src="/images/CRG_Logo_Text_M.jpeg")
+        div(class="boulder-bash-placard-images boulder-bash-flex-row-container")
+          img(class="boulder-bash-instagram-logo" src="/images/IG_logo.png")
+          p(class="boulder-bash-insta-handle" style="font-size: 1.5rem;") @crgworcester
+
+    div(class="noprint" style="position: absolute; font-size: 32px; top: 625px;")
+      div(class="boulder-bash-selectors")
+        span Left:
+        select(name="boulder4" style="margin-left: 50px; font-size: 18px;" onchange="changeBoulderPlacard('boulder4', this.value)")
+          option(name="climb" value=emptyClimb) Blank
+          each climb in climbs
+            option(name="climb" value=climb)= `${climb.color} ${climb.grade}`
+
+      div(class="boulder-bash-selectors" style="margin: 12px 0;")
+        span Middle:
+        select(name="boulder5" style="margin-left: 12px; font-size: 18px;" onchange="changeBoulderPlacard('boulder5', this.value)")
+          option(name="climb" value=emptyClimb) Blank
+          each climb in climbs
+            option(name="climb" value=climb)= `${climb.color} ${climb.grade}`
+
+      div(class="boulder-bash-selectors")
+        span Right:
+        select(name="boulder6" style="margin-left: 33px; font-size: 18px;" onchange="changeBoulderPlacard('boulder6', this.value)")
+          option(name="climb" value=emptyClimb) Blank
+          each climb in climbs
+            option(name="climb" value=climb)= `${climb.color} ${climb.grade}`
+
+    div(class="boulder-bash-three-column-flex")
+      div(class="boulder-bash-flex-row-container")
+        div(class="boulder-bash-grades")
+          p(class="boulder-bash-grade-value boulder4" style="text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black; font-weight: bold;")
+        div(class="boulder-bash-grades")
+          p(class="boulder-bash-grade-value boulder5" style="text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black; font-weight: bold;")
+        div(class="boulder-bash-grades")
+          p(class="boulder-bash-grade-value boulder6" style="text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black; font-weight: bold;")
+
+      div(class="boulder-bash-flex-row-container")
+        div(class="boulder-bash-date-set")
+          p(class="boulder-bash-date-value boulder4")
+        div(class="boulder-bash-date-set")
+          p(class="boulder-bash-date-value boulder5")
+        div(class="boulder-bash-date-set")
+          p(class="boulder-bash-date-value boulder6")
+
+      div(class="boulder-bash-flex-row-container")
+        div(class="boulder-bash-setter-name")
+          p(class="boulder-bash-setter-value boulder4")
+        div(class="boulder-bash-setter-name")
+          p(class="boulder-bash-setter-value boulder5")
+        div(class="boulder-bash-setter-name")
+          p(class="boulder-bash-setter-value boulder6")
+
+      div(class="boulder-bash-flex-row-container")
+        div(class="boulder-bash-placard-images")
+          img(class="boulder-bash-crg-logo" src="/images/CRG_Logo_Text_M.jpeg")
+        div(class="boulder-bash-placard-images boulder-bash-flex-row-container")
+          img(class="boulder-bash-instagram-logo" src="/images/IG_logo.png")
+          p(class="boulder-bash-insta-handle" style="font-size: 1.5rem;") @crgworcester
+
+  button(class="noprint" type="submit" onclick="window.print()") Print
