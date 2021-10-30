@@ -5,79 +5,65 @@ class UpdateEmployee extends React.Component {
     super(props)
 
     this.state = {
-      inputAndLabelPropertiesList: [
-        {
-          className: null,
-          defaultValue: "employee.placard !== null? employee.placardName : ''",
-          form: null,
-          formAction: null,
-          labelText: "Name on placard:",
-          name: "placardName",
-          placeholder: null,
-          type: "text",
-        }, {
-          className: null,
-          defaultValue: "employee.email",
-          form: null,
-          formAction: null,
-          labelText: "Email:",
-          name: "email",
-          placeholder: null,
-          type: "text",
-        }, {
-          className: null,
-          defaultValue: "employee.password",
-          form: null,
-          formAction: null,
-          labelText: "Password:",
-          name: "password",
-          placeholder: null,
-          type: "password",
-        }, {
-          className: null,
-          defaultValue: "employee.phoneNumber",
-          form: null,
-          formAction: null,
-          labelText: "Phone #:",
-          name: "phoneNumber",
-          placeholder: null,
-          type: "tel",
-        },
-      ],
-      selectAndOptionProperties: {
-        defaultValue: "1",
-        isDisabled: false, // employee.roleId <= 3 ? false : true,
-        labelText: "Role:",
-        name: "roleId",
-        optionsList: [
-          {
-            text: "Director of Routesetting",
-            value: "1",
-          }, {
-            text: "Regional Head Setter",
-            value: "2",
-          }, {
-            text: "Head Setter",
-            value: "3",
-          }, {
-            text: "Full Time Setter",
-            value: "4",
-          }, {
-            text: "Part Time Setter",
-            value: "5",
-          },
-        ],
-        isRequired: true,
+      user: {
+        firstName: 'Rob',
+        lastName: 'Perron',
+        roleId: 1,
+        email: "robp@centralrockgym.com",
+        password: "NotYourRealPassword",
+        phoneNumber: "555-666-7777",
+        placardName: 'Roboat',
+        gyms: [1],
       },
-      checkBoxProperties: {
+      gyms: [{
+        gymId: 1,
+        name: 'Worcester',
+      }, {
+        gymId: 2,
+        name: 'Hadley',
+      }],
+    }
 
-      },
+    this.handleChange = this.handleChange.bind(this)
+    this.handleCheckbox = this.handleCheckbox.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
+  }
+
+  handleChange(event) {
+    this.setState({
+      user: {
+        ...this.state.user,
+        [event.target.name]: event.target.value
+      }
+    })
+  }
+
+  handleCheckbox(event) {
+    switch (event.target.checked) {
+      case false: 
+        this.setState({
+          user: {
+            gyms: this.state.user.gyms.filter(gymId => {
+              return gymId !== parseInt(event.target.dataset.gymid)
+            })
+          }
+        })
+        break
+      default:
+        this.setState({
+          user: {
+            gyms: [
+              ...this.state.user.gyms,
+              parseInt(event.target.dataset.gymid),
+            ]
+          }
+        })
     }
   }
 
   handleSubmit(e) {
     e.preventDefault()
-    console.log('hi')
+    console.log(this.state)
   }
 
   renderElements() {
@@ -103,67 +89,88 @@ class UpdateEmployee extends React.Component {
   
   render() {
     return (
-      <>
-        <div className="employee-form-grid">
+      <form id="employee-form">
+        <div className="employee-form-grid" name="update-employee-form">
           <input className="hidden" name="id" defaultValue="employee.id" />
-          {this.renderElements()}
 
-          <label 
-            htmlFor={this.state.selectAndOptionProperties.name}>
-            {this.state.selectAndOptionProperties.labelText}
+          <label htmlFor="placardName">Name on placard:</label> 
+          <input 
+            value={this.state.user.placardName}
+              onChange={this.handleChange}
+            name="placardName"
+            type="text"
+          />
+          
+          <label htmlFor="email">Email address:</label> 
+          <input 
+            value={this.state.user.email}
+            name="email"
+            onChange={this.handleChange}
+            type="text"
+          />
+
+          <label htmlFor="password">Password:</label> 
+          <input 
+            value={this.state.user.password}
+            name="password"
+            onChange={this.handleChange}
+            type="password"
+          />
+
+          <label htmlFor="password">Phone #:</label> 
+          <input 
+            value={this.state.user.phoneNumber}
+            name="phoneNumber"
+            onChange={this.handleChange}
+            type="phoneNumber"
+          />
+
+          <label htmlFor="roleId">
+            Role:
           </label>
           
           <select 
-            name={this.state.selectAndOptionProperties.name}
-            defaultValue={this.state.selectAndOptionProperties.defaultValue}
-            disabled={this.state.selectAndOptionProperties.isDisabled} 
-            required={this.state.selectAndOptionProperties.required}
+            name="roleId"
+            defaultValue={
+              this.state.user.roleId
+                ? this.state.user.roleId
+                : 5
+            }
+            onChange={this.handleChange}
+            required
           >
-            {this.state.selectAndOptionProperties.optionsList.map(item => {
-              return (
-                <option key={item.value} value={item.value}>
-                  {item.text}
-                </option>
-              )
-            }) }
+            <option value={1}>Director of Routsetting</option>
+            <option value={2}>Regional Head Setter</option>
+            <option value={3}>Head Setter</option>
+            <option value={4}>Full Time Setter</option>
+            <option value={5}>Part Time Setter</option>
           </select>
         </div>
 
         <h3 className="centered-text">Locations:</h3>
         <div className="checkbox-grid">
           {
-            this.props.user.gyms.map(gym => {
-              // REFACTOR THESE TO STATE
-              let properties = {
-                className: "checkbox",
-                defaultValue: `${gym.gymId}:`,
-                form:"employee-form",
-                id: gym.name,
-                name:"gyms",
-                type: "checkbox",
-              }
-              
+            this.state.gyms.map(gym => {
               return (
               <div key={gym.gymId}>
-                <label htmlFor="gyms" form="employee-form">{`${gym.name}:`}</label> 
-                <input 
-                  id={properties.id ? properties.id : null}
-                  className={properties.className ? properties.className : null}
-                  defaultValue={properties.defaultValue ? properties.defaultValue : null}
-                  disabled={properties.isDisabled ? properties.isDisabled : null}
-                  form={properties.form ? properties.form : null}
-                  name={properties.name ? properties.name : null}
-                  placeholder={properties.placeholder ? properties.placeholder : null}
-                  required={properties.isRequired ? true : false}  // WHY THE FUCK CAN I NOT DO A TERNARY, OR THIS, HERE????????????
-                  type={properties.type ? properties.type : null}
+                <label htmlFor="gyms" form="update-employee-form">{`${gym.name}:`}</label> 
+                <input
+                  checked={this.state.user.gyms.includes(gym.gymId) ? true : false}
+                  className="checkbox"
+                  form="update-employee-form"
+                  data-gymid={gym.gymId}
+                  name="gyms"
+                  onChange={this.handleCheckbox}
+                  type="checkbox"
+
                 />
               </div>
               )
             })
           }
         </div>
-      </>
-
+        <button onClick={this.handleSubmit} type="submit">Update Employee</button>
+      </form>
     )
   }
 }
