@@ -13,7 +13,8 @@ class UpdateEmployee extends React.Component {
         password: "NotYourRealPassword",
         phoneNumber: "555-666-7777",
         placardName: 'Roboat',
-        gyms: [1],
+        employeeGymList: [1],
+        oldEmployeeGymList: []
       },
       gyms: [{
         gymId: 1,
@@ -29,6 +30,16 @@ class UpdateEmployee extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
+  componentDidMount() {
+    this.setState({
+      user: {
+        ...this.state.user,
+        oldEmployeeGymList: [...this.state.user.employeeGymList]
+      }
+    })
+  }
+
+
   handleChange(event) {
     this.setState({
       user: {
@@ -43,7 +54,8 @@ class UpdateEmployee extends React.Component {
       case false: 
         this.setState({
           user: {
-            gyms: this.state.user.gyms.filter(gymId => {
+            ...this.state.user,
+            employeeGymList: this.state.user.employeeGymList.filter(gymId => {
               return gymId !== parseInt(event.target.dataset.gymid)
             })
           }
@@ -52,10 +64,11 @@ class UpdateEmployee extends React.Component {
       default:
         this.setState({
           user: {
-            gyms: [
-              ...this.state.user.gyms,
+            ...this.state.user,
+            employeeGymList: [
+              ...this.state.user.employeeGymList,
               parseInt(event.target.dataset.gymid),
-            ]
+            ].sort()
           }
         })
     }
@@ -64,27 +77,6 @@ class UpdateEmployee extends React.Component {
   handleSubmit(e) {
     e.preventDefault()
     console.log(this.state)
-  }
-
-  renderElements() {
-    return this.state.inputAndLabelPropertiesList.map(element => {
-      return (
-        <React.Fragment key={`${element.name}-fragment`}>
-          <label htmlFor={element.name} form={element.form} >{element.labelText}</label> 
-          <input 
-            id={element.id ? element.id : null}
-            className={element.className ? element.className : null}
-            defaultValue={element.defaultValue ? element.defaultValue : null}
-            disabled={element.isDisabled ? element.isDisabled : null}
-            form={element.form ? element.form : null}
-            name={element.name ? element.name : null}
-            placeholder={element.placeholder ? element.placeholder : null}
-            required={element.isRequired ? true : false}  // WHY THE FUCK CAN I NOT DO A TERNARY, OR THIS, HERE????????????
-            type={element.type ? element.type : null}
-          />
-        </React.Fragment>
-      )
-    })
   }
   
   render() {
@@ -155,7 +147,7 @@ class UpdateEmployee extends React.Component {
               <div key={gym.gymId}>
                 <label htmlFor="gyms" form="update-employee-form">{`${gym.name}:`}</label> 
                 <input
-                  checked={this.state.user.gyms.includes(gym.gymId) ? true : false}
+                  checked={this.state.user.employeeGymList.includes(gym.gymId) ? true : false}
                   className="checkbox"
                   form="update-employee-form"
                   data-gymid={gym.gymId}
