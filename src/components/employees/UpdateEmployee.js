@@ -50,13 +50,14 @@ class UpdateEmployee extends React.Component {
   }
 
   handleCheckbox(event) {
+    const gymId = parseInt(event.target.value)
     switch (event.target.checked) {
       case false: 
         this.setState({
           user: {
             ...this.state.user,
-            employeeGymList: this.state.user.employeeGymList.filter(gymId => {
-              return gymId !== parseInt(event.target.dataset.gymid)
+            employeeGymList: this.state.user.employeeGymList.filter(gymListId => {
+              return gymListId !== gymId
             })
           }
         })
@@ -67,15 +68,15 @@ class UpdateEmployee extends React.Component {
             ...this.state.user,
             employeeGymList: [
               ...this.state.user.employeeGymList,
-              parseInt(event.target.dataset.gymid),
+              gymId,
             ].sort()
           }
         })
     }
   }
 
-  handleSubmit(e) {
-    e.preventDefault()
+  handleSubmit(event) {
+    event.preventDefault()
     console.log(this.state)
   }
   
@@ -150,7 +151,7 @@ class UpdateEmployee extends React.Component {
                   checked={this.state.user.employeeGymList.includes(gym.gymId) ? true : false}
                   className="checkbox"
                   form="update-employee-form"
-                  data-gymid={gym.gymId}
+                  value={gym.gymId}
                   name="gyms"
                   onChange={this.handleCheckbox}
                   type="checkbox"
