@@ -1,6 +1,8 @@
 import React from 'react'
 import axios from 'axios'
 
+import BoulderPlacard from './BoulderPlacard'
+
 class PrintableBoulderCard extends React.Component {
   constructor(props) {
     super(props)
@@ -8,7 +10,7 @@ class PrintableBoulderCard extends React.Component {
     this.state = {
       boulder1: {
         grade: null,
-        arete: null, 
+        color: null,
         dateSet: null,
         setter: null,
       },
@@ -177,11 +179,11 @@ class PrintableBoulderCard extends React.Component {
           </div>
         </div>
 
-        <div className="placard-container">
+        {/* <div className="placard-container">
           <div className="boulder-three-column-flex">
             <div className="boulder-flex-row-container">
-              <div className="boulder-grades">
-                <p className="boulder-grade-value boulder1" style={{color: this.state.boulder1.color}}>{this.state.boulder1.grade}</p>
+              <div className={`boulder-grades placard-${this.state.boulder1.color?.toLowerCase()}`}>
+                <p className="boulder-grade-value">{this.state.boulder1.grade}</p>
                 <p className="boulder-arete boulder1">{this.state.arete1}</p>
               </div>
               <div className="boulder-grades">
@@ -228,7 +230,24 @@ class PrintableBoulderCard extends React.Component {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
+
+        <BoulderPlacard 
+          climbs={
+            [
+              {
+                boulder1: this.state.boulder1,
+                message: this.state.arete1
+              }, {
+                boulder2: this.state.boulder2,
+                message: this.state.arete2
+              }, {
+                boulder3: this.state.boulder3,
+                message: this.state.arete3
+              },
+            ]
+          }
+        />
 
         <div className="noprint selection-container-bottom">
           <div className="boulder-selectors">
@@ -298,7 +317,24 @@ class PrintableBoulderCard extends React.Component {
           </div>
         </div>
 
-        <div className="placard-container">
+        <BoulderPlacard 
+          climbs={
+            [
+              {
+                boulder1: this.state.boulder4,
+                message: this.state.arete4
+              }, {
+                boulder2: this.state.boulder5,
+                message: this.state.arete5
+              }, {
+                boulder3: this.state.boulder6,
+                message: this.state.arete6
+              },
+            ]
+          }
+        />
+
+        {/* <div className="placard-container">
           <div className="boulder-three-column-flex">
             <div className="boulder-flex-row-container">
               <div className="boulder-grades">
@@ -349,7 +385,7 @@ class PrintableBoulderCard extends React.Component {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
 
         <button className="noprint" type="submit" onClick={window.print}>Print</button>
       </>

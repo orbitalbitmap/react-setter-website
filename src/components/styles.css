@@ -506,7 +506,7 @@ body {
   width: 4rem;
 }
 
-/* Color Classes */
+/* Colors for distribution form */
 .red {
   background-color: #ed3833;
   color: #000
@@ -553,8 +553,58 @@ body {
 }
 
 .white {
+  background-color: #ccc;
+  color: #000
+}
+
+.placard-red {
+  background-color: #fff;
+  color: #ed3833
+}
+
+.placard-pink {
+  background-color: #fff;
+  color: #ee14ca
+}
+
+.placard-blue {
+  background-color: #fff;
+  color: #2046f5
+}
+
+.placard-tan {
+  background-color: #fff;
+  color: #bf9033
+}
+
+.placard-black {
   background-color: #fff;
   color: #000
+}
+
+.placard-orange {
+  background-color: #fff;
+  color: #f3993e
+}
+
+.placard-green {
+  background-color: #fff;
+  color: #39811d
+}
+
+.placard-purple {
+  background-color: #fff;
+  color: #43026f
+}
+
+.placard-yellow {
+  background-color: #ccc;
+  color: #fdf851
+}
+
+.placard-white {
+  background-color: #ccc;
+  color: #fff
 }
 
 .date-udpater-container {
@@ -593,8 +643,24 @@ body {
 .boulder-grades {
   height: 13.5rem;
   width: 11.75rem;
-  top: 0.5rem;
   text-shadow: black -1px 0px, black 0px 1px, black 1px 0px, black 0px -1px;
+}
+
+.boulder-grades-1,
+.boulder-grades-2,
+.boulder-grades-3 {
+  text-shadow: black -1px 0px, black 0px 1px, black 1px 0px, black 0px -1px;
+}
+
+.boulder-date-set-1,
+.boulder-date-set-2,
+.boulder-date-set-3,
+.boulder-grades-1,
+.boulder-grades-2,
+.boulder-grades-3 {
+  height: 13.5rem;
+  width: 11.75rem;
+  /* top: 0.5rem; */
 }
 
 .boulder-crg-logo {
@@ -624,23 +690,41 @@ body {
 }
 
 .boulder-date-set,
-.boulder-setter-name {
+.boulder-date-set-1,
+.boulder-date-set-2,
+.boulder-date-set-3,
+.boulder-setter-name,
+.boulder-setter-name-1,
+.boulder-setter-name-2,
+.boulder-setter-name-3 {
   width: 11.75rem;
 }
 
 
 .boulder-date-set,
-.boulder-setter-name {
+.boulder-date-set-1,
+.boulder-date-set-2,
+.boulder-date-set-3,
+.boulder-setter-name,
+.boulder-setter-name-1,
+.boulder-setter-name-2,
+.boulder-setter-name-3 {
   height: 3.75rem;
   margin: 0;
   text-align: center;
 }
 
-.boulder-date-value {
+.boulder-date-value,
+.boulder-date-value-1,
+.boulder-date-value-2,
+.boulder-date-value-3 {
   font-size: 1.875rem;
 }
 
-.boulder-date-value {
+.boulder-date-value,
+.boulder-date-value-1,
+.boulder-date-value-2,
+.boulder-date-value-3 {
   left: 50%;
   margin: 0;
   position: relative;
@@ -652,12 +736,28 @@ body {
   width: 36rem;
 }
 
+.boulder-flex-images-container {
+  width: 36rem;
+}
+
 .route-flex-row-container{
   height: 29.75rem;
   margin-left: 1.5rem;
   width: 53.75rem;
 }
 
+/****************************************/
+/****************************************/
+/****************************************/
+.boulder-flex-column-container {
+  align-items: center;
+  background-color: transparent;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Oswald', sans-serif;
+}
+
+.boulder-flex-images-container,
 .boulder-flex-row-container,
 .route-flex-row-container {
   align-items: center;
@@ -667,14 +767,22 @@ body {
   font-family: 'Oswald', sans-serif;
 }
 
+.boulder-flex-images-container:nth-child(1),
 .boulder-flex-row-container:nth-child(1) {
   height: 14.375rem;
 }
 
+.boulder-flex-images-container:nth-child(5),
 .boulder-flex-row-container:nth-child(5),
 .route-flex-row-container:nth-child(5) {
   justify-content: center;
   height: 5rem;
+}
+
+.boulder-flex-images-container {
+  position: relative;
+  top: -8.25rem;
+  left: 26.55rem;
 }
 
 .social-mdeia-flex-container {
@@ -696,17 +804,26 @@ body {
 }
 
 .boulder-grades,
+.boulder-grades-1,
+.boulder-grades-2,
+.boulder-grades-3,
 .route-grades {
   text-align: center;
 }
 
-.boulder-arete {
+.boulder-arete,
+.boulder-arete-1,
+.boulder-arete-2,
+.boulder-arete-3 {
   font-weight: 300 !important;
   font-size: 2rem;
   top: -3.5rem;
 }
 
-.boulder-grade-value {
+.boulder-grade-value,
+.boulder-grade-value-1,
+.boulder-grade-value-2,
+.boulder-grade-value-3 {
   font-weight: bold;
   font-size: 8.2rem;
   left: 50%;
@@ -743,6 +860,12 @@ body {
 .boulder-insta-handle {
   font-size: 1.5rem;
   left: 25%;
+}
+
+.boulder-crg-logo,
+.boulder-insta-handle,
+.boulder-instagram-logo {
+  position: relative;
 }
 
 .boulder-instagram-logo {
@@ -844,7 +967,10 @@ body {
   margin-left: 0.75rem;
 }
 
-.boulder-setter-value {
+.boulder-setter-value,
+.boulder-setter-value-1,
+.boulder-setter-value-2,
+.boulder-setter-value-3 {
   font-size: 1.875rem;
   left: 50%;
   margin: 0;
@@ -853,11 +979,13 @@ body {
   top: 50%;
 }
 
+.boulder-three-row-flex *,
 .boulder-three-column-flex *,
 .route-three-column-flex * {
   position: relative;
 }
 
+.boulder-three-row-flex,
 .boulder-three-column-flex {
   height: 30rem;
   width: 36rem;
@@ -866,6 +994,14 @@ body {
 .route-three-column-flex {
   height: 29.75rem;
   width: 53.75rem;
+}
+
+.boulder-three-row-flex{
+  display: flex;
+  flex-direction: row;
+  margin: 0 auto;
+  position: relative;
+  top: 0.5rem;
 }
 
 .boulder-three-column-flex,
@@ -877,12 +1013,43 @@ body {
   top: 0.5rem;
 }
 
+.boulder-three-row-flex:nth-child(1)
 .boulder-three-column-flex:nth-child(1) {
   margin: 0 auto 0.25em auto;
 }
 
 .route-placard-images:nth-child(1) {
   padding-top: 0.0625rem;
+}
+
+.boulder-grades-1,
+.boulder-grades-2,
+.boulder-grades-3,
+.boulder-setter-name-1,
+.boulder-setter-name-2,
+.boulder-setter-name-3,
+.boulder-date-set-1,
+.boulder-date-set-2,
+.boulder-date-set-3 {
+  border-top: 0.125em solid black;
+}
+
+.boulder-grades-1,
+.boulder-grades-2,
+.boulder-grades-3,
+.boulder-date-set-1,
+.boulder-date-set-2,
+.boulder-date-set-3,
+.boulder-setter-name-1, 
+.boulder-setter-name-2,
+.boulder-setter-name-3 {
+  border-left: solid 0.125rem black;
+}
+
+.boulder-grades-3,
+.boulder-date-set-3,
+.boulder-setter-name-3 {
+  border-right: solid 0.125rem black;
 }
 
 .boulder-date-set:nth-child(1),
@@ -922,6 +1089,12 @@ body {
   padding: 0; 
   position: absolute;
   width: 100%;
+}
+
+.boulder-arete-1,
+.boulder-arete-2,
+.boulder-arete-3 {
+  color: black;
 }
 
 /*******************************************************
