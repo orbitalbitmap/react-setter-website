@@ -689,11 +689,9 @@ body {
   z-index: -1;
 }
 
-.boulder-date-set,
 .boulder-date-set-1,
 .boulder-date-set-2,
 .boulder-date-set-3,
-.boulder-setter-name,
 .boulder-setter-name-1,
 .boulder-setter-name-2,
 .boulder-setter-name-3 {
@@ -701,11 +699,9 @@ body {
 }
 
 
-.boulder-date-set,
 .boulder-date-set-1,
 .boulder-date-set-2,
 .boulder-date-set-3,
-.boulder-setter-name,
 .boulder-setter-name-1,
 .boulder-setter-name-2,
 .boulder-setter-name-3 {
@@ -714,14 +710,12 @@ body {
   text-align: center;
 }
 
-.boulder-date-value,
 .boulder-date-value-1,
 .boulder-date-value-2,
 .boulder-date-value-3 {
   font-size: 1.875rem;
 }
 
-.boulder-date-value,
 .boulder-date-value-1,
 .boulder-date-value-2,
 .boulder-date-value-3 {
@@ -803,7 +797,6 @@ body {
   width: 17.813rem;
 }
 
-.boulder-grades,
 .boulder-grades-1,
 .boulder-grades-2,
 .boulder-grades-3,
@@ -811,7 +804,6 @@ body {
   text-align: center;
 }
 
-.boulder-arete,
 .boulder-arete-1,
 .boulder-arete-2,
 .boulder-arete-3 {
@@ -820,7 +812,6 @@ body {
   top: -3.5rem;
 }
 
-.boulder-grade-value,
 .boulder-grade-value-1,
 .boulder-grade-value-2,
 .boulder-grade-value-3 {
@@ -967,7 +958,6 @@ body {
   margin-left: 0.75rem;
 }
 
-.boulder-setter-value,
 .boulder-setter-value-1,
 .boulder-setter-value-2,
 .boulder-setter-value-3 {
@@ -1052,20 +1042,16 @@ body {
   border-right: solid 0.125rem black;
 }
 
-.boulder-date-set:nth-child(1),
-.boulder-grades:nth-child(1),
 .boulder-placard-images:nth-child(1),
-.boulder-setter-name:nth-child(1),
 .route-grades:nth-child(1),
 .route-placard-images:nth-child(1) {
   border-left: 0.125em solid black;
   border-top: 0.125em solid black;
 }
 
-.boulder-date-set:nth-child(2),
-.boulder-grades:nth-child(2),
+
+
 .boulder-placard-images:nth-child(2),
-.boulder-setter-name:nth-child(2),
 .route-grades:nth-child(2),
 .route-placard-images:nth-child(2) {
   border-left: 0.125em solid black;
@@ -1073,10 +1059,7 @@ body {
   border-top: 0.125em solid black;
 }
 
-.boulder-date-set:nth-child(3),
-.boulder-grades:nth-child(3),
-.boulder-placard-images:nth-child(3),
-.boulder-setter-name:nth-child(3),
+
 .route-grades:nth-child(3),
 .route-placard-images:nth-child(3) {
   border-right: 0.125em solid black;
