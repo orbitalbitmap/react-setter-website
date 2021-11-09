@@ -103,81 +103,27 @@ class PrintableRouteCard extends React.Component {
             selectorType="route"
           />
 
-          <RoutePlacard 
-            climbs={
-              [
-                {
-                  route: this.state.route1,
-                  message: this.state.arete1
-                }, {
-                  route: this.state.route2,
-                  message: this.state.arete2
-                }, {
-                  route: this.state.route3,
-                  message: this.state.arete3
-                }
-              ]
-            }
-            nameList={[1,2,3]}
-          />
-
-          {/* <div className="placard-container">
+          <div className="placard-container">
             <div className="route-three-column-flex">
-              <div className="route-flex-row-container">
-                <div id="slot1" className="route-grades">
-                  <p className="route-grade-value"></p>
-                  <p className="route-name"></p>
-                  <p className="route-arete-info"></p>
-                  <div className="route-info-container">
-                    <p className="route-placard-info"></p>
-                    <p className="route-placard-info"></p>
-                    <p className="route-placard-info"></p>
-                  </div>
-                </div>
-
-                <div id="slot2" className="route-grades">
-                  <p className="route-grade-value"></p>
-                  <p className="route-name"></p>
-                  <p className="route-arete-nfo"></p>
-                  <div className="route-info-container">
-                    <p className="route-placard-info"></p>
-                    <p className="route-placard-info"></p>
-                    <p className="route-placard-info"></p>
-                  </div>
-                </div>
-                <div id="slot3" className="route-grades">
-                  <p className="route-grade-value"></p>
-                  <p className="route-name"></p>
-                  <p className="route-arete-nfo"></p>
-                  <div className="route-info-container">
-                    <p className="route-placard-info"></p>
-                    <p className="route-placard-info"></p>
-                    <p className="route-placard-info"></p>
-                  </div>
-                </div>
-              </div>
-              <div className="route-flex-row-container">
-                <div className="route-placard-images">
-                  <img className="route-crg-logo" src="/images/CRG_Logo_Text_M.jpeg" alt="Central Rock Gym logo" />
-                </div>
-                <div className="route-placard-images social-mdeia-flex-container">
-                  {/* //width: 4.375rem; 
-                  <div>
-                    <img className="route-instagram-logo" src="/images/Facebook_logo.png" alt="Facbook logo"/>
-                    <p className="route-insta-handle centere>text">Central Rock Worcester</p>
-                  </div>
-                  <div>
-                    <img className="route-instagram-logo" src="/images/Twitter_colored_logo.png" alt="Twitter logo"/>
-                    <p className="route-insta-handle">@crgworcester</p>
-                  </div>
-                  <div>
-                    <img className="route-instagram-logo" src="/images/IG_logo.png" alt="Instagram logo"/>
-                    <p className="route-insta-handle">@crgworcester</p>
-                  </div>
-                </div>
-              </div>
+              <RoutePlacard 
+                climbs={
+                  [
+                    {
+                      route: this.state.route1,
+                      message: this.state.arete1
+                    }, {
+                      route: this.state.route2,
+                      message: this.state.arete2
+                    }, {
+                      route: this.state.route3,
+                      message: this.state.arete3
+                    }
+                  ]
+                }
+                nameList={[1,2,3]}
+              />
             </div>
-          </div> */}
+          </div>
         </>
     )
   }
