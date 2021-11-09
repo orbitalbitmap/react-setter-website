@@ -9,7 +9,7 @@ class ClimbSelectors extends React.Component {
         <div className={this.props.className}>
           <div className={`${this.props.selectorType}-selectors`}>
             <span>Left:</span>
-            <select onChange={this.props.handleChange} className={`${this.props.selectorType}-selectors-top`} name={`boulder${this.props.nameList[0]}`}>
+            <select onChange={this.props.handleChange} className={`${this.props.selectorType}-selectors-top`} name={`${this.props.selectorType}${this.props.nameList[0]}`}>
               <option name="climb" value="blank">Blank</option>
               {
                 this.props.climbs.length > 0
@@ -33,7 +33,7 @@ class ClimbSelectors extends React.Component {
 
           <div className={`${this.props.selectorType}-selectors`}>
             <span>Middle:</span>
-            <select onChange={this.props.handleChange} className={`${this.props.selectorType}-selectors-middle`} name={`boulder${this.props.nameList[1]}`}>
+            <select onChange={this.props.handleChange} className={`${this.props.selectorType}-selectors-middle`} name={`${this.props.selectorType}${this.props.nameList[1]}`}>
               <option name="climb" value="blank">Blank</option>
               {
                 this.props.climbs.map(climb => {
@@ -55,7 +55,7 @@ class ClimbSelectors extends React.Component {
 
           <div className={`${this.props.selectorType}-selectors`}>
             <span>Right:</span>
-            <select onChange={this.props.handleChange} className={`${this.props.selectorType}-selectors-bottom`} name={`boulder${this.props.nameList[2]}`}>
+            <select onChange={this.props.handleChange} className={`${this.props.selectorType}-selectors-bottom`} name={`${this.props.selectorType}${this.props.nameList[2]}`}>
               <option name="climb" value="blank">Blank</option>
               {
                 this.props.climbs.map(climb => {

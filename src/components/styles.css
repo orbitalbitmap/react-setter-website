@@ -736,7 +736,6 @@ body {
 
 .route-flex-row-container{
   height: 29.75rem;
-  margin-left: 1.5rem;
   width: 53.75rem;
 }
 
@@ -753,12 +752,19 @@ body {
 
 .boulder-flex-images-container,
 .boulder-flex-row-container,
+.route-flex-images-container,
 .route-flex-row-container {
   align-items: center;
   background-color: transparent;
   display: flex;
   flex-direction: row;
   font-family: 'Oswald', sans-serif;
+}
+
+.route-flex-images-container {
+  position: relative;
+  top: -4rem;
+  width: 53.75rem;
 }
 
 .boulder-flex-images-container:nth-child(1),
@@ -878,7 +884,7 @@ body {
 
 .route-placard-images {
   height: 8.6875rem;
-  width: 17.913rem;
+  width: 17.8rem;
 }
 
 .boulder-placard-images,
@@ -894,6 +900,7 @@ body {
 .route-placard-info {
   margin: 0;
   padding: 0;
+  color: black;
 }
 
 .route-name {
@@ -906,6 +913,7 @@ body {
 }
 
 .route-arete-info {
+  color: black;
   font-size: 1.25rem;
   margin: 0; 
   padding: 0; 
