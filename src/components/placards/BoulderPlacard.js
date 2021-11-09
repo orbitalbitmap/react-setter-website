@@ -7,8 +7,6 @@ class BoulderPlacard extends React.Component {
     return (
       <div className="placard-container">
           <div className="boulder-three-row-flex">
-            
-            {/* REFACTOR TO USE COLUMN LAYOUT INSTEAD OF ROW */}
 
             <div className="boulder-flex-column-container">
               <div className={`boulder-grades-1 placard-${this.props.climbs[0].boulder1.color?.toLowerCase()}`}>
