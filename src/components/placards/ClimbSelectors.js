@@ -1,8 +1,6 @@
 import React from 'react'
 
 class ClimbSelectors extends React.Component {
-
-
   render() {
     return (
       <>
