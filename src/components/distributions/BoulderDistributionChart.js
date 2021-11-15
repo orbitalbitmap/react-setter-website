@@ -10,6 +10,8 @@ class BoulderDistributionChart extends React.Component {
   constructor(props) {
     super(props)
 
+    const todayFormatted = new Date()
+
     this.state = {
       currentSection: 1,
       distribution: [],
@@ -18,11 +20,14 @@ class BoulderDistributionChart extends React.Component {
       gymName: null,
       sectionDistribution: [],
       sectionList: [],
-      today: new Date(),
+      today: todayFormatted,
+      fullDateChange: todayFormatted.toISOString().split('T')[0],
     }
 
-    this.handleSectionChange = this.handleSectionChange.bind(this)
     this.handleChange = this.handleChange.bind(this)
+    this.handleChangeAllDatesInSection = this.handleChangeAllDatesInSection.bind(this)
+    this.handleDateInputChange = this.handleDateInputChange.bind(this)
+    this.handleSectionChange = this.handleSectionChange.bind(this)
   }
 
   async handleSectionChange(event) {
@@ -32,6 +37,28 @@ class BoulderDistributionChart extends React.Component {
     await this.setState({
       currentSection: sectionId,
       sectionDistribution: filteredDistribution.sort()
+    })
+  }
+
+  handleChangeAllDatesInSection(event) {
+    const currentDistribution = [...this.state.distribution]
+
+    const newDistribution = currentDistribution.map( climb => {
+      if (climb.sectionId === this.state.currentSection) {
+        climb.dateSet = this.state.fullDateChange
+      }
+      return climb
+    })
+    
+    this.setState({
+      distribution: newDistribution,
+    })
+
+  }
+
+  handleDateInputChange(event) {
+    this.setState({
+      fullDateChange: event.target.value
     })
   }
 
@@ -54,11 +81,11 @@ class BoulderDistributionChart extends React.Component {
 }
 
   async componentDidMount() {
-    console.log(this.state.distribution)
-    console.log(this.state.sectionDistribution)
     const climbInfoList = await axios.get('http://localhost:1337/api/currentBoulderGrades/1')
     const sectionList = await axios.get('http://localhost:1337/api/boulderSections/1')
     const gymInfo = await axios.get('http://localhost:1337/api/gyms/worcester')
+
+    const filteredDistribution = climbInfoList.data.filter(climb => climb.sectionId === this.state.currentSection)
 
     this.setState({
       distribution: climbInfoList.data,
@@ -66,13 +93,11 @@ class BoulderDistributionChart extends React.Component {
       gymName: gymInfo.data.name,
       employeeList: gymInfo.data.employees,
       sectionList: sectionList.data,
+      sectionDistribution: filteredDistribution,
     })
   }
 
   render() {
-    // const todayFormatted = today.toISOString().substring(0,10)
-    console.log(this.state.distribution)
-
     return (
       <>
         {/* if (gymName !== null) */}
@@ -88,12 +113,12 @@ class BoulderDistributionChart extends React.Component {
 
           <div className="distribution-holder">
                   <form action="/api/saveDistribution/currentBoulders" method="POST" name="distribution-table">
-                    {/* <div className="date-udpater-container">
-                      <input className="gray-background date-updater" type="date" name="dateSet" value="2000-01-01" />
-                      <button className="date-updater button" type="button" onclick={`updateDate('${this.state.currentSection}')`}>
+                    <div className="date-udpater-container">
+                      <input className="gray-background date-updater" type="date" name="dateSet" onChange={this.handleDateInputChange} value={this.state.fullDateChange} />
+                      <button className="date-updater button" type="button" onClick={this.handleChangeAllDatesInSection}>
                         Set Current Dates
                       </button>
-                    </div> */}
+                    </div>
 
                     <table className="distribution-table">
                       <thead>
