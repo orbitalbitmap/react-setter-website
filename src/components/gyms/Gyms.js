@@ -1,26 +1,29 @@
+import axios from 'axios'
 import React from 'react'
 
-const gyms = [{
-    id: 1,
-    name:'Worcester'
-  }, {
-    id: 2,
-    name:'Hadley'
-  }, {
-    id: 3,
-    name:'Watertown'
-  } , {
-    id: 4,
-    name:'Glastonbury'
-  }]
-
 class Gyms extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      gymsList: []
+    }
+  }
+
+  async componentDidMount() {
+    const { data } = await axios.get('http://localhost:1337/api/gyms')
+
+    this.setState({
+      gymsList: data
+    })
+  }
+
   render() {
     return (
       <>
         <h1 className="centered-text">Locations:</h1>
         {
-          gyms.map(gym => {
+          this.state.gymsList.map(gym => {
             return (
               <h3 key={gym.name} className="centered-text">
                 <a href={`/gyms/${gym.id}`}>{gym.name}</a>
