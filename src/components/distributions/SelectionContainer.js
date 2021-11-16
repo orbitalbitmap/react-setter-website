@@ -7,7 +7,7 @@ class SelectionContainer extends React.Component {
         className={`climb${this.props.climb.id} ${this.props.climb.color.toLowerCase()}`} 
         value={this.props.climb[this.props.name]}
         onChange={this.props.onChange} 
-        id={this.props.climb.id} 
+        data-climbid={this.props.climb.id} 
         name={this.props.name}
       >
         {

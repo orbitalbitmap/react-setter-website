@@ -67,7 +67,7 @@ class BoulderDistributionChart extends React.Component {
       ? parseInt(event.target.value)
       : event.target.value
 
-    const climbId = parseInt(event.target.id)
+    const climbId = parseInt(event.target.dataset.climbid)
     let distribution = [...this.state.distribution]
     
     distribution[climbId - 1][event.target.name] = value

@@ -5,7 +5,7 @@ class DateInput extends React.Component {
     return (
       <input
         className="gray-background date"
-        id={this.props.climb.id}
+        data-climbid={this.props.climb.id}
         name="dateSet"
         onChange={this.props.onChange}
         type="date"

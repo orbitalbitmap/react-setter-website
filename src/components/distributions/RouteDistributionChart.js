@@ -67,7 +67,7 @@ class RouteDistributionChart extends React.Component {
       ? parseInt(event.target.value)
       : event.target.value
 
-    const climbId = parseInt(event.target.id)
+    const climbId = parseInt(event.target.dataset.climbid)
     let distribution = [...this.state.distribution]
     
     distribution[climbId - 1][event.target.name] = value
@@ -98,6 +98,7 @@ class RouteDistributionChart extends React.Component {
   }
 
   render() {
+    console.log(this.state.sectionDistribution)
     return (
       <>
           <h1 className="centered-text">Distribution Spread for {this.state.gymName}</h1>
@@ -143,7 +144,7 @@ class RouteDistributionChart extends React.Component {
                                   <td className={`distribution-td climb${climb.id} ${climb.color.toLowerCase()}`}>
                                     <input
                                       className="centered-text gray-background station-size"
-                                      id={climb.id}
+                                      data-climbid={climb.id}
                                       name="station"
                                       onChange={this.handleChange}
                                       value={climb.station}
@@ -208,7 +209,7 @@ class RouteDistributionChart extends React.Component {
                                   <td className={`distribution-td climb${climb.id} ${climb.color.toLowerCase()}`}>
                                     <input
                                       className="centered-text gray-background"
-                                      id={climb.id}
+                                      data-climbid={climb.id}
                                       name="climbName"
                                       onChange={this.handleChange}
                                       value={climb.climbName}
