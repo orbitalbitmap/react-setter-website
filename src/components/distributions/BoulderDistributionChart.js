@@ -166,8 +166,8 @@ class BoulderDistributionChart extends React.Component {
                                       onChange={this.handleChange}
                                       name="setter"
                                       list={this.state.employeeList}
-                                      textKey="firstName"
-                                      valueKey="firstName"
+                                      textKey="setter"
+                                      valueKey="setter"
                                     />
                                   </td>
 
