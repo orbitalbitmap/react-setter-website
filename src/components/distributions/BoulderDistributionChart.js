@@ -30,13 +30,13 @@ class BoulderDistributionChart extends React.Component {
     this.handleSectionChange = this.handleSectionChange.bind(this)
   }
 
-  async handleSectionChange(event) {
+  handleSectionChange(event) {
     const sectionId = parseInt(event.target.id)
     const filteredDistribution = this.state.distribution.filter(climb => climb.sectionId === sectionId)
 
-    await this.setState({
+    this.setState({
       currentSection: sectionId,
-      sectionDistribution: filteredDistribution.sort()
+      sectionDistribution: filteredDistribution.sort((climbA, climbB) => climbA - climbB)
     })
   }
 
@@ -76,7 +76,7 @@ class BoulderDistributionChart extends React.Component {
 
     this.setState({
       distribution,
-      sectionDistribution: filteredDistribution,
+      sectionDistribution: filteredDistribution.sort((climbA, climbB) => climbA - climbB),
     })
 }
 
@@ -93,7 +93,7 @@ class BoulderDistributionChart extends React.Component {
       gymName: gymInfo.data.name,
       employeeList: gymInfo.data.employees,
       sectionList: sectionList.data,
-      sectionDistribution: filteredDistribution,
+      sectionDistribution: filteredDistribution.sort((climbA, climbB) => climbA - climbB),
     })
   }
 
