@@ -202,9 +202,6 @@ class BoulderDistributionChart extends React.Component {
                     </div>
                   </form>
           </div>
-
-        {/* else
-          h2 className="centered-text") No distribution found. */}
       </>
     )
   }
