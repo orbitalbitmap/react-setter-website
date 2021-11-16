@@ -77,7 +77,6 @@ class UpdateEmployee extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault()
-    console.log(this.state)
   }
   
   render() {

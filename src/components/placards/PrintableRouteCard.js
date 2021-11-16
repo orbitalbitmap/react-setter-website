@@ -35,12 +35,11 @@ class PrintableRouteCard extends React.Component {
     this.handleAreteSelect = this.handleAreteSelect.bind(this)
   }
 
-  async handleChange(event) {
-    console.log(event.target.name)
+  handleChange(event) {
     const selectedClimb = this.state.climbs[event.target.value -1]
 
     if(event.target.value === 'blank') {
-      await this.setState({
+      this.setState({
         [event.target.name]: {
           grade: null,
           color: null, 
@@ -51,7 +50,7 @@ class PrintableRouteCard extends React.Component {
         }
       })
     } else {
-      await this.setState({
+      this.setState({
         [event.target.name]: {
           grade: selectedClimb.grade,
           color: selectedClimb.color, 

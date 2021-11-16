@@ -42,10 +42,6 @@ class NewGymForm extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault()
-
-    this.state.gym.headSetterId !== 0
-      ? console.log(this.state.gym)
-      : window.alert('Please select a head setter.')
   }
 
   render() {

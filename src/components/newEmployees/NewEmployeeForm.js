@@ -67,7 +67,6 @@ class NewEmployeeForm extends React.Component {
 
   hanldeSubmit(event) {
     event.preventDefault()
-    console.log(this.state)
   }
 
   render(){
