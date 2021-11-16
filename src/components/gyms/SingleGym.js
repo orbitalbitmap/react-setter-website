@@ -1,67 +1,80 @@
+import axios from 'axios'
 import React from 'react'
 
-const gym = {
-  id: 1,
-  name:'Worcester',
-  address: '299 Barber Avenue Worcester, Massachusetts',
-  phoneNumber: '555-666-7777',
-  headSetterId: 1,
-  facebook: '',
-  instagram: '',
-  twitter: '',
-  employees: [
-    {
-      id: 1,
-      firstName: 'Robert',
-      lastName: 'Perron',
-    }, {
-      id: 2,
-      firstName: 'Kyle',
-      lastName: 'Birnbaum',
-    },
-  ]
-}
-
 class SingleGym extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      employeeList: [],
+      fullTimeEmployeeList: [],
+      gymInfo: [],
+      headSetter: {},
+      partTimeEmployeeList: [],
+    }
+  }
+
+  async componentDidMount() {
+    const { data } = await axios.get('http://localhost:1337/api/gyms/worcester')
+
+    const employeeList = data.employees
+    const headSetter = employeeList.find(employee => employee.id === data.headSetterId)
+    const fullTimeEmployeeList = employeeList.filter(employee => employee.roleId <= 4 && employee.id !== data.headSetterId && employee.id !== 1)
+    const partTimeEmployeeList = employeeList.filter(employee => employee.roleId === 5)
+
+    this.setState({
+      employeeList,
+      fullTimeEmployeeList,
+      gymInfo: data,
+      headSetter,
+      partTimeEmployeeList,
+    })
+  }
+
   render() {
     return (
       <>
-        <h1 className="centered-text">gym.name</h1>
-        <h3 className="centered-text">gym.address</h3>
-        <h3 className="centered-text">gym.phoneNumber</h3>
-        <h3 className="centered-text">{`Facebook: ${gym.facebook !== null ? gym.facebook : 'None available'}`}</h3>
-        <h3 className="centered-text">{`Instagram: ${gym.instagram !== null ? gym.instagram : 'None available'}`}</h3>
-        <h3 className="centered-text">{`Twitter: ${gym.twitter !== null ? gym.twitter : 'None available'}`}</h3>
+        <h1 className="centered-text">{this.state.gymInfo.name}</h1>
+        <h3 className="centered-text">{this.state.gymInfo.address}</h3>
+        <h3 className="centered-text">{this.state.gymInfo.phoneNumber}</h3>
+        <h3 className="centered-text">{`Facebook: ${this.state.gymInfo.facebook !== null ? this.state.gymInfo.facebook : 'None available'}`}</h3>
+        <h3 className="centered-text">{`Instagram: ${this.state.gymInfo.instagram !== null ? this.state.gymInfo.instagram : 'None available'}`}</h3>
+        <h3 className="centered-text">{`Twitter: ${this.state.gymInfo.twitter !== null ? this.state.gymInfo.twitter : 'None available'}`}</h3>
 
-        <h2 className="centered-text">All Setters:</h2>
-        <h3 className="centered-text">Head Setter</h3>
+        <h2 className="centered-text">The Setters:</h2>
+        <h3 className="centered-text">Head Setter:</h3>
         <ul className="centered-text">
+          <li key={this.state.headSetter.id} className="centered-text inside-bullet">
+            <a href={`/employees/${this.state.headSetter.id}`}>{`${this.state.headSetter.firstName} ${this.state.headSetter.lastName}`}</a>
+          </li>
+        </ul>
+        <h3 className="centered-text">Full Time Setters</h3>
+        <ul>
           {
-            
-            gym.employees.map(employee => {
-              return ( 
-                <li key={employee.id} className="centered-text inside-bullet">
-                  <a href={`/employees/${employee.id}`}>{`${employee.firstName} ${employee.lastName}`}</a>
+            this.state.fullTimeEmployeeList.map(setter => {
+              return (
+                <li key={`full-time-${setter.id}`} className="centered-text inside-bullet">
+                  <a href={`/employees/${setter.id}`}>{`${setter.firstName} ${setter.lastName}`}</a>
                 </li>
               )
             })
           }
         </ul>
-        {/* <h3 className="centered-text">Full Time Setters</h3>
-        <ul>
-          <li className="centered-text inside-bullet">
-            <a href={`/employees/${setter.id}`}>{`${setter.firstName} ${setter.lastName}`}</a>
-          </li>
-        </ul>
 
         <h3 className="centered-text">Part Time Setters</h3>
         <ul>
-          <li className="centered-text inside-bullet">
-            <a href={`/employees/${setter.id}`}>{`${setter.firstName} ${setter.lastName}`}</a>
-          </li>
-        </ul> */}
+        {
+            this.state.partTimeEmployeeList.map(setter => {
+              return (
+                <li key={`part-time-${setter.id}`} className="centered-text inside-bullet">
+                  <a href={`/employees/${setter.id}`}>{`${setter.firstName} ${setter.lastName}`}</a>
+                </li>
+              )
+            })
+          }
+        </ul>
 
-        <a href={`/gyms/edit/${gym.name}`}>Edit Gym info</a>
+        <a href={`/gyms/edit/${this.state.gymInfo.name}`}>Edit Gym info</a>
       </>
     )
   }
