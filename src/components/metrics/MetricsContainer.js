@@ -21,7 +21,7 @@ class MetricsContainer extends React.Component {
   async componentDidMount() {
     const { data } = await axios.get('http://localhost:1337/api/metrics/1')
 
-    await this.setState({
+    this.setState({
       metrics: data.metrics
     })
   }
