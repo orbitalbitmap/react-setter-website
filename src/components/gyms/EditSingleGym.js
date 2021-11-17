@@ -1,31 +1,14 @@
+import axios from 'axios'
 import React from 'react'
+import InputAndLabel from './InputAndLabel'
 
 class EditSingleGym extends React.Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      gym: {
-        id: 1,
-        name:'Worcester',
-        address: '299 Barber Avenue Worcester, Massachusetts',
-        phoneNumber: '555-666-7777',
-        headSetterId: 2,
-        facebook: '',
-        instagram: '',
-        twitter: '',
-        employees: [
-          {
-            id: 1,
-            firstName: 'Robert',
-            lastName: 'Perron',
-          }, {
-            id: 2,
-            firstName: 'Kyle',
-            lastName: 'Birnbaum',
-          },
-        ]
-      }
+      link: "/api/updateGymInfo",
+      gym: {},
     }
 
     this.handleChange = this.handleChange.bind(this)
@@ -34,10 +17,14 @@ class EditSingleGym extends React.Component {
   }
 
   handleChange(event) {
+    const value = event.target.name === 'headSetterId'
+      ? parseInt(event.target.value)
+      : event.target.value
+
     this.setState({
       gym: {
         ...this.state.gym,
-        [event.target.name]: event.target.value
+        [event.target.name]: value
       }
     })
   }
@@ -46,35 +33,71 @@ class EditSingleGym extends React.Component {
     event.preventDefault()
   }
 
+  async componentDidMount() {
+    const { data } = await axios.get('http://localhost:1337/api/gyms/worcester')
+    const gym = data
+
+    this.setState({
+      gym: gym,
+    })
+  }
+
   render() {
+
+    if (!this.state.gym.name) {
+      return (<h2>We cannot find the gym you wish to edit.</h2>)
+    }
     return (
       <>
-        <h1 className="centered-text">{`Edit ${this.state.gym.name}'s Gym Information`}</h1>
+        <h1 className="centered-text">Edit {this.state.gym.name}'s Gym Information</h1>
 
-        <form action="/api/updateGymInfo" method="post" id="editable-gym-form">
+        <form action={this.state.link} method="post" id="editable-gym-form">
           <div className="employee-form-grid">
-            <input className="hidden" name="id" value={this.state.gym.id} disabled />
-            <input className="hidden" name="name" value={this.state.gym.name} disabled />
-            <label htmlFor="address">Address:</label>
-            <input name="address" onChange={this.handleChange} value={this.state.gym.address} />
-            <label htmlFor="phoneNumber">Phone Number:</label>
-            <input name="phoneNumber" onChange={this.handleChange} value={this.state.gym.phoneNumber} />
+            <InputAndLabel
+              handleChange={this.handleChange}
+              name="address"
+              text="Address"
+              value={this.state.gym.address}
+            />
+            
+            <InputAndLabel
+              handleChange={this.handleChange}
+              name="phoneNumber"
+              text="Phone number"
+              value={this.state.gym.phoneNumber}
+            />
+
             <label htmlFor="headSetterId">Head Setter:</label>
-            <select name="headSetterId"  onChange={this.handleChange} defaultValue={this.state.gym.headSetterId}>
+            <select name="headSetterId"  onChange={this.handleChange} value={this.state.gym.headSetterId}>
               {
                 this.state.gym.employees.map(employee => {
                   return (
-                    <option key={employee.id} value={employee.id }>{`${employee.firstName} ${employee.lastName}`}</option>
+                    <option key={employee.id} value={employee.id}>{`${employee.firstName} ${employee.lastName}`}</option>
                   )
                 })
               }
             </select>
-            <label htmlFor="facebook">Facebook Page:</label>
-            <input name="facebook"  onChange={this.handleChange} value={this.state.gym.facebook === null ? '' : this.state.gym.facebook} />
-            <label htmlFor="instagram">Instagram Account:</label>
-            <input name="instagram"  onChange={this.handleChange} value={this.state.gym.instagram === null ? '' : this.state.gym.instagram} />
-            <label htmlFor="twitter">Twitter Account:</label>
-            <input name="twitter"  onChange={this.handleChange} value={this.state.gym.twitter === null ? '' : this.state.gym.twitter} />
+
+            <InputAndLabel
+              handleChange={this.handleChange}
+              name="facebook"
+              text="Facebook page"
+              value={this.state.gym.facebook}
+            />
+
+            <InputAndLabel
+              handleChange={this.handleChange}
+              name="instagram"
+              text="Instagram Account"
+              value={this.state.gym.instagram}
+            />
+
+            <InputAndLabel
+              handleChange={this.handleChange}
+              name="twitter"
+              text="Twitter Account"
+              value={this.state.gym.twitter}
+            />
           </div>
           <button onClick={this.handleSubmit} type="submit">Update Info</button>
         </form>
