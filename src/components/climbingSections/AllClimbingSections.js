@@ -29,7 +29,6 @@ import React from 'react'
     }
 
     render() {
-      console.log(this.state.gyms)
       return this.state.gyms.map( gym => {
         return (
           <React.Fragment key={`${gym.name}-sections`} >
