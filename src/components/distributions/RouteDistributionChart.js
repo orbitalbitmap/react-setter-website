@@ -98,7 +98,6 @@ class RouteDistributionChart extends React.Component {
   }
 
   render() {
-    console.log(this.state.sectionDistribution)
     return (
       <>
           <h1 className="centered-text">Distribution Spread for {this.state.gymName}</h1>
