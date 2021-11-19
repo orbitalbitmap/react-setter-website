@@ -1,80 +1,36 @@
+import axios from 'axios'
 import React from 'react'
 
-const gyms = [
-  {
-    gymId: 1,
-    name: 'Worcester',
-    boulders: [
-      {
-        id: 1,
-        name: 'Main Front Flat',
-      }, {
-        id: 2,
-        name: 'Main Cave',
-      }, {
-        id: 3,
-        name: 'Main Bulge',
-      }, {
-        id: 4,
-        name: 'Main Back Flat',
-      }],
-    ropes: [
-      {
-        id: 1,
-        name: 'Front Alcove',
-      }, {
-        id: 2,
-        name: 'Archway',
-      }, {
-        id: 3,
-        name: 'Pillar',
-      }, {
-        id: 4,
-        name: 'Lead Cave',
-      }, {
-        id: 5,
-        name: 'Back Alcove'
-    }],
-  }, {
-    gymId: 2,
-    name: 'Hadley',
-    boulders: [
-      {
-        id: 1,
-        name: 'Main Front Flat',
-      }, {
-        id: 2,
-        name: 'Main Cave',
-      }, {
-        id: 3,
-        name: 'Main Bulge',
-      }, {
-        id: 4,
-        name: 'Main Back Flat',
-      }],
-    ropes: [
-      {
-        id: 1,
-        name: 'Front Alcove',
-      }, {
-        id: 2,
-        name: 'Archway',
-      }, {
-        id: 3,
-        name: 'Pillar',
-      }, {
-        id: 4,
-        name: 'Lead Cave',
-      }, {
-        id: 5,
-        name: 'Back Alcove'
-    }]
-  }
-]
-
   class AllClimbingSections extends React.Component {
+    constructor(props) {
+      super(props)
+
+      this.state = {
+        gyms: [],
+      }
+
+      this.renderSections = this.renderSections.bind(this)
+    }
+
+    async componentDidMount() {
+      const { data } = await axios.get('http://localhost:1337/api/allGymSections')
+
+      this.setState({
+        gyms: data
+      })
+    }
+
+    renderSections(name, sections) {
+      return sections.map(section => {
+        return (
+          <li key={`${name}-${section.name}`} className="centered-text inside-bullet">{section.name}</li>
+        )
+      })
+    }
+
     render() {
-      return gyms.map( gym => {
+      console.log(this.state.gyms)
+      return this.state.gyms.map( gym => {
         return (
           <React.Fragment key={`${gym.name}-sections`} >
             <h1 className="centered-text">{gym.name}</h1>
@@ -84,12 +40,9 @@ const gyms = [
                 <h3 className="centered-text">Boulder sections</h3>
                 <ul>
                   {
-                    gym.boulders.map(section => {
-                      return (
-                        <li key={`${gym.name}-${section.name}`}  className="centered-text inside-bullet">{section.name}</li>
-                      )
-                    })
-                    
+                    gym.boulderSections.length > 0
+                      ? this.renderSections(gym.name, gym.boulderSections)
+                      : (<p className="centered-text">No boulder sections found</p>)
                   }
                 </ul>
               </div>
@@ -98,11 +51,9 @@ const gyms = [
                 <h3 className="centered-text">Rope sections</h3>
                 <ul>
                   {
-                    gym.ropes.map(section => {
-                      return (
-                        <li key={`${gym.name}-${section.name}`} className="centered-text inside-bullet" >{section.name}</li>
-                      )
-                    })
+                    gym.routeSections.length > 0
+                    ? this.renderSections(gym.name, gym.boulderSections)
+                    : (<p className="centered-text">No route sections found</p>)
                   }
                 </ul>
               </div>
