@@ -93,7 +93,7 @@ class ClimbingSectionsForAGym extends React.Component {
 
           <div>
             <h3 className="centered-text">
-              <a href={`/gymSections/edit/${gym.id}`}>Edit All Section Names</a>
+              <a href={`/gymSections/edit/${this.state.gym.id}`}>Edit All Section Names</a>
             </h3>
           </div>
         </div>
