@@ -1,42 +1,6 @@
 import axios from 'axios'
 import React from 'react'
 
-const gym = {
-  id: 1,
-  name: 'Worcester',
-  boulders: [
-    {
-      id: 1,
-      name: 'Main Front Flat',
-    }, {
-      id: 2,
-      name: 'Main Cave',
-    }, {
-      id: 3,
-      name: 'Main Bulge',
-    }, {
-      id: 4,
-      name: 'Main Back Flat',
-    }],
-  ropes: [
-    {
-      id: 1,
-      name: 'Front Alcove',
-    }, {
-      id: 2,
-      name: 'Archway',
-    }, {
-      id: 3,
-      name: 'Pillar',
-    }, {
-      id: 4,
-      name: 'Lead Cave',
-    }, {
-      id: 5,
-      name: 'Back Alcove'
-  }],
-}
-
 class ClimbingSectionsForAGym extends React.Component {
   constructor(props) {
     super(props)
