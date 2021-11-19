@@ -26,8 +26,6 @@ class SpecificGymSection extends React.Component {
       selectedClimbType: event.target.value,
       sections: selectedSectionList,
     })
-
-    console.log(selectedSectionList)
   }
 
   async componentDidMount() {
@@ -39,7 +37,6 @@ class SpecificGymSection extends React.Component {
     })
 
   }
-
 
   render() {
     return (
