@@ -1,36 +1,60 @@
+import axios from 'axios'
 import React from 'react'
 
-const gym = {
-  id: 1,
-  name: 'Worcester',
-  climbType: 'Boulder',
-  sections: [
-    {
-      id: 1,
-      name: 'Main Front Flat',
-    }, {
-      id: 2,
-      name: 'Main Cave',
-    }, {
-      id: 3,
-      name: 'Main Bulge',
-    }, {
-      id: 4,
-      name: 'Main Back Flat',
-    }],
-}
-
 class SpecificGymSection extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      selectedClimbType: 'Boulders',
+      gym: {}, 
+      sections: []
+    }
+
+    this.handleChange = this.handleChange.bind(this)
+  }
+  
+  handleChange(event) {
+    const { gym } = this.state
+    
+    const selectedSectionList = event.target.value === 'Boulders'
+    ? gym.boulderSections
+    : gym.routeSections
+    
+
+    this.setState({
+      selectedClimbType: event.target.value,
+      sections: selectedSectionList,
+    })
+
+    console.log(selectedSectionList)
+  }
+
+  async componentDidMount() {
+    const { data } = await axios.get('http://localhost:1337/api/gymWithSections/1')
+
+    this.setState({
+      gym: data,
+      sections: data.boulderSections
+    })
+
+  }
+
+
   render() {
     return (
       <>
-        <h1 className="centered-text">{gym.name}</h1>
+        <h1 className="centered-text">{this.state.gym.name }</h1>
+        <select onChange={this.handleChange} value={this.state.selectedClimbType}>
+          <option value="Boulders">Boulder Sections</option>
+          <option value="Routes">Route Sections</option>
+        </select>
         <div className="location-grid">
-          <div className="boulder-locations">
-            <h3 className="centered-text">{`${gym.climbType} sections`}</h3>
+          <div className={`${this.state.climbType}-locations`}>
+            <h3 className="centered-text">{`${this.state.selectedClimbType} sections`}</h3>
             <ul>
               {
-                gym.sections.map(section => {
+                this.state.sections.map(section => {
                   return (
                     <li key={section.id} className="centered-text inside-bullet">{section.name}</li>
                   )
@@ -41,7 +65,7 @@ class SpecificGymSection extends React.Component {
 
           <div>
             <h3 className="centered-text">
-              <a href={`/gymSections/edit/${gym.id}`}>Edit All Section Names</a>
+              <a href={`/gymSections/edit/${this.state.gym.id}`}>Edit All Section Names</a>
             </h3>
           </div>
         </div>
