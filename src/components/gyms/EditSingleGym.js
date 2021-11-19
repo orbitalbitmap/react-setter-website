@@ -43,10 +43,10 @@ class EditSingleGym extends React.Component {
   }
 
   render() {
-
     if (!this.state.gym.name) {
       return (<h2>We cannot find the gym you wish to edit.</h2>)
     }
+
     return (
       <>
         <h1 className="centered-text">Edit {this.state.gym.name}'s Gym Information</h1>
