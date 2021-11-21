@@ -94,7 +94,6 @@ class UpdateClimbingSections extends React.Component {
       <>
         <h1 className="centered-text">{this.state.gym.name}</h1>
         <form action="/api/updateRouteSectionNames" method="post" className="editable-section-form">
-          <input className="hidden" name="gymId" value={this.state.gym.id} disabled />
           <h1 className="centered-text">Ropes</h1>
           <div className="section-details" id="route-sections">
             {
