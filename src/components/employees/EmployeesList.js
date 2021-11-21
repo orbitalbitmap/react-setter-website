@@ -1,16 +1,17 @@
+import axios from 'axios'
 import React from 'react'
 
 class EmployeeList extends React.Component {
   state = {
-    employees: [{
-      id: 1,
-      firstName: 'Rob',
-      lastName: 'Perron',
-    }, {
-      id: 2,
-      firstName: 'Kyle',
-      lastName: 'Birnbaum',
-    }] 
+    employees: [] 
+  }
+
+  async componentDidMount() {
+    const { data } = await axios.get('http://localhost:1337/api/employees')
+
+    this.setState({
+      employees: data
+    })
   }
 
   renderList() {
