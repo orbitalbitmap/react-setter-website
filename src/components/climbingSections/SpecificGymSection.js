@@ -6,7 +6,7 @@ class SpecificGymSection extends React.Component {
     super(props)
 
     this.state = {
-      selectedClimbType: 'Boulders',
+      selectedClimbType: 'Boulder',
       gym: {}, 
       sections: []
     }
@@ -17,7 +17,7 @@ class SpecificGymSection extends React.Component {
   handleChange(event) {
     const { gym } = this.state
     
-    const selectedSectionList = event.target.value === 'Boulders'
+    const selectedSectionList = event.target.value === 'Boulder'
     ? gym.boulderSections
     : gym.routeSections
     
@@ -42,10 +42,12 @@ class SpecificGymSection extends React.Component {
     return (
       <>
         <h1 className="centered-text">{this.state.gym.name }</h1>
-        <select onChange={this.handleChange} value={this.state.selectedClimbType}>
-          <option value="Boulders">Boulder Sections</option>
-          <option value="Routes">Route Sections</option>
-        </select>
+        <div className="centered-text">
+          <select onChange={this.handleChange} value={this.state.selectedClimbType}>
+            <option value="Boulder">Boulder Sections</option>
+            <option value="Route">Route Sections</option>
+          </select>
+        </div>
         <div className="location-grid">
           <div className={`${this.state.climbType}-locations`}>
             <h3 className="centered-text">{`${this.state.selectedClimbType} sections`}</h3>
