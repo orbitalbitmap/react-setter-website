@@ -1,3 +1,4 @@
+import axios from 'axios'
 import React from 'react'
 
 class UpdateClimbingSections extends React.Component {
@@ -5,46 +6,13 @@ class UpdateClimbingSections extends React.Component {
     super(props)
 
     this.state = {
-      gym: {
-        id: 1,
-        name: 'Worcester',
-        boulders: [
-          {
-            id: 1,
-            name: 'Main Front Flat',
-          }, {
-            id: 2,
-            name: 'Main Cave',
-          }, {
-            id: 3,
-            name: 'Main Bulge',
-          }, {
-            id: 4,
-            name: 'Main Back Flat',
-          }],
-        ropes: [
-          {
-            id: 1,
-            name: 'Front Alcove',
-          }, {
-            id: 2,
-            name: 'Archway',
-          }, {
-            id: 3,
-            name: 'Pillar',
-          }, {
-            id: 4,
-            name: 'Lead Cave',
-          }, {
-            id: 5,
-            name: 'Back Alcove'
-        }],
-      }
+      gym: {}
     }
 
     this.addNewSection = this.addNewSection.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.renderSectionFrom = this.renderSectionFrom.bind(this)
   }
 
   handleChange(event) {
@@ -67,11 +35,13 @@ class UpdateClimbingSections extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault()
+
+    console.log(this.state)
   }
 
   addNewSection(event) {
-    let sectionType = event.target.dataset.sectiontype
-    let newSectionId = this.state.gym[sectionType].length + 1
+    const sectionType = event.target.dataset.sectiontype
+    const newSectionId = this.state.gym[sectionType].length + 1
     
     this.setState({
       gym: {
@@ -80,6 +50,7 @@ class UpdateClimbingSections extends React.Component {
           ...this.state.gym[sectionType],
           {
             id: newSectionId,
+            gymId: this.state.gym.id,
             name: ''
           }
         ]
@@ -87,7 +58,38 @@ class UpdateClimbingSections extends React.Component {
     })
   }
 
+  renderSectionFrom(sections, type) {
+    return sections.map(section => {
+      return (    
+        <div key={`${type}-section-${section.id}`} className="gym-section-grid">
+          <input className="hidden" name="id" value={section.id} disabled />
+          <label htmlFor="name">Name:</label>
+          <input
+            onChange={this.handleChange}
+            name="name"
+            value={section.name !== null ? section.name : ''}
+            data-sectiontype={`${type}Sections`}
+            data-gymid={section.id}
+            placeholder="Enter section name..."
+          />
+        </div>
+      )
+    })
+  }
+
+  async componentDidMount() {
+    const { data } = await axios.get('http://localhost:1337/api/gymWithSections/1')
+
+    this.setState({
+      gym: data
+    })
+  }
+
   render() {
+    if (!this.state.gym.name) {
+      return (<h2>Loading...</h2>)
+    }
+
     return (
       <>
         <h1 className="centered-text">{this.state.gym.name}</h1>
@@ -96,27 +98,14 @@ class UpdateClimbingSections extends React.Component {
           <h1 className="centered-text">Ropes</h1>
           <div className="section-details" id="route-sections">
             {
-              this.state.gym.ropes.map(section => {
-                return (    
-                  <div key={`rope-section-${section.id}`} className="gym-section-grid">
-                    <input className="hidden" name="id" value={section.id} disabled />
-                    <label htmlFor="name">Name:</label>
-                    <input
-                      onChange={this.handleChange}
-                      name="name"
-                      value={section.name !== null ? section.name : ''}
-                      data-sectiontype="ropes"
-                      data-gymid={section.id}
-                      placeholder="Enter section name..."
-                    />
-                  </div>
-                )
-              })
+              this.state.gym.routeSections
+                ? this.renderSectionFrom(this.state.gym.routeSections, 'route')
+                : (<h2>No Route Sections Found.</h2>)
             }
           </div>
           
           <div className="section-button-container">
-            <button className="section-button" type="button" onClick={this.addNewSection} data-sectiontype="ropes">Add New Section</button>
+            <button className="section-button" type="button" onClick={this.addNewSection} data-sectiontype="routeSections">Add New Section</button>
             <button className="section-button" onClick={this.handleSubmit} type="submit">Save Info</button>
           </div>
         </form>
@@ -125,27 +114,14 @@ class UpdateClimbingSections extends React.Component {
           <input className="hidden" name="gymId" value={this.state.gym.id} disabled />
           <h1 className="centered-text">Boulders</h1>
           <div className="section-details" id="boulder-sections">
-            {
-              this.state.gym.boulders.map( section =>{
-                return (
-                  <div key={`boulder-section-${section.id}`} className="gym-section-grid">
-                    <input className="hidden" name="id" value={section.id} disabled />
-                    <label htmlFor="name">Name:</label>
-                    <input
-                      onChange={this.handleChange}
-                      name="name"
-                      value={section.name !== null ? section.name : ''}
-                      data-sectiontype="boulders"
-                      data-gymid={section.id}
-                      placeholder="Enter section name..."
-                    />
-                  </div>
-                )
-              })
+          {
+              this.state.gym.boulderSections
+                ? this.renderSectionFrom(this.state.gym.boulderSections, 'boulder')
+                : (<h2>No Boulder Sections Found.</h2>)
             }
           </div>
           <div className="section-button-container">
-            <button className="section-button" type="button" onClick={this.addNewSection} data-sectiontype="boulders">Add New Section</button>
+            <button className="section-button" type="button" onClick={this.addNewSection} data-sectiontype="boulderSections">Add New Section</button>
             <button className="section-button" onClick={this.handleSubmit} type="submit">Save Info</button>
           </div>
         </form>
