@@ -1,3 +1,4 @@
+import axios from 'axios'
 import React from 'react'
 
 class UpdateEmployee extends React.Component {
@@ -5,24 +6,8 @@ class UpdateEmployee extends React.Component {
     super(props)
 
     this.state = {
-      user: {
-        firstName: 'Rob',
-        lastName: 'Perron',
-        roleId: 1,
-        email: "robp@centralrockgym.com",
-        password: "NotYourRealPassword",
-        phoneNumber: "555-666-7777",
-        placardName: 'Roboat',
-        employeeGymList: [1],
-        oldEmployeeGymList: []
-      },
-      gyms: [{
-        gymId: 1,
-        name: 'Worcester',
-      }, {
-        gymId: 2,
-        name: 'Hadley',
-      }],
+      employee: {},
+      gyms: [],
     }
 
     this.handleChange = this.handleChange.bind(this)
@@ -30,20 +15,10 @@ class UpdateEmployee extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  componentDidMount() {
-    this.setState({
-      user: {
-        ...this.state.user,
-        oldEmployeeGymList: [...this.state.user.employeeGymList]
-      }
-    })
-  }
-
-
   handleChange(event) {
     this.setState({
-      user: {
-        ...this.state.user,
+      employee: {
+        ...this.state.employee,
         [event.target.name]: event.target.value
       }
     })
@@ -51,25 +26,27 @@ class UpdateEmployee extends React.Component {
 
   handleCheckbox(event) {
     const gymId = parseInt(event.target.value)
+
     switch (event.target.checked) {
       case false: 
         this.setState({
-          user: {
-            ...this.state.user,
-            employeeGymList: this.state.user.employeeGymList.filter(gymListId => {
-              return gymListId !== gymId
+          employee: {
+            ...this.state.employee,
+            gyms: this.state.employee.gyms.filter(employeeGym => {
+              return employeeGym.id !== gymId
             })
           }
         })
         break
       default:
+        const gymToAdd = this.state.gyms.find(gym => gymId === gym.id)
         this.setState({
-          user: {
-            ...this.state.user,
-            employeeGymList: [
-              ...this.state.user.employeeGymList,
-              gymId,
-            ].sort()
+          employee: {
+            ...this.state.employee,
+            gyms: [
+              ...this.state.employee.gyms,
+              gymToAdd,
+            ].sort((gymA, gymB) => gymA.id - gymB.id)
           }
         })
     }
@@ -78,8 +55,26 @@ class UpdateEmployee extends React.Component {
   handleSubmit(event) {
     event.preventDefault()
   }
+
+  async componentDidMount() {
+    const employeesData = await axios.get('http://localhost:1337/api/employees/1')
+    const gymsData = await axios.get('http://localhost:1337/api/gyms')
+
+    await this.setState({
+      employee: {
+        ...employeesData.data,
+        oldEmployeeGymList: employeesData.data.gyms
+      },
+      gyms: gymsData.data
+    })
+  }
   
   render() {
+    console.log(this.state.employee.gyms)
+    if (!this.state.employee.id) {
+      return (<h2>Loading...</h2>)
+    }
+
     return (
       <form id="employee-form">
         <div className="employee-form-grid" name="update-employee-form">
@@ -87,7 +82,7 @@ class UpdateEmployee extends React.Component {
 
           <label htmlFor="placardName">Name on placard:</label> 
           <input 
-            value={this.state.user.placardName}
+            value={this.state.employee.placardName}
               onChange={this.handleChange}
             name="placardName"
             type="text"
@@ -95,7 +90,7 @@ class UpdateEmployee extends React.Component {
           
           <label htmlFor="email">Email address:</label> 
           <input 
-            value={this.state.user.email}
+            value={this.state.employee.email}
             name="email"
             onChange={this.handleChange}
             type="text"
@@ -103,7 +98,7 @@ class UpdateEmployee extends React.Component {
 
           <label htmlFor="password">Password:</label> 
           <input 
-            value={this.state.user.password}
+            value={this.state.employee.password}
             name="password"
             onChange={this.handleChange}
             type="password"
@@ -111,7 +106,7 @@ class UpdateEmployee extends React.Component {
 
           <label htmlFor="password">Phone #:</label> 
           <input 
-            value={this.state.user.phoneNumber}
+            value={this.state.employee.phoneNumber}
             name="phoneNumber"
             onChange={this.handleChange}
             type="phoneNumber"
@@ -124,8 +119,8 @@ class UpdateEmployee extends React.Component {
           <select 
             name="roleId"
             defaultValue={
-              this.state.user.roleId
-                ? this.state.user.roleId
+              this.state.employee.roleId
+                ? this.state.employee.roleId
                 : 5
             }
             onChange={this.handleChange}
@@ -144,13 +139,13 @@ class UpdateEmployee extends React.Component {
           {
             this.state.gyms.map(gym => {
               return (
-              <div key={gym.gymId}>
+              <div key={gym.id}>
                 <label htmlFor="gyms" form="update-employee-form">{`${gym.name}:`}</label> 
                 <input
-                  checked={this.state.user.employeeGymList.includes(gym.gymId) ? true : false}
+                  checked={this.state.employee.gyms.filter(employeeGym => employeeGym.id === gym.id).length > 0}
                   className="checkbox"
                   form="update-employee-form"
-                  value={gym.gymId}
+                  value={gym.id}
                   name="gyms"
                   onChange={this.handleCheckbox}
                   type="checkbox"
