@@ -1,3 +1,4 @@
+import axios from 'axios'
 import React from 'react'
 
 
@@ -15,13 +16,7 @@ class NewEmployeeForm extends React.Component {
         roleId: 0,
         employeeGymList: []
       },
-      gyms: [{
-        gymId: 1,
-        name: 'Worcester',
-      }, {
-        gymId: 2,
-        name: 'Hadley',
-      }],
+      gyms: [],
     }
   
     this.handleChange = this.handleChange.bind(this)
@@ -40,26 +35,27 @@ class NewEmployeeForm extends React.Component {
   }
 
   handleCheckbox(event) {
-    const gymId = parseInt(event.target.value)
+    const id = parseInt(event.target.value)
     switch (event.target.checked) {
       case false:
         this.setState({
           newUser: {
             ...this.state.newUser,
-            employeeGymList: this.state.newUser.employeeGymList.filter(employeeListId => {
-              return employeeListId !== gymId
+            employeeGymList: this.state.newUser.employeeGymList.filter(gym => {
+              return gym.id !== id
             })
           }
         })
         break
       default:
+        const gymToAdd = this.state.gyms.find(gym => gym.id === id)
         this.setState({
           newUser: {
             ...this.state.newUser,
             employeeGymList: [
               ...this.state.newUser.employeeGymList,
-              gymId
-            ].sort()
+              gymToAdd
+            ].sort((gymA, gymB) => gymA.id - gymB.id)
           }
         })
     }
@@ -67,6 +63,14 @@ class NewEmployeeForm extends React.Component {
 
   hanldeSubmit(event) {
     event.preventDefault()
+  }
+
+  async componentDidMount() {
+    const { data } = await axios.get('http://localhost:1337/api/gyms')
+
+    this.setState({
+      gyms: data
+    })
   }
 
   render(){
@@ -137,15 +141,15 @@ class NewEmployeeForm extends React.Component {
             {
               this.state.gyms.map(gym => {
                 return (
-                  <div key={gym.gymId}>
+                  <div key={gym.id}>
                     <label htmlFor="gyms" form="employee-form">{gym.name}:</label>
                     <input
                       type="checkbox"
                       className="checkbox"
                       form="employee-form" 
                       name="gyms"
-                      value={gym.gymId}
-                      checked={this.state.newUser.employeeGymList.includes(gym.gymId)}
+                      value={gym.id}
+                      checked={this.state.newUser.employeeGymList.some(employeeGym => employeeGym.id === gym.id)}
                       onChange={this.handleCheckbox}
                     />
                   </div>
