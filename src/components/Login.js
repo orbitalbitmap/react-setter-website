@@ -1,4 +1,8 @@
+import axios from 'axios'
 import React from 'react'
+
+const { checkPass } = require('../helpers/bcrypt');
+
 
 class Login extends React.Component {
   constructor(props) {
@@ -32,8 +36,25 @@ class Login extends React.Component {
     })
   }
 
-  handleSubmit(event) {
+  async handleSubmit(event) {
     event.preventDefault()
+    const { data } = await axios.get(`http://localhost:1337/api/employeeByEmail/${this.state.user.email}`)
+
+    if (!data.password) {
+      console.log('none found')
+      return;
+    }
+    
+    const passwordDoesMatch = await checkPass(this.state.user.password, data.password);
+  
+    console.log(passwordDoesMatch)
+    
+    if (!passwordDoesMatch) {
+      console.log('none found')
+      return;
+    }
+
+    console.log(data)
   }
 
   
