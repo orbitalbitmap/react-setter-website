@@ -21,12 +21,13 @@ class Login extends React.Component {
           type: "submit",
         },
       ],
+      test: 'component'
     }
 
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
-
+  
   handleChange(event) {
     this.setState({
       user: {
@@ -35,7 +36,6 @@ class Login extends React.Component {
       }
     })
   }
-
   async handleSubmit(event) {
     event.preventDefault()
     const { data } = await axios.get(`http://localhost:1337/api/employeeByEmail/${this.state.user.email}`)
@@ -59,6 +59,8 @@ class Login extends React.Component {
 
   
   render() {
+  console.log(this.state.test)
+
     return (
       <form id="employee-form" action="/login" method="GET">
         <div className="employee-form-grid">

@@ -4,7 +4,7 @@ class Dashboard extends React.Component {
   renderList() {
     return this.props.user.gyms.map(gym => {
       return (
-        <ul key={`user-gym-list-${gym.gymId}`}>
+        <ul key={`user-gym-list-${gym.id}`}>
           <li key={gym.gymId}>
             <h3> 
               <a href={`/gyms/${gym.name}`}>{gym.name}</a>
