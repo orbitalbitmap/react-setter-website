@@ -53,14 +53,10 @@ class Login extends React.Component {
       console.log('none found')
       return;
     }
-
-    console.log(data)
   }
 
   
   render() {
-  console.log(this.state.test)
-
     return (
       <form id="employee-form" action="/login" method="GET">
         <div className="employee-form-grid">

@@ -70,7 +70,6 @@ class UpdateEmployee extends React.Component {
   }
   
   render() {
-    console.log(this.state.employee.gyms)
     if (!this.state.employee.id) {
       return (<h2>Loading...</h2>)
     }
