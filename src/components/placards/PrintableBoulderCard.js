@@ -2,7 +2,7 @@ import React from 'react'
 import axios from 'axios'
 
 import BoulderPlacard from './BoulderPlacard'
-import ClimbSelectors from './ClimbSelectors'
+import PlacardSelectors from './PlacardSelectors'
 
 class PrintableBoulderCard extends React.Component {
   constructor(props) {
@@ -112,11 +112,12 @@ class PrintableBoulderCard extends React.Component {
   render() {
     return (
       <>
-        <ClimbSelectors
+        <PlacardSelectors
           className="noprint selection-container-top"
           climbs={this.state.climbs}
           handleChange={this.handleChange}
           handleAreteSelect={this.handleAreteSelect}
+          location="top"
           nameList={[1,2,3]}
           selectorType="boulder"
         />
@@ -138,11 +139,12 @@ class PrintableBoulderCard extends React.Component {
           }
         />
 
-        <ClimbSelectors
+        <PlacardSelectors
           className="noprint selection-container-bottom"
           climbs={this.state.climbs}
           handleChange={this.handleChange}
           handleAreteSelect={this.handleAreteSelect}
+          location="bottom"
           nameList={[4,5,6]}
           selectorType="boulder"
         />

@@ -3,8 +3,6 @@ import React from 'react'
 import BoulderSlot from './BoulderSlot'
 
 class BoulderPlacard extends React.Component {
-  
-  
   render() {
     return (
       <div className="placard-container">

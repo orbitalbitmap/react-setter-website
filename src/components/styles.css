@@ -923,26 +923,25 @@ body {
   margin: 0.75rem 0;
 }
 
-.boulder-selectors-top,
-.boulder-selectors-middle,
-.boulder-selectors-bottom,
+.boulder-selectors-box,
 .route-selector-top,
 .route-selector-middle,
 .route-selector-bottom {
   font-size: 1.125rem;
 }
 
-.boulder-selectors-top,
+.boulder-selectors > label{
+  margin-right: 1rem;
+}
+
 .route-selector-top {
   margin-left: 3.188rem;
 }
 
-.boulder-selectors-middle,
 .route-selector-middle {
   margin-left: 0.75rem;
 }
 
-.boulder-selectors-bottom,
 .route-selector-bottom {
   margin-left: 2.063rem;
 }
