@@ -7,7 +7,7 @@ class AreteSelector extends React.Component {
   render() {
     return (
       <div>
-        <label htmlFor={`arete${this.props.name}`} >Arete:</label>
+        <label htmlFor={`arete${this.props.name}`} >Arete: </label>
         <select onChange={this.props.onChange} name={this.props.name} default="1">
           <option value="1">None</option>
           <option value="2">On</option>

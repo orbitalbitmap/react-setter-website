@@ -9,53 +9,59 @@ class PrintableBoulderCard extends React.Component {
     super(props)
 
     this.state = {
-      boulder1: {
-        grade: null,
-        color: null,
-        dateSet: null,
-        setter: null,
+      climbsPerPlacard: 3,
+      selectedClimbs: {
+        boulder1: {
+          grade: null,
+          color: null,
+          dateSet: null,
+          setter: null,
+        },
+        boulder2: {
+          grade: null,
+          arete: null, 
+          dateSet: null,
+          setter: null,
+        },
+        boulder3: {
+          grade: null,
+          arete: null, 
+          dateSet: null,
+          setter: null,
+        },
+        boulder4: {
+          grade: null,
+          arete: null, 
+          dateSet: null,
+          setter: null,
+        },
+        boulder5: {
+          grade: null,
+          arete: null, 
+          dateSet: null,
+          setter: null,
+        },
+        boulder6: {
+          grade: null,
+          arete: null, 
+          dateSet: null,
+          setter: null,
+        },
       },
-      boulder2: {
-        grade: null,
-        arete: null, 
-        dateSet: null,
-        setter: null,
-      },
-      boulder3: {
-        grade: null,
-        arete: null, 
-        dateSet: null,
-        setter: null,
-      },
-      boulder4: {
-        grade: null,
-        arete: null, 
-        dateSet: null,
-        setter: null,
-      },
-      boulder5: {
-        grade: null,
-        arete: null, 
-        dateSet: null,
-        setter: null,
-      },
-      boulder6: {
-        grade: null,
-        arete: null, 
-        dateSet: null,
-        setter: null,
-      },
+
       arete1: null,
       arete2: null,
       arete3: null,
       arete4: null,
       arete5: null,
       arete6: null,
+
       climbs: []
     }
 
-    this.handleChange = this.handleChange.bind(this)
     this.handleAreteSelect = this.handleAreteSelect.bind(this)
+    this.handleClimbsPerPlacardChange = this.handleClimbsPerPlacardChange.bind(this)
+    this.handleClimbSelector = this.handleClimbSelector.bind(this)
   }
 
   async componentDidMount() {
@@ -66,25 +72,37 @@ class PrintableBoulderCard extends React.Component {
     })
   }
 
-  handleChange(event) {
+  handleClimbsPerPlacardChange(event) {
+    this.setState({
+      climbsPerPlacard: parseInt(event.target.value)
+    })
+  }
+
+  handleClimbSelector(event) {
     const selectedClimb = this.state.climbs[event.target.value -1]
 
     if(event.target.value === 'blank') {
       this.setState({
-        [event.target.name]: {
-          grade: null,
-          color: null, 
-          dateSet: null,
-          setter: null,
+        climbs: {
+          ...this.state.selectedClimbs,
+          [event.target.name]: {
+            grade: null,
+            color: null, 
+            dateSet: null,
+            setter: null,
+          }
         }
       })
     } else {
       this.setState({
-        [event.target.name]: {
+        selectedClimbs: {
+          ...this.state.selectedClimbs,
+          [event.target.name]: {
           grade: selectedClimb.grade,
           color: selectedClimb.color, 
           dateSet: selectedClimb.dateSet,
           setter: selectedClimb.setter,
+          }
         }
       })
     }
@@ -109,61 +127,58 @@ class PrintableBoulderCard extends React.Component {
     }
   }
 
+  getClimbList(startValue, endValue) {
+    const climbsToPassDown = Object.entries(this.state.selectedClimbs)
+    let climbList = []
+
+    climbsToPassDown.forEach(([key, value]) => {
+      const climbNumber = parseInt(key[key.length - 1])
+      if (climbNumber >= startValue && climbNumber <= endValue) {
+        climbList = climbList.concat({ ...value, message: this.state[`arete${climbNumber}`] })
+      }
+    })
+
+    return climbList
+  }
+
   render() {
     return (
       <>
+        <label htmlFor="climbsPerPlacard"></label>
+        <select onChange={this.handleClimbsPerPlacardChange} name="climbsPerPlacard" default="3">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+
         <PlacardSelectors
           className="noprint selection-container-top"
           climbs={this.state.climbs}
-          handleChange={this.handleChange}
+          handleClimbSelector={this.handleClimbSelector}
           handleAreteSelect={this.handleAreteSelect}
           location="top"
           nameList={[1,2,3]}
           selectorType="boulder"
         />
 
-        <BoulderPlacard 
-          climbs={
-            [
-              {
-                boulder1: this.state.boulder1,
-                message: this.state.arete1
-              }, {
-                boulder2: this.state.boulder2,
-                message: this.state.arete2
-              }, {
-                boulder3: this.state.boulder3,
-                message: this.state.arete3
-              },
-            ]
-          }
+        <BoulderPlacard
+          climbs={ this.getClimbList(1, this.state.climbsPerPlacard) }
         />
 
         <PlacardSelectors
           className="noprint selection-container-bottom"
           climbs={this.state.climbs}
-          handleChange={this.handleChange}
+          handleClimbSelector={this.handleClimbSelector}
           handleAreteSelect={this.handleAreteSelect}
           location="bottom"
           nameList={[4,5,6]}
           selectorType="boulder"
         />
 
-        <BoulderPlacard 
-          climbs={
-            [
-              {
-                boulder1: this.state.boulder4,
-                message: this.state.arete4
-              }, {
-                boulder2: this.state.boulder5,
-                message: this.state.arete5
-              }, {
-                boulder3: this.state.boulder6,
-                message: this.state.arete6
-              },
-            ]
-          }
+        <BoulderPlacard
+          climbs={ this.getClimbList(this.state.climbsPerPlacard + 1, this.state.climbsPerPlacard * 2) }
         />
 
         <button className="noprint" type="submit" onClick={window.print}>Print</button>

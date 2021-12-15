@@ -1,6 +1,6 @@
 import React from 'react'
 import axios from 'axios'
-import ClimbSelectors from './ClimbSelectors'
+import PlacardSelectors from './PlacardSelectors'
 import RoutePlacard from './RoutePlacard'
 
 class PrintableRouteCard extends React.Component {
@@ -31,11 +31,11 @@ class PrintableRouteCard extends React.Component {
       climbs: [],
       emptyClimb: {}, 
     }
-    this.handleChange = this.handleChange.bind(this)
+    this.handleClimbSelector = this.handleClimbSelector.bind(this)
     this.handleAreteSelect = this.handleAreteSelect.bind(this)
   }
 
-  handleChange(event) {
+  handleClimbSelector(event) {
     const selectedClimb = this.state.climbs[event.target.value -1]
 
     if(event.target.value === 'blank') {
@@ -91,19 +91,21 @@ class PrintableRouteCard extends React.Component {
   }
 
   render() {
+    console.log(this.state)
     return (
         <>
-          <ClimbSelectors
-            className="noprint selection-container-top"
-            climbs={this.state.climbs}
-            handleChange={this.handleChange}
-            handleAreteSelect={this.handleAreteSelect}
-            nameList={[1,2,3]}
-            selectorType="route"
-          />
+          <PlacardSelectors
+          className="noprint selection-container-top"
+          climbs={this.state.climbs}
+          handleClimbSelector={this.handleClimbSelector}
+          handleAreteSelect={this.handleAreteSelect}
+          location="top"
+          nameList={[1,2,3]}
+          selectorType="route"
+        />
 
-          <div className="placard-container">
-            <div className="route-three-column-flex">
+          <div className="route-placard-container centered-text">
+            <div className="route-three-grid-column">
               <RoutePlacard 
                 climbs={
                   [
@@ -121,6 +123,25 @@ class PrintableRouteCard extends React.Component {
                 }
                 nameList={[1,2,3]}
               />
+            </div>
+            <div className="route-image-grid">
+              <div className="route-placard-images">
+                <img className="route-crg-logo" src="/images/CRG_Logo_Text_M.jpeg" alt="Central Rock Gym logo" />
+              </div>
+              <div className="route-social-grid">
+                <div>
+                  <img className="route-instagram-logo" src="/images/Facebook_logo.png" alt="Facbook logo"/>
+                  <div className="route-insta-handle">Central Rock Worcester</div>
+                </div>
+                <div>
+                  <img className="route-instagram-logo" src="/images/Twitter_colored_logo.png" alt="Twitter logo"/>
+                  <span className="route-insta-handle">@crgworcester</span>
+                </div>
+                <div>
+                  <img className="route-instagram-logo" src="/images/IG_logo.png" alt="Instagram logo"/>
+                  <span className="route-insta-handle">@crgworcester</span>
+                </div>
+              </div>
             </div>
           </div>
         </>

@@ -11,7 +11,7 @@ class ClimbSelectors extends React.Component {
           <div className={`${this.props.selectorType}-selectors`}>
             <ClimbSelector
               labelText={`Slot #${this.props.nameList[0]}`}
-              handleChange={this.props.handleChange}
+              handleClimbSelector={this.props.handleClimbSelector}
               climbs={this.props.climbs} 
               selectorType={this.props.selectorType}
               slotId={this.props.nameList[0]}
@@ -26,7 +26,7 @@ class ClimbSelectors extends React.Component {
           <div className={`${this.props.selectorType}-selectors`}>
             <ClimbSelector
               labelText={`Slot #${this.props.nameList[1]}`}
-              handleChange={this.props.handleChange}
+              handleClimbSelector={this.props.handleClimbSelector}
               climbs={this.props.climbs} 
               selectorType={this.props.selectorType}
               slotId={this.props.nameList[1]}
@@ -41,14 +41,14 @@ class ClimbSelectors extends React.Component {
           <div className={`${this.props.selectorType}-selectors`}>
             <ClimbSelector
               labelText={`Slot #${this.props.nameList[2]}`}
-              handleChange={this.props.handleChange}
+              handleClimbSelector={this.props.handleClimbSelector}
               climbs={this.props.climbs} 
               selectorType={this.props.selectorType}
               slotId={this.props.nameList[2]}
             />
 
               <AreteSelector 
-                name={`arete${this.props.nameList[0]}`}
+                name={`arete${this.props.nameList[2]}`}
                 onChange={this.props.handleAreteSelect}
               />
           </div>

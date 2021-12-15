@@ -4,9 +4,9 @@ class ClimbSelector extends React.Component {
   render() {
     return (
       <>
-        <label htmlFor={`${this.props.selectorType}1`} >{this.props.labelText}</label>
+        <label htmlFor={`${this.props.selectorType}1`}>{this.props.labelText} </label>
         <select
-          onChange={this.props.handleChange}
+          onChange={this.props.handleClimbSelector}
           className={`${this.props.selectorType}-selectors-box`}
           name={`${this.props.selectorType}${this.props.slotId}`}
         >
