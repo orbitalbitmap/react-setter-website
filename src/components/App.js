@@ -17,6 +17,7 @@ import UpdateSectionsPage from '../pages/sections/UpdateSectionsPage'
 import CurrentRopeDistributionPage from '../pages/distribution/CurrentRopeDistributionPage'
 import CurrentBoulderDistributionPage from '../pages/distribution/CurrentBoulderDistributionPage'
 import AllLocations from '../pages/locations/AllLocationsPage';
+import SingleLocationPage from '../pages/locations/SingleLocationPage';
 
 const App = () => {
   return (
@@ -32,7 +33,7 @@ const App = () => {
           
           {/* Distribution paths */}
 
-          { /* Current */}
+            { /* Current */}
           <Route exact path="/distribution/current/ropes/:id" element={<CurrentRopeDistributionPage />} />
           <Route exact path="/distribution/current/boulders/:id" element={<CurrentBoulderDistributionPage />} />
 
@@ -41,6 +42,7 @@ const App = () => {
 
           {/* Locatation paths */}
           <Route exat path="/locations" element={<AllLocations />} />
+          <Route exat path="/locations/:name" element={<SingleLocationPage />} />
           
           {/* Sections paths */}
           <Route exact path="/sections" element={<AllLocationsAndSectionsPage />} />
