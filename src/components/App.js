@@ -9,10 +9,10 @@ import {
 import './styles.css'
 import LoginPage from '../pages/LoginPage'
 import DashboardPage from '../pages/DashboardPage'
-import AdminPage from '../pages/Admin/AdminDashboardPage'
+import AdminDashboardPage from '../pages/admin/AdminDashboardPage'
 import MetricsPage from '../pages/MetricsPage'
+import AllLocationsAndSectionsPage from '../pages/sections/AllLocationsAndSectionsPage'
 
-// 
 
 const App = () => {
   return (
@@ -21,8 +21,9 @@ const App = () => {
         <Routes>
           <Route exact path="/" element={<LoginPage />} />
           <Route exact path="/dashboard" element={<DashboardPage />} />
-          <Route exact path="/admin" element={<AdminPage />} />
+          <Route exact path="/admin" element={<AdminDashboardPage />} />
           <Route exact path="/metrics/:id" element={<MetricsPage />} />
+          <Route exact path="/sections" element={<AllLocationsAndSectionsPage />} />
         </Routes>
       </BrowserRouter>
     </div>
