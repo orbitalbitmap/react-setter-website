@@ -14,6 +14,7 @@ import MetricsPage from '../pages/MetricsPage'
 import AllLocationsAndSectionsPage from '../pages/sections/AllLocationsAndSectionsPage'
 import SectionsForSpecificGymPage from '../pages/sections/SectionsForSpecificGymPage'
 import BoulderSectionsForSpecificGymPage from '../pages/sections/BoulderSectionsForSpecificGymPage'
+import RopeSectionsForSpecificGymPage from '../pages/sections/RopeSectionsForSpecificGymPage'
 
 
 const App = () => {
@@ -28,6 +29,7 @@ const App = () => {
           <Route exact path="/sections" element={<AllLocationsAndSectionsPage />} />
           <Route exact path="/sections/:id" element={<SectionsForSpecificGymPage />} />
           <Route exact path="/sections/boulders/:id" element={<BoulderSectionsForSpecificGymPage />} />
+          <Route exact path="/sections/ropes/:id" element={<RopeSectionsForSpecificGymPage />} />
         </Routes>
       </BrowserRouter>
     </div>
