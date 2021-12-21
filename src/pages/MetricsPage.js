@@ -2,6 +2,7 @@ import axios from 'axios'
 import React from 'react'
 
 import Navbar from '../components/navbar/Navbar'
+import MetricsContainer from '../components/metrics/MetricsContainer'
 
 class MetricsPage extends React.Component {
   constructor(props) {
@@ -25,16 +26,7 @@ class MetricsPage extends React.Component {
     return (
       <>
         <Navbar user={this.state.user} gyms={this.state.gyms} />
-        <div>
-          <ul>
-            <li>
-              <a href="/admin/employee/new">New Employee</a>
-            </li>
-            <li>
-              <a href="/admin/location/new">New Location</a>
-            </li>
-          </ul>
-        </div>
+        <MetricsContainer />
       </>
     )
   }

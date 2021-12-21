@@ -10,6 +10,7 @@ import './styles.css'
 import LoginPage from '../pages/LoginPage'
 import DashboardPage from '../pages/DashboardPage'
 import AdminPage from '../pages/AdminPage'
+import MetricsPage from '../pages/MetricsPage'
 
 // 
 
@@ -21,6 +22,7 @@ const App = () => {
           <Route exact path="/" element={<LoginPage />} />
           <Route exact path="/dashboard" element={<DashboardPage />} />
           <Route exact path="/admin" element={<AdminPage />} />
+          <Route exact path="/metrics/:id" element={<MetricsPage />} />
         </Routes>
       </BrowserRouter>
     </div>
