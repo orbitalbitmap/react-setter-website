@@ -1,37 +1,35 @@
 import axios from 'axios'
 import React from 'react'
 
-import '../components/styles.css'
-import Login from '../components/Login'
+import Navbar from '../components/navbar/Navbar'
+import MetricsContainer from '../components/metrics/MetricsContainer'
 
-class LoginPage extends React.Component {
+class MetricsPage extends React.Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      user: {},
-      gyms: [], 
-      test: 'page'
+      user: {}
     }
   }
 
   async componentDidMount() {
     const user = (await axios.get('http://localhost:1337/api/employees/1')).data
     const gyms = (await axios.get('http://localhost:1337/api/gyms')).data
-    
     this.setState({
-      gyms: gyms,
-      user: user,
+      gyms,
+      user
     })
   }
-  
+
   render() {
     return (
-      <div>
-        <Login />
-      </div>
+      <>
+        <Navbar user={this.state.user} gyms={this.state.gyms} />
+        <MetricsContainer />
+      </>
     )
   }
 }
 
-export default LoginPage
+export default MetricsPage

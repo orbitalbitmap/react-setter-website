@@ -35,7 +35,6 @@ class SpecificGymSection extends React.Component {
       gym: data,
       sections: data.boulderSections
     })
-
   }
 
   render() {
