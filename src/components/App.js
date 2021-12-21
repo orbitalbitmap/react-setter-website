@@ -18,6 +18,7 @@ import CurrentRopeDistributionPage from '../pages/distribution/CurrentRopeDistri
 import CurrentBoulderDistributionPage from '../pages/distribution/CurrentBoulderDistributionPage'
 import AllLocations from '../pages/locations/AllLocationsPage';
 import SingleLocationPage from '../pages/locations/SingleLocationPage';
+import AllEmployeeesPage from '../pages/employees/AllEmployeesPage'
 
 const App = () => {
   return (
@@ -37,6 +38,10 @@ const App = () => {
           <Route exact path="/distribution/current/ropes/:id" element={<CurrentRopeDistributionPage />} />
           <Route exact path="/distribution/current/boulders/:id" element={<CurrentBoulderDistributionPage />} />
 
+          
+          {/* Employee paths */}
+          <Route exact path="/employees" element={<AllEmployeeesPage />} />
+          
           {/* Metric paths */}
           <Route exact path="/metrics/:id" element={<MetricsPage />} />
 
