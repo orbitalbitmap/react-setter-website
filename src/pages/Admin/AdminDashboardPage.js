@@ -1,7 +1,7 @@
 import axios from 'axios'
 import React from 'react'
 
-import Navbar from '../components/navbar/Navbar'
+import Navbar from '../../components/navbar/Navbar'
 
 class AdminPage extends React.Component {
   constructor(props) {

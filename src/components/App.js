@@ -9,7 +9,7 @@ import {
 import './styles.css'
 import LoginPage from '../pages/LoginPage'
 import DashboardPage from '../pages/DashboardPage'
-import AdminPage from '../pages/AdminPage'
+import AdminPage from '../pages/Admin/AdminDashboardPage'
 import MetricsPage from '../pages/MetricsPage'
 
 // 
