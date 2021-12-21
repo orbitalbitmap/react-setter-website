@@ -9,6 +9,7 @@ import {
 import './styles.css'
 import LoginPage from '../pages/LoginPage'
 import DashboardPage from '../pages/DashboardPage'
+import AdminPage from '../pages/AdminPage'
 
 // 
 
@@ -19,6 +20,7 @@ const App = () => {
         <Routes>
           <Route exact path="/" element={<LoginPage />} />
           <Route exact path="/dashboard" element={<DashboardPage />} />
+          <Route exact path="/admin" element={<AdminPage />} />
         </Routes>
       </BrowserRouter>
     </div>
