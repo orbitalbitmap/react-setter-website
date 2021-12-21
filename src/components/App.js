@@ -14,6 +14,9 @@ import MetricsPage from '../pages/MetricsPage'
 import AllLocationsAndSectionsPage from '../pages/sections/AllLocationsAndSectionsPage'
 import SectionsForSpecificGymPage from '../pages/sections/SectionsForSpecificGymPage'
 import UpdateSectionsPage from '../pages/sections/UpdateSectionsPage'
+import CurrentRopeDistributionPage from '../pages/distribution/CurrentRopeDistributionPage'
+import CurrentBoulderDistributionPage from '../pages/distribution/CurrentBoulderDistributionPage'
+
 
 
 const App = () => {
@@ -28,6 +31,12 @@ const App = () => {
           {/* Admin paths */}
           <Route exact path="/admin" element={<AdminDashboardPage />} />
           
+          {/* Distribution paths */}
+
+          { /* Current */}
+          <Route exact path="/distribution/current/ropes/:id" element={<CurrentRopeDistributionPage />} />
+          <Route exact path="/distribution/current/boulders/:id" element={<CurrentBoulderDistributionPage />} />
+
           {/* Metric paths */}
           <Route exact path="/metrics/:id" element={<MetricsPage />} />
           
@@ -35,6 +44,7 @@ const App = () => {
           <Route exact path="/sections" element={<AllLocationsAndSectionsPage />} />
           <Route exact path="/sections/:id" element={<SectionsForSpecificGymPage />} />
           <Route exact path="/sections/edit/:id" element={<UpdateSectionsPage />} />
+
         </Routes>
       </BrowserRouter>
     </div>
