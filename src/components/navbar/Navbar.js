@@ -15,7 +15,7 @@ const adminLink = (user) => {
 const renderGymLinks = (gymList = [], url) => {
   return gymList.map(gym => {
     return (
-      <li key={gym.id}>
+      <li key={gym.name}>
         <a href={`${url}/${gym.id}`}>{gym.name}</a>
       </li>
     )
@@ -23,6 +23,7 @@ const renderGymLinks = (gymList = [], url) => {
 }
 
 const Navbar = (props) => {
+  console.log(props)
   return (
     <>
       <div className="navbar-container noprint">
