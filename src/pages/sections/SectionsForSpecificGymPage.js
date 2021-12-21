@@ -2,6 +2,7 @@ import axios from 'axios'
 import React from 'react'
 
 import Navbar from '../../components/navbar/Navbar'
+import SpecificGymSection from '../../components/climbingSections/SpecificGymSection'
 
 class SectionsForSpecificGymPage extends React.Component {
   constructor(props) {
@@ -18,11 +19,9 @@ class SectionsForSpecificGymPage extends React.Component {
   async componentDidMount() {
     const user = (await axios.get('http://localhost:1337/api/employees/1')).data
     const gyms = (await axios.get('http://localhost:1337/api/allGymSections')).data
-    const specificGym = (await axios.get('http://localhost:1337/api/gymWithSections/1')).data
 
     this.setState({
       gyms,
-      specificGym,
       user
     })
   }
@@ -66,7 +65,7 @@ class SectionsForSpecificGymPage extends React.Component {
       <>
         <Navbar user={this.state.user} gyms={this.state.gyms} />
         <div className="centered-text">
-          {this.state.gyms ? this.renderSections() : null}
+          {this.state.gyms ? <SpecificGymSection /> : null}
         </div>
       </>
     )
