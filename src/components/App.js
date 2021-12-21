@@ -12,6 +12,7 @@ import DashboardPage from '../pages/DashboardPage'
 import AdminDashboardPage from '../pages/admin/AdminDashboardPage'
 import MetricsPage from '../pages/MetricsPage'
 import AllLocationsAndSectionsPage from '../pages/sections/AllLocationsAndSectionsPage'
+import SectionsForSpecificGymPage from '../pages/sections/SectionsForSpecificGymPage'
 
 
 const App = () => {
@@ -24,6 +25,7 @@ const App = () => {
           <Route exact path="/admin" element={<AdminDashboardPage />} />
           <Route exact path="/metrics/:id" element={<MetricsPage />} />
           <Route exact path="/sections" element={<AllLocationsAndSectionsPage />} />
+          <Route exact path="/sections/:id" element={<SectionsForSpecificGymPage />} />
         </Routes>
       </BrowserRouter>
     </div>
