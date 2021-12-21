@@ -3,7 +3,7 @@ import React from 'react'
 
 import Navbar from '../components/navbar/Navbar'
 
-class AdminPage extends React.Component {
+class MetricsPage extends React.Component {
   constructor(props) {
     super(props)
 
@@ -40,4 +40,4 @@ class AdminPage extends React.Component {
   }
 }
 
-export default AdminPage
+export default MetricsPage
