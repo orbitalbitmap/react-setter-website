@@ -12,6 +12,7 @@ class AllLocationsAndSections extends React.Component {
     }
 
     this.renderGymSections = this.renderGymSections.bind(this)
+    this.checkForSections = this.checkForSections.bind(this)
   }
 
   async componentDidMount() {
@@ -23,13 +24,41 @@ class AllLocationsAndSections extends React.Component {
     })
   }
 
+  checkForSections(gymName, sectionList, type) {
+    if (sectionList.length <= 0) {
+      return <li>{`No ${type} sections found.`}</li>
+    }
+
+    return sectionList.map(section => {
+      return (
+        <li key={`${gymName}-${type}-${section.id}`}>{section.name}</li>
+      )
+    })
+  }
+
   renderGymSections() {
     return (
-      <ul>
+      <ul style={{ listStyleType: "none", fontSize:"1.75rem", fontWeight: "bold" }}>
         { 
           this.state.gyms.map(gym => {
             return (
-              <li key={gym.id}>{gym.name}</li>
+              <React.Fragment key={gym.name}>
+                <li style={{ marginBottom: "4px", textDecoration: "underline"  }}>{gym.name}</li>
+                <span style={{ fontSize: "1.25rem", marginBottom: "4px", textDecoration: "underline" }}>Boulder Sections:</span>
+                <ul style={{ listStyleType: "none", fontSize:"1rem", marginBottom: "12px", padding: "0", }}>
+                  {
+                    this.checkForSections(gym.name, gym.boulderSections, "boulder")
+                  }
+                </ul>
+
+                <span style={{ fontSize: "1.25rem", marginBottom: "4px", textDecoration: "underline" }}>Rope Sections:</span>
+
+                <ul style={{ listStyleType: "none", fontSize:"1rem", marginBottom: "48px", padding: "0", }}>
+                  {
+                    this.checkForSections(gym.name, gym.routeSections, "rope")
+                  }
+                </ul>
+              </React.Fragment>
             )
           })
         }
@@ -42,7 +71,7 @@ class AllLocationsAndSections extends React.Component {
     return (
       <>
         <Navbar user={this.state.user} gyms={this.state.gyms} />
-        <div>
+        <div className="centered-text">
           {this.state.gyms ? this.renderGymSections() : null}
         </div>
       </>
