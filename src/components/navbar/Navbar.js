@@ -23,7 +23,6 @@ const renderGymLinks = (gymList = [], url) => {
 }
 
 const Navbar = (props) => {
-  console.log(props)
   return (
     <>
       <div className="navbar-container noprint">
