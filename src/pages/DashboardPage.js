@@ -1,12 +1,12 @@
 import axios from 'axios'
 import React from 'react'
+// import { Navigate } from 'react-router-dom'
 
 import '../components/styles.css'
 import Navbar from '../components/navbar/Navbar'
 import Dashboard from '../components/Dashboard'
 
-class DashboardPage
- extends React.Component {
+class DashboardPage extends React.Component {
   constructor(props) {
     super(props)
 
@@ -32,7 +32,7 @@ class DashboardPage
         {
           this.state.user.id
             ? <Dashboard user={this.state.user} />
-            : null
+            : null // <Navigate replace to="/" />
         }
       </>
     )
