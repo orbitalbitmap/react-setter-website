@@ -16,15 +16,17 @@ class LoginPage extends React.Component {
   }
 
   async componentDidMount() {
-    const userData = await axios.get('http://localhost:1337/api/employees/1')
-    const gymsData = await axios.get('http://localhost:1337/api/gyms')
+    const user = (await axios.get('http://localhost:1337/api/employees/1')).data
+    const gyms = (await axios.get('http://localhost:1337/api/gyms')).data
+    
     this.setState({
-      gyms: gymsData.data,
-      user: userData.data
+      gyms: gyms,
+      user: user,
     })
   }
   
   render() {
+    console.log(this.state)
     return (
       <div>
         <Login />
