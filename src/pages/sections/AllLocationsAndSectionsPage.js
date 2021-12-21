@@ -31,7 +31,7 @@ class AllLocationsAndSections extends React.Component {
 
     return sectionList.map(section => {
       return (
-        <li key={`${gymName}-${type}-${section.id}`}>{section.name}</li>
+        <li key={`${gymName}-${type}-${section.id}`} style= {{fontWeight: "normal"}}>{section.name}</li>
       )
     })
   }
