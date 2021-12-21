@@ -19,6 +19,7 @@ import CurrentBoulderDistributionPage from '../pages/distribution/CurrentBoulder
 import AllLocations from '../pages/locations/AllLocationsPage';
 import SingleLocationPage from '../pages/locations/SingleLocationPage';
 import AllEmployeeesPage from '../pages/employees/AllEmployeesPage'
+import SingleEmployeePage from '../pages/employees/SingleEmployeePage'
 
 const App = () => {
   return (
@@ -41,6 +42,7 @@ const App = () => {
           
           {/* Employee paths */}
           <Route exact path="/employees" element={<AllEmployeeesPage />} />
+          <Route exact path="/employees/:id" element={<SingleEmployeePage />} />
           
           {/* Metric paths */}
           <Route exact path="/metrics/:id" element={<MetricsPage />} />
