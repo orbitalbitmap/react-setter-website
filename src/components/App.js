@@ -1,41 +1,28 @@
-import axios from 'axios'
 import React from 'react'
 
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+} from "react-router-dom";
+
 import './styles.css'
-import Navbar from './navbar/Navbar'
-import Dashboard from './Dashboard'
+import LoginPage from '../pages/LoginPage'
+import DashboardPage from '../pages/DashboardPage'
 
-class App extends React.Component {
-  constructor(props) {
-    super(props)
+// 
 
-    this.state = {
-      user: {},
-      gyms: [], 
-    }
-  }
-
-  async componentDidMount() {
-    const userData = await axios.get('http://localhost:1337/api/employees/1')
-    const gymsData = await axios.get('http://localhost:1337/api/gyms')
-    this.setState({
-      gyms: gymsData.data,
-      user: userData.data
-    })
-  }
-  
-  render() {
-    return (
-      <>
-        <Navbar user={this.state.user} gyms={this.state.gyms} />
-        {
-          this.state.user.id
-            ? <Dashboard user={this.state.user} />
-            : null
-        }
-      </>
-    )
-  }
+const App = () => {
+  return (
+    <div>
+      <BrowserRouter>
+        <Routes>
+          <Route exact path="/" element={<LoginPage />} />
+          <Route exact path="/dashboard" element={<DashboardPage />} />
+        </Routes>
+      </BrowserRouter>
+    </div>
+  )
 }
 
 export default App
