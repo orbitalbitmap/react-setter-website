@@ -26,7 +26,7 @@ class AllLocationsAndSections extends React.Component {
 
   checkForSections(gymName, sectionList, type) {
     if (sectionList.length <= 0) {
-      return <li>{`No ${type} sections found.`}</li>
+      return <li style= {{fontWeight: "normal"}}>{`No ${type} sections found.`}</li>
     }
 
     return sectionList.map(section => {
