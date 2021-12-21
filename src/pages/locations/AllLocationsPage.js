@@ -5,7 +5,7 @@ import Gyms from '../../components/locations/Gyms'
 import Navbar from '../../components/navbar/Navbar'
 
 
-class AllLocations extends React.Component {
+class AllLocationsPage extends React.Component {
   constructor(props) {
     super(props)
 
@@ -36,4 +36,4 @@ class AllLocations extends React.Component {
   }
 }
 
-export default AllLocations
+export default AllLocationsPage
