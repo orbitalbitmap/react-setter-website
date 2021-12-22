@@ -26,6 +26,7 @@ import UpdateEmployeePage from '../pages/employees/UpdateEmployeePage';
 import AdminUpdateEmployeePage from '../pages/admin/AdminUpdateEmployeePage';
 import IdealBoulderDistribution from '../pages/distribution/IdealBoulderDistributionPage';
 import IdealRopeDistributionPage from '../pages/distribution/IdealRopeDistributionPage';
+import UpdateLocationPage from '../pages/admin/UpdateLocationInfo';
 
 const App = () => {
   return (
@@ -41,6 +42,8 @@ const App = () => {
           <Route exact path="/admin/employee/new" element={<NewEmployeePage />} />
           <Route exact path="/admin/employee/:id" element={<AdminUpdateEmployeePage />} />
           <Route exact path="/admin/location/new" element={<NewGymPage />} />
+          <Route exact path="/admin/location/:id" element={<UpdateLocationPage />} />
+
 
           
           {/* Distribution paths */}
