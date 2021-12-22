@@ -20,6 +20,7 @@ import AllLocations from '../pages/locations/AllLocationsPage';
 import SingleLocationPage from '../pages/locations/SingleLocationPage';
 import AllEmployeeesPage from '../pages/employees/AllEmployeesPage'
 import SingleEmployeePage from '../pages/employees/SingleEmployeePage'
+import NewGymPage from '../pages/admin/NewGymPage';
 
 const App = () => {
   return (
@@ -32,6 +33,7 @@ const App = () => {
           
           {/* Admin paths */}
           <Route exact path="/admin" element={<AdminDashboardPage />} />
+          <Route exact path="/admin/location/new" element={<NewGymPage />} />
           
           {/* Distribution paths */}
 
