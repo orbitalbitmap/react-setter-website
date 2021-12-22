@@ -24,6 +24,8 @@ import NewGymPage from '../pages/admin/NewGymPage';
 import NewEmployeePage from '../pages/admin/NewEmployeePage';
 import UpdateEmployeePage from '../pages/employees/UpdateEmployeePage';
 import AdminUpdateEmployeePage from '../pages/admin/AdminUpdateEmployeePage';
+import IdealBoulderDistribution from '../pages/distribution/IdealBoulderDistributionPage';
+import IdealRopeDistributionPage from '../pages/distribution/IdealRopeDistributionPage';
 
 const App = () => {
   return (
@@ -44,9 +46,13 @@ const App = () => {
           {/* Distribution paths */}
 
             { /* Current */}
-          <Route exact path="/distribution/current/ropes/:id" element={<CurrentRopeDistributionPage />} />
           <Route exact path="/distribution/current/boulders/:id" element={<CurrentBoulderDistributionPage />} />
+          <Route exact path="/distribution/current/ropes/:id" element={<CurrentRopeDistributionPage />} />
 
+            {/* Ideal */}
+            <Route exact path="/distribution/ideal/boulders/:id" element={<IdealBoulderDistribution />} />
+            <Route exact path="/distribution/ideal/ropes/:id" element={<IdealRopeDistributionPage />} />
+          
           
           {/* Employee paths */}
           <Route exact path="/employees" element={<AllEmployeeesPage />} />
