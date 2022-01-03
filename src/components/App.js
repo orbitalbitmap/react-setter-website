@@ -20,6 +20,13 @@ import AllLocations from '../pages/locations/AllLocationsPage';
 import SingleLocationPage from '../pages/locations/SingleLocationPage';
 import AllEmployeeesPage from '../pages/employees/AllEmployeesPage'
 import SingleEmployeePage from '../pages/employees/SingleEmployeePage'
+import NewGymPage from '../pages/admin/NewGymPage';
+import NewEmployeePage from '../pages/admin/NewEmployeePage';
+import UpdateEmployeePage from '../pages/employees/UpdateEmployeePage';
+import AdminUpdateEmployeePage from '../pages/admin/AdminUpdateEmployeePage';
+import IdealBoulderDistribution from '../pages/distribution/IdealBoulderDistributionPage';
+import IdealRopeDistributionPage from '../pages/distribution/IdealRopeDistributionPage';
+import UpdateLocationPage from '../pages/admin/UpdateLocationInfo';
 
 const App = () => {
   return (
@@ -32,17 +39,28 @@ const App = () => {
           
           {/* Admin paths */}
           <Route exact path="/admin" element={<AdminDashboardPage />} />
+          <Route exact path="/admin/employee/new" element={<NewEmployeePage />} />
+          <Route exact path="/admin/employee/:id" element={<AdminUpdateEmployeePage />} />
+          <Route exact path="/admin/location/new" element={<NewGymPage />} />
+          <Route exact path="/admin/location/:id" element={<UpdateLocationPage />} />
+
+
           
           {/* Distribution paths */}
 
             { /* Current */}
-          <Route exact path="/distribution/current/ropes/:id" element={<CurrentRopeDistributionPage />} />
           <Route exact path="/distribution/current/boulders/:id" element={<CurrentBoulderDistributionPage />} />
+          <Route exact path="/distribution/current/ropes/:id" element={<CurrentRopeDistributionPage />} />
 
+            {/* Ideal */}
+            <Route exact path="/distribution/ideal/boulders/:id" element={<IdealBoulderDistribution />} />
+            <Route exact path="/distribution/ideal/ropes/:id" element={<IdealRopeDistributionPage />} />
+          
           
           {/* Employee paths */}
           <Route exact path="/employees" element={<AllEmployeeesPage />} />
           <Route exact path="/employees/:id" element={<SingleEmployeePage />} />
+          <Route exact path="/employees/edit" element={<UpdateEmployeePage />} />
           
           {/* Metric paths */}
           <Route exact path="/metrics/:id" element={<MetricsPage />} />

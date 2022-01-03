@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React from 'react'
-import InputAndLabel from './InputAndLabel'
+import InputAndLabel from '../locations/InputAndLabel'
 
 class EditSingleGym extends React.Component {
   constructor(props) {
