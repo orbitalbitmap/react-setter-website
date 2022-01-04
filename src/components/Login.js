@@ -1,5 +1,7 @@
 import axios from 'axios'
 import React from 'react'
+import { connect } from 'react-redux'
+import { signIn } from '../actions'
 
 const { checkPass } = require('../helpers/bcrypt');
 
@@ -38,14 +40,12 @@ class Login extends React.Component {
   }
   async handleSubmit(event) {
     event.preventDefault()
-    const { data } = await axios.get(`http://localhost:1337/api/employeeByEmail/${this.state.user.email}`)
+    const user = (await axios.get(`http://localhost:1337/api/employeeByEmail/${this.state.user.email}`)).data
 
-    if (!data.password) {
-      console.log('none found')
-      return;
-    }
+    console.log(user)
+
     
-    const passwordDoesMatch = await checkPass(this.state.user.password, data.password);
+    const passwordDoesMatch = await checkPass(this.state.user.password, user.password);
   
     console.log(passwordDoesMatch)
     
@@ -53,6 +53,8 @@ class Login extends React.Component {
       console.log('none found')
       return;
     }
+
+    this.props.signIn(user)
   }
 
   
@@ -87,4 +89,5 @@ class Login extends React.Component {
   }
 }
 
-export default Login
+
+export default connect(null, { signIn })(Login)
