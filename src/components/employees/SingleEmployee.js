@@ -34,7 +34,7 @@ class SingleEmployee extends React.Component {
               {this.state.employee.gyms.map(gym => {
                 return (
                   <li key={gym.name}>
-                    <a href={`/gyms/${gym.name}`}>{gym.name}</a>
+                    <a href={`/location/${gym.id}`}>{gym.name}</a>
                   </li>
                 )
               }
@@ -43,7 +43,7 @@ class SingleEmployee extends React.Component {
 
             { 
               this.props.user.roleId <= 3
-                ? <a href={`/employees/edit/${this.state.employee.id}`}>Edit Employee</a>
+                ? <a href={`/admin/employee/${this.state.employee.id}`}>Edit Employee</a>
                 : null
             }
           </div>
