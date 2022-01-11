@@ -12,7 +12,7 @@ const adminLink = (user) => {
   return null
 }
 
-const renderGymLinks = (gymList = [], url) => {
+const renderLinks = (gymList = [], url) => {
   return gymList.map(gym => {
     return (
       <li key={gym.name}>
@@ -33,7 +33,7 @@ const Navbar = (props) => {
 
             {/* home link */}
             <li className="parent">
-              <a href="/">Home</a>
+              <a href="/dashboard">Home</a>
             </li>
 
             {/* current dropdown */}
@@ -46,7 +46,7 @@ const Navbar = (props) => {
                   {/* current boulder dropdown content */}
                   <ul className="child gym-dropdown">
                     {/* each gym in user.gyms */}
-                    {renderGymLinks(props.user.gyms, '/distribution/view/boulders')}
+                    {renderLinks(props.user.gyms, '/distribution/current/boulders')}
                   </ul>
                 </li>
 
@@ -56,7 +56,7 @@ const Navbar = (props) => {
                   {/* current ropes dropdown content */}
                   <ul className="child gym-dropdown">
                     {/* each gym in user.gyms */}
-                    {renderGymLinks(props.user.gyms, '/distribution/view/routes')}
+                    {renderLinks(props.user.gyms, '/distribution/current/ropes')}
                   </ul>
                 </li>
               </ul>
@@ -71,7 +71,7 @@ const Navbar = (props) => {
                   <span className="expand">Boulders {'>>'}</span>
                   {/* ideal boulder dropdown content */}
                   <ul className="child gym-dropdown">
-                    {renderGymLinks(props.user.gyms, '/distribution/boulders')}
+                    {renderLinks(props.user.gyms, '/distribution/ideal/boulders')}
                   </ul>
                 </li>
 
@@ -81,7 +81,7 @@ const Navbar = (props) => {
                     {/* ideal ropes dropdown content */}
                   <ul className="child gym-dropdown">
                       {/* ideal route distribution form link */}
-                    {renderGymLinks(props.user.gyms, '/distribution/routes')}
+                    {renderLinks(props.user.gyms, '/distribution/ideal/ropes')}
                   </ul>
                 </li>
               </ul>
@@ -93,7 +93,7 @@ const Navbar = (props) => {
               {/* metrics dropdown content */}
               <ul className="child gym-dropdown">
                   {/* gym metric link */}
-                  {renderGymLinks(props.user.gyms, '/metrics')}
+                  {renderLinks(props.user.gyms, '/metrics')}
               </ul>
             </li>
 
@@ -104,11 +104,11 @@ const Navbar = (props) => {
 
             {/* locations dropdown */}
             <li className="parent">
-              <a href="/gyms">Locations</a>
+              <a href="/locations">Locations</a>
               {/* locations dropdown content */}
               <ul className="child gym-dropdown">
                   {/* location link */}
-                  {renderGymLinks(props.gyms, '/gyms')}
+                  {renderLinks(props.gyms, '/locations')}
               </ul>
             </li>
 

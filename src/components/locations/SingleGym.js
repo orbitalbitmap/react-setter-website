@@ -74,7 +74,7 @@ class SingleGym extends React.Component {
           }
         </ul>
 
-        <a href={`/gyms/edit/${this.state.gymInfo.name}`}>Edit Gym info</a>
+        <a href={`/admin/location/${this.state.gymInfo.id}`}>Edit Gym info</a>
       </>
     )
   }

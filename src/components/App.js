@@ -48,13 +48,13 @@ const App = () => {
           
           {/* Distribution paths */}
 
-            { /* Current */}
+          { /* Current */}
           <Route exact path="/distribution/current/boulders/:id" element={<CurrentBoulderDistributionPage />} />
           <Route exact path="/distribution/current/ropes/:id" element={<CurrentRopeDistributionPage />} />
 
-            {/* Ideal */}
-            <Route exact path="/distribution/ideal/boulders/:id" element={<IdealBoulderDistribution />} />
-            <Route exact path="/distribution/ideal/ropes/:id" element={<IdealRopeDistributionPage />} />
+          {/* Ideal */}
+          <Route exact path="/distribution/ideal/boulders/:id" element={<IdealBoulderDistribution />} />
+          <Route exact path="/distribution/ideal/ropes/:id" element={<IdealRopeDistributionPage />} />
           
           
           {/* Employee paths */}
