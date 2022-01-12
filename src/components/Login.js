@@ -1,9 +1,12 @@
 import axios from 'axios'
 import React from 'react'
 import { connect } from 'react-redux'
+import { Cookies } from 'react-cookie'
+
 import { signIn } from '../actions'
 
 const { checkPass } = require('../helpers/bcrypt');
+
 
 
 class Login extends React.Component {
@@ -23,7 +26,7 @@ class Login extends React.Component {
           type: "submit",
         },
       ],
-      test: 'component'
+      cookies: new Cookies()
     }
 
     this.handleChange = this.handleChange.bind(this)
@@ -40,25 +43,32 @@ class Login extends React.Component {
   }
   async handleSubmit(event) {
     event.preventDefault()
-    const user = (await axios.get(`http://localhost:1337/api/employeeByEmail/${this.state.user.email}`)).data
-
-    console.log(user)
-
-    
+    const user = (await axios.get(`http://localhost:1337/api/employeeByEmail/${this.state.user.email}`)).data  
     const passwordDoesMatch = await checkPass(this.state.user.password, user.password);
-  
-    console.log(passwordDoesMatch)
-    
-    if (!passwordDoesMatch) {
-      console.log('none found')
-      return;
+
+
+
+    switch (passwordDoesMatch) {
+      case true:
+        console.log('success')
+        this.props.signIn(user)
+        this.state.cookies.set('setterLoggedIn', true, { path: '/' })
+        window.location.href = "/dashboard"
+        break
+      case false:
+        console.log('faiulre')
+        break
+      default:
+        console.log('faiulre')
+        break
     }
 
-    this.props.signIn(user)
+    // this.props.signIn(user)
   }
 
   
   render() {
+    if (this.props.isSignedIn) { window.location.href = "/dashboard" }
     return (
       <form id="employee-form" action="/login" method="GET">
         <div className="employee-form-grid">
