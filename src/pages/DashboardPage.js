@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React from 'react'
-// import { Navigate } from 'react-router-dom'
+import { Cookies } from 'react-cookie'
 
 import '../components/styles.css'
 import Navbar from '../components/navbar/Navbar'
@@ -13,6 +13,7 @@ class DashboardPage extends React.Component {
     this.state = {
       user: {},
       gyms: [], 
+      cookies: new Cookies()
     }
   }
 
@@ -26,6 +27,10 @@ class DashboardPage extends React.Component {
   }
   
   render() {
+    if (!this.state.cookies.get('setterLoggedIn')) {
+      window.location.href = "/"
+    }
+
     return (
       <>
         <Navbar user={this.state.user} gyms={this.state.gyms} />

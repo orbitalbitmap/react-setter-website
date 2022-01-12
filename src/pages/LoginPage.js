@@ -1,5 +1,6 @@
 import axios from 'axios'
 import React from 'react'
+import { Cookies } from 'react-cookie'
 
 import '../components/styles.css'
 import Login from '../components/Login'
@@ -11,11 +12,15 @@ class LoginPage extends React.Component {
     this.state = {
       user: {},
       gyms: [], 
-      test: 'page'
+      cookies: new Cookies()
     }
   }
 
   async componentDidMount() {
+    if (this.state.cookies.get('setterLoggedIn')) {
+      window.location.href = "/dashboard"
+    }
+
     const user = (await axios.get('http://localhost:1337/api/employees/1')).data
     const gyms = (await axios.get('http://localhost:1337/api/gyms')).data
     
