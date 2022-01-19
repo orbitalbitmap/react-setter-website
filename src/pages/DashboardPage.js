@@ -20,9 +20,6 @@ class DashboardPage extends React.Component {
   }
 
   async componentDidMount() {
-    const userCookieFound = await cookies.get('setter')
-    console.log(userCookieFound)
-    
     if (this.props.user === undefined) {
       window.location.href = "/"
     }
