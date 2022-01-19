@@ -21,12 +21,10 @@ class LoginPage extends React.Component {
       window.location.href = "/dashboard"
     }
 
-    const user = (await axios.get('http://localhost:1337/api/employees/1')).data
     const gyms = (await axios.get('http://localhost:1337/api/gyms')).data
     
     this.setState({
       gyms: gyms,
-      user: user,
     })
   }
   

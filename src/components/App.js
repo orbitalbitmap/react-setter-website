@@ -1,5 +1,4 @@
 import React from 'react'
-
 import {
   BrowserRouter,
   Routes,
@@ -7,6 +6,7 @@ import {
 } from "react-router-dom";
 
 import './styles.css'
+import history from '../history';
 import LoginPage from '../pages/LoginPage'
 import DashboardPage from '../pages/DashboardPage'
 import AdminDashboardPage from '../pages/admin/AdminDashboardPage'
@@ -31,7 +31,7 @@ import UpdateLocationPage from '../pages/admin/UpdateLocationInfo';
 const App = () => {
   return (
     <div>
-      <BrowserRouter>
+      <BrowserRouter history={history}>
         <Routes>
           {/* Home paths */}
           <Route exact path="/" element={<LoginPage />} />

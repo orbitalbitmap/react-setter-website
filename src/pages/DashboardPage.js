@@ -1,10 +1,13 @@
 import axios from 'axios'
 import React from 'react'
 import { Cookies } from 'react-cookie'
+import { connect } from 'react-redux'
 
 import '../components/styles.css'
 import Navbar from '../components/navbar/Navbar'
 import Dashboard from '../components/Dashboard'
+
+const cookies = new Cookies()
 
 class DashboardPage extends React.Component {
   constructor(props) {
@@ -13,11 +16,17 @@ class DashboardPage extends React.Component {
     this.state = {
       user: {},
       gyms: [], 
-      cookies: new Cookies()
     }
   }
 
   async componentDidMount() {
+    const userCookieFound = await cookies.get('setter')
+    console.log(userCookieFound)
+    
+    if (this.props.user === undefined) {
+      window.location.href = "/"
+    }
+
     const userData = await axios.get('http://localhost:1337/api/employees/1')
     const gymsData = await axios.get('http://localhost:1337/api/gyms')
     this.setState({
@@ -27,21 +36,24 @@ class DashboardPage extends React.Component {
   }
   
   render() {
-    if (!this.state.cookies.get('setterLoggedIn')) {
-      window.location.href = "/"
-    }
-
     return (
       <>
         <Navbar user={this.state.user} gyms={this.state.gyms} />
         {
-          this.state.user.id
-            ? <Dashboard user={this.state.user} />
-            : null // <Navigate replace to="/" />
+          this.props.user.id
+            ? <Dashboard user={this.props.user} />
+            : null // create loading component />
         }
       </>
     )
   }
 }
 
-export default DashboardPage
+const mapStateToProps = (state) => {
+  return {
+    user: state.user,
+    // gyms: state.gyms
+  }
+}
+
+export default connect(mapStateToProps, {})(DashboardPage)

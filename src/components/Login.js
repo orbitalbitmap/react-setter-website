@@ -1,12 +1,14 @@
 import axios from 'axios'
 import React from 'react'
+import { Link } from 'react-router-dom'
+
 import { connect } from 'react-redux'
 import { Cookies } from 'react-cookie'
 
 import { signIn } from '../actions'
 
 const { checkPass } = require('../helpers/bcrypt');
-
+const cookies = new Cookies()
 
 
 class Login extends React.Component {
@@ -14,7 +16,7 @@ class Login extends React.Component {
     super(props)
 
     this.state = {
-      user: {
+      loginInfo: {
         email: '',
         password: '',
       },
@@ -26,7 +28,6 @@ class Login extends React.Component {
           type: "submit",
         },
       ],
-      cookies: new Cookies()
     }
 
     this.handleChange = this.handleChange.bind(this)
@@ -35,25 +36,22 @@ class Login extends React.Component {
   
   handleChange(event) {
     this.setState({
-      user: {
-        ...this.state.user,
+      loginInfo: {
+        ...this.state.loginInfo,
         [event.target.name]: event.target.value
       }
     })
   }
   async handleSubmit(event) {
-    event.preventDefault()
-    const user = (await axios.get(`http://localhost:1337/api/employeeByEmail/${this.state.user.email}`)).data  
-    const passwordDoesMatch = await checkPass(this.state.user.password, user.password);
+    // event.preventDefault()
 
-
+    const {password, ...user} = (await axios.get(`http://localhost:1337/api/employeeByEmail/${this.state.loginInfo.email}`)).data
+    const passwordDoesMatch = await checkPass(this.state.loginInfo.password, password);
 
     switch (passwordDoesMatch) {
       case true:
-        console.log('success')
         this.props.signIn(user)
-        this.state.cookies.set('setterLoggedIn', true, { path: '/' })
-        window.location.href = "/dashboard"
+        cookies.set('setter', user, { path: '/' })
         break
       case false:
         console.log('faiulre')
@@ -62,10 +60,7 @@ class Login extends React.Component {
         console.log('faiulre')
         break
     }
-
-    // this.props.signIn(user)
   }
-
   
   render() {
     if (this.props.isSignedIn) { window.location.href = "/dashboard" }
@@ -79,7 +74,7 @@ class Login extends React.Component {
             onChange={this.handleChange}
             placeholder="Email"
             required
-            value={this.state.user.email}
+            value={this.state.loginInfo.email}
           />
           
           <label htmlFor="password" form="employee-form" >Password:</label>
@@ -89,11 +84,13 @@ class Login extends React.Component {
             onChange={this.handleChange}
             placeholder="Password"
             required
-            value={this.state.user.password}
+            value={this.state.loginInfo.password}
           />
         </div>
 
-        <button onClick={this.handleSubmit} type="submit">Login</button>
+          <Link to="/dashboard" onClick={this.handleSubmit} role="button">
+            Login
+          </Link> {/* Restyle this to be a button */}
       </form>
     )
   }

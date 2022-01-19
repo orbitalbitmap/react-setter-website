@@ -7,6 +7,7 @@ import { CookiesProvider } from 'react-cookie'
 
 import App from './components/App'
 import reducers from './reducers'
+// import history from './history'
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(
