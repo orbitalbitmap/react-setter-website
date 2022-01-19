@@ -1,7 +1,6 @@
 import axios from 'axios'
 import React from 'react'
 import { Link } from 'react-router-dom'
-
 import { connect } from 'react-redux'
 import { Cookies } from 'react-cookie'
 
@@ -63,7 +62,6 @@ class Login extends React.Component {
   }
   
   render() {
-    if (this.props.isSignedIn) { window.location.href = "/dashboard" }
     return (
       <form id="employee-form" action="/login" method="GET">
         <div className="employee-form-grid">
