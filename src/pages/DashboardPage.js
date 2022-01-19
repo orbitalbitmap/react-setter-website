@@ -1,13 +1,11 @@
 import axios from 'axios'
 import React from 'react'
-import { Cookies } from 'react-cookie'
 import { connect } from 'react-redux'
 
 import '../components/styles.css'
 import Navbar from '../components/navbar/Navbar'
 import Dashboard from '../components/Dashboard'
 
-const cookies = new Cookies()
 
 class DashboardPage extends React.Component {
   constructor(props) {
