@@ -19,7 +19,7 @@ class DashboardPage extends React.Component {
   render() {
     return (
       <>
-        <Navbar user={this.props?.user} gyms={this.props?.gyms} />
+        <Navbar />
         {
           this.props.user?.id
             ? <Dashboard user={this.props.user} />
