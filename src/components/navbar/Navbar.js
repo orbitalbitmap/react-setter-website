@@ -124,7 +124,11 @@ const Navbar = (props) => {
               {/* locations dropdown content */}
               <ul className="child gym-dropdown">
                   {/* location link */}
-                  {renderLinks(props?.gyms, '/locations')}
+                  {
+                    props.gyms
+                      ? renderLinks(props?.gyms, '/locations')
+                      : null
+                  }
               </ul>
             </li>
 
