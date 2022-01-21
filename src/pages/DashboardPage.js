@@ -1,5 +1,6 @@
 import axios from 'axios'
 import React from 'react'
+
 import { connect } from 'react-redux'
 
 import '../components/styles.css'
@@ -12,7 +13,6 @@ class DashboardPage extends React.Component {
     super(props)
 
     this.state = {
-      user: {},
       gyms: [], 
     }
   }
@@ -22,20 +22,18 @@ class DashboardPage extends React.Component {
       window.location.href = "/"
     }
 
-    const userData = await axios.get('http://localhost:1337/api/employees/1')
     const gymsData = await axios.get('http://localhost:1337/api/gyms')
     this.setState({
       gyms: gymsData.data,
-      user: userData.data
     })
   }
   
   render() {
     return (
       <>
-        <Navbar user={this.state.user} gyms={this.state.gyms} />
+        <Navbar user={this.props?.user} gyms={this.state.gyms} />
         {
-          this.props.user.id
+          this.props.user?.id
             ? <Dashboard user={this.props.user} />
             : null // create loading component />
         }
