@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
 
 import AdminLink from './partials/AdminLink'
 import NavLogout from './partials/NavLogout'
@@ -166,7 +167,14 @@ const Navbar = (props) => {
   )
 }
 
-export default Navbar
+const mapStateToProps = (state) => {
+  return {
+    user: state.user,
+    gyms: state.gyms
+  }
+}
+
+export default connect(mapStateToProps, {})(Navbar)
 
 
 
