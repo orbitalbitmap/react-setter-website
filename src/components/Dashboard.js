@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 class Dashboard extends React.Component {
   renderList() {
@@ -7,23 +8,23 @@ class Dashboard extends React.Component {
         <ul key={`user-gym-list-${gym.name}`}>
           <li key={gym.gymId}>
             <h3> 
-              <a href={`/gyms/${gym.name}`}>{gym.name}</a>
+              <Link to={`/locations/${gym.id}`}>{gym.name}</Link>
             </h3>
             <ul key={`sections-${gym.gymId}`}>
               <li key={`list-${gym.gymId}`}>
                 <h4>Sections</h4>
                 <ul key={`section-list-${gym.gymId}`}>
                   <li key={`all-sections-${gym.gymId}`}>
-                    <a href={`/gymSections/view/${gym.gymId}`}> All Sections</a>
+                    <Link to={`/gymSections/view/${gym.gymId}`}> All Sections</Link>
                   </li>
                   <li key={`boulder-sections-${gym.gymId}`}>
-                    <a href={`/gymSections/view/boulders/${gym.gymId}`}> Boulder Sections</a>
+                    <Link to={`/gymSections/view/boulders/${gym.gymId}`}> Boulder Sections</Link>
                   </li>
                   <li key={`rope-sections-${gym.gymId}`}>
-                    <a href={`/gymSections/view/routes/${gym.gymId}`}> Rope Sections</a>
+                    <Link to={`/gymSections/view/routes/${gym.gymId}`}> Rope Sections</Link>
                   </li>
                   <li key={`edit-sections-${gym.gymId}`}>
-                    <a href={`/gymSections/edit/${gym.gymId}`}> Edit All Section Names</a>
+                    <Link to={`/gymSections/edit/${gym.gymId}`}> Edit All Section Names</Link>
                   </li>
                 </ul>
               </li>
@@ -33,10 +34,10 @@ class Dashboard extends React.Component {
                 <h4>Ideal</h4>
                 <ul key={`ideal-distribution-list-${gym.gymId}`}>
                   <li key={`ideal-route-distribution-${gym.gymId}`}>
-                    <a href={`/distribution/routes/${gym.gymId}`}> Route Distribution</a>
+                    <Link to={`/distribution/routes/${gym.gymId}`}> Route Distribution</Link>
                   </li>
                   <li key={`ideal-boulder-distribution-${gym.gymId}`}>
-                    <a href={`/distribution/boulders/${gym.gymId}`}>Boulder Distribution</a>
+                    <Link to={`/distribution/boulders/${gym.gymId}`}>Boulder Distribution</Link>
                   </li>
                 </ul>
               </li>
@@ -44,10 +45,10 @@ class Dashboard extends React.Component {
                 <h4>Current</h4>
                 <ul key={`current-distribution-list-${gym.gymId}`}>
                   <li key={`current-route-distribution-${gym.gymId}`}>
-                    <a href={`/distribution/view/routes/${gym.gymId}`}>Current Route Distribution</a>
+                    <Link to={`/distribution/view/routes/${gym.gymId}`}>Current Route Distribution</Link>
                   </li>
                   <li key={`current-boulder-distribution-${gym.gymId}`}>
-                    <a href={`/distribution/view/boulders/${gym.gymId}`}>Current Boulder Distribution</a>
+                    <Link to={`/distribution/view/boulders/${gym.gymId}`}>Current Boulder Distribution</Link>
                   </li>
                 </ul>
               </li>
