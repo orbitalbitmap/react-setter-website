@@ -8,12 +8,11 @@ export const signIn = (user) => {
     type: SIGN_IN,
     payload: user,
   }
-
-  // dispatch({ type: CREATE_STREAM, payload: response.data })
 }
 
 export const signOut = () => {
   return {
     type: SIGN_OUT,
+    payload: null,
   }
 }
