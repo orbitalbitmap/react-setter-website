@@ -38,7 +38,7 @@ const SingleGym = () => {
         <h3 className="centered-text">Head Setter:</h3>
         <ul className="centered-text">
           <li key={headSetter?.id} className="centered-text inside-bullet">
-            <Link to={`/employees/${headSetter?.id}`}>{`${headSetter?.firstName} ${headSetter?.lastName}`}</Link>
+            <Link to={`/employees/${headSetter?.id || ''}`}>{`${headSetter?.firstName || 'Not'} ${headSetter?.lastName || 'Available'}`}</Link>
           </li>
         </ul>
         <h3 className="centered-text">Full Time Setters</h3>
