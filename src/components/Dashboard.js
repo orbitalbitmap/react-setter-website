@@ -6,49 +6,49 @@ class Dashboard extends React.Component {
     return this.props.user.gyms.map(gym => {
       return (
         <ul key={`user-gym-list-${gym.name}`}>
-          <li key={gym.gymId}>
+          <li key={gym.id}>
             <h3> 
               <Link to={`/locations/${gym.id}`}>{gym.name}</Link>
             </h3>
-            <ul key={`sections-${gym.gymId}`}>
-              <li key={`list-${gym.gymId}`}>
+            <ul key={`sections-${gym.id}`}>
+              <li key={`list-${gym.id}`}>
                 <h4>Sections</h4>
-                <ul key={`section-list-${gym.gymId}`}>
-                  <li key={`all-sections-${gym.gymId}`}>
-                    <Link to={`/gymSections/view/${gym.gymId}`}> All Sections</Link>
+                <ul key={`section-list-${gym.id}`}>
+                  <li key={`all-sections-${gym.id}`}>
+                    <Link to={`/sections/${gym.id}`}> All Sections</Link>
                   </li>
-                  <li key={`boulder-sections-${gym.gymId}`}>
-                    <Link to={`/gymSections/view/boulders/${gym.gymId}`}> Boulder Sections</Link>
+                  <li key={`boulder-sections-${gym.id}`}>
+                    <Link to={`/gymSections/view/boulders/${gym.id}`}> Boulder Sections</Link>
                   </li>
-                  <li key={`rope-sections-${gym.gymId}`}>
-                    <Link to={`/gymSections/view/routes/${gym.gymId}`}> Rope Sections</Link>
+                  <li key={`rope-sections-${gym.id}`}>
+                    <Link to={`/gymSections/view/routes/${gym.id}`}> Rope Sections</Link>
                   </li>
-                  <li key={`edit-sections-${gym.gymId}`}>
-                    <Link to={`/gymSections/edit/${gym.gymId}`}> Edit All Section Names</Link>
+                  <li key={`edit-sections-${gym.id}`}>
+                    <Link to={`/gymSections/edit/${gym.id}`}> Edit All Section Names</Link>
                   </li>
                 </ul>
               </li>
             </ul>
-            <ul key={`distribution-${gym.gymId}`}>
-              <li key={`ideal-distribution-${gym.gymId}`}>
+            <ul key={`distribution-${gym.id}`}>
+              <li key={`ideal-distribution-${gym.id}`}>
                 <h4>Ideal</h4>
-                <ul key={`ideal-distribution-list-${gym.gymId}`}>
-                  <li key={`ideal-route-distribution-${gym.gymId}`}>
-                    <Link to={`/distribution/routes/${gym.gymId}`}> Route Distribution</Link>
+                <ul key={`ideal-distribution-list-${gym.id}`}>
+                  <li key={`ideal-route-distribution-${gym.id}`}>
+                    <Link to={`/distribution/routes/${gym.id}`}> Route Distribution</Link>
                   </li>
-                  <li key={`ideal-boulder-distribution-${gym.gymId}`}>
-                    <Link to={`/distribution/boulders/${gym.gymId}`}>Boulder Distribution</Link>
+                  <li key={`ideal-boulder-distribution-${gym.id}`}>
+                    <Link to={`/distribution/boulders/${gym.id}`}>Boulder Distribution</Link>
                   </li>
                 </ul>
               </li>
-              <li key={`current-distribution-${gym.gymId}`}>
+              <li key={`current-distribution-${gym.id}`}>
                 <h4>Current</h4>
-                <ul key={`current-distribution-list-${gym.gymId}`}>
-                  <li key={`current-route-distribution-${gym.gymId}`}>
-                    <Link to={`/distribution/view/routes/${gym.gymId}`}>Current Route Distribution</Link>
+                <ul key={`current-distribution-list-${gym.id}`}>
+                  <li key={`current-route-distribution-${gym.id}`}>
+                    <Link to={`/distribution/view/routes/${gym.id}`}>Current Route Distribution</Link>
                   </li>
-                  <li key={`current-boulder-distribution-${gym.gymId}`}>
-                    <Link to={`/distribution/view/boulders/${gym.gymId}`}>Current Boulder Distribution</Link>
+                  <li key={`current-boulder-distribution-${gym.id}`}>
+                    <Link to={`/distribution/view/boulders/${gym.id}`}>Current Boulder Distribution</Link>
                   </li>
                 </ul>
               </li>
