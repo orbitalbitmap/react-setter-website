@@ -25,7 +25,6 @@ const SingleGym = () => {
       setPartTimeEmployeeList(gymInfo?.employees?.filter(employee => employee.roleId === 5))
     }, [gymInfo.employees, gymInfo.headSetterId])
 
-    console.log('render')
     return (
       <>
         <h1 className="centered-text">{gymInfo.name}</h1>
