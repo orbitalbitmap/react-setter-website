@@ -7,7 +7,7 @@ import Navbar from '../../components/navbar/Navbar'
 const SingleLocationPage = (props) => {
   return (
     <>
-      <Navbar user={props.user} gyms={props.gyms} />
+      <Navbar />
       <div className="centered-text">
         {props.gyms ? <SingleGym /> : null}
       </div>
