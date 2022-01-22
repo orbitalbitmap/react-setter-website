@@ -2,7 +2,7 @@ import axios from 'axios'
 import React from 'react'
 
 import Navbar from '../../components/navbar/Navbar'
-import SpecificGymSection from '../../components/climbingSections/SpecificGymSection'
+import SpecificGymSection from '../../components/sections/SpecificGymSection'
 
 class SectionsForSpecificGymPage extends React.Component {
   constructor(props) {
