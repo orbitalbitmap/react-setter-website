@@ -1,5 +1,6 @@
 import axios from 'axios'
 import React from 'react'
+import { connect } from 'react-redux'
 
 import Gyms from '../../components/locations/Gyms'
 import Navbar from '../../components/navbar/Navbar'
@@ -27,13 +28,20 @@ class AllLocationsPage extends React.Component {
   render() {
     return (
       <>
-        <Navbar user={this.state.user} gyms={this.state.gyms} />
+        <Navbar />
         <div className="centered-text">
-          {this.state.gyms ? <Gyms /> : null}
+          {this.props.gyms ? <Gyms /> : null}
         </div>
       </>
     )
   }
 }
 
-export default AllLocationsPage
+const mapStateToProps = (state) => {
+  return {
+    user: state.user,
+    gyms: state.gyms
+  }
+}
+
+export default connect(mapStateToProps, {})(AllLocationsPage)
