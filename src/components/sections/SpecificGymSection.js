@@ -1,7 +1,9 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
 
 const SpecificGymSection = () => {
+  const urlParams = useParams()
   const [gym, setGym] = useState({})
   const [selectedClimbType, setSelectedClimbType] = useState('Boulder')
   const [selectedSectionList, setSelectedSectionList] = useState([])
@@ -9,13 +11,13 @@ const SpecificGymSection = () => {
 
   useEffect(() => {
     const getInfo = async () => {
-      const { data } = await axios.get('http://localhost:1337/api/gymWithSections/1')
+      const { data } = await axios.get(`http://localhost:1337/api/gymWithSections/${urlParams.id}`)
 
       setGym(data)
     }
 
     getInfo()
-  }, [])
+  }, [urlParams])
 
   useEffect(() => {
     selectedClimbType === 'Boulder' 
