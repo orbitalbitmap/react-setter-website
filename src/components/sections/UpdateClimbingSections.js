@@ -1,23 +1,24 @@
 import axios from 'axios'
-import React from 'react'
+import { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
 
-class UpdateClimbingSections extends React.Component {
-  constructor(props) {
-    super(props)
+const UpdateClimbingSections = () => {
+  const urlParams = useParams()
+  const [gym, setGym] = useState({})
 
-    this.state = {
-      gym: {}
+  useEffect(() => {
+    const getInfo = async () => {
+      const { data } = await axios.get(`http://localhost:1337/api/gymWithSections/${urlParams.id}`)
+
+      setGym(data)
     }
 
-    this.addNewSection = this.addNewSection.bind(this)
-    this.handleChange = this.handleChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
-    this.renderSectionFrom = this.renderSectionFrom.bind(this)
-  }
+    getInfo()
+  }, [urlParams])
 
-  handleChange(event) {
+  const handleChange = (event) => {
     let sectionType = event.target.dataset.sectiontype
-    let updatedSectionList = [...this.state.gym[sectionType]]
+    let updatedSectionList = [...gym[sectionType]]
     const updatedSectionId = parseInt(event.target.dataset.gymid)-1
 
     updatedSectionList[updatedSectionId] = {
@@ -25,47 +26,44 @@ class UpdateClimbingSections extends React.Component {
       name: event.target.value
     }
 
-    this.setState({
-      gym: {
-        ...this.state.gym,
+    setGym({
+        ...gym,
         [sectionType]: updatedSectionList
-      }
     })
   }
 
-  handleSubmit(event) {
+  const handleSubmit = (event) => {
     event.preventDefault()
 
-    console.log(this.state)
+    console.log(gym)
   }
 
-  addNewSection(event) {
+  const addNewSection = (event) => {
     const sectionType = event.target.dataset.sectiontype
-    const newSectionId = this.state.gym[sectionType].length + 1
+    const newSectionId = gym[sectionType].length + 1
     
-    this.setState({
-      gym: {
-        ...this.state.gym,
-        [sectionType]: [
-          ...this.state.gym[sectionType],
-          {
-            id: newSectionId,
-            gymId: this.state.gym.id,
-            name: ''
-          }
-        ]
-      }
-    })
+    const updatedGym = {...gym}
+
+    updatedGym[sectionType] = [
+      ...updatedGym[sectionType],
+        {
+          id: newSectionId,
+          gymId: gym.id,
+          name: ''
+        }
+    ]
+
+    setGym(updatedGym)
   }
 
-  renderSectionFrom(sections, type) {
+  const renderSectionFrom = (sections, type) => {
     return sections.map(section => {
       return (    
         <div key={`${type}-section-${section.id}`} className="gym-section-grid">
           <input className="hidden" name="id" value={section.id} disabled />
           <label htmlFor="name">Name:</label>
           <input
-            onChange={this.handleChange}
+            onChange={handleChange}
             name="name"
             value={section.name !== null ? section.name : ''}
             data-sectiontype={`${type}Sections`}
@@ -77,56 +75,42 @@ class UpdateClimbingSections extends React.Component {
     })
   }
 
-  async componentDidMount() {
-    const { data } = await axios.get('http://localhost:1337/api/gymWithSections/1')
-
-    this.setState({
-      gym: data
-    })
-  }
-
-  render() {
-    if (!this.state.gym.name) {
-      return (<h2>Loading...</h2>)
-    }
-
-    return (
-      <>
-        <h1 className="centered-text">{this.state.gym.name}</h1>
-        <form action="/api/updateRouteSectionNames" method="post" className="editable-section-form">
-          <h1 className="centered-text">Ropes</h1>
-          <div className="section-details" id="route-sections">
-            {
-              this.state.gym.routeSections
-                ? this.renderSectionFrom(this.state.gym.routeSections, 'route')
-                : (<h2>No Route Sections Found.</h2>)
-            }
-          </div>
-          
-          <div className="section-button-container">
-            <button className="section-button" type="button" onClick={this.addNewSection} data-sectiontype="routeSections">Add New Section</button>
-            <button className="section-button" onClick={this.handleSubmit} type="submit">Save Info</button>
-          </div>
-        </form>
-
-        <form action="/api/updateBoulderSectionNames" method="post" className="editable-section-form">
-          <input className="hidden" name="gymId" value={this.state.gym.id} disabled />
-          <h1 className="centered-text">Boulders</h1>
-          <div className="section-details" id="boulder-sections">
+  return (
+    <>
+      <h1 className="centered-text">{gym.name}</h1>
+      <form action="/api/updateRouteSectionNames" method="post" className="editable-section-form">
+        <h1 className="centered-text">Ropes</h1>
+        <div className="section-details" id="route-sections">
           {
-              this.state.gym.boulderSections
-                ? this.renderSectionFrom(this.state.gym.boulderSections, 'boulder')
-                : (<h2>No Boulder Sections Found.</h2>)
-            }
-          </div>
-          <div className="section-button-container">
-            <button className="section-button" type="button" onClick={this.addNewSection} data-sectiontype="boulderSections">Add New Section</button>
-            <button className="section-button" onClick={this.handleSubmit} type="submit">Save Info</button>
-          </div>
-        </form>
-      </>
-    )
-  }
+            gym.routeSections
+              ? renderSectionFrom(gym.routeSections, 'route')
+              : (<h2>No Route Sections Found.</h2>)
+          }
+        </div>
+        
+        <div className="section-button-container">
+          <button className="section-button" type="button" onClick={addNewSection} data-sectiontype="routeSections">Add New Section</button>
+          <button className="section-button" onClick={handleSubmit} type="submit">Save Info</button>
+        </div>
+      </form>
+
+      <form action="/api/updateBoulderSectionNames" method="post" className="editable-section-form">
+        <input className="hidden" name="gymId" value={gym.id} disabled />
+        <h1 className="centered-text">Boulders</h1>
+        <div className="section-details" id="boulder-sections">
+        {
+            gym.boulderSections
+              ? renderSectionFrom(gym.boulderSections, 'boulder')
+              : (<h2>No Boulder Sections Found.</h2>)
+          }
+        </div>
+        <div className="section-button-container">
+          <button className="section-button" type="button" onClick={addNewSection} data-sectiontype="boulderSections">Add New Section</button>
+          <button className="section-button" onClick={handleSubmit} type="submit">Save Info</button>
+        </div>
+      </form>
+    </>
+  )
 }
 
 export default UpdateClimbingSections
