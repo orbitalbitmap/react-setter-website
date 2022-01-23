@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 
 const SpecificGymSection = () => {
   const urlParams = useParams()
@@ -51,7 +51,7 @@ const SpecificGymSection = () => {
 
         <div>
           <h3 className="centered-text">
-            <a href={`/gymSections/edit/${gym.id}`}>Edit All Section Names</a>
+            <Link to={`/sections/edit/${gym.id}`}>Edit All Section Names</Link>
           </h3>
         </div>
       </div>
