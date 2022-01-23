@@ -70,7 +70,7 @@ const App = () => {
           {/* Locatation paths */}
           <Route exat path="/locations" element={<AllLocations />} />
           <Route exat path="/locations/:id" element={<SingleLocationPage />} />
-          
+
           {/* Sections paths */}
           <Route exact path="/sections" element={<AllLocationsAndSectionsPage />} />
           <Route exact path="/sections/:id" element={<SectionsForSpecificGymPage />} />
