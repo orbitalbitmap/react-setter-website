@@ -1,5 +1,6 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 
 const AllClimbingSections = () => {
@@ -53,7 +54,7 @@ const AllClimbingSections = () => {
 
           <div>
             <h4 className="centered-text">
-              <a href={`/gymSections/edit/${gym.gymId}`}>Edit All Section Names</a>
+              <Link to={`/sections/edit/${gym.id}`}>Edit All Section Names</Link>
             </h4>
           </div>
         </div>
