@@ -36,7 +36,8 @@ const App = () => {
           {/* Home paths */}
           <Route exact path="/" element={<LoginPage />} />
           <Route exact path="/dashboard" element={<DashboardPage />} />
-          
+
+
           {/* Admin paths */}
           <Route exact path="/admin" element={<AdminDashboardPage />} />
           <Route exact path="/admin/employee/new" element={<NewEmployeePage />} />
@@ -45,7 +46,6 @@ const App = () => {
           <Route exact path="/admin/location/:id" element={<UpdateLocationPage />} />
 
 
-          
           {/* Distribution paths */}
 
           { /* Current */}
@@ -55,15 +55,17 @@ const App = () => {
           {/* Ideal */}
           <Route exact path="/distribution/ideal/boulders/:id" element={<IdealBoulderDistribution />} />
           <Route exact path="/distribution/ideal/ropes/:id" element={<IdealRopeDistributionPage />} />
-          
-          
+
+
           {/* Employee paths */}
           <Route exact path="/employees" element={<AllEmployeeesPage />} />
           <Route exact path="/employees/:id" element={<SingleEmployeePage />} />
           <Route exact path="/employees/edit" element={<UpdateEmployeePage />} />
-          
+
+
           {/* Metric paths */}
           <Route exact path="/metrics/:id" element={<MetricsPage />} />
+
 
           {/* Locatation paths */}
           <Route exat path="/locations" element={<AllLocations />} />
@@ -73,7 +75,6 @@ const App = () => {
           <Route exact path="/sections" element={<AllLocationsAndSectionsPage />} />
           <Route exact path="/sections/:id" element={<SectionsForSpecificGymPage />} />
           <Route exact path="/sections/edit/:id" element={<UpdateSectionsPage />} />
-
         </Routes>
       </BrowserRouter>
     </div>
