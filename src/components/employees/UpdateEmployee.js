@@ -1,15 +1,16 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
+import { useParams } from 'react-router-dom'
 
 const UpdateEmployee = (props) => {
+  const urlParams = useParams()
   const [employee, setEmployee] = useState({})
+  const [roleId, setRoleId] = useState(5)
 
   useEffect(() => {
     const getInfo = async () => {
-      const {data} = await axios.get('http://localhost:1337/api/employees/1')
-
-      console.log(data)
+      const {data} = await axios.get(`http://localhost:1337/api/employees/${urlParams.id}`)
 
       setEmployee({
           ...data,
@@ -18,7 +19,12 @@ const UpdateEmployee = (props) => {
     }
 
     getInfo()
-  }, [])
+  }, [urlParams])
+
+  useEffect(() => {
+    const aRoleId = employee.roleId
+    setRoleId(aRoleId)
+  }, [employee])
 
   const handleChange = (event) => {
     setEmployee({
@@ -42,14 +48,12 @@ const UpdateEmployee = (props) => {
       default:
         const gymToAdd = props.gyms?.find(gym => gymId === gym.id)
         setEmployee({
-          employee: {
             ...employee,
             gyms: [
               ...employee.gyms,
               gymToAdd,
             ].sort((gymA, gymB) => gymA.id - gymB.id)
-          }
-        })
+          })
     }
   }
 
@@ -60,8 +64,6 @@ const UpdateEmployee = (props) => {
   if (!employee.id) {
     return (<h2>Loading...</h2>)
   }
-
-  console.log(employee)
 
   return (
     <form id="employee-form">
@@ -106,9 +108,7 @@ const UpdateEmployee = (props) => {
         
         <select 
           name="roleId"
-          defaultValue={
-            employee.roleId
-          }
+          value={roleId || 5}
           onChange={handleChange}
           required
         >
