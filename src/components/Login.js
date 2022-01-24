@@ -1,10 +1,10 @@
 import axios from 'axios'
 import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { Cookies } from 'react-cookie'
 
-import { signIn } from '../actions'
+import { getLocations, signIn } from '../actions'
 
 const { checkPass } = require('../helpers/bcrypt');
 
@@ -23,6 +23,7 @@ const Login = (props) => {
     switch (passwordDoesMatch) {
       case true:
         props.signIn(user)
+        props.getLocations()
         cookies.set('setter', user, { path: '/' })
         navigate('/dashboard', {replace: true})
         break
@@ -59,11 +60,9 @@ const Login = (props) => {
         />
       </div>
 
-        <Link to="/dashboard" onClick={handleSubmit} role="button">
-          Login
-        </Link> {/* Restyle this to be a button */}
+        <button onClick={handleSubmit} type="submit" >Login</button> {/* Restyle this to be a button */}
     </form>
   )
 }
 
-export default connect(null, { signIn })(Login)
+export default connect(null, { getLocations, signIn })(Login)
