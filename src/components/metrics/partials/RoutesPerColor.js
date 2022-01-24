@@ -2,7 +2,6 @@ import React from 'react'
 import { Pie } from 'react-chartjs-2'
 
 const RouterPerColor = (props) => {
-  console.log('render')
   const colorList = Object.keys(props.data)
 
   const chartData = {
