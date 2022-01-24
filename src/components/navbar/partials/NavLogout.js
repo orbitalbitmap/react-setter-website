@@ -4,7 +4,6 @@ import { Cookies } from 'react-cookie'
 
 import { removeLocations, signOut } from '../../../actions'
 
-
 const NavLogout = (props) => {
   const cookies = new Cookies()
 
