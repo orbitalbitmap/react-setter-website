@@ -6,7 +6,6 @@ import Dashboard from '../components/Dashboard'
 import { getLocations } from '../actions'
 
 const DashboardPage = (props) => {  
-  console.log('render')
   return (
     <>
       <Navbar />
