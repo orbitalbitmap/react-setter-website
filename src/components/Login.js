@@ -1,56 +1,30 @@
 import axios from 'axios'
-import React from 'react'
-import { Link } from 'react-router-dom'
+import { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { Cookies } from 'react-cookie'
 
 import { signIn } from '../actions'
 
 const { checkPass } = require('../helpers/bcrypt');
-const cookies = new Cookies()
 
+const Login = (props) => {
+  const cookies = new Cookies()
+  const navigate = useNavigate()
+  const [enteredEmail, setEnteredEmail] = useState('')
+  const [enteredPassword, setEnteredPassword] = useState('')
 
-class Login extends React.Component {
-  constructor(props) {
-    super(props)
+  const handleSubmit = async (event) => {
+    event.preventDefault()
 
-    this.state = {
-      loginInfo: {
-        email: '',
-        password: '',
-      },
-      options: this.props.options,
-      buttonProperties: [
-        {
-          key: "login",
-          text: "Login",
-          type: "submit",
-        },
-      ],
-    }
-
-    this.handleChange = this.handleChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
-  }
-  
-  handleChange(event) {
-    this.setState({
-      loginInfo: {
-        ...this.state.loginInfo,
-        [event.target.name]: event.target.value
-      }
-    })
-  }
-  async handleSubmit(event) {
-    // event.preventDefault()
-
-    const {password, ...user} = (await axios.get(`http://localhost:1337/api/employeeByEmail/${this.state.loginInfo.email}`)).data
-    const passwordDoesMatch = await checkPass(this.state.loginInfo.password, password);
+    const {password, ...user} = (await axios.get(`http://localhost:1337/api/employeeByEmail/${enteredEmail}`)).data
+    const passwordDoesMatch = await checkPass(enteredPassword, password);
 
     switch (passwordDoesMatch) {
       case true:
-        this.props.signIn(user)
+        props.signIn(user)
         cookies.set('setter', user, { path: '/' })
+        navigate('/dashboard', {replace: true})
         break
       case false:
         console.log('faiulre')
@@ -60,39 +34,36 @@ class Login extends React.Component {
         break
     }
   }
-  
-  render() {
-    return (
-      <form id="employee-form" action="/login" method="GET">
-        <div className="employee-form-grid">
-          <label htmlFor="email" form="employee-form" >Email:</label>
-          <input
-            type="email"
-            name="email"
-            onChange={this.handleChange}
-            placeholder="Email"
-            required
-            value={this.state.loginInfo.email}
-          />
-          
-          <label htmlFor="password" form="employee-form" >Password:</label>
-          <input
-            type="password"
-            name="password"
-            onChange={this.handleChange}
-            placeholder="Password"
-            required
-            value={this.state.loginInfo.password}
-          />
-        </div>
 
-          <Link to="/dashboard" onClick={this.handleSubmit} role="button">
-            Login
-          </Link> {/* Restyle this to be a button */}
-      </form>
-    )
-  }
+  return (
+    <form id="employee-form" action="/login" method="GET">
+      <div className="employee-form-grid">
+        <label htmlFor="email" form="employee-form" >Email:</label>
+        <input
+          type="email"
+          name="email"
+          onChange={(event) => setEnteredEmail(event.target.value)}
+          placeholder="Email"
+          required
+          value={enteredEmail}
+        />
+        
+        <label htmlFor="password" form="employee-form" >Password:</label>
+        <input
+          type="password"
+          name="password"
+          onChange={(event) => setEnteredPassword(event.target.value)}
+          placeholder="Password"
+          required
+          value={enteredPassword}
+        />
+      </div>
+
+        <Link to="/dashboard" onClick={handleSubmit} role="button">
+          Login
+        </Link> {/* Restyle this to be a button */}
+    </form>
+  )
 }
-
 
 export default connect(null, { signIn })(Login)
