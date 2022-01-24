@@ -1,33 +1,22 @@
-import React from 'react'
 import { connect } from 'react-redux'
-
 
 import '../components/styles.css'
 import Navbar from '../components/navbar/Navbar'
 import Dashboard from '../components/Dashboard'
 import { getLocations } from '../actions'
 
-
-class DashboardPage extends React.Component {
-  async componentDidMount() {
-    if (this.props.user === undefined) {
-      window.location.href = "/"
-    }
-    this.props.getLocations()
-  }
-  
-  render() {
-    return (
-      <>
-        <Navbar />
-        {
-          this.props.user?.id
-            ? <Dashboard user={this.props.user} />
-            : null // create loading component />
-        }
-      </>
-    )
-  }
+const DashboardPage = (props) => {  
+  console.log('render')
+  return (
+    <>
+      <Navbar />
+      {
+        props.user?.id
+          ? <Dashboard user={props.user} />
+          : null // create loading component />
+      }
+    </>
+  )
 }
 
 const mapStateToProps = (state) => {
