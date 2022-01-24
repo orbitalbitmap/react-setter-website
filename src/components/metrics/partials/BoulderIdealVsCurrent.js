@@ -1,7 +1,6 @@
 import { Bar } from 'react-chartjs-2'
 
 const BoulderIdealVsCurrent = (props) => {
-  console.log('render')
   const {idealBoulderGradeCount, currentBoulderGradeCount} = props.data
 
   const orderedIdealBoulderGradeCount = {
