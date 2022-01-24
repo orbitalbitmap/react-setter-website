@@ -2,13 +2,14 @@ import { Link } from "react-router-dom"
 import { connect } from "react-redux"
 import { Cookies } from 'react-cookie'
 
-import { signOut } from '../../../actions'
+import { removeLocations, signOut } from '../../../actions'
 
 
 const NavLogout = (props) => {
   const cookies = new Cookies()
 
   const handleLogout = () => {
+    props.removeLocations()
     props.signOut()
     cookies.remove('setter')
   }
@@ -20,4 +21,4 @@ const NavLogout = (props) => {
   )
 }
 
-export default connect(null, { signOut })(NavLogout)
+export default connect(null, { removeLocations, signOut })(NavLogout)
