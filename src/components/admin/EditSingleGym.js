@@ -1,109 +1,87 @@
 import axios from 'axios'
-import React from 'react'
+import { useEffect, useState } from 'react'
 import InputAndLabel from '../locations/InputAndLabel'
 
-class EditSingleGym extends React.Component {
-  constructor(props) {
-    super(props)
+const EditSingleGym = () => {
+  const [gym, setGym] = useState({})
 
-    this.state = {
-      link: "/api/updateGymInfo",
-      gym: {},
-    }
-
-    this.handleChange = this.handleChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
-
-  }
-
-  handleChange(event) {
-    const value = event.target.name === 'headSetterId'
-      ? parseInt(event.target.value)
-      : event.target.value
-
-    this.setState({
-      gym: {
-        ...this.state.gym,
-        [event.target.name]: value
-      }
-    })
-  }
-
-  handleSubmit(event) {
+  const handleSubmit = (event) => {
     event.preventDefault()
+
+    console.log(gym)
   }
 
-  async componentDidMount() {
-    const { data } = await axios.get('http://localhost:1337/api/gyms/worcester')
-    const gym = data
+  useEffect(() => {
+    const getInfo = async () => {
+      const { data } = await axios.get('http://localhost:1337/api/gyms/worcester')
 
-    this.setState({
-      gym: gym,
-    })
-  }
-
-  render() {
-    if (!this.state.gym.name) {
-      return (<h2>We cannot find the gym you wish to edit.</h2>)
+      setGym(data)
     }
 
-    return (
-      <>
-        <h1 className="centered-text">Edit {this.state.gym.name}'s Gym Information</h1>
+    getInfo()
+  }, [])
 
-        <form action={this.state.link} method="post" id="editable-gym-form">
-          <div className="employee-form-grid">
-            <InputAndLabel
-              handleChange={this.handleChange}
-              name="address"
-              text="Address"
-              value={this.state.gym.address}
-            />
-            
-            <InputAndLabel
-              handleChange={this.handleChange}
-              name="phoneNumber"
-              text="Phone number"
-              value={this.state.gym.phoneNumber}
-            />
-
-            <label htmlFor="headSetterId">Head Setter:</label>
-            <select name="headSetterId"  onChange={this.handleChange} value={this.state.gym.headSetterId}>
-              {
-                this.state.gym.employees.map(employee => {
-                  return (
-                    <option key={employee.id} value={employee.id}>{`${employee.firstName} ${employee.lastName}`}</option>
-                  )
-                })
-              }
-            </select>
-
-            <InputAndLabel
-              handleChange={this.handleChange}
-              name="facebook"
-              text="Facebook page"
-              value={this.state.gym.facebook}
-            />
-
-            <InputAndLabel
-              handleChange={this.handleChange}
-              name="instagram"
-              text="Instagram Account"
-              value={this.state.gym.instagram}
-            />
-
-            <InputAndLabel
-              handleChange={this.handleChange}
-              name="twitter"
-              text="Twitter Account"
-              value={this.state.gym.twitter}
-            />
-          </div>
-          <button onClick={this.handleSubmit} type="submit">Update Info</button>
-        </form>
-      </>
-    )
+  if (!gym.name) {
+    return (<h2>We cannot find the gym you wish to edit.</h2>)
   }
+
+  console.log('render')
+  return (
+    <>
+      <h1 className="centered-text">Edit {gym.name}'s Gym Information</h1>
+
+      <form id="editable-gym-form">
+        <div className="employee-form-grid">
+          <InputAndLabel
+            handleChange={(event) => { setGym({...gym, address: event.target.value})}}
+            name="address"
+            text="Address"
+            value={gym.address}
+          />
+          
+          <InputAndLabel
+            handleChange={(event) => { setGym({...gym, phoneNumber: event.target.value})}}
+            name="phoneNumber"
+            text="Phone number"
+            value={gym.phoneNumber}
+          />
+
+          <label htmlFor="headSetterId">Head Setter:</label>
+          <select name="headSetterId"  onChange={(event) => { setGym({...gym, headSetterId: parseInt(event.target.value)})}} value={gym.headSetterId}>
+            {
+              gym.employees.map(employee => {
+                return (
+                  <option key={employee.id} value={employee.id}>{`${employee.firstName} ${employee.lastName}`}</option>
+                )
+              })
+            }
+          </select>
+
+          <InputAndLabel
+            handleChange={(event) => { setGym({...gym, facebook: event.target.value})}}
+            name="facebook"
+            text="Facebook page"
+            value={gym.facebook}
+          />
+
+          <InputAndLabel
+            handleChange={(event) => { setGym({...gym, instagram: event.target.value})}}
+            name="instagram"
+            text="Instagram Account"
+            value={gym.instagram}
+          />
+
+          <InputAndLabel
+            handleChange={(event) => { setGym({...gym, twitter: event.target.value})}}
+            name="twitter"
+            text="Twitter Account"
+            value={gym.twitter}
+          />
+        </div>
+        <button onClick={handleSubmit} type="submit">Update Info</button>
+      </form>
+    </>
+  )
 }
 
   export default EditSingleGym
