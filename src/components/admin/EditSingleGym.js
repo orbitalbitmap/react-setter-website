@@ -1,8 +1,11 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
+
 import InputAndLabel from '../locations/InputAndLabel'
 
 const EditSingleGym = () => {
+  const urlParams = useParams()
   const [gym, setGym] = useState({})
 
   const handleSubmit = (event) => {
@@ -13,13 +16,13 @@ const EditSingleGym = () => {
 
   useEffect(() => {
     const getInfo = async () => {
-      const { data } = await axios.get('http://localhost:1337/api/gyms/worcester')
+      const { data } = await axios.get(`http://localhost:1337/api/gymById/${urlParams.id}`)
 
       setGym(data)
     }
 
     getInfo()
-  }, [])
+  }, [urlParams])
 
   if (!gym.name) {
     return (<h2>We cannot find the gym you wish to edit.</h2>)
