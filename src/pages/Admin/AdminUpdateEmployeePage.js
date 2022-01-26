@@ -1,4 +1,4 @@
-import UpdateEmployee from '../../components/employees/UpdateEmployee'
+import AdminUpdateEmployee from '../../components/admin/AdminUpdateEmployee'
 import Navbar from '../../components/navbar/Navbar'
 
 
@@ -7,7 +7,7 @@ const AdminUpdateEmployeePage = () => {
     <>
       <Navbar />
       <div className="centered-text">
-        <UpdateEmployee />
+        <AdminUpdateEmployee />
       </div>
     </>
   )
