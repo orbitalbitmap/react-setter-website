@@ -23,11 +23,8 @@ const BoulderDistributionChart = () => {
 
   const handleSectionChange = (event) => {
     const sectionId = parseInt(event.target.id)
-    const filteredDistribution = distribution.filter(climb => climb.sectionId === sectionId)
-    const sortedDistribution = filteredDistribution.sort((climbA, climbB) => climbA - climbB)
 
     setCurrentSection(sectionId)
-    setSectionDistribution(sortedDistribution)
   }
 
   const handleChangeAllDatesInSection = (event) => {
@@ -59,13 +56,8 @@ const BoulderDistributionChart = () => {
     let updatedDistribution = [...distribution]
     
     updatedDistribution[climbId - 1][event.target.name] = value
-    
-    const filteredDistribution = updatedDistribution.filter(climb => climb.sectionId === currentSection)
-    const sortedDistribution = filteredDistribution.sort((climbA, climbB) => climbA - climbB)
-
 
     setDistribution(updatedDistribution)
-    setSectionDistribution(sortedDistribution)
 }
 
   useEffect(() => {
@@ -73,21 +65,23 @@ const BoulderDistributionChart = () => {
       const climbInfoList = await axios.get(`http://localhost:1337/api/currentBoulderGrades/${urlParams.id}`)
       const sectionList = await axios.get(`http://localhost:1337/api/boulderSections/${urlParams.id}`)
       const gymInfo = await axios.get(`http://localhost:1337/api/gymById/${urlParams.id}`)
-
-      const filteredDistribution = climbInfoList.data.filter(climb => climb.sectionId === currentSection)
-      const sortedFilterdDistribution = filteredDistribution.sort((climbA, climbB) => climbA - climbB)
-
       
       setDistribution(climbInfoList.data)
       setGymId(gymInfo.data.gymId)
       setGymName(gymInfo.data.name)
       setEmployeeList(gymInfo.data.employees)
       setSectionList(sectionList.data)
-      setSectionDistribution(sortedFilterdDistribution)
     }
 
     getInfo()
-  }, [currentSection, urlParams])
+  }, [urlParams])
+
+  useEffect(() => {
+    const filteredDistribution = distribution.filter(climb => climb.sectionId === currentSection)
+    const sortedFilterdDistribution = filteredDistribution.sort((climbA, climbB) => climbA - climbB)
+
+    setSectionDistribution(sortedFilterdDistribution)
+  }, [distribution, currentSection])
 
   return (
     <>
