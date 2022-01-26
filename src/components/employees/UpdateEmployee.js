@@ -10,7 +10,7 @@ const UpdateEmployee = (props) => {
 
   useEffect(() => {
     const getInfo = async () => {
-      const {data} = await axios.get(`http://localhost:1337/api/employees/${urlParams.id}`)
+      const { data } = await axios.get(`http://localhost:1337/api/employees/${urlParams.id}`)
 
       setEmployee({
           ...data,
