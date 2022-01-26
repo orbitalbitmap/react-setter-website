@@ -33,10 +33,10 @@ const Dashboard = (props) => {
                 <h4>Ideal</h4>
                 <ul key={`ideal-distribution-list-${gym.id}`}>
                   <li key={`ideal-route-distribution-${gym.id}`}>
-                    <Link to={`/distribution/routes/${gym.id}`}> Route Distribution</Link>
+                    <Link to={`/distribution/ideal/routes/${gym.id}`}> Route Distribution</Link>
                   </li>
                   <li key={`ideal-boulder-distribution-${gym.id}`}>
-                    <Link to={`/distribution/boulders/${gym.id}`}>Boulder Distribution</Link>
+                    <Link to={`/distribution/ideal/boulders/${gym.id}`}>Boulder Distribution</Link>
                   </li>
                 </ul>
               </li>
@@ -44,10 +44,10 @@ const Dashboard = (props) => {
                 <h4>Current</h4>
                 <ul key={`current-distribution-list-${gym.id}`}>
                   <li key={`current-route-distribution-${gym.id}`}>
-                    <Link to={`/distribution/view/routes/${gym.id}`}>Current Route Distribution</Link>
+                    <Link to={`/distribution/current/routes/${gym.id}`}>Current Route Distribution</Link>
                   </li>
                   <li key={`current-boulder-distribution-${gym.id}`}>
-                    <Link to={`/distribution/view/boulders/${gym.id}`}>Current Boulder Distribution</Link>
+                    <Link to={`/distribution/current/boulders/${gym.id}`}>Current Boulder Distribution</Link>
                   </li>
                 </ul>
               </li>
