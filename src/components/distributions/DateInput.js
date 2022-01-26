@@ -1,18 +1,16 @@
 import React from 'react'
 
-class DateInput extends React.Component {  
-  render() {
-    return (
-      <input
-        className="gray-background date"
-        data-climbid={this.props.climb.id}
-        name="dateSet"
-        onChange={this.props.onChange}
-        type="date"
-        value={this.props.climb.dateSet}
-      />
-    )
-  }
+const DateInput = (props) => {  
+  return (
+    <input
+      className="gray-background date"
+      data-climbid={props.climb.id}
+      name="dateSet"
+      onChange={props.onChange}
+      type="date"
+      value={props.climb.dateSet}
+    />
+  )
 }
 
 export default DateInput
