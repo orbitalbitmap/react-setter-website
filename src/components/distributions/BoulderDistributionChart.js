@@ -187,9 +187,9 @@ const BoulderDistributionChart = () => {
                     </tbody>
                   </table>
                   <div className="distribution-button-container">
-                    <button className="distribution-button"  type="submit">Save Distribution</button>
-                    <button className="distribution-button" type="submit" onClick={handleSubmit} >Print Boulder Placards</button>  {/* formAction={`/placards/${gymId}/boulders`} */ }
-                    <button className="distribution-button" type="submit" onClick={handleSubmit} >Print Boulder Bash Placard</button>  {/* formAction={`/placards/${gymId}/boulderBash`} */ }
+                    <button className="distribution-button" onClick={handleSubmit} type="submit">Save Distribution</button>
+                    <button className="distribution-button" onClick={handleSubmit} type="submit" >Print Boulder Placards</button>  {/* formAction={`/placards/${gymId}/boulders`} */ }
+                    <button className="distribution-button" onClick={handleSubmit} type="submit" >Print Boulder Bash Placard</button>  {/* formAction={`/placards/${gymId}/boulderBash`} */ }
                   </div>
                 </form>
         </div>
