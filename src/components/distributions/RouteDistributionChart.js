@@ -11,11 +11,11 @@ const RouteDistributionChart = () => {
   const today = new Date()
   const todayFormatted = today.toISOString().split('T')[0]
   const urlParams = useParams()
+  const gymId = urlParams.id
 
   const [currentSection, setCurrentSection] = useState(1)
   const [distribution, setDistribution] = useState([])
   const [employeeList, setEmployeeList] = useState([])
-  // const [gymId, setGymId] = useState(0)
   const [gymName, setGymName] = useState('')
   const [sectionDistribution, setSectionDistribution] = useState([])
   const [sectionList, setSectionList] = useState([])
@@ -63,19 +63,18 @@ const RouteDistributionChart = () => {
 
   useEffect(() => {
     const getInfo = async () => {
-      const climbInfoList = await axios.get(`http://localhost:1337/api/currentRouteGrades/${urlParams.id}`)
-      const sectionList = await axios.get(`http://localhost:1337/api/routeSections/${urlParams.id}`)
-      const gymInfo = await axios.get(`http://localhost:1337/api/gymById/${urlParams.id}`)
+      const climbInfoList = await axios.get(`http://localhost:1337/api/currentRouteGrades/${gymId}`)
+      const sectionList = await axios.get(`http://localhost:1337/api/routeSections/${gymId}`)
+      const gymInfo = await axios.get(`http://localhost:1337/api/gymById/${gymId}`)
       
       setDistribution(climbInfoList.data)
-      // setGymId(gymInfo.data.gymId)
       setGymName(gymInfo.data.name)
       setEmployeeList(gymInfo.data.employees)
       setSectionList(sectionList.data)
     }
 
     getInfo()
-  }, [urlParams])
+  }, [gymId])
 
   useEffect(() => {
     const filteredDistribution = distribution.filter(climb => climb.sectionId === currentSection)
