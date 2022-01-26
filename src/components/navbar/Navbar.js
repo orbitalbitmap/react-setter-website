@@ -135,7 +135,7 @@ const Navbar = (props) => {
 
             {/* employee info link */}
             <li className="parent">
-              <Link to="/employees/editInfo">Info</Link>
+              <Link to="/employees/edit">Info</Link>
             </li>
 
             {/* logout link */}
