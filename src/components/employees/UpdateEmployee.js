@@ -1,16 +1,14 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
-import { useParams } from 'react-router-dom'
 
 const UpdateEmployee = (props) => {
-  const urlParams = useParams()
   const [employee, setEmployee] = useState({})
   const [roleId, setRoleId] = useState(5)
 
   useEffect(() => {
     const getInfo = async () => {
-      const { data } = await axios.get(`http://localhost:1337/api/employees/${urlParams.id}`)
+      const { data } = await axios.get(`http://localhost:1337/api/employees/${props.user.id}`)
 
       setEmployee({
           ...data,
@@ -19,7 +17,7 @@ const UpdateEmployee = (props) => {
     }
 
     getInfo()
-  }, [urlParams])
+  }, [props.user])
 
   useEffect(() => {
     const aRoleId = employee.roleId
@@ -57,7 +55,7 @@ const UpdateEmployee = (props) => {
     }
   }
 
-  const handleSubmit = (event)  =>{
+  const handleSubmit = (event) => {
     event.preventDefault()
   }
   
@@ -149,6 +147,7 @@ const UpdateEmployee = (props) => {
 
 const mapStateToProps = (state) => {
   return {
+    user: state.user,
     gyms: state.gyms
   }
 }
