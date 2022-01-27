@@ -7,26 +7,27 @@ import {
 
 import './styles.css'
 import history from '../history';
-import LoginPage from '../pages/LoginPage'
-import DashboardPage from '../pages/DashboardPage'
-import AdminDashboardPage from '../pages/admin/AdminDashboardPage'
-import MetricsPage from '../pages/MetricsPage'
-import AllLocationsAndSectionsPage from '../pages/sections/AllLocationsAndSectionsPage'
-import SectionsForSpecificGymPage from '../pages/sections/SpecificGymSectionsPage'
-import UpdateSectionsPage from '../pages/sections/UpdateSectionsPage'
-import CurrentRopeDistributionPage from '../pages/distribution/CurrentRopeDistributionPage'
-import CurrentBoulderDistributionPage from '../pages/distribution/CurrentBoulderDistributionPage'
-import AllLocations from '../pages/locations/AllLocationsPage';
-import SingleLocationPage from '../pages/locations/SingleLocationPage';
-import AllEmployeeesPage from '../pages/employees/AllEmployeesPage'
-import SingleEmployeePage from '../pages/employees/SingleEmployeePage'
-import NewGymPage from '../pages/admin/NewGymPage';
-import NewEmployeePage from '../pages/admin/NewEmployeePage';
-import UpdateEmployeePage from '../pages/employees/UpdateEmployeePage';
+import AdminDashboardPage from '../pages/admin/AdminDashboardPage';
 import AdminUpdateEmployeePage from '../pages/admin/AdminUpdateEmployeePage';
+import AllEmployeeesPage from '../pages/employees/AllEmployeesPage';
+import AllLocations from '../pages/locations/AllLocationsPage';
+import AllLocationsAndSectionsPage from '../pages/sections/AllLocationsAndSectionsPage';
+import CurrentBoulderDistributionPage from '../pages/distribution/CurrentBoulderDistributionPage';
+import CurrentRopeDistributionPage from '../pages/distribution/CurrentRopeDistributionPage';
+import DashboardPage from '../pages/DashboardPage';
 import IdealBoulderDistribution from '../pages/distribution/IdealBoulderDistributionPage';
 import IdealRopeDistributionPage from '../pages/distribution/IdealRopeDistributionPage';
+import LoginPage from '../pages/LoginPage';
+import MetricsPage from '../pages/MetricsPage';
+import NewEmployeePage from '../pages/admin/NewEmployeePage';
+import NewGymPage from '../pages/admin/NewGymPage';
+import PrintableBoulderPlacardPage from '../pages/placards/PrintableBoulderPlacardPage';
+import SectionsForSpecificGymPage from '../pages/sections/SpecificGymSectionsPage';
+import SingleEmployeePage from '../pages/employees/SingleEmployeePage';
+import SingleLocationPage from '../pages/locations/SingleLocationPage';
+import UpdateEmployeePage from '../pages/employees/UpdateEmployeePage';
 import UpdateLocationPage from '../pages/admin/UpdateLocationInfo';
+import UpdateSectionsPage from '../pages/sections/UpdateSectionsPage';
 
 const App = () => {
   return (
@@ -56,6 +57,8 @@ const App = () => {
           <Route exact path="/distribution/ideal/boulders/:id" element={<IdealBoulderDistribution />} />
           <Route exact path="/distribution/ideal/ropes/:id" element={<IdealRopeDistributionPage />} />
 
+          {/* Printable Placard paths */}
+          <Route exact path="/placard/boulders" element={<PrintableBoulderPlacardPage />} />
 
           {/* Employee paths */}
           <Route exact path="/employees" element={<AllEmployeeesPage />} />
