@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 
 import DateInput from './DateInput'
 import SectionsList from './SectionsList'
@@ -180,7 +180,11 @@ const BoulderDistributionChart = () => {
                   </table>
                   <div className="distribution-button-container">
                     <button className="distribution-button" onClick={handleSubmit} type="submit">Save Distribution</button>
-                    <button className="distribution-button" onClick={handleSubmit} type="submit" >Print Boulder Placards</button>  {/* formAction={`/placards/${gymId}/boulders`} */ }
+                    <button className="distribution-button" type="submit">
+                      <Link to="/placard/boulders" state={{ distribution: sectionDistribution}} style={{color: 'white', textDecoration: 'none'}}>
+                        Print Boulder Placard
+                      </Link>
+                    </button>  {/* formAction={`/placards/${gymId}/boulders`} */ }
                     <button className="distribution-button" onClick={handleSubmit} type="submit" >Print Boulder Bash Placard</button>  {/* formAction={`/placards/${gymId}/boulderBash`} */ }
                   </div>
                 </form>
