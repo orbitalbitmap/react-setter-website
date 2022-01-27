@@ -3,59 +3,36 @@ import React from 'react'
 import ClimbSelector from './ClimbSelector'
 import AreteSelector from './AreteSelector'
 
-class ClimbSelectors extends React.Component {
-  render() {
-    return (
-      <>
-        <div className={this.props.className}>
-          <div className={`${this.props.selectorType}-selectors`}>
-            <ClimbSelector
-              labelText={`Slot #${this.props.nameList[0]}`}
-              handleClimbSelector={this.props.handleClimbSelector}
-              climbs={this.props.climbs} 
-              selectorType={this.props.selectorType}
-              slotId={this.props.nameList[0]}
-            />
-            
-              <AreteSelector 
-                name={`arete${this.props.nameList[0]}`}
-                onChange={this.props.handleAreteSelect}
+const ClimbSelectors = (props) => {
+  let slotNumber = props.startingSlotNum
+  return (
+    <>
+      <div className={props.class}>
+      {
+        props.nameList.map(climbName => {
+          slotNumber++
+          return (
+            <div key={climbName} className={`${props.selectorType}-selectors`}>
+              <ClimbSelector
+                name={climbName}
+                labelText={`Slot #${slotNumber}`}
+                handleClimbSelector={props.handleClimbSelector}
+                climbs={props.distribution} 
+                selectorType="boulder"
+                slotId={1}
               />
-          </div>
-
-          <div className={`${this.props.selectorType}-selectors`}>
-            <ClimbSelector
-              labelText={`Slot #${this.props.nameList[1]}`}
-              handleClimbSelector={this.props.handleClimbSelector}
-              climbs={this.props.climbs} 
-              selectorType={this.props.selectorType}
-              slotId={this.props.nameList[1]}
-            />
-
+              
               <AreteSelector 
-                name={`arete${this.props.nameList[1]}`}
-                onChange={this.props.handleAreteSelect}
+                name={climbName}
+                onChange={props.handleAreteSelector}
               />
-          </div>
-
-          <div className={`${this.props.selectorType}-selectors`}>
-            <ClimbSelector
-              labelText={`Slot #${this.props.nameList[2]}`}
-              handleClimbSelector={this.props.handleClimbSelector}
-              climbs={this.props.climbs} 
-              selectorType={this.props.selectorType}
-              slotId={this.props.nameList[2]}
-            />
-
-              <AreteSelector 
-                name={`arete${this.props.nameList[2]}`}
-                onChange={this.props.handleAreteSelect}
-              />
-          </div>
-        </div>
-      </>
-    )
-  }
+            </div>
+          )
+        })
+      }
+    </div>
+    </>
+  )
 }
 
 export default ClimbSelectors
