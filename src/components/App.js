@@ -22,6 +22,7 @@ import MetricsPage from '../pages/MetricsPage';
 import NewEmployeePage from '../pages/admin/NewEmployeePage';
 import NewGymPage from '../pages/admin/NewGymPage';
 import PrintableBoulderPlacardPage from '../pages/placards/PrintableBoulderPlacardPage';
+import PrintableRoutePlacardPage from '../pages/placards/PrintableRoutePlacardPage';
 import SectionsForSpecificGymPage from '../pages/sections/SpecificGymSectionsPage';
 import SingleEmployeePage from '../pages/employees/SingleEmployeePage';
 import SingleLocationPage from '../pages/locations/SingleLocationPage';
@@ -59,6 +60,7 @@ const App = () => {
 
           {/* Printable Placard paths */}
           <Route exact path="/placard/boulders" element={<PrintableBoulderPlacardPage />} />
+          <Route exact path="/placard/ropes" element={<PrintableRoutePlacardPage />} />
 
           {/* Employee paths */}
           <Route exact path="/employees" element={<AllEmployeeesPage />} />
