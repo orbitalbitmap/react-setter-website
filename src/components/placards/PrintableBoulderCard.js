@@ -1,190 +1,156 @@
-import React from 'react'
-import axios from 'axios'
+import { useReducer } from 'react'
 
 import BoulderPlacard from './BoulderPlacard'
 import PlacardSelectors from './PlacardSelectors'
 
-class PrintableBoulderCard extends React.Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      climbsPerPlacard: 3,
-      selectedClimbs: {
-        boulder1: {
-          grade: null,
-          color: null,
-          dateSet: null,
-          setter: null,
-        },
-        boulder2: {
-          grade: null,
-          arete: null, 
-          dateSet: null,
-          setter: null,
-        },
-        boulder3: {
-          grade: null,
-          arete: null, 
-          dateSet: null,
-          setter: null,
-        },
-        boulder4: {
-          grade: null,
-          arete: null, 
-          dateSet: null,
-          setter: null,
-        },
-        boulder5: {
-          grade: null,
-          arete: null, 
-          dateSet: null,
-          setter: null,
-        },
-        boulder6: {
-          grade: null,
-          arete: null, 
-          dateSet: null,
-          setter: null,
-        },
-      },
-
-      arete1: null,
-      arete2: null,
-      arete3: null,
-      arete4: null,
-      arete5: null,
-      arete6: null,
-
-      climbs: []
-    }
-
-    this.handleAreteSelect = this.handleAreteSelect.bind(this)
-    this.handleClimbsPerPlacardChange = this.handleClimbsPerPlacardChange.bind(this)
-    this.handleClimbSelector = this.handleClimbSelector.bind(this)
+const PrintableBoulderCard = (props) => {
+  const initialState = {
+    climb1: {
+      color: null,
+      grade: null,
+      setter: null,
+      areteMessage: null,
+      dateSet: null
+    },
+    climb2: {
+      color: null,
+      grade: null,
+      setter: null,
+      areteMessage: null,
+      dateSet: null
+    },
+    climb3: {
+      color: null,
+      grade: null,
+      setter: null,
+      areteMessage: null,
+      dateSet: null
+    },
+    climb4: {
+      color: null,
+      grade: null,
+      setter: null,
+      areteMessage: null,
+      dateSet: null
+    },
+    climb5: {
+      color: null,
+      grade: null,
+      setter: null,
+      areteMessage: null,
+      dateSet: null
+    },
+    climb6: {
+      color: null,
+      grade: null,
+      setter: null,
+      areteMessage: null,
+      dateSet: null
+    },
   }
 
-  async componentDidMount() {
-    const { data } = await axios.get('http://localhost:1337/api/currentBoulderGrades/1') 
-
-    this.setState({
-      climbs: data
-    })
-  }
-
-  handleClimbsPerPlacardChange(event) {
-    this.setState({
-      climbsPerPlacard: parseInt(event.target.value)
-    })
-  }
-
-  handleClimbSelector(event) {
-    const selectedClimb = this.state.climbs[event.target.value -1]
-
-    if(event.target.value === 'blank') {
-      this.setState({
-        climbs: {
-          ...this.state.selectedClimbs,
-          [event.target.name]: {
-            grade: null,
-            color: null, 
-            dateSet: null,
-            setter: null,
-          }
+  const reducer = (state, action) => {
+    switch (action.type) {
+      case 'climb1':
+        return {
+          ...state, 
+          climb1: 
+            { ...state.climb1, ...action.payload }
         }
-      })
-    } else {
-      this.setState({
-        selectedClimbs: {
-          ...this.state.selectedClimbs,
-          [event.target.name]: {
-          grade: selectedClimb.grade,
-          color: selectedClimb.color, 
-          dateSet: selectedClimb.dateSet,
-          setter: selectedClimb.setter,
-          }
+      case 'climb2':
+        return {
+          ...state, 
+          climb2: 
+            { ...state.climb2, ...action.payload }
         }
-      })
-    }
-  }
-
-  handleAreteSelect(event) {
-    switch (event.target.value) {
-      case "2":
-        this.setState({
-          [event.target.name]: "Arete is on"
-        })
-        break
-        case "3":
-          this.setState({
-            [event.target.name]: "Arete is off"
-          })
-          break
+      case 'climb3':
+        return {
+          ...state, 
+          climb3: 
+            { ...state.climb3, ...action.payload }
+        }
+      case 'climb4':
+        return {
+          ...state, 
+          climb4: 
+            { ...state.climb4, ...action.payload }
+        }
+      case 'climb5':
+        return {
+          ...state, 
+          climb5: 
+            { ...state.climb5, ...action.payload }
+        }
+      case 'climb6':
+        return {
+          ...state, 
+          climb6: 
+            { ...state.climb6, ...action.payload }
+        }
       default:
-        this.setState({
-          [event.target.name]: null
-        })
+        return state
     }
   }
 
-  getClimbList(startValue, endValue) {
-    const climbsToPassDown = Object.entries(this.state.selectedClimbs)
-    let climbList = []
+  const [selectedClimbs, dispatch] = useReducer(reducer, initialState)
 
-    climbsToPassDown.forEach(([key, value]) => {
-      const climbNumber = parseInt(key[key.length - 1])
-      if (climbNumber >= startValue && climbNumber <= endValue) {
-        climbList = climbList.concat({ ...value, message: this.state[`arete${climbNumber}`] })
-      }
-    })
+  const handleNonAreteInfo = (event) => {
+    const climbInArray = parseInt(event.target.value) - 1
+    const { color, setter, grade, dateSet } = props.distribution[climbInArray]
 
-    return climbList
+    dispatch({ type: event.target.name, payload: { color, setter, grade, dateSet } })
   }
 
-  render() {
-    return (
-      <>
-        <label htmlFor="climbsPerPlacard"></label>
-        <select onChange={this.handleClimbsPerPlacardChange} name="climbsPerPlacard" default="3">
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-        </select>
+  const handleAreteInfo = (event) => {
+    let areteMessage
 
-        <PlacardSelectors
-          className="noprint selection-container-top"
-          climbs={this.state.climbs}
-          handleClimbSelector={this.handleClimbSelector}
-          handleAreteSelect={this.handleAreteSelect}
-          location="top"
-          nameList={[1,2,3]}
-          selectorType="boulder"
-        />
+    switch (parseInt(event.target.value)) {
+      case 2:
+        areteMessage = "Arete on"
+        break
+      case 3:
+        areteMessage = "Arete off"
+        break
+      default:
+        areteMessage = null
+    }
 
-        <BoulderPlacard
-          climbs={ this.getClimbList(1, this.state.climbsPerPlacard) }
-        />
-
-        <PlacardSelectors
-          className="noprint selection-container-bottom"
-          climbs={this.state.climbs}
-          handleClimbSelector={this.handleClimbSelector}
-          handleAreteSelect={this.handleAreteSelect}
-          location="bottom"
-          nameList={[4,5,6]}
-          selectorType="boulder"
-        />
-
-        <BoulderPlacard
-          climbs={ this.getClimbList(this.state.climbsPerPlacard + 1, this.state.climbsPerPlacard * 2) }
-        />
-
-        <button className="noprint" type="submit" onClick={window.print}>Print</button>
-      </>
-    )
+    dispatch({ type: event.target.name, payload: { areteMessage } })
   }
+
+  return (
+    <>
+      <PlacardSelectors
+        class="noprint selection-container-top"
+        distribution={props.distribution}
+        handleClimbSelector={handleNonAreteInfo}
+        handleAreteSelector={handleAreteInfo}
+        startingSlotNum={0} // set to zero as the .map in the component starts by adding 1 to it
+        nameList={['climb1','climb2','climb3']}
+        selectorType="boulder"
+      />
+
+      <BoulderPlacard
+        climbs={ [selectedClimbs.climb1, selectedClimbs.climb2, selectedClimbs.climb3] }
+      />
+
+<PlacardSelectors
+        class="noprint selection-container-bottom"
+        distribution={props.distribution}
+        handleClimbSelector={handleNonAreteInfo}
+        handleAreteSelector={handleAreteInfo}
+        startingSlotNum={4} // set to zero as the .map in the component starts by adding 1 to it
+        nameList={['climb4','climb5','climb6']}
+        selectorType="boulder"
+      />
+
+      <BoulderPlacard
+        climbs={ [selectedClimbs.climb4, selectedClimbs.climb5, selectedClimbs.climb6] }
+      />
+
+      <button className="noprint" type="submit" onClick={window.print}>Print</button>
+    </>
+  )
 }
 
 export default PrintableBoulderCard
