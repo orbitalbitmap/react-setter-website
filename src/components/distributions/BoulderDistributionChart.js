@@ -184,7 +184,7 @@ const BoulderDistributionChart = () => {
                       <Link to="/placard/boulders" state={{ distribution: sectionDistribution}} style={{color: 'white', textDecoration: 'none'}}>
                         Print Boulder Placard
                       </Link>
-                    </button>  {/* formAction={`/placards/${gymId}/boulders`} */ }
+                    </button>
                     <button className="distribution-button" onClick={handleSubmit} type="submit" >Print Boulder Bash Placard</button>  {/* formAction={`/placards/${gymId}/boulderBash`} */ }
                   </div>
                 </form>
