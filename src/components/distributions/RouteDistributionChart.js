@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 
 import DateInput from './DateInput'
 import SectionsList from './SectionsList'
@@ -215,7 +215,11 @@ const RouteDistributionChart = () => {
                   </table>
                   <div className="distribution-button-container">
                     <button className="distribution-button" onClick={handleSubmit} type="submit">Save Distribution</button>
-                    <button className="distribution-button" onClick={handleSubmit} type="submit" >Print Routes Placards</button> {/* formAction={`/placards/${gymId}/routes`} */}
+                    <button className="distribution-button" onClick={handleSubmit} type="submit" >
+                      <Link to="/placard/ropes" state={{ distribution }} style={{color: 'white', textDecoration: 'none'}} >
+                        Print Routes Placards
+                      </Link>
+                    </button>
                   </div>
                 </form>
         </div>
