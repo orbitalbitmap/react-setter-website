@@ -18,8 +18,8 @@ const SelectionContainer = (props) => {
               return (<option key={`${props.textKey}-${item}-${props.climb.id}`} className={`climb${props.climb.id} ${props.climb.color.toLowerCase()}`} onChange={props.onChange} id={props.name} value={item[props.valueKey]}>{item}</option>)
             case 'setter':
               return item.placardName
-                ? (<option key={`${props.textKey}-${item.placardName}-${props.climb.id}`} className={`climb${props.climb.id} ${props.climb.color.toLowerCase()}`} onChange={props.onChange} id={props.name} value={item.placardName}>{item.placardName}</option>)
-                : (<option key={`${props.textKey}-${item.firstName}-${props.climb.id}`} className={`climb${props.climb.id} ${props.climb.color.toLowerCase()}`} onChange={props.onChange} id={props.name} value={item.firstName}>{item.firstName}</option>)
+                ? (<option key={`${props.textKey}-${item.placardName}-${item.id}-${props.climb.id}`} className={`climb${props.climb.id} ${props.climb.color.toLowerCase()}`} onChange={props.onChange} id={props.name} value={item.placardName}>{item.placardName}</option>)
+                : (<option key={`${props.textKey}-${item.firstName}-${item.id}-${props.climb.id}`} className={`climb${props.climb.id} ${props.climb.color.toLowerCase()}`} onChange={props.onChange} id={props.name} value={item.firstName}>{item.firstName}</option>)
             default:
             return (<option key={`${props.textKey}-${item[props.valueKey]}-${props.climb.id}`} className={`climb${props.climb.id} ${props.climb.color.toLowerCase()}`} onChange={props.onChange} id={props.name} value={item[props.valueKey]}>{item[props.textKey]}</option>)
           }
@@ -28,5 +28,6 @@ const SelectionContainer = (props) => {
     </select>
   )
 }
+
 
 export default SelectionContainer
