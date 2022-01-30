@@ -2,6 +2,8 @@ import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 
+import { signIn } from '../../actions'
+
 const UpdateEmployee = (props) => {
   const [employee, setEmployee] = useState({})
   const [roleId, setRoleId] = useState(5)
@@ -9,10 +11,12 @@ const UpdateEmployee = (props) => {
   useEffect(() => {
     const getInfo = async () => {
       const { data } = await axios.get(`http://localhost:1337/api/employees/${props.user.id}`)
+      console.log(data)
 
       setEmployee({
           ...data,
-          oldEmployeeGymList: data.gyms
+          oldEmployeeGymList: data.gyms,
+          password: 'NotYourRealPassword'
         })
     }
 
@@ -55,8 +59,13 @@ const UpdateEmployee = (props) => {
     }
   }
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault()
+
+    console.log(employee)
+
+    await axios.post('http://localhost:1337/api/updateEmployee', employee)
+    props.signIn(await employee)
   }
   
   if (!employee.id) {
@@ -152,4 +161,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, {})(UpdateEmployee)
+export default connect(mapStateToProps, { signIn })(UpdateEmployee)
