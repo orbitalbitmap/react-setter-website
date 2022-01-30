@@ -42,10 +42,10 @@ const RouteDistributionChart = () => {
     setSectionDistribution(newDistribution)
   }
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault()
 
-    console.log(distribution)
+    await axios.post('http://localhost:1337/api/saveDistribution/currentRoutes', {sectionDistribution})
   }
 
   const handleChange = (event) => {
@@ -215,7 +215,7 @@ const RouteDistributionChart = () => {
                   </table>
                   <div className="distribution-button-container">
                     <button className="distribution-button" onClick={handleSubmit} type="submit">Save Distribution</button>
-                    <button className="distribution-button" onClick={handleSubmit} type="submit" >
+                    <button className="distribution-button" type="submit" >
                       <Link to="/placard/ropes" state={{ distribution }} style={{color: 'white', textDecoration: 'none'}} >
                         Print Routes Placards
                       </Link>
