@@ -62,8 +62,6 @@ const UpdateEmployee = (props) => {
   const handleSubmit = async (event) => {
     event.preventDefault()
 
-    console.log(employee)
-
     await axios.post('http://localhost:1337/api/updateEmployee', employee)
     props.signIn(await employee)
   }
