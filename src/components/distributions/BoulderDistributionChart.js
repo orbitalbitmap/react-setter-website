@@ -44,7 +44,6 @@ const BoulderDistributionChart = () => {
     event.preventDefault()
 
     await axios.post('http://localhost:1337/api/saveDistribution/currentBoulders', {sectionDistribution})
-    console.log(sectionDistribution)
   }
 
   const handleChange = async (event) => {
