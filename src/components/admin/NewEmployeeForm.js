@@ -1,3 +1,4 @@
+import axios from 'axios'
 import { useState} from 'react'
 import { connect } from 'react-redux'
 
@@ -29,7 +30,7 @@ const NewEmployeeForm = (props) => {
     }
   }
 
-  const hanldeSubmit = (event) => {
+  const hanldeSubmit = async (event) => {
     event.preventDefault()
 
     const newUser = {
@@ -39,10 +40,10 @@ const NewEmployeeForm = (props) => {
       password,
       phoneNumber,
       roleId,
-      employeeGymList,
+      gyms: employeeGymList,
     }
 
-    console.log(newUser)
+    await axios.post('http://localhost:1337/api/saveEmployee', newUser)
   }
 
   return (
