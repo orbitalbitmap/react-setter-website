@@ -106,23 +106,6 @@ const UpdateEmployee = (props) => {
           onChange={handleChange}
           type="phoneNumber"
         />
-
-        <label htmlFor="roleId">
-          Role:
-        </label>
-        
-        <select 
-          name="roleId"
-          value={roleId || 5}
-          onChange={handleChange}
-          required
-        >
-          <option value={1}>Director of Routsetting</option>
-          <option value={2}>Regional Head Setter</option>
-          <option value={3}>Head Setter</option>
-          <option value={4}>Full Time Setter</option>
-          <option value={5}>Part Time Setter</option>
-        </select>
       </div>
 
       <h3 className="centered-text">Locations:</h3>
