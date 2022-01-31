@@ -14,7 +14,8 @@ const UpdateEmployee = (props) => {
 
       setEmployee({
           ...data,
-          oldEmployeeGymList: data.gyms
+          oldEmployeeGymList: data.gyms,
+          password: 'NotYourRealPassword',
         })
     }
 
@@ -57,8 +58,11 @@ const UpdateEmployee = (props) => {
     }
   }
 
-  const handleSubmit = (event)  =>{
+  const handleSubmit = async (event)  =>{
     event.preventDefault()
+
+    console.log(employee)
+    await axios.post('http://localhost:1337/api/updateEmployee', employee)
   }
   
   if (!employee.id) {
@@ -94,7 +98,7 @@ const UpdateEmployee = (props) => {
           type="password"
         />
 
-        <label htmlFor="password">Phone #:</label> 
+        <label htmlFor="phone-number">Phone #:</label> 
         <input 
           value={employee.phoneNumber}
           name="phoneNumber"
