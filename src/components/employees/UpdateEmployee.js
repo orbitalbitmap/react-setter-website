@@ -6,7 +6,6 @@ import { signIn } from '../../actions'
 
 const UpdateEmployee = (props) => {
   const [employee, setEmployee] = useState({})
-  const [roleId, setRoleId] = useState(5)
 
   useEffect(() => {
     const getInfo = async () => {
@@ -22,11 +21,6 @@ const UpdateEmployee = (props) => {
 
     getInfo()
   }, [props.user])
-
-  useEffect(() => {
-    const aRoleId = employee.roleId
-    setRoleId(aRoleId)
-  }, [employee])
 
   const handleChange = (event) => {
     setEmployee({
