@@ -8,10 +8,10 @@ const EditSingleGym = () => {
   const urlParams = useParams()
   const [gym, setGym] = useState({})
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault()
 
-    console.log(gym)
+    await axios.post('http://localhost:1337/api/updateGymInfo', gym)
   }
 
   useEffect(() => {
@@ -28,7 +28,6 @@ const EditSingleGym = () => {
     return (<h2>We cannot find the gym you wish to edit.</h2>)
   }
 
-  console.log('render')
   return (
     <>
       <h1 className="centered-text">Edit {gym.name}'s Gym Information</h1>
