@@ -21,7 +21,7 @@ const NewGymForm = () => {
     getInfo()
   }, [])
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault()
 
     const gym = {
@@ -35,10 +35,17 @@ const NewGymForm = () => {
       employees,
     }
 
-    console.log(gym)
+    await axios.post('http://localhost:1337/api/saveNewGym', {
+      name,
+      address,
+      phoneNumber,
+      headSetterId,
+      facebook,
+      instagram,
+      twitter,
+    })
   }
 
-  console.log('render')
   return ( 
     <>
       <h1 className="centered-text">New's Gym Information</h1>
