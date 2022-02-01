@@ -14,16 +14,10 @@ const Dashboard = (props) => {
                 <h4>Sections</h4>
                 <ul key={`section-list-${gym.id}`}>
                   <li key={`all-sections-${gym.id}`}>
-                    <Link to={`/sections/${gym.id}`}> All Sections</Link>
-                  </li>
-                  <li key={`boulder-sections-${gym.id}`}>
-                    <Link to={`/gymSections/view/boulders/${gym.id}`}> Boulder Sections</Link>
-                  </li>
-                  <li key={`rope-sections-${gym.id}`}>
-                    <Link to={`/gymSections/view/routes/${gym.id}`}> Rope Sections</Link>
+                    <Link to={`/sections/${gym.id}`}> Wall Sections</Link>
                   </li>
                   <li key={`edit-sections-${gym.id}`}>
-                    <Link to={`/gymSections/edit/${gym.id}`}> Edit All Section Names</Link>
+                    <Link to={`/sections/edit/${gym.id}`}> Edit All Section Names</Link>
                   </li>
                 </ul>
               </li>
