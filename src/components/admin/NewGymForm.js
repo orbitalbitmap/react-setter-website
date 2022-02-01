@@ -24,17 +24,6 @@ const NewGymForm = () => {
   const handleSubmit = async (event) => {
     event.preventDefault()
 
-    const gym = {
-      name,
-      address,
-      phoneNumber,
-      headSetterId,
-      facebook,
-      instagram,
-      twitter,
-      employees,
-    }
-
     await axios.post('http://localhost:1337/api/saveNewGym', {
       name,
       address,
