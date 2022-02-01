@@ -9,6 +9,7 @@ const IdealRopeDistributionPage = () => {
       <Navbar />
       <DistributionEditForm 
         path="idealRouteGradesById"
+        type="routes"
       />
     </>
   )

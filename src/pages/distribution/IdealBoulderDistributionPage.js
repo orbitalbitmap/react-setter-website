@@ -7,7 +7,10 @@ const IdealBoulderDistributionPage = () => {
   return (
     <>
       <Navbar />
-      <DistributionEditForm />
+      <DistributionEditForm
+        path="idealBoulderGradesById"
+        type="boulders"
+      />
     </>
   )
 }
