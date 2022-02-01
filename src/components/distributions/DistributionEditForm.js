@@ -20,14 +20,17 @@ const DistributionEditForm = (props) => {
   }, [urlParams, props.path])
 
   const handleChange = (event) => {
-    setDistributionSpread({
+    const newSpread = {
       ...distributionSpread,
       [event.target.name]: parseInt(event.target.value) || 0
-    })
+    }
+    setDistributionSpread(newSpread)
   }
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault()
+
+    await axios.post(`http://localhost:1337/api/saveDistribution/${props.type}`, { gymId, distributionSpread })
   }
 
   return (
@@ -36,17 +39,18 @@ const DistributionEditForm = (props) => {
       <div className="grid">
         {
           Object.keys(distributionSpread).map(grade => {
-            const formattedGrade = grade.replace('_', '.')
+            const displayedGrade = props.type === 'routes'
+              ? grade.replace('_', '.')
+              : grade
             let numberOfGrade = distributionSpread[grade]
             return (
               <div key={grade} className="distribution-form-div">
-                <label className="distribution-form-label" htmlFor={grade}>{formattedGrade}:</label>
+                <label className="distribution-form-label" htmlFor={grade}>{displayedGrade}:</label>
                 <input
                   onChange={handleChange}
                   className="centered-text"
                   style={{width: '2rem'}}
                   name={grade}
-                  type="number"
                   value={numberOfGrade}
                 />
               </div>
@@ -54,7 +58,8 @@ const DistributionEditForm = (props) => {
           })
         }
       </div>
-                  <button onClick={handleSubmit} type="submit">Save Distribution</button>
+
+      <button onClick={handleSubmit} type="submit">Save Distribution</button>
     </form>
   )
 }
