@@ -9,8 +9,7 @@ const UpdateEmployee = (props) => {
 
   useEffect(() => {
     const getInfo = async () => {
-      const { data } = await axios.get(`http://localhost:1337/api/employees/${props.user.id}`)
-      console.log(data)
+      const { data } = await axios.get(`${process.env.REACT_APP_API_PATH}/employees/${props.user.id}`)
 
       setEmployee({
           ...data,
@@ -56,7 +55,7 @@ const UpdateEmployee = (props) => {
   const handleSubmit = async (event) => {
     event.preventDefault()
 
-    await axios.post('http://localhost:1337/api/updateEmployee', employee)
+    await axios.post(`${process.env.REACT_APP_API_PATH}/updateEmployee`, employee)
     props.signIn(await employee)
   }
   

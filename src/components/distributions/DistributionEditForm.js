@@ -9,7 +9,7 @@ const DistributionEditForm = (props) => {
 
   useEffect(() => {
     const getInfo = async () => {
-      const { data } = await axios.get(`http://localhost:1337/api/${props.path}/${urlParams.id}`)
+      const { data } = await axios.get(`${process.env.REACT_APP_API_PATH}/${props.path}/${urlParams.id}`)
       const {gymId, gym, ...rest } = data
 
       setDistributionSpread(rest)
@@ -30,7 +30,7 @@ const DistributionEditForm = (props) => {
   const handleSubmit = async (event) => {
     event.preventDefault()
 
-    await axios.post(`http://localhost:1337/api/saveDistribution/${props.type}`, { gymId, distributionSpread })
+    await axios.post(`${process.env.REACT_APP_API_PATH}/saveDistribution/${props.type}`, { gymId, distributionSpread })
   }
 
   return (

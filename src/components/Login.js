@@ -17,7 +17,7 @@ const Login = (props) => {
   const handleSubmit = async (event) => {
     event.preventDefault()
 
-    const {password, ...user} = (await axios.get(`http://localhost:1337/api/employeeByEmail/${enteredEmail}`)).data
+    const {password, ...user} = (await axios.get(`${process.env.REACT_APP_API_PATH}/employeeByEmail/${enteredEmail}`)).data
     const passwordDoesMatch = await checkPass(enteredPassword, password);
 
     switch (passwordDoesMatch) {
@@ -37,7 +37,7 @@ const Login = (props) => {
   }
 
   return (
-    <form id="employee-form" action="/login" method="GET">
+    <form id="employee-form">
       <div className="employee-form-grid">
         <label htmlFor="email" form="employee-form" >Email:</label>
         <input

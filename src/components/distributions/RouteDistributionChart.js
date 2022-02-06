@@ -45,7 +45,7 @@ const RouteDistributionChart = () => {
   const handleSubmit = async (event) => {
     event.preventDefault()
 
-    await axios.post('http://localhost:1337/api/saveDistribution/currentRoutes', {sectionDistribution})
+    await axios.post(`${process.env.REACT_APP_API_PATH}/saveDistribution/currentRoutes`, {sectionDistribution})
   }
 
   const handleChange = (event) => {
@@ -63,9 +63,9 @@ const RouteDistributionChart = () => {
 
   useEffect(() => {
     const getInfo = async () => {
-      const climbInfoList = await axios.get(`http://localhost:1337/api/currentRouteGrades/${gymId}`)
-      const sectionList = await axios.get(`http://localhost:1337/api/routeSections/${gymId}`)
-      const gymInfo = await axios.get(`http://localhost:1337/api/gymById/${gymId}`)
+      const climbInfoList = await axios.get(`${process.env.REACT_APP_API_PATH}/currentRouteGrades/${gymId}`)
+      const sectionList = await axios.get(`${process.env.REACT_APP_API_PATH}/routeSections/${gymId}`)
+      const gymInfo = await axios.get(`${process.env.REACT_APP_API_PATH}/gymById/${gymId}`)
       
       setDistribution(climbInfoList.data)
       setGymName(gymInfo.data.name)
@@ -96,7 +96,7 @@ const RouteDistributionChart = () => {
         </div>
 
         <div className="distribution-holder">
-                <form action="/api/saveDistribution/currentRoutes" method="POST" name="distribution-table">
+                <form name="distribution-table">
                   <div className="date-udpater-container">
                     <input className="gray-background date-updater" type="date" name="dateSet" onChange={(event) => setFullDateChange(event.target.value)} value={fullDateChange} />
                     <button className="date-updater button" type="button" onClick={handleChangeAllDatesInSection}>
