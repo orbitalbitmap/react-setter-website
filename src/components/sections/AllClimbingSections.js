@@ -8,7 +8,7 @@ const AllClimbingSections = () => {
 
   useEffect(() => {
     const getInfo = async () => {
-      const { data } = await axios.get('http://localhost:1337/api/allGymSections')
+      const { data } = await axios.get(`${process.env.REACT_APP_API_PATH}/allGymSections`)
 
       setGyms(data)
     }

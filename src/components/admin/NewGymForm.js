@@ -13,7 +13,7 @@ const NewGymForm = () => {
 
   useEffect(() => {
     const getInfo = async () =>{
-      const { data } = await axios.get('http://localhost:1337/api/employees')
+      const { data } = await axios.get(`${process.env.REACT_APP_API_PATH}/employees`)
 
       setEmployees(data)
     }
@@ -24,7 +24,7 @@ const NewGymForm = () => {
   const handleSubmit = async (event) => {
     event.preventDefault()
 
-    await axios.post('http://localhost:1337/api/saveNewGym', {
+    await axios.post(`${process.env.REACT_APP_API_PATH}/saveNewGym`, {
       name,
       address,
       phoneNumber,
