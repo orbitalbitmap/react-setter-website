@@ -37,7 +37,7 @@ const Login = (props) => {
   }
 
   return (
-    <form id="employee-form" action="/login" method="GET">
+    <form id="employee-form">
       <div className="employee-form-grid">
         <label htmlFor="email" form="employee-form" >Email:</label>
         <input
