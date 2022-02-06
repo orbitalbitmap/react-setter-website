@@ -1,7 +1,6 @@
 import { useLocation } from "react-router-dom"
 
 import Navbar from "../../components/navbar/Navbar"
-
 import PrintableRouteCard from '../../components/placards/PrintableRouteCard'
 
 const PrintableBoulderPlacard = () => {
