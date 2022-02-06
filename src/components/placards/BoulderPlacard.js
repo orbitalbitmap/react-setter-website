@@ -6,10 +6,11 @@ const BoulderPlacard = (props) => {
   let slotId = 0
   return (
     <div className="boulder-placard-container">
-      <div className="boulder-grid-three-column">
+      <div className={`boulder-grid-${props.numberOfClimbsClass}-column`}>
         {
-          props.climbs.map(climb => {
+          props.climbsToDisplay.map(climbToDisplay => {
             slotId++
+            const climb = props.climbList[climbToDisplay]
             return (
               <BoulderSlot
                 key={slotId}

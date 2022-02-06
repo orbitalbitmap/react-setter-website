@@ -1,4 +1,4 @@
-import { useReducer } from 'react'
+import { useEffect, useReducer, useState } from 'react'
 
 import BoulderPlacard from './BoulderPlacard'
 import PlacardSelectors from './PlacardSelectors'
@@ -47,6 +47,20 @@ const PrintableBoulderCard = (props) => {
       areteMessage: null,
       dateSet: null
     },
+    climb7: {
+      color: null,
+      grade: null,
+      setter: null,
+      areteMessage: null,
+      dateSet: null
+    },
+    climb8: {
+      color: null,
+      grade: null,
+      setter: null,
+      areteMessage: null,
+      dateSet: null
+    },
   }
 
   const reducer = (state, action) => {
@@ -87,16 +101,32 @@ const PrintableBoulderCard = (props) => {
           climb6: 
             { ...state.climb6, ...action.payload }
         }
+      case 'climb7':
+        return {
+          ...state, 
+          climb7: 
+            { ...state.climb7, ...action.payload }
+        }
+      case 'climb8':
+        return {
+          ...state, 
+          climb8: 
+            { ...state.climb8, ...action.payload }
+        }
       default:
         return state
     }
   }
 
   const [selectedClimbs, dispatch] = useReducer(reducer, initialState)
+  const [numberOfClimbsToDisplay, setNumberOfClimbsToDisplay] = useState(3)
+  const [placardGridNumber, setPlacardGridNumber] = useState('three')
+  const [firstPlacardList, setFirstPlacardList] = useState([])
+  const [secondPlacardList, setSecondPlacardList] = useState([])
 
   const handleNonAreteInfo = (event) => {
-    const climbInArray = parseInt(event.target.value) - 1
-    const { color, setter, grade, dateSet } = props.distribution[climbInArray]
+    const climbInDistribution = parseInt(event.target.value) - 1
+    const { color, setter, grade, dateSet } = props.distribution[climbInDistribution]
 
     dispatch({ type: event.target.name, payload: { color, setter, grade, dateSet } })
   }
@@ -118,34 +148,88 @@ const PrintableBoulderCard = (props) => {
     dispatch({ type: event.target.name, payload: { areteMessage } })
   }
 
+  const handleNumberOfClimbChange = (event) => {
+    setNumberOfClimbsToDisplay(parseInt(event.target.value))
+  }
+
+  const getClimbListForPlacard = (startNuber, numberOfClimbs) => {
+    let listOfClimbs = []
+
+    for(let i = startNuber; i <= numberOfClimbs; i++) {
+      listOfClimbs = listOfClimbs.concat(`climb${i}`)
+    }
+
+    return listOfClimbs
+  }
+
+  // setting the css class for the placard grid
+  useEffect(() => {
+    let newPlacardGridNumber = ''
+    let firstClimbList = getClimbListForPlacard(1, numberOfClimbsToDisplay)
+    let secondClimbList = getClimbListForPlacard(numberOfClimbsToDisplay + 1, numberOfClimbsToDisplay * 2)
+
+    switch (numberOfClimbsToDisplay) {
+      case 1:
+        newPlacardGridNumber = 'one'
+        break
+      case 2:
+        newPlacardGridNumber = 'two'
+        break
+      case 3:
+        newPlacardGridNumber = 'three'
+        break
+      case 4:
+        newPlacardGridNumber = 'four'
+        break
+      default:
+        newPlacardGridNumber = 'three'
+    }
+
+    setPlacardGridNumber(newPlacardGridNumber)
+    setFirstPlacardList(firstClimbList)
+    setSecondPlacardList(secondClimbList)
+  }, [numberOfClimbsToDisplay])
+
+  // console.log({selectedClimbs, firstPlacardList, secondPlacardList})
   return (
     <>
+      <select onChange={handleNumberOfClimbChange} defaultValue="3">
+        <option value="1">1 climbs</option>
+        <option value="2">2 climbs</option>
+        <option value="3">3 climbs</option>
+        <option value="4">4 climbs</option>
+      </select>
+
       <PlacardSelectors
         class="noprint selection-container-top"
         distribution={props.distribution}
         handleClimbSelector={handleNonAreteInfo}
         handleAreteSelector={handleAreteInfo}
         startingSlotNum={0} // set to zero as the .map in the component starts by adding 1 to it
-        nameList={['climb1','climb2','climb3']}
+        nameList={firstPlacardList}
         selectorType="boulder"
       />
 
       <BoulderPlacard
-        climbs={ [selectedClimbs.climb1, selectedClimbs.climb2, selectedClimbs.climb3] }
+        climbList={selectedClimbs}
+        climbsToDisplay={firstPlacardList}
+        numberOfClimbsClass={placardGridNumber}
       />
 
-<PlacardSelectors
+      <PlacardSelectors
         class="noprint selection-container-bottom"
         distribution={props.distribution}
         handleClimbSelector={handleNonAreteInfo}
         handleAreteSelector={handleAreteInfo}
-        startingSlotNum={4} // set to zero as the .map in the component starts by adding 1 to it
-        nameList={['climb4','climb5','climb6']}
+        startingSlotNum={numberOfClimbsToDisplay} // set to zero as the .map in the component starts by adding 1 to it
+        nameList={secondPlacardList}
         selectorType="boulder"
       />
 
       <BoulderPlacard
-        climbs={ [selectedClimbs.climb4, selectedClimbs.climb5, selectedClimbs.climb6] }
+        climbList={selectedClimbs}
+        climbsToDisplay={secondPlacardList}
+        numberOfClimbsClass={placardGridNumber}
       />
 
       <button className="noprint" type="submit" onClick={window.print}>Print</button>
