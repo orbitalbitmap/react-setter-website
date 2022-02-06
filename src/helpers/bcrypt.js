@@ -8,7 +8,9 @@ const hashPassword = async (pass) => {
 };
 
 const checkPass = async (enteredPassword, hashedPassword) => {
-  return await bcrypt.compare(enteredPassword, hashedPassword);
+  const doesMatch = await bcrypt.compare(enteredPassword, hashedPassword)
+
+  return doesMatch
 };
 
 module.exports = {

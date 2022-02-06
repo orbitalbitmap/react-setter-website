@@ -1,62 +1,66 @@
 import axios from 'axios'
-import React from 'react'
+import {useEffect, useState} from 'react'
+import { connect } from 'react-redux'
+import { Link, useParams } from 'react-router-dom'
 
+const SingleEmployee = (props) => {
+  const urlParams = useParams()
+  const [employee, setEmployee] = useState({})
 
-class SingleEmployee extends React.Component {
-  constructor(props) {
-    super(props)
+  useEffect(() => {
+    const getInfo = async () => {
+      const { data } = await axios.get(`http://localhost:1337/api/employees/${urlParams.id}`)
 
-    this.state = { employee: {} }
-  }
+      setEmployee(data)
+    }
 
-  async componentDidMount() {
-    const { data } = await axios.get('http://localhost:1337/api/employees/1')
+    getInfo()
+  }, [urlParams])
 
-    await this.setState({
-      employee: data
-    })
-  }
-
-  renderList() {
-    if (!this.state.employee.id) {
+  const renderList = () => {
+    if (!employee.id) {
       return (
         <h2>Loading....</h2>
       )
     }
-        return (
-          <div>
-            <h1 className="centered-text">{`${this.state.employee.firstName} ${this.state.employee.lastName}`}</h1>
-            <h3 className="centered-text">{this.state.employee.email}</h3>
-            <h3 className="centered-text">{this.state.employee.phoneNumber}</h3>
-
-            <h2 className="centered-text"> Gyms:</h2>
-            <ul className="centered-text inside-bullet">
-              {this.state.employee.gyms.map(gym => {
-                return (
-                  <li key={gym.name}>
-                    <a href={`/gyms/${gym.name}`}>{gym.name}</a>
-                  </li>
-                )
-              }
-              )}
-            </ul>
-
-            { 
-              this.props.user.roleId <= 3
-                ? <a href={`/employees/edit/${this.state.employee.id}`}>Edit Employee</a>
-                : null
-            }
-          </div>
-        )
-  }
-
-  render() {
     return (
       <div>
-        {this.renderList()}
+        <h1 className="centered-text">{`${employee.firstName} ${employee.lastName}`}</h1>
+        <h3 className="centered-text">{employee.email}</h3>
+        <h3 className="centered-text">{employee.phoneNumber}</h3>
+
+        <h2 className="centered-text"> Gyms:</h2>
+        <ul className="centered-text inside-bullet">
+          {employee.gyms.map(gym => {
+            return (
+              <li key={gym.name}>
+                <Link to={`/locations/${gym.id}`}>{gym.name}</Link>
+              </li>
+            )
+          }
+          )}
+        </ul>
+
+        { 
+          props.user.roleId <= 3
+            ? <Link to={`/admin/employee/${employee.id}`}>Edit Employee</Link>
+            : null
+        }
       </div>
     )
   }
+
+  return (
+    <div>
+      {renderList()}
+    </div>
+  )
 }
 
-export default SingleEmployee
+const mapStateToProps = (state) => {
+  return {
+    user: state.user,
+  }
+}
+
+export default connect(mapStateToProps, {})(SingleEmployee)

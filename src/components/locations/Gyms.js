@@ -1,39 +1,27 @@
-import axios from 'axios'
 import React from 'react'
+import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
 
-class Gyms extends React.Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      gymsList: []
+const Gyms = (props) => (
+  <>
+    <h1 className="centered-text">Locations:</h1>
+    {
+      props.gyms?.map(gym => {
+        return (
+          <h3 key={gym.name} className="centered-text">
+            <Link to={`/locations/${gym.id}`}>{gym.name}</Link>
+          </h3>
+        )
+      })
     }
-  }
+  </>
+)
 
-  async componentDidMount() {
-    const { data } = await axios.get('http://localhost:1337/api/gyms')
-
-    this.setState({
-      gymsList: data
-    })
-  }
-
-  render() {
-    return (
-      <>
-        <h1 className="centered-text">Locations:</h1>
-        {
-          this.state.gymsList.map(gym => {
-            return (
-              <h3 key={gym.name} className="centered-text">
-                <a href={`/gyms/${gym.id}`}>{gym.name}</a>
-              </h3>
-            )
-          })
-        }
-      </>
-    )
+const mapStateToProps = (state) => {
+  return {
+    user: state.user,
+    gyms: state.gyms
   }
 }
 
-export default Gyms
+export default connect(mapStateToProps, {})(Gyms)
