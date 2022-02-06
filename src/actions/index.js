@@ -21,7 +21,7 @@ export const signOut = () => {
 }
 
 export const getLocations = () => async dispatch => {
-  const locationList = (await axios.get('http://localhost:1337/api/gyms'))
+  const locationList = (await axios.get(`${process.env.REACT_APP_API_PATH}/gyms`))
 
   dispatch({
     type: GET_LOCATIONS,

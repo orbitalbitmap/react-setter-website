@@ -7,7 +7,7 @@ const EmployeeList = () => {
 
   useEffect(() => {
     const getInfo = async () => {
-      const { data } = await axios.get('http://localhost:1337/api/employees')
+      const { data } = await axios.get(`${process.env.REACT_APP_API_PATH}/employees`)
 
       setEmployees(data)
     }

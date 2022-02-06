@@ -45,7 +45,7 @@ const RouteDistributionChart = () => {
   const handleSubmit = async (event) => {
     event.preventDefault()
 
-    await axios.post('http://localhost:1337/api/saveDistribution/currentRoutes', {sectionDistribution})
+    await axios.post(`${process.env.REACT_APP_API_PATH}/saveDistribution/currentRoutes`, {sectionDistribution})
   }
 
   const handleChange = (event) => {
@@ -63,9 +63,9 @@ const RouteDistributionChart = () => {
 
   useEffect(() => {
     const getInfo = async () => {
-      const climbInfoList = await axios.get(`http://localhost:1337/api/currentRouteGrades/${gymId}`)
-      const sectionList = await axios.get(`http://localhost:1337/api/routeSections/${gymId}`)
-      const gymInfo = await axios.get(`http://localhost:1337/api/gymById/${gymId}`)
+      const climbInfoList = await axios.get(`${process.env.REACT_APP_API_PATH}/currentRouteGrades/${gymId}`)
+      const sectionList = await axios.get(`${process.env.REACT_APP_API_PATH}/routeSections/${gymId}`)
+      const gymInfo = await axios.get(`${process.env.REACT_APP_API_PATH}/gymById/${gymId}`)
       
       setDistribution(climbInfoList.data)
       setGymName(gymInfo.data.name)

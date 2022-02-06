@@ -9,7 +9,7 @@ const UpdateClimbingSections = () => {
 
   useEffect(() => {
     const getInfo = async () => {
-      const { data } = await axios.get(`http://localhost:1337/api/gymWithSections/${gymId}`)
+      const { data } = await axios.get(`${process.env.REACT_APP_API_PATH}/gymWithSections/${gymId}`)
 
       setGym(data)
     }
@@ -40,7 +40,7 @@ const UpdateClimbingSections = () => {
       ? gym.boulderSections
       : gym.routeSections
 
-    await axios.post(`http://localhost:1337/api/update${type}SectionNames`, {gymId, sectionToUpdate})
+    await axios.post(`${process.env.REACT_APP_API_PATH}/update${type}SectionNames`, {gymId, sectionToUpdate})
   }
 
   const addNewSection = (event) => {
@@ -83,7 +83,7 @@ const UpdateClimbingSections = () => {
   return (
     <>
       <h1 className="centered-text">{gym.name}</h1>
-      <form action="/api/updateRouteSectionNames" method="post" className="editable-section-form">
+      <form className="editable-section-form">
         <h1 className="centered-text">Ropes</h1>
         <div className="section-details" id="route-sections">
           {
@@ -99,7 +99,7 @@ const UpdateClimbingSections = () => {
         </div>
       </form>
 
-      <form action="/api/updateBoulderSectionNames" method="post" className="editable-section-form">
+      <form method="post" className="editable-section-form">
         <input className="hidden" name="gymId" value={gym.id} disabled />
         <h1 className="centered-text">Boulders</h1>
         <div className="section-details" id="boulder-sections">

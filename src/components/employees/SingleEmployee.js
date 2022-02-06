@@ -9,7 +9,7 @@ const SingleEmployee = (props) => {
 
   useEffect(() => {
     const getInfo = async () => {
-      const { data } = await axios.get(`http://localhost:1337/api/employees/${urlParams.id}`)
+      const { data } = await axios.get(`${process.env.REACT_APP_API_PATH}/employees/${urlParams.id}`)
 
       setEmployee(data)
     }

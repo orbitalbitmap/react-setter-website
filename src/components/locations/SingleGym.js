@@ -12,7 +12,7 @@ const SingleGym = () => {
 
   useEffect(() => {
     const getInfo = async () => {
-      const fetchedInfo = (await axios.get(`http://localhost:1337/api/gymById/${urlParams.id}`)).data
+      const fetchedInfo = (await axios.get(`${process.env.REACT_APP_API_PATH}/gymById/${urlParams.id}`)).data
         setGymInfo(fetchedInfo)
       }
 

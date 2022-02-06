@@ -43,7 +43,7 @@ const NewEmployeeForm = (props) => {
       gyms: employeeGymList,
     }
 
-    await axios.post('http://localhost:1337/api/saveEmployee', newUser)
+    await axios.post(`${process.env.REACT_APP_API_PATH}/saveEmployee`, newUser)
   }
 
   return (
