@@ -39,7 +39,7 @@ const NewGymForm = () => {
     <>
       <h1 className="centered-text">New's Gym Information</h1>
 
-      <form action="/api/updateGymInfo" method="post" id="editable-gym-form">
+      <form id="editable-gym-form">
         <div className="employee-form-grid">
           <label htmlFor="name">Name:</label>
           <input onChange={(event) => setName(event.target.value)} name="name" value={name} />

@@ -96,7 +96,7 @@ const RouteDistributionChart = () => {
         </div>
 
         <div className="distribution-holder">
-                <form action="/api/saveDistribution/currentRoutes" method="POST" name="distribution-table">
+                <form name="distribution-table">
                   <div className="date-udpater-container">
                     <input className="gray-background date-updater" type="date" name="dateSet" onChange={(event) => setFullDateChange(event.target.value)} value={fullDateChange} />
                     <button className="date-updater button" type="button" onClick={handleChangeAllDatesInSection}>
