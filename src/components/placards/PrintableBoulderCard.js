@@ -190,7 +190,6 @@ const PrintableBoulderCard = (props) => {
     setSecondPlacardList(secondClimbList)
   }, [numberOfClimbsToDisplay])
 
-  // console.log({selectedClimbs, firstPlacardList, secondPlacardList})
   return (
     <>
       <select onChange={handleNumberOfClimbChange} defaultValue="3">

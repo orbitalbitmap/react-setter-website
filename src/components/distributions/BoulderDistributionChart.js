@@ -43,7 +43,7 @@ const BoulderDistributionChart = () => {
   const handleSubmit = async (event) => {
     event.preventDefault()
 
-    await axios.post('http://localhost:1337/api/saveDistribution/currentBoulders', {sectionDistribution})
+    await axios.post(`${process.env.REACT_APP_API_PATH}/saveDistribution/currentBoulders`, {sectionDistribution})
   }
 
   const handleChange = async (event) => {
@@ -61,9 +61,9 @@ const BoulderDistributionChart = () => {
 
   useEffect(() => {
     const getInfo = async () => {
-      const climbInfoList = await axios.get(`http://localhost:1337/api/currentBoulderGrades/${gymId}`)
-      const sectionList = await axios.get(`http://localhost:1337/api/boulderSections/${gymId}`)
-      const gymInfo = await axios.get(`http://localhost:1337/api/gymById/${gymId}`)
+      const climbInfoList = await axios.get(`${process.env.REACT_APP_API_PATH}/currentBoulderGrades/${gymId}`)
+      const sectionList = await axios.get(`${process.env.REACT_APP_API_PATH}/boulderSections/${gymId}`)
+      const gymInfo = await axios.get(`${process.env.REACT_APP_API_PATH}/gymById/${gymId}`)
       
       setDistribution(climbInfoList.data)
       setGymName(gymInfo.data.name)
@@ -185,7 +185,7 @@ const BoulderDistributionChart = () => {
                   Print Boulder Placard
                 </Link>
               </button>
-              <button className="distribution-button" onClick={() => console.log('not yet implemented')} type="submit" >Print Boulder Bash Placard</button>  {/* formAction={`/placards/${gymId}/boulderBash`} */ }
+              <button className="distribution-button" onClick={() => console.log('not yet implemented')} type="submit" >Print Boulder Bash Placard</button>
             </div>
           </form>
         </div>

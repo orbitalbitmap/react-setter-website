@@ -16,7 +16,7 @@ const MetricsContainer = () => {
 
   useEffect(() => {
     const getInfo = async () => {
-      const { data } = await axios.get(`http://localhost:1337/api/metrics/${urlParams.id}`)
+      const { data } = await axios.get(`${process.env.REACT_APP_API_PATH}/metrics/${urlParams.id}`)
 
       
       setGymName(data.gym.name)
