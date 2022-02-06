@@ -1,53 +1,47 @@
-import React from 'react'
+import { Link } from 'react-router-dom'
 
-class Dashboard extends React.Component {
-  renderList() {
-    return this.props.user.gyms.map(gym => {
+const Dashboard = (props) => {
+  const renderList = () => {
+    return props.user.gyms.map(gym => {
       return (
         <ul key={`user-gym-list-${gym.name}`}>
-          <li key={gym.gymId}>
+          <li key={gym.id}>
             <h3> 
-              <a href={`/gyms/${gym.name}`}>{gym.name}</a>
+              <Link to={`/locations/${gym.id}`}>{gym.name}</Link>
             </h3>
-            <ul key={`sections-${gym.gymId}`}>
-              <li key={`list-${gym.gymId}`}>
+            <ul key={`sections-${gym.id}`}>
+              <li key={`list-${gym.id}`}>
                 <h4>Sections</h4>
-                <ul key={`section-list-${gym.gymId}`}>
-                  <li key={`all-sections-${gym.gymId}`}>
-                    <a href={`/gymSections/view/${gym.gymId}`}> All Sections</a>
+                <ul key={`section-list-${gym.id}`}>
+                  <li key={`all-sections-${gym.id}`}>
+                    <Link to={`/sections/${gym.id}`}> Wall Sections</Link>
                   </li>
-                  <li key={`boulder-sections-${gym.gymId}`}>
-                    <a href={`/gymSections/view/boulders/${gym.gymId}`}> Boulder Sections</a>
-                  </li>
-                  <li key={`rope-sections-${gym.gymId}`}>
-                    <a href={`/gymSections/view/routes/${gym.gymId}`}> Rope Sections</a>
-                  </li>
-                  <li key={`edit-sections-${gym.gymId}`}>
-                    <a href={`/gymSections/edit/${gym.gymId}`}> Edit All Section Names</a>
+                  <li key={`edit-sections-${gym.id}`}>
+                    <Link to={`/sections/edit/${gym.id}`}> Edit All Section Names</Link>
                   </li>
                 </ul>
               </li>
             </ul>
-            <ul key={`distribution-${gym.gymId}`}>
-              <li key={`ideal-distribution-${gym.gymId}`}>
+            <ul key={`distribution-${gym.id}`}>
+              <li key={`ideal-distribution-${gym.id}`}>
                 <h4>Ideal</h4>
-                <ul key={`ideal-distribution-list-${gym.gymId}`}>
-                  <li key={`ideal-route-distribution-${gym.gymId}`}>
-                    <a href={`/distribution/routes/${gym.gymId}`}> Route Distribution</a>
+                <ul key={`ideal-distribution-list-${gym.id}`}>
+                  <li key={`ideal-route-distribution-${gym.id}`}>
+                    <Link to={`/distribution/ideal/ropes/${gym.id}`}> Route Distribution</Link>
                   </li>
-                  <li key={`ideal-boulder-distribution-${gym.gymId}`}>
-                    <a href={`/distribution/boulders/${gym.gymId}`}>Boulder Distribution</a>
+                  <li key={`ideal-boulder-distribution-${gym.id}`}>
+                    <Link to={`/distribution/ideal/boulders/${gym.id}`}>Boulder Distribution</Link>
                   </li>
                 </ul>
               </li>
-              <li key={`current-distribution-${gym.gymId}`}>
+              <li key={`current-distribution-${gym.id}`}>
                 <h4>Current</h4>
-                <ul key={`current-distribution-list-${gym.gymId}`}>
-                  <li key={`current-route-distribution-${gym.gymId}`}>
-                    <a href={`/distribution/view/routes/${gym.gymId}`}>Current Route Distribution</a>
+                <ul key={`current-distribution-list-${gym.id}`}>
+                  <li key={`current-route-distribution-${gym.id}`}>
+                    <Link to={`/distribution/current/ropes/${gym.id}`}>Current Route Distribution</Link>
                   </li>
-                  <li key={`current-boulder-distribution-${gym.gymId}`}>
-                    <a href={`/distribution/view/boulders/${gym.gymId}`}>Current Boulder Distribution</a>
+                  <li key={`current-boulder-distribution-${gym.id}`}>
+                    <Link to={`/distribution/current/boulders/${gym.id}`}>Current Boulder Distribution</Link>
                   </li>
                 </ul>
               </li>
@@ -59,15 +53,13 @@ class Dashboard extends React.Component {
     )
   }
 
-  render() {
-    return (
-      <div className="main-content">
-      <h1 className="centered-text"> Welcome {this.props.user.firstName} {this.props.user.lastName}!</h1>
-      <h2>Your main work locations are:</h2>
-        {this.renderList()}
-      </div>
-    )
-  }
+  return (
+    <div className="main-content">
+    <h1 className="centered-text"> Welcome {props.user.firstName} {props.user.lastName}!</h1>
+    <h2>Your main work locations are:</h2>
+      {renderList()}
+    </div>
+  )
 }
 
 export default Dashboard

@@ -1,210 +1,196 @@
-import React from 'react'
 import axios from 'axios'
+import React, { useEffect, useState } from 'react'
+import { Link, useParams } from 'react-router-dom'
 
 import DateInput from './DateInput'
 import SectionsList from './SectionsList'
 import SelectionContainer from './SelectionContainer'
 
 
-class BoulderDistributionChart extends React.Component {
-  constructor(props) {
-    super(props)
+const BoulderDistributionChart = () => {
+  const today = new Date()
+  const todayFormatted = today.toISOString().split('T')[0]
+  const urlParams = useParams()
+  const gymId = urlParams.id
 
-    const todayFormatted = new Date()
+  const [currentSection, setCurrentSection] = useState(1)
+  const [distribution, setDistribution] = useState([])
+  const [employeeList, setEmployeeList] = useState([])
+  const [gymName, setGymName] = useState('')
+  const [sectionDistribution, setSectionDistribution] = useState([])
+  const [sectionList, setSectionList] = useState([])
+  const [fullDateChange, setFullDateChange] = useState(todayFormatted)
 
-    this.state = {
-      currentSection: 1,
-      distribution: [],
-      employeeList: [],
-      gymId: null,
-      gymName: null,
-      sectionDistribution: [],
-      sectionList: [],
-      today: todayFormatted,
-      fullDateChange: todayFormatted.toISOString().split('T')[0],
-    }
-
-    this.handleChange = this.handleChange.bind(this)
-    this.handleChangeAllDatesInSection = this.handleChangeAllDatesInSection.bind(this)
-    this.handleDateInputChange = this.handleDateInputChange.bind(this)
-    this.handleSectionChange = this.handleSectionChange.bind(this)
-  }
-
-  handleSectionChange(event) {
+  const handleSectionChange = (event) => {
     const sectionId = parseInt(event.target.id)
-    const filteredDistribution = this.state.distribution.filter(climb => climb.sectionId === sectionId)
 
-    this.setState({
-      currentSection: sectionId,
-      sectionDistribution: filteredDistribution.sort((climbA, climbB) => climbA - climbB)
-    })
+    setCurrentSection(sectionId)
   }
 
-  handleChangeAllDatesInSection(event) {
-    const currentDistribution = [...this.state.distribution]
+  const handleChangeAllDatesInSection = (event) => {
+    const currentDistribution = [...sectionDistribution]
 
     const newDistribution = currentDistribution.map( climb => {
-      if (climb.sectionId === this.state.currentSection) {
-        climb.dateSet = this.state.fullDateChange
+      if (climb.sectionId === currentSection) {
+        climb.dateSet = fullDateChange
       }
       return climb
     })
     
-    this.setState({
-      distribution: newDistribution,
-    })
-
+    setSectionDistribution(newDistribution)
   }
 
-  handleDateInputChange(event) {
-    this.setState({
-      fullDateChange: event.target.value
-    })
+  const handleSubmit = async (event) => {
+    event.preventDefault()
+
+    await axios.post('http://localhost:1337/api/saveDistribution/currentBoulders', {sectionDistribution})
   }
 
-  async handleChange(event) {
+  const handleChange = async (event) => {
     const value = event.target.name === "sectionId"
       ? parseInt(event.target.value)
       : event.target.value
 
     const climbId = parseInt(event.target.dataset.climbid)
-    let distribution = [...this.state.distribution]
+    let updatedDistribution = [...distribution]
     
-    distribution[climbId - 1][event.target.name] = value
-    
-    const filteredDistribution = await distribution.filter(climb => climb.sectionId === this.state.currentSection)
+    updatedDistribution[climbId - 1][event.target.name] = value
 
-    this.setState({
-      distribution,
-      sectionDistribution: filteredDistribution.sort((climbA, climbB) => climbA - climbB),
-    })
+    setDistribution(updatedDistribution)
 }
 
-  async componentDidMount() {
-    const climbInfoList = await axios.get('http://localhost:1337/api/currentBoulderGrades/1')
-    const sectionList = await axios.get('http://localhost:1337/api/boulderSections/1')
-    const gymInfo = await axios.get('http://localhost:1337/api/gyms/worcester')
+  useEffect(() => {
+    const getInfo = async () => {
+      const climbInfoList = await axios.get(`http://localhost:1337/api/currentBoulderGrades/${gymId}`)
+      const sectionList = await axios.get(`http://localhost:1337/api/boulderSections/${gymId}`)
+      const gymInfo = await axios.get(`http://localhost:1337/api/gymById/${gymId}`)
+      
+      setDistribution(climbInfoList.data)
+      setGymName(gymInfo.data.name)
+      setEmployeeList(gymInfo.data.employees)
+      setSectionList(sectionList.data)
+    }
 
-    const filteredDistribution = climbInfoList.data.filter(climb => climb.sectionId === this.state.currentSection)
+    getInfo()
+  }, [gymId])
 
-    this.setState({
-      distribution: climbInfoList.data,
-      gymId: gymInfo.data.gymId,
-      gymName: gymInfo.data.name,
-      employeeList: gymInfo.data.employees,
-      sectionList: sectionList.data,
-      sectionDistribution: filteredDistribution.sort((climbA, climbB) => climbA - climbB),
-    })
-  }
+  useEffect(() => {
+    const filteredDistribution = distribution.filter(climb => climb.sectionId === currentSection)
+    const sortedFilterdDistribution = filteredDistribution.sort((climbA, climbB) => climbA - climbB)
 
-  render() {
-    return (
-      <>
-        {/* if (gymName !== null) */}
-          <h1 className="centered-text">Distribution Spread for {this.state.gymName}</h1>
+    setSectionDistribution(sortedFilterdDistribution)
+  }, [distribution, currentSection])
 
-          <div className="section-selectors-container centered-text">
-            {
-              this.state.sectionList
-                ? <SectionsList sectionList={this.state.sectionList} onClick={this.handleSectionChange}/>
-                : null
-            }
-          </div>
+  return (
+    <>
+        <h1 className="centered-text">Distribution Spread for {gymName}</h1>
 
-          <div className="distribution-holder">
-                  <form action="/api/saveDistribution/currentBoulders" method="POST" name="distribution-table">
-                    <div className="date-udpater-container">
-                      <input className="gray-background date-updater" type="date" name="dateSet" onChange={this.handleDateInputChange} value={this.state.fullDateChange} />
-                      <button className="date-updater button" type="button" onClick={this.handleChangeAllDatesInSection}>
-                        Set Current Dates
-                      </button>
-                    </div>
+        <div className="section-selectors-container centered-text">
+          {
+            sectionList
+              ? <SectionsList sectionList={sectionList} onClick={handleSectionChange}/>
+              : null
+          }
+        </div>
 
-                    <table className="distribution-table">
-                      <thead>
-                        <tr className="distribution-tr">
-                          <th className="distribution-th"> Grade</th>
-                          <th className="distribution-th">Color</th>
-                          <th className="distribution-th">Setter</th>
-                          <th className="distribution-th">Location</th>
-                          <th className="distribution-th">Date</th>
-                          <th className="distribution-th">Days Old</th>
+        <div className="distribution-holder">
+          <form name="distribution-table">
+            <div className="date-udpater-container">
+              <input className="gray-background date-updater" type="date" name="dateSet" onChange={(event) => setFullDateChange(event.target.value)} value={fullDateChange} />
+              <button className="date-updater button" type="button" onClick={handleChangeAllDatesInSection}>
+                Set Current Dates
+              </button>
+            </div>
+
+            <table className="distribution-table">
+              <thead>
+                <tr className="distribution-tr">
+                  <th className="distribution-th"> Grade</th>
+                  <th className="distribution-th">Color</th>
+                  <th className="distribution-th">Setter</th>
+                  <th className="distribution-th">Location</th>
+                  <th className="distribution-th">Date</th>
+                  <th className="distribution-th">Days Old</th>
+                </tr>
+              </thead>
+              
+              <tbody>
+                {
+                  sectionDistribution.map(climb => {
+                    return (
+                      <React.Fragment key={`table-row-${climb.id}`}>
+                        <tr className={`climb${climb.id} distribution-tr ${climb.color.toLowerCase()}`}>
+                          <td className="distribution-td">
+                            <SelectionContainer
+                              climb={climb}
+                              onChange={handleChange}
+                              name="grade"
+                              list={['VB', 'V0', 'V1', 'V2', 'V3', 'V4', 'V5', 'V6', 'V7', 'V8', 'V9', 'V10', 'V11', 'V12', 'V13', 'V14', 'V15', 'V16', 'V17']}
+                              textKey="grade"
+                              valueKey="grade"
+                            />
+                          </td>
+
+                          <td className="distribution-td">
+                            <SelectionContainer
+                              climb={climb}
+                              onChange={handleChange}
+                              name="color"
+                              list={['White', 'Green', 'Black', 'Orange', 'Blue', 'Yellow', 'Red', 'Purple', 'Tan', 'Pink']}
+                              textKey="color"
+                              valueKey="color"
+                            />
+                          </td>
+
+                          <td className="distribution-td">
+                            <SelectionContainer
+                              climb={climb}
+                              onChange={handleChange}
+                              name="setter"
+                              list={employeeList}
+                              textKey="setter"
+                              valueKey="setter"
+                            />
+                          </td>
+
+                          <td className="distribution-td">
+                            <SelectionContainer
+                              climb={climb}
+                              onChange={handleChange}
+                              name="sectionId"
+                              list={sectionList}
+                              textKey="name"
+                              valueKey="id"
+                            />
+                          </td>
+
+                          <td className="distribution-td">
+                            <DateInput climb={climb} onChange={handleChange}/>
+                          </td>
+
+                          {/* //- 86400000 milliseconds in a day */}
+                          <td className={`climb${climb.id} distribution-td ${climb.color.toLowerCase()}`}>{Math.floor((today - Date.parse(climb.dateSet)) / (86400000))}</td>
                         </tr>
-                      </thead>
-                      
-                      <tbody>
-                        {
-                          this.state.sectionDistribution.map(climb => {
-                            return (
-                              <React.Fragment key={`table-row-${climb.id}`}>
-                                <tr className={`climb${climb.id} distribution-tr ${climb.color.toLowerCase()}`}>
-                                  <td className="distribution-td">
-                                    <SelectionContainer
-                                      climb={climb}
-                                      onChange={this.handleChange}
-                                      name="grade"
-                                      list={['VB', 'V0', 'V1', 'V2', 'V3', 'V4', 'V5', 'V6', 'V7', 'V8', 'V9', 'V10', 'V11', 'V12', 'V13', 'V14', 'V15', 'V16', 'V17']}
-                                      textKey="grade"
-                                      valueKey="grade"
-                                    />
-                                  </td>
+                      </React.Fragment>
+                    )
+                  })
+                }
+              </tbody>
+            </table>
 
-                                  <td className="distribution-td">
-                                    <SelectionContainer
-                                      climb={climb}
-                                      onChange={this.handleChange}
-                                      name="color"
-                                      list={['White', 'Green', 'Black', 'Orange', 'Blue', 'Yellow', 'Red', 'Purple', 'Tan', 'Pink']}
-                                      textKey="color"
-                                      valueKey="color"
-                                    />
-                                  </td>
-
-                                  <td className="distribution-td">
-                                    <SelectionContainer
-                                      climb={climb}
-                                      onChange={this.handleChange}
-                                      name="setter"
-                                      list={this.state.employeeList}
-                                      textKey="setter"
-                                      valueKey="setter"
-                                    />
-                                  </td>
-
-                                  <td className="distribution-td">
-                                    <SelectionContainer
-                                      climb={climb}
-                                      onChange={this.handleChange}
-                                      name="sectionId"
-                                      list={this.state.sectionList}
-                                      textKey="name"
-                                      valueKey="id"
-                                    />
-                                  </td>
-
-                                  <td className="distribution-td">
-                                    <DateInput climb={climb} onChange={this.handleChange}/>
-                                  </td>
-
-                                  {/* //- 86400000 milliseconds in a day */}
-                                  <td className={`climb${climb.id} distribution-td ${climb.color.toLowerCase()}`}>{Math.floor((this.state.today - Date.parse(climb.dateSet)) / (86400000))}</td>
-                                </tr>
-                              </React.Fragment>
-                            )
-                          })
-                        }
-                      </tbody>
-                    </table>
-                    <div className="distribution-button-container">
-                      <button className="distribution-button" type="submit">Save Distribution</button>
-                      <button className="distribution-button" type="submit" formAction={`/placards/${this.state.gymId}/boulders`}>Print Boulder Placards</button>
-                      <button className="distribution-button" type="submit" formAction={`/placards/${this.state.gymId}/boulderBash`}>Print Boulder Bash Placard</button>
-                    </div>
-                  </form>
-          </div>
-      </>
-    )
-  }
-}            
+            <div className="distribution-button-container">
+              <button className="distribution-button" onClick={handleSubmit} type="submit">Save Distribution</button>
+              <button className="distribution-button" type="submit">
+                <Link to="/placard/boulders" state={{ distribution: sectionDistribution}} style={{color: 'white', textDecoration: 'none'}}>
+                  Print Boulder Placard
+                </Link>
+              </button>
+              <button className="distribution-button" onClick={() => console.log('not yet implemented')} type="submit" >Print Boulder Bash Placard</button>  {/* formAction={`/placards/${gymId}/boulderBash`} */ }
+            </div>
+          </form>
+        </div>
+    </>
+  )
+}
 
 export default BoulderDistributionChart

@@ -1,22 +1,15 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
 
-const adminLink = (user) => {
-  if (user.roleId <= 3) {
-    return (
-      <li className="parent">
-        <a href="/admin">Admin</a>
-      </li>
-    )
-  }
+import AdminLink from './partials/AdminLink'
+import NavLogout from './partials/NavLogout'
 
-  return null
-}
-
-const renderGymLinks = (gymList = [], url) => {
+const renderLinks = (gymList = [], url) => {
   return gymList.map(gym => {
     return (
       <li key={gym.name}>
-        <a href={`${url}/${gym.id}`}>{gym.name}</a>
+        <Link to={`${url}/${gym.id}`}>{gym.name}</Link>
       </li>
     )
   })
@@ -29,14 +22,18 @@ const Navbar = (props) => {
         <div className="navbar">
           <ul className="menu">
             {/* admin link */}
-            {adminLink(props.user)}
+            {
+              props.user
+                ? <AdminLink user={props?.user} />
+                : null
+            }
 
             {/* home link */}
             <li className="parent">
-              <a href="/">Home</a>
+              <Link to="/dashboard">Home</Link>
             </li>
 
-            {/* current dropdown */}
+            {/* current  boulder/ropes dropdown */}
             <li className="parent">
               <span>Current</span>
               <ul className="child">
@@ -46,7 +43,11 @@ const Navbar = (props) => {
                   {/* current boulder dropdown content */}
                   <ul className="child gym-dropdown">
                     {/* each gym in user.gyms */}
-                    {renderGymLinks(props.user.gyms, '/distribution/view/boulders')}
+                    {
+                      props.user
+                        ? renderLinks(props.user.gyms, '/distribution/current/boulders')
+                        : null
+                    }
                   </ul>
                 </li>
 
@@ -56,7 +57,11 @@ const Navbar = (props) => {
                   {/* current ropes dropdown content */}
                   <ul className="child gym-dropdown">
                     {/* each gym in user.gyms */}
-                    {renderGymLinks(props.user.gyms, '/distribution/view/routes')}
+                    {
+                      props.user
+                        ? renderLinks(props.user.gyms, '/distribution/current/ropes')
+                        : null
+                    }
                   </ul>
                 </li>
               </ul>
@@ -71,7 +76,11 @@ const Navbar = (props) => {
                   <span className="expand">Boulders {'>>'}</span>
                   {/* ideal boulder dropdown content */}
                   <ul className="child gym-dropdown">
-                    {renderGymLinks(props.user.gyms, '/distribution/boulders')}
+                    {
+                      props.user
+                        ? renderLinks(props.user.gyms, '/distribution/ideal/boulders')
+                        : null
+                    }
                   </ul>
                 </li>
 
@@ -81,7 +90,11 @@ const Navbar = (props) => {
                     {/* ideal ropes dropdown content */}
                   <ul className="child gym-dropdown">
                       {/* ideal route distribution form link */}
-                    {renderGymLinks(props.user.gyms, '/distribution/routes')}
+                    {
+                      props.user
+                        ? renderLinks(props.user.gyms, '/distribution/ideal/ropes')
+                        : null
+                    }
                   </ul>
                 </li>
               </ul>
@@ -93,34 +106,40 @@ const Navbar = (props) => {
               {/* metrics dropdown content */}
               <ul className="child gym-dropdown">
                   {/* gym metric link */}
-                  {renderGymLinks(props.user.gyms, '/metrics')}
+                  {
+                    props.user
+                      ? renderLinks(props?.user.gyms, '/metrics')
+                      : null
+                    }
               </ul>
             </li>
 
             {/* employees link */}
             <li className="parent">
-              <a href="/employees">Employees</a>
+              <Link to="/employees">Employees</Link>
             </li>
 
             {/* locations dropdown */}
             <li className="parent">
-              <a href="/gyms">Locations</a>
+              <Link to="/locations">Locations</Link>
               {/* locations dropdown content */}
               <ul className="child gym-dropdown">
                   {/* location link */}
-                  {renderGymLinks(props.gyms, '/gyms')}
+                  {
+                    props.gyms
+                      ? renderLinks(props?.gyms, '/locations')
+                      : null
+                  }
               </ul>
             </li>
 
             {/* employee info link */}
             <li className="parent">
-              <a href="/employees/editInfo">Info</a>
+              <Link to="/employees/edit">Info</Link>
             </li>
 
             {/* logout link */}
-            <li className="parent">
-              <a href="/logout">Logout</a>
-            </li>
+            <NavLogout />
           </ul>
         </div>
       
@@ -148,7 +167,14 @@ const Navbar = (props) => {
   )
 }
 
-export default Navbar
+const mapStateToProps = (state) => {
+  return {
+    user: state.user,
+    gyms: state.gyms
+  }
+}
+
+export default connect(mapStateToProps, {})(Navbar)
 
 
 

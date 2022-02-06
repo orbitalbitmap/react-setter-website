@@ -1,87 +1,76 @@
-import React from 'react'
+import axios from 'axios'
+import { useEffect, useState } from 'react'
 
-class NewGymForm extends React.Component {
-  constructor(props) {
-    super(props)
+const NewGymForm = () => {
+  const [name, setName] = useState('')
+  const [address, setAddress] = useState('')
+  const [phoneNumber, setPhoneNumber] = useState('')
+  const [headSetterId, setHeadSetterId] = useState(0)
+  const [facebook, setFacebook] = useState('')
+  const [instagram, setInstagram] = useState('')
+  const [twitter, setTwitter] = useState('')
+  const [employees, setEmployees] = useState([])
 
-    this.state = {
-      gym: {
-        name: '',
-        address: '',
-        phoneNumber: '',
-        headSetterId: 0,
-        facebook: '',
-        instagram: '',
-        twitter: '',
-        employees: [
-          {
-            id: 1,
-            firstName: 'Robert',
-            lastName: 'Perron',
-          }, {
-            id: 2,
-            firstName: 'Kyle',
-            lastName: 'Birnbaum',
-          },
-        ]
-      }
+  useEffect(() => {
+    const getInfo = async () =>{
+      const { data } = await axios.get('http://localhost:1337/api/employees')
+
+      setEmployees(data)
     }
 
-    this.handleChange = this.handleChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
-  }
+    getInfo()
+  }, [])
 
-  handleChange(event) {
-    this.setState({
-      gym: {
-        ...this.state.gym,
-        [event.target.name]: event.target.value
-      }
+  const handleSubmit = async (event) => {
+    event.preventDefault()
+
+    await axios.post('http://localhost:1337/api/saveNewGym', {
+      name,
+      address,
+      phoneNumber,
+      headSetterId,
+      facebook,
+      instagram,
+      twitter,
     })
   }
 
-  handleSubmit(event) {
-    event.preventDefault()
-  }
+  return ( 
+    <>
+      <h1 className="centered-text">New's Gym Information</h1>
 
-  render() {
-    return ( 
-      <>
-        <h1 className="centered-text">New's Gym Information</h1>
-
-        <form action="/api/updateGymInfo" method="post" id="editable-gym-form">
-          <div className="employee-form-grid">
-            <label htmlFor="name">Name:</label>
-            <input onChange={this.handleChange} name="name" value={this.state.gym.name} />
-            <label htmlFor="address">Address:</label>
-            <input onChange={this.handleChange} name="address" value={this.state.gym.address} />
-            <label htmlFor="phoneNumber">Phone Number:</label>
-            <input onChange={this.handleChange} name="phoneNumber" value={this.state.gym.phoneNumber} />
+      <form action="/api/updateGymInfo" method="post" id="editable-gym-form">
+        <div className="employee-form-grid">
+          <label htmlFor="name">Name:</label>
+          <input onChange={(event) => setName(event.target.value)} name="name" value={name} />
+          <label htmlFor="address">Address:</label>
+          <input onChange={(event) => setAddress(event.target.value)} name="address" value={address} />
+          <label htmlFor="phoneNumber">Phone Number:</label>
+          <input onChange={(event) => setPhoneNumber(event.target.value)} name="phoneNumber" value={phoneNumber} />
+          
+          <label htmlFor="headSetterId">Head Setter:</label>
+          <select onChange={(event) => setHeadSetterId(event.target.value)} name="headSetterId" defaultValue={0}>
+          <option value={0}>Please select a setter...</option>
             
-            <label htmlFor="headSetterId">Head Setter:</label>
-            <select onChange={this.handleChange} name="headSetterId" defaultValue={0}>
-            <option value={0}>Please select a setter...</option>
-              
-              {
-                this.state.gym.employees.map(employee => {
-                  return (    
-                    <option key={employee.id} value={employee.id}>{`${employee.firstName} ${employee.lastName}`}</option>
-                  )
-                })
-              }
-            </select>
-            <label htmlFor="facebook">Facebook Page:</label>
-            <input onChange={this.handleChange} name="facebook" value={this.state.gym.facebook} />
-            <label htmlFor="instagram">Instagram Account:</label>
-            <input onChange={this.handleChange} name="instagram" value={this.state.gym.instagram} />
-            <label htmlFor="twitter">Twitter Account:</label>
-            <input onChange={this.handleChange} name="twitter" value={this.state.gym.twitter} />
-          </div>
-          <button onClick={this.handleSubmit} type="submit">Update Info</button>
-        </form>
-      </>
-    )
-  }
+            {
+              employees.map(employee => {
+                return (    
+                  <option key={employee.id} value={employee.id}>{`${employee.firstName} ${employee.lastName}`}</option>
+                )
+              })
+            }
+          </select>
+          <label htmlFor="facebook">Facebook Page:</label>
+          <input onChange={(event) => setFacebook(event.target.value)} name="facebook" value={facebook} />
+          <label htmlFor="instagram">Instagram Account:</label>
+          <input onChange={(event) => setInstagram(event.target.value)} name="instagram" value={instagram} />
+          <label htmlFor="twitter">Twitter Account:</label>
+          <input onChange={(event) => setTwitter(event.target.value)} name="twitter" value={twitter} />
+        </div>
+        <button onClick={handleSubmit} type="submit">Update Info</button>
+      </form>
+    </>
+  )
 }
 
 export default NewGymForm

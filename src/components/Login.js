@@ -1,90 +1,68 @@
 import axios from 'axios'
-import React from 'react'
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { Cookies } from 'react-cookie'
+
+import { getLocations, signIn } from '../actions'
 
 const { checkPass } = require('../helpers/bcrypt');
 
+const Login = (props) => {
+  const cookies = new Cookies()
+  const navigate = useNavigate()
+  const [enteredEmail, setEnteredEmail] = useState('')
+  const [enteredPassword, setEnteredPassword] = useState('')
 
-class Login extends React.Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      user: {
-        email: '',
-        password: '',
-      },
-      options: this.props.options,
-      buttonProperties: [
-        {
-          key: "login",
-          text: "Login",
-          type: "submit",
-        },
-      ],
-      test: 'component'
-    }
-
-    this.handleChange = this.handleChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
-  }
-  
-  handleChange(event) {
-    this.setState({
-      user: {
-        ...this.state.user,
-        [event.target.name]: event.target.value
-      }
-    })
-  }
-  async handleSubmit(event) {
+  const handleSubmit = async (event) => {
     event.preventDefault()
-    const { data } = await axios.get(`http://localhost:1337/api/employeeByEmail/${this.state.user.email}`)
 
-    if (!data.password) {
-      console.log('none found')
-      return;
-    }
-    
-    const passwordDoesMatch = await checkPass(this.state.user.password, data.password);
-  
-    console.log(passwordDoesMatch)
-    
-    if (!passwordDoesMatch) {
-      console.log('none found')
-      return;
+    const {password, ...user} = (await axios.get(`http://localhost:1337/api/employeeByEmail/${enteredEmail}`)).data
+    const passwordDoesMatch = await checkPass(enteredPassword, password);
+
+    switch (passwordDoesMatch) {
+      case true:
+        props.signIn(user)
+        props.getLocations()
+        cookies.set('setter', user, { path: '/' })
+        navigate('/dashboard', {replace: true})
+        break
+      case false:
+        console.log('faiulre')
+        break
+      default:
+        console.log('faiulre')
+        break
     }
   }
 
-  
-  render() {
-    return (
-      <form id="employee-form" action="/login" method="GET">
-        <div className="employee-form-grid">
-          <label htmlFor="email" form="employee-form" >Email:</label>
-          <input
-            type="email"
-            name="email"
-            onChange={this.handleChange}
-            placeholder="Email"
-            required
-            value={this.state.user.email}
-          />
-          
-          <label htmlFor="password" form="employee-form" >Password:</label>
-          <input
-            type="password"
-            name="password"
-            onChange={this.handleChange}
-            placeholder="Password"
-            required
-            value={this.state.user.password}
-          />
-        </div>
+  return (
+    <form id="employee-form" action="/login" method="GET">
+      <div className="employee-form-grid">
+        <label htmlFor="email" form="employee-form" >Email:</label>
+        <input
+          type="email"
+          name="email"
+          onChange={(event) => setEnteredEmail(event.target.value)}
+          placeholder="Email"
+          required
+          value={enteredEmail}
+        />
+        
+        <label htmlFor="password" form="employee-form" >Password:</label>
+        <input
+          type="password"
+          name="password"
+          onChange={(event) => setEnteredPassword(event.target.value)}
+          placeholder="Password"
+          required
+          value={enteredPassword}
+        />
+      </div>
 
-        <button onClick={this.handleSubmit} type="submit">Login</button>
-      </form>
-    )
-  }
+        <button onClick={handleSubmit} type="submit" >Login</button> {/* Restyle this to be a button */}
+    </form>
+  )
 }
 
-export default Login
+export default connect(null, { getLocations, signIn })(Login)
