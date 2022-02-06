@@ -99,7 +99,7 @@ const UpdateClimbingSections = () => {
         </div>
       </form>
 
-      <form method="post" className="editable-section-form">
+      <form className="editable-section-form">
         <input className="hidden" name="gymId" value={gym.id} disabled />
         <h1 className="centered-text">Boulders</h1>
         <div className="section-details" id="boulder-sections">
