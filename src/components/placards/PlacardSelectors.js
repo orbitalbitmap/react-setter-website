@@ -19,7 +19,6 @@ const ClimbSelectors = (props) => {
                 handleClimbSelector={props.handleClimbSelector}
                 climbs={props.distribution} 
                 selectorType="boulder"
-                slotId={1}
               />
               
               <AreteSelector 
