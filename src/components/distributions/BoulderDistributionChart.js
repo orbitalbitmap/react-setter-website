@@ -2,6 +2,10 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 
+import Snackbar from '@mui/material/Snackbar';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
+
 import DateInput from './DateInput'
 import SectionsList from './SectionsList'
 import SelectionContainer from './SelectionContainer'
@@ -20,6 +24,26 @@ const BoulderDistributionChart = () => {
   const [sectionDistribution, setSectionDistribution] = useState([])
   const [sectionList, setSectionList] = useState([])
   const [fullDateChange, setFullDateChange] = useState(todayFormatted)
+  const [open, setOpen] = useState(false)
+  const [snackbarMessage, setSnackbarMessage] = useState('')
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
+  const snackBarAction = (
+    <IconButton
+      size="small"
+      aria-label="close"
+      color="inherit"
+      onClick={handleClose}
+    >
+      <CloseIcon fontSize="small" />
+    </IconButton>
+  )
 
   const handleSectionChange = (event) => {
     const sectionId = parseInt(event.target.id)
@@ -43,7 +67,14 @@ const BoulderDistributionChart = () => {
   const handleSubmit = async (event) => {
     event.preventDefault()
 
-    await axios.post(`${process.env.REACT_APP_API_PATH}/saveDistribution/currentBoulders`, {sectionDistribution})
+    try {
+      await axios.post(`${process.env.REACT_APP_API_PATH}/saveDistribution/currentBoulders`, {sectionDistribution})
+      setOpen(true)
+      setSnackbarMessage('Distribution has been saved!')
+    } catch {
+      setOpen(true)
+      setSnackbarMessage('Oops! Looks like something went wrong. Please Try again.')
+    }
   }
 
   const handleChange = async (event) => {
@@ -189,6 +220,14 @@ const BoulderDistributionChart = () => {
             </div>
           </form>
         </div>
+        <Snackbar
+          open={open}
+          autoHideDuration={3000}
+          message={snackbarMessage}
+          onClose={handleClose}
+          action={snackBarAction}
+          sx={{ bottom: {xs: 16 } }}
+        />
     </>
   )
 }
