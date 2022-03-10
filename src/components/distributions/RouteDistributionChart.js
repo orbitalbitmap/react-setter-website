@@ -78,9 +78,9 @@ const RouteDistributionChart = () => {
 
   useEffect(() => {
     const filteredDistribution = distribution.filter(climb => climb.sectionId === currentSection)
-    const sortedFilterdDistribution = filteredDistribution.sort((climbA, climbB) => climbA - climbB)
+    const sortedFilteredDistribution = filteredDistribution.sort((climbA, climbB) => climbA - climbB)
 
-    setSectionDistribution(sortedFilterdDistribution)
+    setSectionDistribution(sortedFilteredDistribution)
   }, [distribution, currentSection])
 
   return (
@@ -90,7 +90,7 @@ const RouteDistributionChart = () => {
         <div className="section-selectors-container centered-text">
           {
             sectionList
-              ? <SectionsList sectionList={sectionList} onClick={handleSectionChange}/>
+              ? <SectionsList sectionList={sectionList} onClick={handleSectionChange} currentSelectedId={currentSection} />
               : null
           }
         </div>
