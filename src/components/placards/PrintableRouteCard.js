@@ -65,7 +65,9 @@ const PrintableRouteCard = (props) => {
     const climbInArray = parseInt(event.target.value) - 1
     const { color, setter, grade, dateSet, ropeStyle, climbName } = props.distribution[climbInArray]
 
-    dispatch({ type: event.target.name, payload: { color, setter, grade, dateSet, ropeStyle, name: climbName } })
+    const dateSetFormatted = new Date(dateSet).toLocaleDateString('en-us')
+
+    dispatch({ type: event.target.name, payload: { color, setter, grade, dateSet: dateSetFormatted, ropeStyle, name: climbName } })
   }
 
   const handleAreteInfo = (event) => {
