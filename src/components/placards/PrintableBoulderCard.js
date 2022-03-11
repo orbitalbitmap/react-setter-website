@@ -125,7 +125,7 @@ const PrintableBoulderCard = (props) => {
   const [secondPlacardList, setSecondPlacardList] = useState([])
 
   const handleNonAreteInfo = (event) => {
-    const climbInDistribution = parseInt(event.target.value) - 1
+    const climbInDistribution = parseInt(event.target.value) - (props.distribution[0].id)
     const { color, setter, grade, dateSet } = props.distribution[climbInDistribution]
 
     dispatch({ type: event.target.name, payload: { color, setter, grade, dateSet } })
