@@ -102,7 +102,6 @@ const PrintableRouteCard = (props) => {
       <div className="route-placard-container centered-text"> 
         <div className="route-three-grid-column">
           <RoutePlacard
-            // climbs={ [selectedClimbs.climb1, selectedClimbs.climb2, selectedClimbs.climb3] }
             climbs={ selectedClimbs }
             nameList={['climb1', 'climb2', 'climb3']}
           />

@@ -13,7 +13,9 @@ const ClimbSelector = (props) => {
         {
           props.climbs.map(climb => {
             return (
-              <option key={climb.id} name="climb" value={climb.id}>{`${climb.color} ${climb.grade}`}</option>
+              climb.station
+                ? <option key={climb.id} name="climb" value={climb.id}>{`${climb.station}: ${climb.color} ${climb.grade}`}</option>
+                : <option key={climb.id} name="climb" value={climb.id}>{`${climb.color} ${climb.grade}`}</option>
             )
           })
         }
