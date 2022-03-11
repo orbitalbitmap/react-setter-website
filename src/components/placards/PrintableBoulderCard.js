@@ -125,10 +125,12 @@ const PrintableBoulderCard = (props) => {
   const [secondPlacardList, setSecondPlacardList] = useState([])
 
   const handleNonAreteInfo = (event) => {
-    const climbInDistribution = parseInt(event.target.value) - 1
+    const climbInDistribution = parseInt(event.target.value) - (props.distribution[0].id)
     const { color, setter, grade, dateSet } = props.distribution[climbInDistribution]
 
-    dispatch({ type: event.target.name, payload: { color, setter, grade, dateSet } })
+    const dateSetFormatted = new Date(dateSet).toLocaleDateString('en-us')
+
+    dispatch({ type: event.target.name, payload: { color, setter, grade, dateSet: dateSetFormatted  } })
   }
 
   const handleAreteInfo = (event) => {
@@ -190,14 +192,21 @@ const PrintableBoulderCard = (props) => {
     setSecondPlacardList(secondClimbList)
   }, [numberOfClimbsToDisplay])
 
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
+
   return (
     <>
-      <select onChange={handleNumberOfClimbChange} defaultValue="3">
-        <option value="1">1 climbs</option>
-        <option value="2">2 climbs</option>
-        <option value="3">3 climbs</option>
-        <option value="4">4 climbs</option>
-      </select>
+      <span className='boulders-per-climb'>
+        <label >Climbs per placards: </label>
+        <select className="boulder-selectors-box" onChange={handleNumberOfClimbChange} defaultValue="3">
+          <option value="1">1 climbs</option>
+          <option value="2">2 climbs</option>
+          <option value="3">3 climbs</option>
+          <option value="4">4 climbs</option>
+        </select>
+      </span>
 
       <PlacardSelectors
         class="noprint selection-container-top"
