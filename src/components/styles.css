@@ -865,7 +865,7 @@ body {
   display: grid;
   grid-template-rows: 333px 140px;
   height: 476px;
-  margin: 0 auto;
+  margin: 8px auto;
   width: 860px;
 }
 
