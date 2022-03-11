@@ -148,12 +148,14 @@
 
   /* Printable Placards Mobile Styling */
   .selection-container-top {
-    font-size: 2rem; top: 7.813rem;
+    font-size: 2rem;
+    top: 9rem;
     position: absolute;
   }
   
   .selection-container-bottom {
-    font-size: 2rem; top: 39.063rem;
+    font-size: 2rem;
+    top: 39.063rem;
     position: absolute;
   }
 }
@@ -642,7 +644,7 @@ body {
 /*********************************************************************************************************/
 .boulder-placard-container {
   font-family: "Oswald", sans-serif;
-  margin: 0 auto 24px auto;
+  margin: 1.25rem auto 1.5rem auto;
   display: grid;
   grid-template-rows: 342px 82px;
   height: 480px;
@@ -826,12 +828,14 @@ body {
   font-size: 1.125rem;
 }
 
-.boulder-selectors > label {
+.boulder-selectors  > label ,
+.boulders-per-climb > label {
   margin-right: 1rem;
 }
 
 .route-selectors,
-.boulder-selectors {
+.boulder-selectors,
+.boulders-per-climb {
   font-size: 2rem;
   text-align: center;
   margin-bottom: 1rem;
@@ -858,14 +862,17 @@ body {
   border: 1px solid black;
 }
 
-
+.boulders-per-climb {
+  position: absolute;
+  top: 4rem;
+}
 
 .route-placard-container {
   font-family: "Oswald", sans-serif;
   display: grid;
   grid-template-rows: 333px 140px;
   height: 476px;
-  margin: 8px auto;
+  margin: 2rem auto;
   width: 860px;
 }
 
