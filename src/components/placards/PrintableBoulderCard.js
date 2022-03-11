@@ -128,7 +128,9 @@ const PrintableBoulderCard = (props) => {
     const climbInDistribution = parseInt(event.target.value) - (props.distribution[0].id)
     const { color, setter, grade, dateSet } = props.distribution[climbInDistribution]
 
-    dispatch({ type: event.target.name, payload: { color, setter, grade, dateSet } })
+    const dateSetFormatted = new Date(dateSet).toLocaleDateString('en-us')
+
+    dispatch({ type: event.target.name, payload: { color, setter, grade, dateSet: dateSetFormatted  } })
   }
 
   const handleAreteInfo = (event) => {
@@ -190,6 +192,7 @@ const PrintableBoulderCard = (props) => {
     setSecondPlacardList(secondClimbList)
   }, [numberOfClimbsToDisplay])
 
+  console.log(props.distribution)
   return (
     <>
       <select onChange={handleNumberOfClimbChange} defaultValue="3">
