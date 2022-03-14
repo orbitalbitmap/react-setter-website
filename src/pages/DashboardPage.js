@@ -1,14 +1,14 @@
 import { connect } from 'react-redux'
 
 import '../components/styles.css'
-import Navbar from '../components/navbar/Navbar'
-import Dashboard from '../components/Dashboard'
+// import Navbar from '../components/navbar/Navbar'
+import Dashboard from '../components/dashboard/Dashboard'
 import { getLocations } from '../actions'
 
 const DashboardPage = (props) => {  
   return (
     <>
-      <Navbar />
+      {/* <Navbar /> */}
       {
         props.user?.id
           ? <Dashboard user={props.user} />
