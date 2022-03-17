@@ -13,7 +13,7 @@ const AdminLink = (props) => {
           <ListItemIcon>
             <DashboardIcon />
           </ListItemIcon>
-          <ListItemText primary="admin" />
+          <ListItemText primary="Admin" />
         </ListItemButton>
       </Link>
     )
