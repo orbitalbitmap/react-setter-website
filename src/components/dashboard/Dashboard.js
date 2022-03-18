@@ -132,7 +132,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 const mdTheme = createTheme();
 
 function DashboardContent() {
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
   const toggleDrawer = () => {
     setOpen(!open);
   };
@@ -185,7 +185,7 @@ function DashboardContent() {
           </Toolbar>
           <Divider />
           <List component="nav">
-            <ListItems />
+            <ListItems drawerOpen={open} />
           </List>
         </Drawer>
         <Box

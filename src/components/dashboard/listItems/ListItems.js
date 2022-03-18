@@ -28,7 +28,8 @@ const ItemList = (props) => {
   const [open, setOpen] = React.useState(false)
 
   const toggleOpen = () => {
-    setOpen(!open)
+
+    !props.drawerOpen ? setOpen(false) : setOpen(!open)
   }
 
   return (
@@ -49,7 +50,6 @@ const ItemList = (props) => {
         <ListItemButton onClick={toggleOpen}>
           <ListItemIcon>
             {open ? <ExpandLess /> : <ExpandMore />}
-            {/* <ShoppingCartIcon /> */}
           </ListItemIcon>
           <ListItemText primary="Locations" />
           </ListItemButton>
@@ -109,26 +109,20 @@ const ItemList = (props) => {
         Your locations
       </ListSubheader>
 
-      <ListItemButton>
-        <ListItemIcon>
-          <AssignmentIcon />
-        </ListItemIcon>
-        <ListItemText primary="Current month" />
-      </ListItemButton>
-
-      <ListItemButton>
-        <ListItemIcon>
-          <AssignmentIcon />
-        </ListItemIcon>
-        <ListItemText primary="Last quarter" />
-      </ListItemButton>
-
-      <ListItemButton>
-        <ListItemIcon>
-          <AssignmentIcon />
-        </ListItemIcon>
-        <ListItemText primary="Year-end sale" />
-      </ListItemButton>
+      <List component="div" disablePadding>
+        {
+          props?.user?.gyms?.map(gym => {
+            return (
+              <Link to={`/locations/${gym.id}`} style={{textDecoration: 'none', color: '#202020'}}>
+                <ListItemButton sx={{ pl: 4 }}>
+                  <ListItemText primary={gym.name} sx={{textAlign: 'center'}} />
+                </ListItemButton>
+              </Link>
+            )
+          })
+        }
+        <Divider sx={{ my: 1 }} />
+      </List>
     </React.Fragment>
   )
 }
