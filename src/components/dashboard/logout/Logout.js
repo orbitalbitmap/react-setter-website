@@ -5,6 +5,7 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
+import Tooltip from "@mui/material/Tooltip";
 
 import { removeLocations, signOut } from '../../../actions'
 
@@ -19,12 +20,14 @@ const NavLogout = (props) => {
 
   return (
     <Link to="/" onClick={handleLogout} style={{textDecoration: 'none', color: '#202020'}}>
-      <ListItemButton>
-        <ListItemIcon>
-          <DashboardIcon />
-        </ListItemIcon>
-        <ListItemText primary="Logout" />
-      </ListItemButton>
+      <Tooltip title="Logout" disableInteractive>
+        <ListItemButton>
+          <ListItemIcon>
+            <DashboardIcon />
+          </ListItemIcon>
+          <ListItemText primary="Logout" />
+        </ListItemButton>
+      </Tooltip>
     </Link>
   )
 }

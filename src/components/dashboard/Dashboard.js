@@ -185,7 +185,7 @@ function DashboardContent() {
           </Toolbar>
           <Divider />
           <List component="nav">
-            <ListItems drawerOpen={open} />
+            <ListItems drawerOpen={open} drawerSetter={setOpen}/>
           </List>
         </Drawer>
         <Box

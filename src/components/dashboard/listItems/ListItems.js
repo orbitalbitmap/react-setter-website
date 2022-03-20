@@ -3,126 +3,178 @@ import ListItemButton from '@mui/material/ListItemButton'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
 import ListSubheader from '@mui/material/ListSubheader'
-import DashboardIcon from '@mui/icons-material/Dashboard'
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
-import PeopleIcon from '@mui/icons-material/People'
-import BarChartIcon from '@mui/icons-material/BarChart'
-import LayersIcon from '@mui/icons-material/Layers'
-import AssignmentIcon from '@mui/icons-material/Assignment'
 import Collapse from '@mui/material/Collapse'
 import ExpandMore from '@mui/icons-material/ExpandMore'
 import ExpandLess from '@mui/icons-material/ExpandLess'
 import { Link } from 'react-router-dom'
 import List from '@mui/material/List'
 import Divider from '@mui/material/Divider'
+import Tooltip from '@mui/material/Tooltip'
 
 import { connect } from 'react-redux'
+
+import sideNavList from '../SideNavList'
 
 import Logout from '../logout/Logout'
 import AdminLink from '../navAdmin/NavAdmin'
 
-// import {Link as MuiLink} from '@mui/material/Link'
-
 
 const ItemList = (props) => {
-  const [open, setOpen] = React.useState(false)
+  const [expandAllLocations, setExpandAllLocations] = React.useState(false)
+  const [expandMetrics, setExpandMetrics] = React.useState(false)
+  const [expandUserLocations, setExpandUserLocations] = React.useState(false)
 
-  const toggleOpen = () => {
+  const renderListItemWithLink = (listItem) => (
+    <Link to={listItem.url} style={{textDecoration: 'none', color: '#000'}}>
+      <Tooltip title={listItem.title} disableInteractive >
+        <ListItemButton>
+          <ListItemIcon>
+            {listItem.icon}
+          </ListItemIcon>
+          <ListItemText primary={listItem.title} />
+        </ListItemButton>
+      </Tooltip>
+    </Link>
+  )
 
-    !props.drawerOpen ? setOpen(false) : setOpen(!open)
-  }
+    const toggleDrawerAndList = (setter) => {
+      props.drawerSetter(true)
+      setter(true)
+    }
+
+  const renderCollapsableList = (listItem, baseUrl, subList, opener, setter) => (
+    <>
+      <Tooltip title={listItem.title} disableInteractive>
+        <ListItemButton onClick={() => {!props.drawerOpen ? toggleDrawerAndList(setter) : setter(!opener)}}>
+            <ListItemIcon>
+              {opener ? <ExpandLess /> : <ExpandMore />}
+            </ListItemIcon>
+            <ListItemText primary={listItem.title} />
+        </ListItemButton>
+      </Tooltip>
+      <Collapse in={opener} timeout="auto" unmountOnExit>
+        <List component="div" disablePadding>
+          <Divider sx={{ my: 1 }} />
+            <Link to={baseUrl} style={{textDecoration: 'none', color: '#202020'}}>
+              <Tooltip title="All locations" disableInteractive>
+                <ListItemButton sx={{ pl: 4 }}>
+                  <ListItemText primary="All" sx={{textAlign: 'center'}} />
+                </ListItemButton>
+              </Tooltip>
+            </Link>
+            {
+              subList?.map(gym => {
+                return (
+                  <Link to={`${baseUrl}${gym.id}`} style={{textDecoration: 'none', color: '#202020'}}>
+                    <Tooltip title={gym.name} disableInteractive>
+                      <ListItemButton sx={{ pl: 4 }}>
+                        <ListItemText primary={gym.name} sx={{textAlign: 'center'}} />
+                      </ListItemButton>
+                    </Tooltip>
+                  </Link>
+                )
+              })
+            }
+            <Divider sx={{ my: 1 }} />
+        </List>
+      </Collapse>
+    </>
+  )
+
+  const renderUserLocations = (listItem, baseUrl, subList, opener, setter) => (
+    <List>
+      <Tooltip title={listItem.title} disableInteractive>
+        <ListItemButton onClick={() => {!props.drawerOpen ? setter(false) : setter(!opener)}}>
+            <ListItemIcon>
+              {opener ? <ExpandLess /> : <ExpandMore />}
+            </ListItemIcon>
+            <ListItemText primary={listItem.title} />
+        </ListItemButton>
+      </Tooltip>
+      <Collapse in={opener} timeout="auto" unmountOnExit>
+        <List component="div" disablePadding>
+          <Divider sx={{ my: 1 }} />
+            <Link to={baseUrl} style={{textDecoration: 'none', color: '#202020'}}>
+              <Tooltip title="All locations" disableInteractive>
+                <ListItemButton sx={{ pl: 4 }}>
+                  <ListItemText primary="All" sx={{textAlign: 'center'}} />
+                </ListItemButton>
+              </Tooltip>
+            </Link>
+            {
+              subList?.map(gym => {
+                return (
+                  <Link to={`${baseUrl}${gym.id}`} style={{textDecoration: 'none', color: '#202020'}}>
+                    <Tooltip title={gym.name} disableInteractive>
+                      <ListItemButton sx={{ pl: 4 }}>
+                        <ListItemText primary={gym.name} sx={{textAlign: 'center'}} />
+                      </ListItemButton>
+                    </Tooltip>
+                  </Link>
+                )
+              })
+            }
+            <Divider sx={{ my: 1 }} />
+        </List>
+      </Collapse>
+    </List>
+  )
+
+  const renderList = (list) => list.map((listItem) => {
+    switch (listItem.title) {
+      case 'Locations':
+        return renderCollapsableList(listItem, '/locations/', props?.gyms, expandAllLocations, setExpandAllLocations)
+    case 'Metrics':
+      return renderCollapsableList(listItem, '/metrics/', props?.user?.gyms, expandMetrics, setExpandMetrics)
+    default:
+      return renderListItemWithLink(listItem)
+    }
+  })
+
+  React.useEffect(() => {
+    if (!props.drawerOpen) {
+      setExpandAllLocations(false)
+      setExpandMetrics(false)
+      setExpandUserLocations(false)
+    }
+  }, [props.drawerOpen])
 
   return (
 
     <React.Fragment>
       <AdminLink />
 
-      <Link to="/dashboard" style={{textDecoration: 'none', color: '#202020'}}>
-        <ListItemButton>
-          <ListItemIcon>
-            <DashboardIcon />
-          </ListItemIcon>
-          <ListItemText primary="Dashboard" />
-        </ListItemButton>
-      </Link>
-
-      
-        <ListItemButton onClick={toggleOpen}>
-          <ListItemIcon>
-            {open ? <ExpandLess /> : <ExpandMore />}
-          </ListItemIcon>
-          <ListItemText primary="Locations" />
-          </ListItemButton>
-          <Collapse in={open} timeout="auto" unmountOnExit>
-            <List component="div" disablePadding>
-              <Divider sx={{ my: 1 }} />
-                <Link to="/locations" style={{textDecoration: 'none', color: '#202020'}}>
-                  <ListItemButton sx={{ pl: 4 }}>
-                    <ListItemText primary="All" sx={{textAlign: 'center'}} />
-                  </ListItemButton>
-                </Link>
-                {props?.gyms?.map(gym => {
-                return (
-                  <Link to={`/locations/${gym.id}`} style={{textDecoration: 'none', color: '#202020'}}>
-                    <ListItemButton sx={{ pl: 4 }}>
-                      <ListItemText primary={gym.name} sx={{textAlign: 'center'}} />
-                    </ListItemButton>
-                  </Link>
-                )
-              })
-            }
-            <Divider sx={{ my: 1 }} />
-            </List>
-          </Collapse>
-
-      <Link to="/employees" style={{textDecoration: 'none', color: '#202020'}}>
-        <ListItemButton>
-          <ListItemIcon>
-            <PeopleIcon />
-          </ListItemIcon>
-          <ListItemText primary="Employees" />
-        </ListItemButton>
-      </Link>
-
-      {/* change to collapsable list to contain links to that gym's metric page */}
-      <ListItemButton>
-        <ListItemIcon>
-          <BarChartIcon />
-        </ListItemIcon>
-        <ListItemText primary="Metrics" />
-      </ListItemButton>
-
-      <Link to="/employees/edit" style={{textDecoration: 'none', color: '#202020'}}>
-        <ListItemButton>
-          <ListItemIcon>
-            <LayersIcon />
-          </ListItemIcon>
-          <ListItemText primary="Profile" />
-        </ListItemButton>
-      </Link>
+      {
+        renderList(sideNavList)
+      }
 
       <Logout />
 
       <Divider sx={{ my: 1 }} />
 
-      <ListSubheader component="div" inset>
-        Your locations
-      </ListSubheader>
+      {
+        renderUserLocations({id: 8, title: 'Your Locations'}, '/locations/current/', props?.user?.gyms, expandUserLocations, setExpandUserLocations)
+      }
 
-      <List component="div" disablePadding>
+      {/* <List component="div" disablePadding>
         {
           props?.user?.gyms?.map(gym => {
             return (
               <Link to={`/locations/${gym.id}`} style={{textDecoration: 'none', color: '#202020'}}>
-                <ListItemButton sx={{ pl: 4 }}>
+                <Tooltip title={gym?.name} disableInteractive>
+                  <ListItemButton sx={{ pl: 4 }}>
+                    <ListItemIcon>
+                        {`${gym.name[0]}`}
+                    </ListItemIcon>
                   <ListItemText primary={gym.name} sx={{textAlign: 'center'}} />
-                </ListItemButton>
+                  </ListItemButton>
+                </Tooltip>
               </Link>
             )
           })
         }
-        <Divider sx={{ my: 1 }} />
-      </List>
+        // <Divider sx={{ my: 1 }} />
+      </List> */}
     </React.Fragment>
   )
 }

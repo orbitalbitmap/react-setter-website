@@ -4,17 +4,20 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import DashboardIcon from '@mui/icons-material/Dashboard';
+import Tooltip from '@mui/material/Tooltip'
 
 const AdminLink = (props) => {
   if (props?.user?.roleId <= 3) {
     return (
       <Link to="/admin" style={{textDecoration: 'none', color: '#202020'}}>
-        <ListItemButton>
-          <ListItemIcon>
-            <DashboardIcon />
-          </ListItemIcon>
-          <ListItemText primary="Admin" />
-        </ListItemButton>
+        <Tooltip title="Admin Dashboard" disableInteractive>
+          <ListItemButton>
+            <ListItemIcon>
+              <DashboardIcon />
+            </ListItemIcon>
+            <ListItemText primary="Admin" />
+          </ListItemButton>
+        </Tooltip>
       </Link>
     )
   }
