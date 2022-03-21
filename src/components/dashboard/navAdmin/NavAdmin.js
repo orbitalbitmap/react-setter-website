@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import DashboardIcon from '@mui/icons-material/Dashboard';
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import Tooltip from '@mui/material/Tooltip'
 
 const AdminLink = (props) => {
@@ -13,7 +13,7 @@ const AdminLink = (props) => {
         <Tooltip title="Admin Dashboard" disableInteractive>
           <ListItemButton>
             <ListItemIcon>
-              <DashboardIcon />
+              <AdminPanelSettingsIcon />
             </ListItemIcon>
             <ListItemText primary="Admin" />
           </ListItemButton>

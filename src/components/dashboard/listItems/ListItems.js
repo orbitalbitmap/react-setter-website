@@ -13,7 +13,7 @@ import Tooltip from '@mui/material/Tooltip'
 
 import { connect } from 'react-redux'
 
-import sideNavList from '../SideNavList'
+import sideNavList from '../sideNavList'
 
 import Logout from '../logout/Logout'
 import AdminLink from '../navAdmin/NavAdmin'
@@ -81,45 +81,6 @@ const ItemList = (props) => {
     </>
   )
 
-  const renderUserLocations = (listItem, baseUrl, subList, opener, setter) => (
-    <List>
-      <Tooltip title={listItem.title} disableInteractive>
-        <ListItemButton onClick={() => {!props.drawerOpen ? setter(false) : setter(!opener)}}>
-            <ListItemIcon>
-              {opener ? <ExpandLess /> : <ExpandMore />}
-            </ListItemIcon>
-            <ListItemText primary={listItem.title} />
-        </ListItemButton>
-      </Tooltip>
-      <Collapse in={opener} timeout="auto" unmountOnExit>
-        <List component="div" disablePadding>
-          <Divider sx={{ my: 1 }} />
-            <Link to={baseUrl} style={{textDecoration: 'none', color: '#202020'}}>
-              <Tooltip title="All locations" disableInteractive>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemText primary="All" sx={{textAlign: 'center'}} />
-                </ListItemButton>
-              </Tooltip>
-            </Link>
-            {
-              subList?.map(gym => {
-                return (
-                  <Link to={`${baseUrl}${gym.id}`} style={{textDecoration: 'none', color: '#202020'}}>
-                    <Tooltip title={gym.name} disableInteractive>
-                      <ListItemButton sx={{ pl: 4 }}>
-                        <ListItemText primary={gym.name} sx={{textAlign: 'center'}} />
-                      </ListItemButton>
-                    </Tooltip>
-                  </Link>
-                )
-              })
-            }
-            <Divider sx={{ my: 1 }} />
-        </List>
-      </Collapse>
-    </List>
-  )
-
   const renderList = (list) => list.map((listItem) => {
     switch (listItem.title) {
       case 'Locations':
@@ -153,28 +114,8 @@ const ItemList = (props) => {
       <Divider sx={{ my: 1 }} />
 
       {
-        renderUserLocations({id: 8, title: 'Your Locations'}, '/locations/current/', props?.user?.gyms, expandUserLocations, setExpandUserLocations)
+        renderCollapsableList({id: 8, title: 'Your Locations'}, '/locations/current/', props?.user?.gyms, expandUserLocations, setExpandUserLocations)
       }
-
-      {/* <List component="div" disablePadding>
-        {
-          props?.user?.gyms?.map(gym => {
-            return (
-              <Link to={`/locations/${gym.id}`} style={{textDecoration: 'none', color: '#202020'}}>
-                <Tooltip title={gym?.name} disableInteractive>
-                  <ListItemButton sx={{ pl: 4 }}>
-                    <ListItemIcon>
-                        {`${gym.name[0]}`}
-                    </ListItemIcon>
-                  <ListItemText primary={gym.name} sx={{textAlign: 'center'}} />
-                  </ListItemButton>
-                </Tooltip>
-              </Link>
-            )
-          })
-        }
-        // <Divider sx={{ my: 1 }} />
-      </List> */}
     </React.Fragment>
   )
 }
