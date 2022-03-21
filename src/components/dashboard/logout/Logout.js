@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom"
 import { connect } from "react-redux"
 import { Cookies } from 'react-cookie'
-import DashboardIcon from '@mui/icons-material/Dashboard';
+import LogoutIcon from '@mui/icons-material/Logout';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
@@ -23,7 +23,7 @@ const NavLogout = (props) => {
       <Tooltip title="Logout" disableInteractive>
         <ListItemButton>
           <ListItemIcon>
-            <DashboardIcon />
+            <LogoutIcon />
           </ListItemIcon>
           <ListItemText primary="Logout" />
         </ListItemButton>
