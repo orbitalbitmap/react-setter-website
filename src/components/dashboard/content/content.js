@@ -2,7 +2,6 @@ import * as React from 'react'
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import { connect } from 'react-redux'
@@ -23,9 +22,7 @@ const Content = (props) => {
         overflow: 'auto',
       }}
     >
-      {/* Toolbar is inserted for spacing the content down enough */}
-      <Toolbar /> 
-      <Container maxWidth="xl" sx={{ mt: 4, mb: 4, }}>
+      <Container maxWidth="xl" sx={{ mt: 12, mb: 4, }}>
         <Grid container spacing={4}>
           {
             props?.user?.gyms.map(gym => (
