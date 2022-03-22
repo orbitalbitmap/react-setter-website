@@ -1,6 +1,5 @@
 import DashboardIcon from '@mui/icons-material/Dashboard'
 import PeopleIcon from '@mui/icons-material/People'
-import BarChartIcon from '@mui/icons-material/BarChart'
 import LayersIcon from '@mui/icons-material/Layers'
 
 const sideNavList = [

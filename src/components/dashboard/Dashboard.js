@@ -10,13 +10,12 @@ import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ListItems from './listItems/ListItems';
+import ListItems from './sidebar/ListItems';
 import { grey } from '@mui/material/colors'
+
+import Content from './content/content'
 
 const drawerWidth = 240;
 
@@ -67,7 +66,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 );
 
 
-function DashboardContent() {
+function DashboardContent(props) {
   const [open, setOpen] = React.useState(false);
   const toggleDrawer = () => {
     setOpen(!open);
@@ -105,6 +104,7 @@ function DashboardContent() {
             </Typography>
           </Toolbar>
         </AppBar>
+
         <Drawer variant="permanent" open={open} PaperProps={{ sx: { bgcolor: '#202A56' } }}>
           <Toolbar
             sx={{
@@ -123,10 +123,10 @@ function DashboardContent() {
             <ListItems drawerOpen={open} drawerSetter={setOpen}/>
           </List>
         </Drawer>
-        
-        
-        
-        <Box
+
+        <Content gyms={props.user.gyms} />
+
+        {/* <Box
           component="main"
           sx={{
             backgroundColor: (theme) =>
@@ -138,10 +138,11 @@ function DashboardContent() {
             overflow: 'auto',
           }}
         >
-          <Toolbar />
-          <Container maxWidth="lg" sx={{ mt: 4, mb: 4, bgcolor: 'primary'}}>
+          {/* Toolbar is inserted for spacing the content down enough *}
+          <Toolbar /> 
+          <Container maxWidth="lg" sx={{ mt: 4, mb: 4, }}>
             <Grid container spacing={3}>
-              {/* Chart */}
+
               <Grid item xs={12} md={8} lg={9}>
                 <Paper
                   sx={{
@@ -154,7 +155,7 @@ function DashboardContent() {
                   test large and tall
                 </Paper>
               </Grid>
-              {/* Recent Deposits */}
+
               <Grid item xs={12} md={4} lg={3}>
                 <Paper
                   sx={{
@@ -167,7 +168,7 @@ function DashboardContent() {
                   thin and tall
                 </Paper>
               </Grid>
-              {/* Recent Orders */}
+
               <Grid item xs={12}>
                 <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
                   short and long
@@ -175,7 +176,7 @@ function DashboardContent() {
               </Grid>
             </Grid>
           </Container>
-        </Box>
+                </Box> */}
       </Box>
   );
 }

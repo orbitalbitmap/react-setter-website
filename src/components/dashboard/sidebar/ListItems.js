@@ -12,7 +12,7 @@ import Tooltip from '@mui/material/Tooltip'
 
 import { connect } from 'react-redux'
 
-import sideNavList from '../sideNavList'
+import sideNavList from './sideNavList'
 
 import Logout from '../logout/Logout'
 import AdminLink from '../navAdmin/NavAdmin'
