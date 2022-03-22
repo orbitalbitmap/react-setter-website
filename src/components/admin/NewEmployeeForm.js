@@ -50,8 +50,6 @@ const NewEmployeeForm = (props) => {
     <>
       <h1 className="centered-text">New Employee Information</h1>
 
-      <form id="employee-form">
-        <div className="employee-form-grid">
           <label htmlFor="firstName">First Name:</label>
           <input
             onChange={(event) => setFirstName(event.target.value)}
@@ -106,7 +104,6 @@ const NewEmployeeForm = (props) => {
             <option value="4">Full Time Setter</option>
             <option value="5">Part Time Setter</option>
           </select>
-        </div>
 
         <h3 className="centered-text">Locations:</h3>
         <div className="checkbox-grid">
@@ -130,7 +127,6 @@ const NewEmployeeForm = (props) => {
           }
           </div>
         <button onClick={hanldeSubmit} type="button">Save Employee</button>
-      </form>
     </>
   )
 }

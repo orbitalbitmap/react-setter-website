@@ -39,8 +39,6 @@ const NewGymForm = () => {
     <>
       <h1 className="centered-text">New's Gym Information</h1>
 
-      <form id="editable-gym-form">
-        <div className="employee-form-grid">
           <label htmlFor="name">Name:</label>
           <input onChange={(event) => setName(event.target.value)} name="name" value={name} />
           <label htmlFor="address">Address:</label>
@@ -66,9 +64,7 @@ const NewGymForm = () => {
           <input onChange={(event) => setInstagram(event.target.value)} name="instagram" value={instagram} />
           <label htmlFor="twitter">Twitter Account:</label>
           <input onChange={(event) => setTwitter(event.target.value)} name="twitter" value={twitter} />
-        </div>
         <button onClick={handleSubmit} type="submit">Update Info</button>
-      </form>
     </>
   )
 }
