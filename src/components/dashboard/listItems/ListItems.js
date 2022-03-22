@@ -2,7 +2,6 @@ import * as React from 'react'
 import ListItemButton from '@mui/material/ListItemButton'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
-import ListSubheader from '@mui/material/ListSubheader'
 import Collapse from '@mui/material/Collapse'
 import ExpandMore from '@mui/icons-material/ExpandMore'
 import ExpandLess from '@mui/icons-material/ExpandLess'
@@ -25,7 +24,7 @@ const ItemList = (props) => {
   const [expandUserLocations, setExpandUserLocations] = React.useState(false)
 
   const renderListItemWithLink = (listItem) => (
-    <Link to={listItem.url} style={{textDecoration: 'none', color: '#000'}}>
+    <Link to={listItem.url} style={{textDecoration: 'none'}}>
       <Tooltip title={listItem.title} disableInteractive >
         <ListItemButton>
           <ListItemIcon>
@@ -55,7 +54,7 @@ const ItemList = (props) => {
       <Collapse in={opener} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
           <Divider sx={{ my: 1 }} />
-            <Link to={baseUrl} style={{textDecoration: 'none', color: '#202020'}}>
+            <Link to={baseUrl} style={{textDecoration: 'none'}}>
               <Tooltip title="All locations" disableInteractive>
                 <ListItemButton sx={{ pl: 4 }}>
                   <ListItemText primary="All" sx={{textAlign: 'center'}} />
@@ -65,7 +64,7 @@ const ItemList = (props) => {
             {
               subList?.map(gym => {
                 return (
-                  <Link to={`${baseUrl}${gym.id}`} style={{textDecoration: 'none', color: '#202020'}}>
+                  <Link to={`${baseUrl}${gym.id}`} style={{textDecoration: 'none'}}>
                     <Tooltip title={gym.name} disableInteractive>
                       <ListItemButton sx={{ pl: 4 }}>
                         <ListItemText primary={gym.name} sx={{textAlign: 'center'}} />

@@ -1,72 +1,6 @@
-// import { Link } from 'react-router-dom'
-
-// const Dashboard = (props) => {
-//   const renderList = () => {
-//     return props.user.gyms.map(gym => {
-//       return (
-//         <ul key={`user-gym-list-${gym.name}`}>
-//           <li key={gym.id}>
-//             <h3> 
-//               <Link to={`/locations/${gym.id}`}>{gym.name}</Link>
-//             </h3>
-//             <ul key={`sections-${gym.id}`}>
-//               <li key={`list-${gym.id}`}>
-//                 <h4>Sections</h4>
-//                 <ul key={`section-list-${gym.id}`}>
-//                   <li key={`all-sections-${gym.id}`}>
-//                     <Link to={`/sections/${gym.id}`}> Wall Sections</Link>
-//                   </li>
-//                   <li key={`edit-sections-${gym.id}`}>
-//                     <Link to={`/sections/edit/${gym.id}`}> Edit All Section Names</Link>
-//                   </li>
-//                 </ul>
-//               </li>
-//             </ul>
-//             <ul key={`distribution-${gym.id}`}>
-//               <li key={`ideal-distribution-${gym.id}`}>
-//                 <h4>Ideal</h4>
-//                 <ul key={`ideal-distribution-list-${gym.id}`}>
-//                   <li key={`ideal-route-distribution-${gym.id}`}>
-//                     <Link to={`/distribution/ideal/ropes/${gym.id}`}> Route Distribution</Link>
-//                   </li>
-//                   <li key={`ideal-boulder-distribution-${gym.id}`}>
-//                     <Link to={`/distribution/ideal/boulders/${gym.id}`}>Boulder Distribution</Link>
-//                   </li>
-//                 </ul>
-//               </li>
-//               <li key={`current-distribution-${gym.id}`}>
-//                 <h4>Current</h4>
-//                 <ul key={`current-distribution-list-${gym.id}`}>
-//                   <li key={`current-route-distribution-${gym.id}`}>
-//                     <Link to={`/distribution/current/ropes/${gym.id}`}>Current Route Distribution</Link>
-//                   </li>
-//                   <li key={`current-boulder-distribution-${gym.id}`}>
-//                     <Link to={`/distribution/current/boulders/${gym.id}`}>Current Boulder Distribution</Link>
-//                   </li>
-//                 </ul>
-//               </li>
-//               </ul>
-//           </li>
-//         </ul>
-//         ) 
-//       }
-//     )
-//   }
-
-//   return (
-//     <div className="main-content">
-//     <h1 className="centered-text"> Welcome {props.user.firstName} {props.user.lastName}!</h1>
-//     <h2>Your main work locations are:</h2>
-//       {renderList()}
-//     </div>
-//   )
-// }
-
-// export default Dashboard
-
 import * as React from 'react';
 import { connect } from 'react-redux'
-import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import MuiDrawer from '@mui/material/Drawer';
 import Box from '@mui/material/Box';
@@ -82,6 +16,7 @@ import Paper from '@mui/material/Paper';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ListItems from './listItems/ListItems';
+import { grey } from '@mui/material/colors'
 
 const drawerWidth = 240;
 
@@ -106,6 +41,7 @@ const AppBar = styled(MuiAppBar, {
 const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open }) => ({
     '& .MuiDrawer-paper': {
+      borderRight: `solid 1px ${grey[500]}`,
       position: 'relative',
       whiteSpace: 'nowrap',
       width: drawerWidth,
@@ -115,6 +51,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
       }),
       boxSizing: 'border-box',
       ...(!open && {
+        borderRight: 'none',
         overflowX: 'hidden',
         transition: theme.transitions.create('width', {
           easing: theme.transitions.easing.sharp,
@@ -129,7 +66,6 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   }),
 );
 
-const mdTheme = createTheme();
 
 function DashboardContent() {
   const [open, setOpen] = React.useState(false);
@@ -138,7 +74,6 @@ function DashboardContent() {
   };
 
   return (
-    <ThemeProvider theme={mdTheme}>
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
         <AppBar position="absolute" open={open}>
@@ -170,7 +105,7 @@ function DashboardContent() {
             </Typography>
           </Toolbar>
         </AppBar>
-        <Drawer variant="permanent" open={open}>
+        <Drawer variant="permanent" open={open} PaperProps={{ sx: { bgcolor: '#202A56' } }}>
           <Toolbar
             sx={{
               display: 'flex',
@@ -184,10 +119,13 @@ function DashboardContent() {
             </IconButton>
           </Toolbar>
           <Divider />
-          <List component="nav">
+          <List component="nav" >
             <ListItems drawerOpen={open} drawerSetter={setOpen}/>
           </List>
         </Drawer>
+        
+        
+        
         <Box
           component="main"
           sx={{
@@ -201,7 +139,7 @@ function DashboardContent() {
           }}
         >
           <Toolbar />
-          <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+          <Container maxWidth="lg" sx={{ mt: 4, mb: 4, bgcolor: 'primary'}}>
             <Grid container spacing={3}>
               {/* Chart */}
               <Grid item xs={12} md={8} lg={9}>
@@ -213,6 +151,7 @@ function DashboardContent() {
                     height: 240,
                   }}
                 >
+                  test large and tall
                 </Paper>
               </Grid>
               {/* Recent Deposits */}
@@ -225,18 +164,19 @@ function DashboardContent() {
                     height: 240,
                   }}
                 >
+                  thin and tall
                 </Paper>
               </Grid>
               {/* Recent Orders */}
               <Grid item xs={12}>
                 <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
+                  short and long
                 </Paper>
               </Grid>
             </Grid>
           </Container>
         </Box>
       </Box>
-    </ThemeProvider>
   );
 }
 

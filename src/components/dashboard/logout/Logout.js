@@ -19,7 +19,7 @@ const NavLogout = (props) => {
   }
 
   return (
-    <Link to="/" onClick={handleLogout} style={{textDecoration: 'none', color: '#202020'}}>
+    <Link to="/" onClick={handleLogout} style={{textDecoration: 'none'}}>
       <Tooltip title="Logout" disableInteractive>
         <ListItemButton>
           <ListItemIcon>
