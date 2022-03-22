@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { connect } from 'react-redux'
 import { styled } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import MuiDrawer from '@mui/material/Drawer';
@@ -15,7 +14,6 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ListItems from './sidebar/ListItems';
 import { grey } from '@mui/material/colors'
 
-import Content from './content/content'
 
 const drawerWidth = 240;
 
@@ -124,68 +122,10 @@ function DashboardContent(props) {
           </List>
         </Drawer>
 
-        <Content gyms={props.user.gyms} />
-
-        {/* <Box
-          component="main"
-          sx={{
-            backgroundColor: (theme) =>
-              theme.palette.mode === 'light'
-                ? theme.palette.grey[100]
-                : theme.palette.grey[900],
-            flexGrow: 1,
-            height: '100vh',
-            overflow: 'auto',
-          }}
-        >
-          {/* Toolbar is inserted for spacing the content down enough *}
-          <Toolbar /> 
-          <Container maxWidth="lg" sx={{ mt: 4, mb: 4, }}>
-            <Grid container spacing={3}>
-
-              <Grid item xs={12} md={8} lg={9}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    height: 240,
-                  }}
-                >
-                  test large and tall
-                </Paper>
-              </Grid>
-
-              <Grid item xs={12} md={4} lg={3}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    height: 240,
-                  }}
-                >
-                  thin and tall
-                </Paper>
-              </Grid>
-
-              <Grid item xs={12}>
-                <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                  short and long
-                </Paper>
-              </Grid>
-            </Grid>
-          </Container>
-                </Box> */}
+        {props.children}
       </Box>
   );
 }
 
-const mapStateToProps = (state) => {
-  return {
-    user: state.user,
-    gyms: state.gyms
-  }
-}
 
-export default connect(mapStateToProps, {})(DashboardContent)
+export default DashboardContent
