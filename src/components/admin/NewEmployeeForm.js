@@ -30,7 +30,7 @@ const NewEmployeeForm = (props) => {
     }
   }
 
-  const hanldeSubmit = async (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault()
 
     const newUser = {
@@ -126,7 +126,7 @@ const NewEmployeeForm = (props) => {
             })
           }
           </div>
-        <button onClick={hanldeSubmit} type="button">Save Employee</button>
+        <button onClick={handleSubmit} type="button">Save Employee</button>
     </>
   )
 }
