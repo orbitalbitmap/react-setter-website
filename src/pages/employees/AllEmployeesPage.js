@@ -1,14 +1,13 @@
 import EmployeesList from '../../components/employees/EmployeesList'
-import Navbar from '../../components/navbar/Navbar'
+import Dashboard from '../../components/dashboard/Dashboard'
 
 
 const AllLocationsPage = () => {
   return (
     <>
-      <Navbar />
-      <div className="centered-text">
+      <Dashboard>
         <EmployeesList />
-      </div>
+      </Dashboard>
     </>
   )
 }
