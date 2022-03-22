@@ -64,7 +64,19 @@ const GymTabContainer = ({ gym }) => {
                 mt: '1rem',
               }}
             >
-              <Link to={`/distribution/current/ropes/${gym.id}`} style={{margin: '0 auto'}}>Current Rope Climbs</Link>
+              <Link
+                to={`/distribution/current/ropes/${gym.id}`}
+                style={{
+                    color:
+                    '#000',
+                  margin: '0 auto',
+                  textDecoration: 'none',
+                  fontWeight: 500,
+                }}
+              >
+                Current Rope Climbs
+              </Link>
+
             </Paper>
           </Grid>
           <Grid item xs={6}>
@@ -78,7 +90,19 @@ const GymTabContainer = ({ gym }) => {
                 mt: '1rem',
               }}
             >
-              <Link to={`/distribution/ideal/ropes/${gym.id}`} style={{margin: '0 auto'}}>Ideal Rope Distribution</Link>
+              <Link
+                to={`/distribution/ideal/ropes/${gym.id}`}
+                style={{
+                    color:
+                    '#000',
+                  margin: '0 auto',
+                  textDecoration: 'none',
+                  fontWeight: 500,
+                }}
+              >
+                  Ideal Rope Distribution
+              </Link>
+
             </Paper>
           </Grid>
         </Grid>
@@ -96,7 +120,18 @@ const GymTabContainer = ({ gym }) => {
                 mt: '1rem',
               }}
             >
-              <Link to={`/distribution/current/ropes/${gym.id}`} style={{margin: '0 auto'}}>Current Boulder Problems</Link>
+              <Link
+                to={`/distribution/current/boulders/${gym.id}`}
+                style={{
+                  color: '#000',
+                  margin: '0 auto',
+                  textDecoration: 'none',
+                  fontWeight: 500,
+                }}
+              >
+                Current Boulder Problems
+              </Link>
+
             </Paper>
           </Grid>
           <Grid item xs={6}>
@@ -110,7 +145,18 @@ const GymTabContainer = ({ gym }) => {
                 mt: '1rem',
               }}
             >
-              <Link to={`/distribution/ideal/ropes/${gym.id}`} style={{margin: '0 auto'}}>Ideal Boulder Distribution</Link>
+              <Link
+                to={`/distribution/ideal/boulders/${gym.id}`}
+                style={{
+                    color: '#000',
+                  margin: '0 auto',
+                  textDecoration: 'none',
+                  fontWeight: 500,
+                }}
+              >
+                Ideal Boulder Distribution
+              </Link>
+
             </Paper>
           </Grid>
         </Grid>
