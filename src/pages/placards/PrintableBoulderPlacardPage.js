@@ -1,6 +1,6 @@
 import { useLocation } from "react-router-dom"
 
-import Navbar from '../../components/navbar/Navbar'
+import Dashboard from '../../components/dashboard/Dashboard'
 import PrintableBoulderCard from '../../components/placards/PrintableBoulderCard'
 
 const PrintableBoulderPlacard = () => {
@@ -8,10 +8,9 @@ const PrintableBoulderPlacard = () => {
   const { distribution } = location.state
 
   return (
-    <div>
-      <Navbar />
+    <Dashboard>
       <PrintableBoulderCard distribution={distribution} />
-    </div>
+    </Dashboard>
   )
 }
 

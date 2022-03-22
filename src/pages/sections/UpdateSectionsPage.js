@@ -1,16 +1,12 @@
 import React from 'react'
-
-import Navbar from '../../components/navbar/Navbar'
 import UpdateClimbingSections from '../../components/sections/UpdateClimbingSections'
+import Dashboard from '../../components/dashboard/Dashboard'
 
 const UpdateSectionsPage = () => {
   return (
-    <>
-      <Navbar />
-      <div className="centered-text">
+    <Dashboard>
         <UpdateClimbingSections /> 
-      </div>
-    </>
+    </Dashboard>
   )
 }
 

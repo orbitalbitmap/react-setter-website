@@ -1,15 +1,11 @@
 import NewGymForm from '../../components/admin/NewGymForm'
-import Navbar from '../../components/navbar/Navbar'
-
+import Dashboard from '../../components/dashboard/Dashboard'
 
 const NewGymPage = () => {
   return (
-    <>
-      <Navbar />
-      <div className="centered-text">
-        <NewGymForm />
-      </div>
-    </>
+    <Dashboard>
+      <NewGymForm />
+    </Dashboard>
   )
 }
 

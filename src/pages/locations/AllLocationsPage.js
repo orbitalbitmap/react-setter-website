@@ -1,17 +1,13 @@
 import React from 'react'
 import { connect } from 'react-redux'
-
 import Gyms from '../../components/locations/Gyms'
-import Navbar from '../../components/navbar/Navbar'
+import Dashboard from '../../components/dashboard/Dashboard'
 
 const AllLocationsPage = (props) => {
   return (
-    <>
-      <Navbar />
-      <div className="centered-text">
-        {props.gyms ? <Gyms /> : null}
-      </div>
-    </>
+    <Dashboard>
+      {props.gyms ? <Gyms /> : null}
+    </Dashboard>
   )
 }
 

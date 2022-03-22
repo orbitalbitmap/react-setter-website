@@ -1,18 +1,13 @@
 import React from 'react'
 import { connect } from 'react-redux'
-
 import AllClimbingSections from '../../components/sections/AllClimbingSections'
-import Navbar from '../../components/navbar/Navbar'
-
+import Dashboard from '../../components/dashboard/Dashboard'
 
 const AllLocationsAndSections = (props) => {
   return (
-    <>
-      <Navbar />
-      <div className="centered-text">
+    <Dashboard>
         {props.gyms ? <AllClimbingSections /> : null}
-      </div>
-    </>
+    </Dashboard>
   )
 }
 

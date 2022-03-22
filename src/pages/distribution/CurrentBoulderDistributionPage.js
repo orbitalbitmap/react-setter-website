@@ -1,14 +1,12 @@
 import React from 'react'
-
-import Navbar from '../../components/navbar/Navbar'
 import BoulderDistributionChart from '../../components/distributions/BoulderDistributionChart'
+import Dashboard from '../../components/dashboard/Dashboard'
 
 const CurrentBoulderDistribution = () => {
   return (
-    <>
-      <Navbar />
+    <Dashboard>
       <BoulderDistributionChart />
-    </>
+    </Dashboard>
   )
 }
 

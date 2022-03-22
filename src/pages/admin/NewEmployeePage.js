@@ -1,17 +1,12 @@
 import React from 'react'
-
 import NewEmployeeForm from '../../components/admin/NewEmployeeForm'
-import Navbar from '../../components/navbar/Navbar'
-
+import Dashboard from '../../components/dashboard/Dashboard'
 
 const NewEmployeePage = () => {
   return (
-    <>
-      <Navbar />
-      <div className="centered-text">
-        <NewEmployeeForm />
-      </div>
-    </>
+    <Dashboard>
+      <NewEmployeeForm />
+    </Dashboard>
   )
 }
 

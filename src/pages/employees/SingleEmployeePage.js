@@ -1,15 +1,11 @@
 import SingleEmployee from '../../components/employees/SingleEmployee'
-import Navbar from '../../components/navbar/Navbar'
-
+import Dashboard from '../../components/dashboard/Dashboard'
 
 const AllLocationsPage = () => {
   return (
-    <>
-      <Navbar />
-      <div className="centered-text">
+      <Dashboard>
         <SingleEmployee />
-      </div>
-    </>
+      </Dashboard>
   )
 }
 
