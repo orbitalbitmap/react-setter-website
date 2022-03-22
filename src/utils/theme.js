@@ -15,6 +15,9 @@ export default createTheme({
       light: `${actionBlue}`,
       contrastText: "#fff",
     },
+    secondary: {
+      main: `${grey[500]}`,
+    }
   },
   components: {
     MuiButton: {
