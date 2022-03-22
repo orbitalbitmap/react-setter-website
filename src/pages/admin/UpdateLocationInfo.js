@@ -1,17 +1,12 @@
 import React from 'react'
 
 import EditSingleGym from '../../components/admin/EditSingleGym'
-import Navbar from '../../components/navbar/Navbar'
-
-
+import Dashboard from '../../components/dashboard/Dashboard'
 const UpdateLocationPage = () => {
   return (
-    <>
-      <Navbar />
-      <div className="centered-text">
-        <EditSingleGym />
-      </div>
-    </>
+    <Dashboard>
+      <EditSingleGym />
+    </Dashboard>
   )
 }
 

@@ -6,7 +6,7 @@ import Dashboard from '../../components/dashboard/Dashboard'
 const SingleLocationPage = (props) => {
   return (
     <Dashboard>
-        {props.gyms ? <SingleGym /> : null}
+      {props.gyms ? <SingleGym /> : null}
     </Dashboard>
   )
 }
