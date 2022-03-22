@@ -1,12 +1,11 @@
-import Navbar from '../../components/navbar/Navbar'
+import Dashboard from '../../components/dashboard/Dashboard'
 import MetricsContainer from '../../components/metrics/MetricsContainer'
 
 const MetricsPage = () => {
   return (
-    <>
-      <Navbar />
+    <Dashboard>
       <MetricsContainer />
-    </>
+    </Dashboard>
   )
 }
 

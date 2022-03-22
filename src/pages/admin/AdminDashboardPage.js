@@ -1,12 +1,11 @@
 import AdminDashboard from '../../components/admin/AdminDashboard'
-import Navbar from '../../components/navbar/Navbar'
+import Dashboard from '../../components/dashboard/Dashboard'
 
 const AdminPage = () => {
   return (
-    <>
-      <Navbar />
+    <Dashboard>
       <AdminDashboard />
-    </>
+    </Dashboard>
   )
 }
 

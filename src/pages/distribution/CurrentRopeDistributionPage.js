@@ -1,14 +1,12 @@
 import React from 'react'
-
-import Navbar from '../../components/navbar/Navbar'
+import Dashboard from '../../components/dashboard/Dashboard'
 import RouteDistributionChart from '../../components/distributions/RouteDistributionChart'
 
 const CurrentRopeDistribution = () => {
   return (
-    <>
-      <Navbar />
+    <Dashboard>
       <RouteDistributionChart />
-    </>
+    </Dashboard>
   )
 }
 

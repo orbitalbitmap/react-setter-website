@@ -1,14 +1,11 @@
-import Navbar from '../../components/navbar/Navbar'
+import Dashboard from '../../components/dashboard/Dashboard'
 import SpecificGymSection from '../../components/sections/SpecificGymSection'
 
 const SectionsForSpecificGymPage = () => {
   return (
-    <>
-      <Navbar />
-      <div className="centered-text">
-        <SpecificGymSection />
-      </div>
-    </>
+    <Dashboard>
+      <SpecificGymSection />
+    </Dashboard>
   )
 }
 

@@ -1,17 +1,15 @@
 import React from 'react'
-
-import Navbar from '../../components/navbar/Navbar'
+import Dashboard from '../../components/dashboard/Dashboard'
 import DistributionEditForm from '../../components/distributions/DistributionEditForm'
 
 const IdealRopeDistributionPage = () => {
   return (
-    <>
-      <Navbar />
+    <Dashboard>
       <DistributionEditForm 
         path="idealRouteGradesById"
         type="routes"
       />
-    </>
+    </Dashboard>
   )
 }
 

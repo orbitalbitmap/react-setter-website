@@ -1,17 +1,15 @@
 import React from 'react'
-
-import Navbar from '../../components/navbar/Navbar'
 import DistributionEditForm from '../../components/distributions/DistributionEditForm'
+import Dashboard from '../../components/dashboard/Dashboard'
 
 const IdealBoulderDistributionPage = () => {
   return (
-    <>
-      <Navbar />
+    <Dashboard>
       <DistributionEditForm
         path="idealBoulderGradesById"
         type="boulders"
       />
-    </>
+    </Dashboard>
   )
 }
 

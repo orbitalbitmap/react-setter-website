@@ -1,15 +1,11 @@
 import UpdateEmployee from '../../components/employees/UpdateEmployee'
-import Navbar from '../../components/navbar/Navbar'
-
+import Dashboard from '../../components/dashboard/Dashboard'
 
 const UpdateEmployeePage = () => {
   return (
-    <>
-      <Navbar />
-      <div className="centered-text">
+      <Dashboard>
         <UpdateEmployee />
-      </div>
-    </>
+      </Dashboard>
   )
 }
 
