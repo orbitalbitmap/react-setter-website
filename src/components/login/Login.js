@@ -11,14 +11,12 @@ import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 
 import Copyright from './copyright/Copyright';
 import { getLocations, signIn } from '../../actions'
 
-const { checkPass } = require('../../helpers/bcrypt');
-const theme = createTheme();
+const { checkPass } = require('../../utils/bcrypt');
 
 const SignIn = (props) => {
   const cookies = new Cookies()
@@ -54,7 +52,6 @@ const SignIn = (props) => {
   }
 
   return (
-    <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
 
@@ -114,7 +111,6 @@ const SignIn = (props) => {
 
         <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
-    </ThemeProvider>
   );
 }
 

@@ -9,7 +9,7 @@ import Tooltip from '@mui/material/Tooltip'
 const AdminLink = (props) => {
   if (props?.user?.roleId <= 3) {
     return (
-      <Link to="/admin" style={{textDecoration: 'none', color: '#202020'}}>
+      <Link to="/admin" style={{textDecoration: 'none'}}>
         <Tooltip title="Admin Dashboard" disableInteractive>
           <ListItemButton>
             <ListItemIcon>
