@@ -5,10 +5,11 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
+import { connect } from 'react-redux'
 
 import GymTabContainer from './gymTabContainer/GymTabContainer'
 
-const Content = ({ gyms }) => {
+const Content = (props) => {
   return (
     <Box
       component="main"
@@ -27,7 +28,7 @@ const Content = ({ gyms }) => {
       <Container maxWidth="xl" sx={{ mt: 4, mb: 4, }}>
         <Grid container spacing={4}>
           {
-            gyms.map(gym => (
+            props?.user?.gyms.map(gym => (
               <Grid key={gym.id} item xs={6}>
                 <Paper
                 elevation={24}
@@ -52,4 +53,11 @@ const Content = ({ gyms }) => {
   )
 }
 
-export default Content
+const mapStateToProps = (state) => {
+  return {
+    user: state.user,
+    gyms: state.gyms
+  }
+}
+
+export default connect(mapStateToProps, {})(Content)
