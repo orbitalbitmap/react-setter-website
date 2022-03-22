@@ -7,6 +7,9 @@ import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import { Tabs, Tab } from "@mui/material";
 
+import NewEmployeeForm from './NewEmployeeForm'
+import NewGymForm from './NewGymForm'
+
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -49,6 +52,7 @@ const AdminDashboard = () => {
     >
       <Container maxWidth="xl" sx={{ mt: 18, justifyContent: 'center'}} >
         <Grid container spacing={4} sx={{justifyContent: 'center'}}>
+          <Grid item xs={8}>
           <Paper
             sx={{
               p: 2,
@@ -65,18 +69,20 @@ const AdminDashboard = () => {
               textColor="inherit"
               variant="fullWidth"
               aria-label="full width tabs example"
-              sx={{bgcolor: 'primary.light'}} style={{borderRadius: '4px 4px 0 0'}}
+              sx={{bgcolor: 'primary.light'}}
+              style={{borderRadius: '4px 4px 0 0'}}
             >
               <Tab label="Add New Setter" />
               <Tab label="Add New Gym" />
             </Tabs>
             <TabPanel value={value} index={0} style={{textAlign: 'center'}}>
-              Test 1
+              <NewEmployeeForm />
             </TabPanel>
             <TabPanel value={value} index={1} style={{textAlign: 'center'}}>
-              Test 2
+              <NewGymForm />
             </TabPanel>
           </Paper>
+          </Grid>
         </Grid>
       </Container>
     </Box>
