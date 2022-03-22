@@ -5,7 +5,7 @@ import Dashboard from '../../components/dashboard/Dashboard'
 const UpdateSectionsPage = () => {
   return (
     <Dashboard>
-        <UpdateClimbingSections /> 
+      <UpdateClimbingSections /> 
     </Dashboard>
   )
 }
