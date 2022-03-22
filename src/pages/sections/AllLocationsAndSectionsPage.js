@@ -6,7 +6,7 @@ import Dashboard from '../../components/dashboard/Dashboard'
 const AllLocationsAndSections = (props) => {
   return (
     <Dashboard>
-        {props.gyms ? <AllClimbingSections /> : null}
+      {props.gyms ? <AllClimbingSections /> : null}
     </Dashboard>
   )
 }
