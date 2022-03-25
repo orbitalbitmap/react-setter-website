@@ -103,7 +103,6 @@ const NewEmployeeForm = (props) => {
                   value={roleId}
                   onChange={(event) => setRoleId(event.target.value)}
                 >
-                  
                   <MenuItem value="0" sx={{ color: '#fff' }}>Please select a role...</MenuItem>
                   <MenuItem value="1" sx={{ color: '#fff' }}>Director of Routesetting</MenuItem>
                   <MenuItem value="2" sx={{ color: '#fff' }}>Regional Head Setter</MenuItem>
