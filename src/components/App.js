@@ -5,7 +5,7 @@ import {
   Route,
 } from "react-router-dom";
 
-import './styles.css'
+// import './styles.css'
 import history from '../history';
 import AdminDashboardPage from '../pages/admin/AdminDashboardPage';
 import AdminUpdateEmployeePage from '../pages/admin/AdminUpdateEmployeePage';
