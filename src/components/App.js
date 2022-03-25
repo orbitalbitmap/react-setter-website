@@ -9,7 +9,7 @@ import {
 import history from '../history';
 import AdminDashboardPage from '../pages/admin/AdminDashboardPage';
 import AdminUpdateEmployeePage from '../pages/admin/AdminUpdateEmployeePage';
-import AllEmployeeesPage from '../pages/employees/AllEmployeesPage';
+import AllEmployeesPage from '../pages/employees/AllEmployeesPage';
 import AllLocations from '../pages/locations/AllLocationsPage';
 import AllLocationsAndSectionsPage from '../pages/sections/AllLocationsAndSectionsPage';
 import CurrentBoulderDistributionPage from '../pages/distribution/CurrentBoulderDistributionPage';
@@ -63,7 +63,7 @@ const App = () => {
           <Route exact path="/placard/ropes" element={<PrintableRoutePlacardPage />} />
 
           {/* Employee paths */}
-          <Route exact path="/employees" element={<AllEmployeeesPage />} />
+          <Route exact path="/employees" element={<AllEmployeesPage />} />
           <Route exact path="/employees/:id" element={<SingleEmployeePage />} />
           <Route exact path="/employees/edit" element={<UpdateEmployeePage />} />
 
@@ -72,9 +72,9 @@ const App = () => {
           <Route exact path="/metrics/:id" element={<MetricsPage />} />
 
 
-          {/* Locatation paths */}
-          <Route exat path="/locations" element={<AllLocations />} />
-          <Route exat path="/locations/:id" element={<SingleLocationPage />} />
+          {/* Location paths */}
+          <Route exact path="/locations" element={<AllLocations />} />
+          <Route exact path="/locations/:id" element={<SingleLocationPage />} />
 
           {/* Sections paths */}
           <Route exact path="/sections" element={<AllLocationsAndSectionsPage />} />
