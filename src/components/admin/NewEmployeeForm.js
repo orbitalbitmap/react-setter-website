@@ -1,6 +1,8 @@
 import axios from 'axios'
 import { useState} from 'react'
 import { connect } from 'react-redux'
+import { FormControl, Grid, TextField } from '@mui/material'
+import { Paper, Select, MenuItem, InputLabel, OutlinedInput, Checkbox, ListItemText } from '@mui/material'
 
 const NewEmployeeForm = (props) => {
   const [firstName, setFirstName] = useState('')
@@ -10,24 +12,19 @@ const NewEmployeeForm = (props) => {
   const [phoneNumber, setPhoneNumber] = useState('')
   const [roleId, setRoleId] = useState(0)
   const [employeeGymList, setEmployeeGymList] = useState([])
+  const [currentGymNameList, setCurrentGymNameList] = useState(props.gyms.map((gym) => gym.name))
+  const [employeeGymNameList, setEmployeeGymNameList] = useState([])
 
   const handleCheckbox = (event) => {
-    const id = parseInt(event.target.value)
-    switch (event.target.checked) {
-      case false:
-        const updatedGymList = employeeGymList.filter(gym => {
-            return gym.id !== id
-        })
+    const {
+      target: { value },
+    } = event;
+    
+    const [gymName] = value.filter(gym => !employeeGymNameList.includes(gym)) 
+    const [gymInfo] = gymName !== undefined ? props.gyms.filter(gym => gym.name === gymName) : [null]
 
-        setEmployeeGymList(updatedGymList)
-        break
-      default:
-        const gymToAdd = props.gyms.find(gym => gym.id === id)
-        const newSortedGymList = [...employeeGymList, gymToAdd].sort((gymA, gymB) => gymA.id - gymB.id)
-        
-        setEmployeeGymList(newSortedGymList)
-
-    }
+    gymInfo !== null && setEmployeeGymList(employeeGymList.concat(gymInfo))
+    setEmployeeGymNameList(value)
   }
 
   const handleSubmit = async (event) => {
@@ -42,91 +39,109 @@ const NewEmployeeForm = (props) => {
       roleId,
       gyms: employeeGymList,
     }
-
     await axios.post(`${process.env.REACT_APP_API_PATH}/saveEmployee`, newUser)
   }
 
   return (
     <>
       <h1 className="centered-text">New Employee Information</h1>
+        <Paper elevation={12} component="div" sx={{ pb: '0.5rem', pt: '1rem' }}>
+          <Grid container xs={12} columnSpacing="4rem" rowSpacing="1rem"  sx={{ m: '0 auto'}}>
+            <Grid item>
+              <TextField
+                label="First Name"
+                value={firstName}
+                required
+                onChange = {(event) => setFirstName(event.target.value)}
+              />
+            </Grid>
 
-          <label htmlFor="firstName">First Name:</label>
-          <input
-            onChange={(event) => setFirstName(event.target.value)}
-            name="firstName"
-            placeholder="First name"
-            value={firstName}
-            required
-          />
+            <Grid item>
+              <TextField
+                label="Last Name"
+                value={lastName}
+                required
+                onChange = {(event) => setLastName(event.target.value)}
+              />
+            </Grid>
 
-          <label htmlFor="lastName">Last Name:</label>
-          <input
-            onChange={(event) => setLastName(event.target.value)}
-            name="lastName"
-            placeholder="Last name"
-            required
-            value={lastName}
-          />
+            <Grid item>
+              <TextField
+                label="Email"
+                value={email}
+                required
+                onChange = {(event) => setEmail(event.target.value)}
+                inputProps={{
+                  autoComplete: 'off'
+                }}
+              />
+            </Grid>
 
-          <label htmlFor="email">Email:</label>
-          <input
-            onChange={(event) => setEmail(event.target.value)}
-            name="email"
-            placeholder="Email"
-            required
-            value={email}
-          />
+            <Grid item>
+              <TextField
+                label="Password"
+                value={password}
+                required
+                onChange = {(event) => setPassword(event.target.value)}
+              />
+            </Grid>
 
-          <label htmlFor="password">Password:</label>
-          <input
-            onChange={(event) => setPassword(event.target.value)}
-            name="password"
-            type="password"
-            placeholder="Password"
-            required
-            value={password}
-          />
-
-          <label htmlFor="phoneNumber">Phone Number:</label>
-          <input
-            onChange={(event) => setPhoneNumber(event.target.value)}
-            name="phoneNumber"
-            placeholder="555-555-5555"
-            value={phoneNumber}
-          />
-
-          <label htmlFor="roleId">Role:</label>
-          <select onChange={(event) => setRoleId(event.target.value)} name="roleId" defaultValue="0" required>
-            <option value="0">Please select a role...</option>
-            <option value="1">Director of Routesetting</option>
-            <option value="2">Regional Head Setter</option>
-            <option value="3">Head Setter</option>
-            <option value="4">Full Time Setter</option>
-            <option value="5">Part Time Setter</option>
-          </select>
+            <Grid item>
+              <TextField
+                label="Phone Number #"
+                value={phoneNumber}
+                onChange = {(event) => setPhoneNumber(event.target.value)}
+              />
+            </Grid>
+            
+            <Grid item>
+              <FormControl fullWidth>
+                <InputLabel id="role-label">Role</InputLabel>
+                <Select
+                  labelId="role-label"
+                  label="Role"
+                  value={roleId}
+                  onChange={(event) => setRoleId(event.target.value)}
+                >
+                  
+                  <MenuItem value="0" sx={{ color: '#fff' }}>Please select a role...</MenuItem>
+                  <MenuItem value="1" sx={{ color: '#fff' }}>Director of Routesetting</MenuItem>
+                  <MenuItem value="2" sx={{ color: '#fff' }}>Regional Head Setter</MenuItem>
+                  <MenuItem value="3" sx={{ color: '#fff' }}>Head Setter</MenuItem>
+                  <MenuItem value="4" sx={{ color: '#fff' }}>Full Time Setter</MenuItem>
+                  <MenuItem value="5" sx={{ color: '#fff' }}>Part Time Setter</MenuItem>
+                </Select>
+              </FormControl>
+            </Grid>
+          </Grid>
 
         <h3 className="centered-text">Locations:</h3>
-        <div className="checkbox-grid">
-          {
-            props.gyms.map(gym => {
-              return (
-                <div key={gym.id}>
-                  <label htmlFor="gyms" form="employee-form">{gym.name}:</label>
-                  <input
-                    type="checkbox"
-                    className="checkbox"
-                    form="employee-form" 
-                    name="gyms"
-                    value={gym.id}
-                    checked={employeeGymList.some(employeeGym => employeeGym.id === gym.id)}
-                    onChange={handleCheckbox}
-                  />
-                </div>
-              )
-            })
-          }
-          </div>
+        <Grid item>
+          <FormControl sx={{ m: 1, width: 300 }}>
+            <InputLabel id="demo-multiple-checkbox-label">Tag</InputLabel>
+            <Select
+              labelId="demo-multiple-checkbox-label"
+              id="demo-multiple-checkbox"
+              multiple
+              value={employeeGymNameList}
+              onChange={handleCheckbox}
+              input={<OutlinedInput label="Tag" />}
+              renderValue={(selected) => selected.join(', ')}
+            >
+              {currentGymNameList.map((gym) => {
+                return (
+                <MenuItem key={gym} value={gym}>
+                  <Checkbox sx={{ '&.Mui-checked': { color: '#fff'} }}
+                  checked={employeeGymNameList.includes(gym)} />
+                  <ListItemText primary={gym} />
+                </MenuItem>
+                )}
+              )}
+            </Select>
+          </FormControl>
+        </Grid>
         <button onClick={handleSubmit} type="button">Save Employee</button>
+        </Paper>
     </>
   )
 }

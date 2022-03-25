@@ -9,6 +9,7 @@ export default createTheme({
     common: {
       primaryBlue: `${mainBlue}`,
       lighterBlue: `${actionBlue}`,
+      white: '#fff'
     },
     primary: {
       main: `${mainBlue}`,
@@ -57,13 +58,20 @@ export default createTheme({
         },
       }
     },
-    // MuiDrawer: {
-    //   styleOverrides: {
-    //     root: {
-    //       borderRight: '2px solid',
-    //     },
-    //   },
-    // },
+    MuiTextField: {
+      styleOverrides: {
+        root: {
+          width: '25rem'
+        }
+      }
+    },
+    MuiFormControl: {
+      styleOverrides: {
+        root: {
+          width: '25rem'
+        }
+      }
+    },
     MuiIconButton: {
       styleOverrides: {
         root: {
