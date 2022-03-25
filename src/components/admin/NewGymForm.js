@@ -1,5 +1,7 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
+import { FormControl, Grid, TextField } from '@mui/material'
+import { Paper, Select, MenuItem, InputLabel } from '@mui/material'
 
 const NewGymForm = () => {
   const [name, setName] = useState('')
@@ -24,7 +26,7 @@ const NewGymForm = () => {
   const handleSubmit = async (event) => {
     event.preventDefault()
 
-    await axios.post(`${process.env.REACT_APP_API_PATH}/saveNewGym`, {
+    console.log({
       name,
       address,
       phoneNumber,
@@ -33,37 +35,104 @@ const NewGymForm = () => {
       instagram,
       twitter,
     })
+
+    // await axios.post(`${process.env.REACT_APP_API_PATH}/saveNewGym`, {
+    //   name,
+    //   address,
+    //   phoneNumber,
+    //   headSetterId,
+    //   facebook,
+    //   instagram,
+    //   twitter,
+    // })
   }
+
 
   return ( 
     <>
       <h1 className="centered-text">New's Gym Information</h1>
+      <Paper elevation={12} component="div" sx={{ pb: '0.5rem', pt: '1rem' }}>
+          <Grid container xs={12} columnSpacing="4rem" rowSpacing="1rem"  sx={{ m: '0 auto'}}>
+            <Grid item>
+              <TextField
+                label="Gym Name"
+                value={name}
+                required
+                onChange = {(event) => setName(event.target.value)}
+              />
+            </Grid>
 
-          <label htmlFor="name">Name:</label>
-          <input onChange={(event) => setName(event.target.value)} name="name" value={name} />
-          <label htmlFor="address">Address:</label>
-          <input onChange={(event) => setAddress(event.target.value)} name="address" value={address} />
-          <label htmlFor="phoneNumber">Phone Number:</label>
-          <input onChange={(event) => setPhoneNumber(event.target.value)} name="phoneNumber" value={phoneNumber} />
-          
-          <label htmlFor="headSetterId">Head Setter:</label>
-          <select onChange={(event) => setHeadSetterId(event.target.value)} name="headSetterId" defaultValue={0}>
-          <option value={0}>Please select a setter...</option>
+            <Grid item>
+              <TextField
+                label="Address"
+                value={address}
+                required
+                onChange = {(event) => setAddress(event.target.value)}
+              />
+            </Grid>
+
+            <Grid item>
+              <TextField
+                label="Phone Number #"
+                value={phoneNumber}
+                onChange = {(event) => setPhoneNumber(event.target.value)}
+              />
+            </Grid>
+
+            <Grid item>
+              <TextField
+                label="Facebook"
+                value={facebook}
+                required
+                onChange = {(event) => setFacebook(event.target.value)}
+                inputProps={{
+                  autoComplete: 'off'
+                }}
+              />
+            </Grid>
+
+            <Grid item>
+              <TextField
+                label="Instagram"
+                value={instagram}
+                required
+                onChange = {(event) => setInstagram(event.target.value)}
+              />
+            </Grid>
+
+            <Grid item>
+              <TextField
+                label="Twitter"
+                value={twitter}
+                onChange = {(event) => setTwitter(event.target.value)}
+              />
+            </Grid>
             
-            {
-              employees.map(employee => {
-                return (    
-                  <option key={employee.id} value={employee.id}>{`${employee.firstName} ${employee.lastName}`}</option>
-                )
-              })
-            }
-          </select>
-          <label htmlFor="facebook">Facebook Page:</label>
-          <input onChange={(event) => setFacebook(event.target.value)} name="facebook" value={facebook} />
-          <label htmlFor="instagram">Instagram Account:</label>
-          <input onChange={(event) => setInstagram(event.target.value)} name="instagram" value={instagram} />
-          <label htmlFor="twitter">Twitter Account:</label>
-          <input onChange={(event) => setTwitter(event.target.value)} name="twitter" value={twitter} />
+
+              {/* <Grid item>
+                <FormControl fullWidth>
+                  <InputLabel id="role-label">Role</InputLabel>
+                  <Select
+                    labelId="role-label"
+                    label="Role"
+                    value={roleId}
+                    onChange={(event) => setRoleId(event.target.value)}
+                  >
+                  { map over employees }
+                    <MenuItem value="0" sx={{ color: '#fff' }}>Please select a role...</MenuItem>
+                    <MenuItem value="1" sx={{ color: '#fff' }}>Director of Routesetting</MenuItem>
+                    <MenuItem value="2" sx={{ color: '#fff' }}>Regional Head Setter</MenuItem>
+                    <MenuItem value="3" sx={{ color: '#fff' }}>Head Setter</MenuItem>
+                    <MenuItem value="4" sx={{ color: '#fff' }}>Full Time Setter</MenuItem>
+                    <MenuItem value="5" sx={{ color: '#fff' }}>Part Time Setter</MenuItem>
+                  </Select>
+                </FormControl>
+              </Grid> */}
+            
+            
+          </Grid>
+        </Paper>
+
         <button onClick={handleSubmit} type="submit">Update Info</button>
     </>
   )
