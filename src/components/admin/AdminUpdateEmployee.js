@@ -2,11 +2,30 @@ import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { useParams } from 'react-router-dom'
+import { FormControl, Grid, TextField } from '@mui/material'
+import { Paper, Select, MenuItem, InputLabel, OutlinedInput, Checkbox, ListItemText, Typography } from '@mui/material'
+import Container from '@mui/material/Container';
+import Box from '@mui/material/Box';
 
 const UpdateEmployee = (props) => {
   const urlParams = useParams()
   const [employee, setEmployee] = useState({})
   const [roleId, setRoleId] = useState(5)
+  const [employeeGymList, setEmployeeGymList] = useState([])
+  const [currentGymNameList, setCurrentGymNameList] = useState([])
+  const [employeeGymNameList, setEmployeeGymNameList] = useState([])
+
+  const handleCheckbox = (event) => {
+    const {
+      target: { value },
+    } = event;
+    
+    const [gymName] = value.filter(gym => !employeeGymNameList.includes(gym)) 
+    const [gymInfo] = gymName !== undefined ? props.gyms.filter(gym => gym.name === gymName) : [null]
+
+    gymInfo !== null && setEmployeeGymList(employeeGymList.concat(gymInfo))
+    setEmployeeGymNameList(value)
+  }
 
   useEffect(() => {
     const getInfo = async () => {
@@ -27,6 +46,12 @@ const UpdateEmployee = (props) => {
     setRoleId(aRoleId)
   }, [employee])
 
+  useEffect(() => {
+    setCurrentGymNameList(props.gyms.map((gym) => gym.name))
+    setEmployeeGymNameList(employee?.gyms?.map(gym => gym.name))
+
+  }, [props.gyms,employee])
+
   const handleChange = (event) => {
     setEmployee({
         ...employee,
@@ -34,34 +59,11 @@ const UpdateEmployee = (props) => {
       })
   }
 
-  const handleCheckbox = (event) => {
-    const gymId = parseInt(event.target.value)
-
-    switch (event.target.checked) {
-      case false: 
-        setEmployee({
-            ...employee,
-            gyms: employee.gyms?.filter(employeeGym => {
-              return employeeGym.id !== gymId
-            })
-          })
-        break
-      default:
-        const gymToAdd = props.gyms?.find(gym => gymId === gym.id)
-        setEmployee({
-            ...employee,
-            gyms: [
-              ...employee.gyms,
-              gymToAdd,
-            ].sort((gymA, gymB) => gymA.id - gymB.id)
-          })
-    }
-  }
-
   const handleSubmit = async(event)  =>{
     event.preventDefault()
 
-    await axios.post(`${process.env.REACT_APP_API_PATH}/updateEmployee`, employee)
+    console.log(employee)
+    // await axios.post(`${process.env.REACT_APP_API_PATH}/updateEmployee`, employee)
   }
   
   if (!employee.id) {
@@ -69,9 +71,155 @@ const UpdateEmployee = (props) => {
   }
 
   return (
-    <form id="employee-form">
-      <div className="employee-form-grid" name="update-employee-form">
-        <input className="hidden" name="id" defaultValue="employee.id" />
+    <>
+    <Box
+      component="main"
+      sx={{
+        backgroundColor: (theme) =>
+          theme.palette.mode === 'light'
+            ? theme.palette.grey[100]
+            : theme.palette.grey[900],
+        flexGrow: 1,
+        height: '100vh',
+        overflow: 'auto',
+      }}
+    >
+      <Container maxWidth="50rem" sx={{ mt: 18 }} >
+        <Grid container spacing={4} sx={{justifyContent: 'center'}}>
+          <Grid item xs={8}>
+          <Paper
+            sx={{
+              p: 2,
+              display: 'flex',
+              flexDirection: 'column',
+              color: 'primary.contrastText',
+              bgcolor: 'primary.main',
+            }}
+          >
+          <h1 className="centered-text">{`${employee.firstName}'s Info`}</h1>
+          <Paper elevation={12} component="div" sx={{ pb: '0.5rem', pt: '1rem' }}>
+            <Grid container  columnSpacing="4rem" rowSpacing="1rem"  sx={{ m: '0 auto'}}>
+              <Grid item xs={12}>
+                <TextField
+                  name="firstName"
+                  label="First Name"
+                  value={employee.firstName}
+                  required
+                  onChange = {handleChange}
+                />
+              </Grid>
+
+              <Grid item>
+                <TextField
+                  name="lastName"
+                  label="Last Name"
+                  value={employee.lastName}
+                  required
+                  onChange = {handleChange}
+                />
+              </Grid>
+
+              <Grid item xs={12}>
+                <TextField
+                  name="placardName"
+                  label="Name on placard"
+                  value={employee.placardName}
+                  onChange = {handleChange}
+                />
+              </Grid>
+
+              <Grid item>
+                <TextField
+                  name="email"
+                  label="Email"
+                  value={employee.email}
+                  required
+                  onChange = {handleChange}
+                  inputProps={{
+                    autoComplete: 'off'
+                  }}
+                />
+              </Grid>
+
+              <Grid item>
+                <TextField
+                  name="password"
+                  label="Password"
+                  value={employee.password}
+                  required
+                  onChange = {handleChange}
+                />
+              </Grid>
+
+              <Grid item>
+                <TextField
+                  name="phoneNumber"
+                  label="Phone Number employee.#"
+                  value={employee.phoneNumber}
+                  onChange = {handleChange}
+                />
+              </Grid>
+              
+              <Grid item>
+                <FormControl fullWidth>
+                  <InputLabel id="role-label">Role</InputLabel>
+                  <Select
+                  name="roleId"
+                    labelId="role-label"
+                    label="employee.Role"
+                    value={roleId}
+                    onChange={handleChange}
+                  >
+                    <MenuItem value="0" sx={{ color: '#fff' }}>Please select a role...</MenuItem>
+                    <MenuItem value="1" sx={{ color: '#fff' }}>Director of Routesetting</MenuItem>
+                    <MenuItem value="2" sx={{ color: '#fff' }}>Regional Head Setter</MenuItem>
+                    <MenuItem value="3" sx={{ color: '#fff' }}>Head Setter</MenuItem>
+                    <MenuItem value="4" sx={{ color: '#fff' }}>Full Time Setter</MenuItem>
+                    <MenuItem value="5" sx={{ color: '#fff' }}>Part Time Setter</MenuItem>
+                  </Select>
+                </FormControl>
+              </Grid>
+            </Grid>
+
+            <h3 className="centered-text">Locations:</h3>
+            <Grid item>
+              <FormControl sx={{ m: 1, width: 300 }}>
+                <InputLabel id="demo-multiple-checkbox-label">Employee's gyms</InputLabel>
+                <Select
+                  name="gyms"
+                  labelId="demo-multiple-checkbox-label"
+                  id="demo-multiple-checkbox"
+                  multiple
+                  value={employeeGymNameList}
+                  onChange={handleCheckbox}
+                  input={<OutlinedInput label="Employee's gyms" />}
+                  renderValue={(selected) => selected.join(', ')}
+                >
+                  {currentGymNameList.map((gym) => {
+                    return (
+                    <MenuItem key={gym} value={gym}>
+                      <Checkbox sx={{ '&.Mui-checked': { color: '#fff'} }}
+                      checked={employeeGymNameList.includes(gym)} />
+                      <ListItemText primary={gym} />
+                    </MenuItem>
+                    )}
+                  )}
+                </Select>
+              </FormControl>
+            </Grid>
+            <button onClick={handleSubmit} type="button">Save Employee</button>
+            </Paper>
+          </Paper>
+          </Grid>
+        </Grid>
+      </Container>
+    </Box>
+  </>
+
+
+    // <form id="employee-form">
+      // <div className="employee-form-grid" name="update-employee-form">
+        /* <input className="hidden" name="id" defaultValue="employee.id" />
 
         <label htmlFor="placardName">Name on placard:</label> 
         <input 
@@ -144,9 +292,9 @@ const UpdateEmployee = (props) => {
             )
           })
         }
-      </div>
-      <button onClick={handleSubmit} type="submit">Update Employee</button>
-    </form>
+      </div> */
+      // <button onClick={handleSubmit} type="submit">Update Employee</button>
+    /* </form> */
   )
 }
 
