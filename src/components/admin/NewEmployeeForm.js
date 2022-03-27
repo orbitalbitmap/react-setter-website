@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { useState} from 'react'
+import { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { FormControl, Grid, TextField } from '@mui/material'
 import { Paper, Select, MenuItem, InputLabel, OutlinedInput, Checkbox, ListItemText } from '@mui/material'
@@ -12,7 +12,7 @@ const NewEmployeeForm = (props) => {
   const [phoneNumber, setPhoneNumber] = useState('')
   const [roleId, setRoleId] = useState(0)
   const [employeeGymList, setEmployeeGymList] = useState([])
-  const [currentGymNameList, setCurrentGymNameList] = useState(props.gyms.map((gym) => gym.name))
+  const [currentGymNameList, setCurrentGymNameList] = useState([])
   const [employeeGymNameList, setEmployeeGymNameList] = useState([])
 
   const handleCheckbox = (event) => {
@@ -42,12 +42,16 @@ const NewEmployeeForm = (props) => {
     await axios.post(`${process.env.REACT_APP_API_PATH}/saveEmployee`, newUser)
   }
 
+  useEffect(() => {
+    setCurrentGymNameList(props.gyms.map((gym) => gym.name))
+  }, [props.gyms])
+
   return (
     <>
       <h1 className="centered-text">New Employee Information</h1>
         <Paper elevation={12} component="div" sx={{ pb: '0.5rem', pt: '1rem' }}>
-          <Grid container xs={12} columnSpacing="4rem" rowSpacing="1rem"  sx={{ m: '0 auto'}}>
-            <Grid item>
+          <Grid container  columnSpacing="4rem" rowSpacing="1rem"  sx={{ m: '0 auto'}}>
+            <Grid item xs={12}>
               <TextField
                 label="First Name"
                 value={firstName}
@@ -117,14 +121,14 @@ const NewEmployeeForm = (props) => {
         <h3 className="centered-text">Locations:</h3>
         <Grid item>
           <FormControl sx={{ m: 1, width: 300 }}>
-            <InputLabel id="demo-multiple-checkbox-label">Tag</InputLabel>
+            <InputLabel id="demo-multiple-checkbox-label">Employee's gyms</InputLabel>
             <Select
               labelId="demo-multiple-checkbox-label"
               id="demo-multiple-checkbox"
               multiple
               value={employeeGymNameList}
               onChange={handleCheckbox}
-              input={<OutlinedInput label="Tag" />}
+              input={<OutlinedInput label="Employee's gyms" />}
               renderValue={(selected) => selected.join(', ')}
             >
               {currentGymNameList.map((gym) => {
