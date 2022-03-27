@@ -24,7 +24,7 @@ const ItemList = (props) => {
   const [expandUserLocations, setExpandUserLocations] = React.useState(false)
 
   const renderListItemWithLink = (listItem) => (
-    <Link to={listItem.url} style={{textDecoration: 'none'}}>
+    <Link key={listItem.id} to={listItem.url} style={{textDecoration: 'none'}}>
       <Tooltip title={listItem.title} disableInteractive >
         <ListItemButton>
           <ListItemIcon>
@@ -43,8 +43,8 @@ const ItemList = (props) => {
 
   const renderCollapsableList = (listItem, baseUrl, subList, opener, setter) => (
     <>
-      <Tooltip title={listItem.title} disableInteractive>
-        <ListItemButton onClick={() => {!props.drawerOpen ? toggleDrawerAndList(setter) : setter(!opener)}}>
+      <Tooltip key={listItem.id} title={listItem.title} disableInteractive>
+        <ListItemButton key={listItem.id} onClick={() => {!props.drawerOpen ? toggleDrawerAndList(setter) : setter(!opener)}}>
             <ListItemIcon>
               {opener ? <ExpandLess /> : <ExpandMore />}
             </ListItemIcon>
@@ -64,7 +64,7 @@ const ItemList = (props) => {
             {
               subList?.map(gym => {
                 return (
-                  <Link to={`${baseUrl}${gym.id}`} style={{textDecoration: 'none'}}>
+                  <Link key={gym.id} to={`${baseUrl}${gym.id}`} style={{textDecoration: 'none'}}>
                     <Tooltip title={gym.name} disableInteractive>
                       <ListItemButton sx={{ pl: 4 }}>
                         <ListItemText primary={gym.name} sx={{textAlign: 'center'}} />

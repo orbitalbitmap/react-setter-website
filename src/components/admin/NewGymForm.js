@@ -26,7 +26,7 @@ const NewGymForm = () => {
   const handleSubmit = async (event) => {
     event.preventDefault()
 
-    console.log({
+    await axios.post(`${process.env.REACT_APP_API_PATH}/saveNewGym`, {
       name,
       address,
       phoneNumber,
@@ -35,23 +35,13 @@ const NewGymForm = () => {
       instagram,
       twitter,
     })
-
-    // await axios.post(`${process.env.REACT_APP_API_PATH}/saveNewGym`, {
-    //   name,
-    //   address,
-    //   phoneNumber,
-    //   headSetterId,
-    //   facebook,
-    //   instagram,
-    //   twitter,
-    // })
   }
 
 
   return ( 
     <>
       <h1 className="centered-text">New's Gym Information</h1>
-      <Paper elevation={12} component="div" sx={{ pb: '0.5rem', pt: '1rem' }}>
+      <Paper elevation={12} component="div" sx={{ pb: '1rem', pt: '1rem' }}>
           <Grid container xs={12} columnSpacing="4rem" rowSpacing="1rem"  sx={{ m: '0 auto'}}>
             <Grid item>
               <TextField
@@ -66,7 +56,6 @@ const NewGymForm = () => {
               <TextField
                 label="Address"
                 value={address}
-                required
                 onChange = {(event) => setAddress(event.target.value)}
               />
             </Grid>
@@ -83,7 +72,6 @@ const NewGymForm = () => {
               <TextField
                 label="Facebook"
                 value={facebook}
-                required
                 onChange = {(event) => setFacebook(event.target.value)}
                 inputProps={{
                   autoComplete: 'off'
@@ -95,7 +83,6 @@ const NewGymForm = () => {
               <TextField
                 label="Instagram"
                 value={instagram}
-                required
                 onChange = {(event) => setInstagram(event.target.value)}
               />
             </Grid>
@@ -109,25 +96,30 @@ const NewGymForm = () => {
             </Grid>
             
 
-              {/* <Grid item>
+              <Grid item>
                 <FormControl fullWidth>
-                  <InputLabel id="role-label">Role</InputLabel>
+                  <InputLabel id="head-setter-label">Head Setter</InputLabel>
                   <Select
-                    labelId="role-label"
-                    label="Role"
-                    value={roleId}
-                    onChange={(event) => setRoleId(event.target.value)}
+                    labelId="head-setter-label"
+                    label="Head Setter"
+                    value={headSetterId}
+                    onChange={(event) => setHeadSetterId(event.target.value)}
                   >
-                  { map over employees }
-                    <MenuItem value="0" sx={{ color: '#fff' }}>Please select a role...</MenuItem>
-                    <MenuItem value="1" sx={{ color: '#fff' }}>Director of Routesetting</MenuItem>
-                    <MenuItem value="2" sx={{ color: '#fff' }}>Regional Head Setter</MenuItem>
-                    <MenuItem value="3" sx={{ color: '#fff' }}>Head Setter</MenuItem>
-                    <MenuItem value="4" sx={{ color: '#fff' }}>Full Time Setter</MenuItem>
-                    <MenuItem value="5" sx={{ color: '#fff' }}>Part Time Setter</MenuItem>
+                    <MenuItem value="0" sx={{ color: '#fff' }}>Please select a head setter...</MenuItem>
+                    {
+                      employees.map(employee => (
+                        <MenuItem 
+                          key={employee.id}
+                          value={employee.id}
+                          sx={{ color: '#fff' }}
+                        >
+                          {`${employee.firstName} ${employee.lastName}`}
+                        </MenuItem>
+                      ))
+                    }
                   </Select>
                 </FormControl>
-              </Grid> */}
+              </Grid>
             
             
           </Grid>
