@@ -49,7 +49,7 @@ const AdminDashboard = () => {
         overflow: 'auto',
       }}
     >
-      <Container maxWidth="50rem" sx={{ mt: 18 }} >
+      <Container maxWidth="50rem" sx={{ mt: '7rem' }} >
         <Grid container spacing={4} sx={{justifyContent: 'center'}}>
           <Grid item xs={8}>
           <Paper

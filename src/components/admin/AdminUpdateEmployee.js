@@ -69,8 +69,6 @@ const UpdateEmployee = (props) => {
     return (<h2>Loading...</h2>)
   }
 
-  console.log({employeeGymNameList})
-
   return (
     <>
     <Box
@@ -85,7 +83,7 @@ const UpdateEmployee = (props) => {
         overflow: 'auto',
       }}
     >
-      <Container maxWidth="50rem" sx={{ mt: 18 }} >
+      <Container maxWidth="50rem" sx={{ mt: '7rem'}} >
         <Grid container spacing={4} sx={{justifyContent: 'center'}}>
           <Grid item xs={8}>
           <Paper
@@ -97,9 +95,9 @@ const UpdateEmployee = (props) => {
               bgcolor: 'primary.main',
             }}
           >
-          <h1 className="centered-text">{`${employee.firstName}'s Info`}</h1>
-          <Paper elevation={12} component="div" sx={{ pb: '0.5rem', pt: '1rem' }}>
-            <Grid container columnSpacing="4rem" rowSpacing="1rem" sx={{ pl: '1.5rem'}}>
+          <Typography className="centered-text" variant="h2" sx={{mb: '0.5rem'}} >{`${employee.firstName}'s Info`}</Typography>
+          <Paper className="centered-text" elevation={12} component="div" sx={{ pb: '0.5rem', pt: '1rem' }}>
+            <Grid container columnSpacing="4rem" rowSpacing="1rem" sx={{ pl: '1.5rem' }}>
               <Grid item>
                 <TextField
                   name="firstName"
@@ -120,7 +118,7 @@ const UpdateEmployee = (props) => {
                 />
               </Grid>
 
-              <Grid item xs={12}>
+              <Grid item>
                 <TextField
                   name="placardName"
                   label="Name on placard"
@@ -155,7 +153,7 @@ const UpdateEmployee = (props) => {
               <Grid item>
                 <TextField
                   name="phoneNumber"
-                  label="Phone Number employee.#"
+                  label="Phone Number #"
                   value={employee.phoneNumber}
                   onChange = {handleChange}
                 />
@@ -168,46 +166,45 @@ const UpdateEmployee = (props) => {
                   name="roleId"
                     labelId="role-label"
                     label="employee.Role"
-                    value={roleId}
+                    value={roleId || 0}
                     onChange={handleChange}
                   >
-                    <MenuItem value="0" sx={{ color: '#fff' }}>Please select a role...</MenuItem>
-                    <MenuItem value="1" sx={{ color: '#fff' }}>Director of Routesetting</MenuItem>
-                    <MenuItem value="2" sx={{ color: '#fff' }}>Regional Head Setter</MenuItem>
-                    <MenuItem value="3" sx={{ color: '#fff' }}>Head Setter</MenuItem>
-                    <MenuItem value="4" sx={{ color: '#fff' }}>Full Time Setter</MenuItem>
-                    <MenuItem value="5" sx={{ color: '#fff' }}>Part Time Setter</MenuItem>
+                    <MenuItem value={0} sx={{ color: '#fff' }}>Please select a role...</MenuItem>
+                    <MenuItem value={1} sx={{ color: '#fff' }}>Director of Routesetting</MenuItem>
+                    <MenuItem value={2} sx={{ color: '#fff' }}>Regional Head Setter</MenuItem>
+                    <MenuItem value={3} sx={{ color: '#fff' }}>Head Setter</MenuItem>
+                    <MenuItem value={4} sx={{ color: '#fff' }}>Full Time Setter</MenuItem>
+                    <MenuItem value={5} sx={{ color: '#fff' }}>Part Time Setter</MenuItem>
                   </Select>
                 </FormControl>
               </Grid>
             </Grid>
 
-            <h3 className="centered-text">Locations:</h3>
-            <Grid item>
-              <FormControl sx={{ m: 1, width: 300 }}>
-                <InputLabel id="demo-multiple-checkbox-label">Employee's gyms</InputLabel>
-                <Select
-                  name="gyms"
-                  labelId="demo-multiple-checkbox-label"
-                  id="demo-multiple-checkbox"
-                  multiple
-                  value={employeeGymNameList}
-                  onChange={handleCheckbox}
-                  input={<OutlinedInput label="Employee's gyms" />}
-                  renderValue={(selected) => selected.join(', ')}
-                >
-                  {currentGymNameList.map((gym) => {
-                    return (
-                    <MenuItem key={gym} value={gym}>
-                      <Checkbox sx={{ '&.Mui-checked': { color: '#fff'} }}
-                        checked={employeeGymNameList?.includes(gym)}
-                      />
-                      <ListItemText primary={gym} />
-                    </MenuItem>
+            <Typography className="centered-text" variant="h4">Locations:</Typography>
+            <Grid sx={{m: 1}} >
+              <FormControl>
+                  <InputLabel id="demo-multiple-checkbox-label">Employee's gyms</InputLabel>
+                  <Select
+                    labelId="demo-multiple-checkbox-label"
+                    id="demo-multiple-checkbox"
+                    multiple
+                    value={employeeGymNameList}
+                    onChange={handleCheckbox}
+                    input={<OutlinedInput label="Employee's gyms" />}
+                    renderValue={(selected) => selected.join(', ')}
+                  >
+                    {currentGymNameList.map((gym) => {
+                      return (
+                      <MenuItem key={gym} value={gym}>
+                        <Checkbox sx={{ '&.Mui-checked': { color: '#fff'} }}
+                          checked={employeeGymNameList?.includes(gym)}
+                        />
+                        <ListItemText primary={gym} />
+                      </MenuItem>
+                      )}
                     )}
-                  )}
-                </Select>
-              </FormControl>
+                  </Select>
+                </FormControl>
             </Grid>
             <button onClick={handleSubmit} type="button">Save Employee</button>
             </Paper>
