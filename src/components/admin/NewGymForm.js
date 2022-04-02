@@ -40,12 +40,12 @@ const NewGymForm = () => {
 
   return ( 
     <>
-      <h1 className="centered-text">New's Gym Information</h1>
-      <Paper elevation={12} component="div" sx={{ pb: '1rem', pt: '1rem' }}>
-          <Grid container xs={12} columnSpacing="4rem" rowSpacing="1rem"  sx={{ m: '0 auto'}}>
+      <h1 className='centered-text'>New's Gym Information</h1>
+      <Paper elevation={12} component='div' sx={{ pb: '0.5rem', pt: '1rem' }}>
+          <Grid container columnSpacing='2rem' rowSpacing='1rem'  sx={{ ml: '-1rem' }}>
             <Grid item>
               <TextField
-                label="Gym Name"
+                label='Gym Name'
                 value={name}
                 required
                 onChange = {(event) => setName(event.target.value)}
@@ -54,7 +54,7 @@ const NewGymForm = () => {
 
             <Grid item>
               <TextField
-                label="Address"
+                label='Address'
                 value={address}
                 onChange = {(event) => setAddress(event.target.value)}
               />
@@ -62,7 +62,7 @@ const NewGymForm = () => {
 
             <Grid item>
               <TextField
-                label="Phone Number #"
+                label='Phone Number #'
                 value={phoneNumber}
                 onChange = {(event) => setPhoneNumber(event.target.value)}
               />
@@ -70,7 +70,7 @@ const NewGymForm = () => {
 
             <Grid item>
               <TextField
-                label="Facebook"
+                label='Facebook'
                 value={facebook}
                 onChange = {(event) => setFacebook(event.target.value)}
                 inputProps={{
@@ -81,7 +81,7 @@ const NewGymForm = () => {
 
             <Grid item>
               <TextField
-                label="Instagram"
+                label='Instagram'
                 value={instagram}
                 onChange = {(event) => setInstagram(event.target.value)}
               />
@@ -89,7 +89,7 @@ const NewGymForm = () => {
 
             <Grid item>
               <TextField
-                label="Twitter"
+                label='Twitter'
                 value={twitter}
                 onChange = {(event) => setTwitter(event.target.value)}
               />
@@ -98,14 +98,14 @@ const NewGymForm = () => {
 
               <Grid item>
                 <FormControl fullWidth>
-                  <InputLabel id="head-setter-label">Head Setter</InputLabel>
+                  <InputLabel id='head-setter-label'>Head Setter</InputLabel>
                   <Select
-                    labelId="head-setter-label"
-                    label="Head Setter"
+                    labelId='head-setter-label'
+                    label='Head Setter'
                     value={headSetterId}
                     onChange={(event) => setHeadSetterId(event.target.value)}
                   >
-                    <MenuItem value="0" sx={{ color: '#fff' }}>Please select a head setter...</MenuItem>
+                    <MenuItem value='0' sx={{ color: '#fff' }}>Please select a head setter...</MenuItem>
                     {
                       employees.map(employee => (
                         <MenuItem 
@@ -125,7 +125,7 @@ const NewGymForm = () => {
           </Grid>
         </Paper>
 
-        <button onClick={handleSubmit} type="submit">Update Info</button>
+        <button onClick={handleSubmit} type='submit'>Update Info</button>
     </>
   )
 }
