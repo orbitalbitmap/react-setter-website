@@ -10,8 +10,7 @@ import Box from '@mui/material/Box';
 const UpdateEmployee = (props) => {
   const urlParams = useParams()
   const [employee, setEmployee] = useState({})
-  const [roleId, setRoleId] = useState(5)
-  const [employeeGymList, setEmployeeGymList] = useState([])
+  const [roleId, setRoleId] = useState(0)
   const [currentGymNameList, setCurrentGymNameList] = useState([])
   const [employeeGymNameList, setEmployeeGymNameList] = useState([])
 
@@ -23,7 +22,7 @@ const UpdateEmployee = (props) => {
     const [gymName] = value.filter(gym => !employeeGymNameList.includes(gym)) 
     const [gymInfo] = gymName !== undefined ? props.gyms.filter(gym => gym.name === gymName) : [null]
 
-    gymInfo !== null && setEmployeeGymList(employeeGymList.concat(gymInfo))
+    gymInfo !== null && setEmployee({...employee, gyms: employee.gyms.concat(gymInfo)})
     setEmployeeGymNameList(value)
   }
 
@@ -36,6 +35,8 @@ const UpdateEmployee = (props) => {
           oldEmployeeGymList: data.gyms,
           password: 'NotYourRealPassword',
         })
+        setEmployeeGymNameList(data.gyms.map(gym => gym.name))
+        setRoleId(data.roleId)
     }
 
     getInfo()
@@ -48,9 +49,7 @@ const UpdateEmployee = (props) => {
 
   useEffect(() => {
     setCurrentGymNameList(props.gyms.map((gym) => gym.name))
-    setEmployeeGymNameList(employee?.gyms?.map(gym => gym.name))
-
-  }, [props.gyms,employee])
+  }, [props.gyms])
 
   const handleChange = (event) => {
     setEmployee({
@@ -69,6 +68,8 @@ const UpdateEmployee = (props) => {
   if (!employee.id) {
     return (<h2>Loading...</h2>)
   }
+
+  console.log({employeeGymNameList})
 
   return (
     <>
@@ -98,8 +99,8 @@ const UpdateEmployee = (props) => {
           >
           <h1 className="centered-text">{`${employee.firstName}'s Info`}</h1>
           <Paper elevation={12} component="div" sx={{ pb: '0.5rem', pt: '1rem' }}>
-            <Grid container  columnSpacing="4rem" rowSpacing="1rem"  sx={{ m: '0 auto'}}>
-              <Grid item xs={12}>
+            <Grid container columnSpacing="4rem" rowSpacing="1rem" sx={{ pl: '1.5rem'}}>
+              <Grid item>
                 <TextField
                   name="firstName"
                   label="First Name"
@@ -199,7 +200,8 @@ const UpdateEmployee = (props) => {
                     return (
                     <MenuItem key={gym} value={gym}>
                       <Checkbox sx={{ '&.Mui-checked': { color: '#fff'} }}
-                      checked={employeeGymNameList.includes(gym)} />
+                        checked={employeeGymNameList?.includes(gym)}
+                      />
                       <ListItemText primary={gym} />
                     </MenuItem>
                     )}
