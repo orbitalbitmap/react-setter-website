@@ -42,7 +42,7 @@ const ItemList = (props) => {
     }
 
   const renderCollapsableList = (listItem, baseUrl, subList, opener, setter) => (
-    <>
+    <React.Fragment key={listItem.id}>
       <Tooltip key={listItem.id} title={listItem.title} disableInteractive>
         <ListItemButton key={listItem.id} onClick={() => {!props.drawerOpen ? toggleDrawerAndList(setter) : setter(!opener)}}>
             <ListItemIcon>
@@ -77,7 +77,7 @@ const ItemList = (props) => {
             <Divider sx={{ my: 1 }} />
         </List>
       </Collapse>
-    </>
+    </React.Fragment>
   )
 
   const renderList = (list) => list.map((listItem) => {
