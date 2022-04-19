@@ -1,19 +1,19 @@
-import axios from 'axios'
-import { useState, useEffect } from 'react'
-import { connect } from 'react-redux'
-import { FormControl, Grid, TextField , Button} from '@mui/material'
-import { Paper, Select, MenuItem, InputLabel, OutlinedInput, Checkbox, ListItemText } from '@mui/material'
+import axios from 'axios';
+import { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
+import { FormControl, Grid, TextField , Button} from '@mui/material';
+import { Paper, Select, MenuItem, InputLabel, OutlinedInput, Checkbox, ListItemText } from '@mui/material';
 
 const NewEmployeeForm = (props) => {
-  const [firstName, setFirstName] = useState('')
-  const [lastName, setLastName] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [phoneNumber, setPhoneNumber] = useState('')
-  const [roleId, setRoleId] = useState(0)
-  const [employeeGymList, setEmployeeGymList] = useState([])
-  const [currentGymNameList, setCurrentGymNameList] = useState([])
-  const [employeeGymNameList, setEmployeeGymNameList] = useState([])
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [roleId, setRoleId] = useState(0);
+  const [employeeGymList, setEmployeeGymList] = useState([]);
+  const [currentGymNameList, setCurrentGymNameList] = useState([]);
+  const [employeeGymNameList, setEmployeeGymNameList] = useState([]);
 
   const handleCheckbox = (event) => {
     const {
@@ -39,7 +39,7 @@ const NewEmployeeForm = (props) => {
       roleId,
       gyms: employeeGymList,
     }
-    await axios.post(`${process.env.REACT_APP_API_PATH}/saveEmployee`, newUser)
+    await axios.post(`${process.env.REACT_APP_API_PATH}/saveEmployee`, newUser);
   }
 
   useEffect(() => {
@@ -146,14 +146,14 @@ const NewEmployeeForm = (props) => {
         <Button variant="contained" onClick={handleSubmit} sx={{ mt: 2 }}>Save Employee</Button>
       </Paper>
     </>
-  )
+  );
 }
 
 const mapStateToProps = (state) => {
   return {
     user: state.user,
     gyms: state.gyms,
-  }
+  };
 }
 
-export default connect(mapStateToProps, {})(NewEmployeeForm)
+export default connect(mapStateToProps, {})(NewEmployeeForm);

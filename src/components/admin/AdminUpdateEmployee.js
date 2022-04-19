@@ -66,7 +66,7 @@ const UpdateEmployee = (props) => {
   }
   
   if (!employee.id) {
-    return (<h2>Loading...</h2>)
+    return (<h2>Loading...</h2>);
   }
 
   return (
@@ -214,13 +214,13 @@ const UpdateEmployee = (props) => {
       </Container>
     </Box>
   </>
-  )
+  );
 }
 
 const mapStateToProps = (state) => {
   return {
     gyms: state.gyms
-  }
+  };
 }
 
-export default connect(mapStateToProps, {})(UpdateEmployee)
+export default connect(mapStateToProps, {})(UpdateEmployee);

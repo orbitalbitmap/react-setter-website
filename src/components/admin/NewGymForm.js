@@ -1,17 +1,17 @@
-import axios from 'axios'
-import { useEffect, useState } from 'react'
-import { FormControl, Grid, TextField, Button } from '@mui/material'
-import { Paper, Select, MenuItem, InputLabel } from '@mui/material'
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { FormControl, Grid, TextField, Button } from '@mui/material';
+import { Paper, Select, MenuItem, InputLabel } from '@mui/material';
 
 const NewGymForm = () => {
-  const [name, setName] = useState('')
-  const [address, setAddress] = useState('')
-  const [phoneNumber, setPhoneNumber] = useState('')
-  const [headSetterId, setHeadSetterId] = useState(0)
-  const [facebook, setFacebook] = useState('')
-  const [instagram, setInstagram] = useState('')
-  const [twitter, setTwitter] = useState('')
-  const [employees, setEmployees] = useState([])
+  const [name, setName] = useState('');
+  const [address, setAddress] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [headSetterId, setHeadSetterId] = useState(0);
+  const [facebook, setFacebook] = useState('');
+  const [instagram, setInstagram] = useState('');
+  const [twitter, setTwitter] = useState('');
+  const [employees, setEmployees] = useState([]);
 
   useEffect(() => {
     const getInfo = async () =>{
@@ -34,7 +34,7 @@ const NewGymForm = () => {
       facebook,
       instagram,
       twitter,
-    })
+    });
   }
 
 
@@ -126,7 +126,7 @@ const NewGymForm = () => {
         <Button variant="contained" onClick={handleSubmit} sx={{ mt: 2 }}>Save Gym</Button>
       </Paper>
     </>
-  )
+  );
 }
 
-export default NewGymForm
+export default NewGymForm;

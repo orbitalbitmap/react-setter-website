@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom'
-import { Grid, Paper, Typography, List, ListItem, ListItemText  } from '@mui/material'
+import { Link } from 'react-router-dom';
+import { Grid, Paper, Typography, List, ListItem, ListItemText  } from '@mui/material';
 
 const GymCard = ({ gymInfo }) => {
   return (

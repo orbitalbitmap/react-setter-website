@@ -1,8 +1,8 @@
 import { createTheme } from '@mui/material/styles';
 import { grey } from '@mui/material/colors';
 
-const mainBlue = '#202A56'
-const actionBlue ='#364784'
+const mainBlue = '#202A56';
+const actionBlue ='#364784';
 
 export default createTheme({
   palette: {
@@ -81,4 +81,4 @@ export default createTheme({
       },
     },
   },
-})
+});

@@ -1,8 +1,8 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import { Box, Container, Grid, Typography } from '@mui/material'
+import React from 'react';
+import { connect } from 'react-redux';
+import { Box, Container, Grid, Typography } from '@mui/material';
 
-import GymCard from './GymCard'
+import GymCard from './GymCard';
 
 const Gyms = (props) => (
   <>
@@ -46,13 +46,13 @@ const Gyms = (props) => (
       </Container>
     </Box>
   </>
-)
+);
 
 const mapStateToProps = (state) => {
   return {
     user: state.user,
     gyms: state.gyms
   }
-}
+};
 
-export default connect(mapStateToProps, {})(Gyms)
+export default connect(mapStateToProps, {})(Gyms);
