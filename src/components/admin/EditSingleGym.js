@@ -1,14 +1,14 @@
-import axios from 'axios'
-import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
-import { FormControl, Grid, TextField } from '@mui/material'
-import { Paper, Select, MenuItem, InputLabel, Button, Typography } from '@mui/material'
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { FormControl, Grid, TextField } from '@mui/material';
+import { Paper, Select, MenuItem, InputLabel, Button, Typography } from '@mui/material';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 
 const EditSingleGym = () => {
-  const urlParams = useParams()
-  const [gym, setGym] = useState({})
+  const urlParams = useParams();
+  const [gym, setGym] = useState({});
 
   const handleSubmit = async (event) => {
     event.preventDefault()
@@ -27,7 +27,7 @@ const EditSingleGym = () => {
   }, [urlParams])
 
   if (!gym.name) {
-    return (<h2>We cannot find the gym you wish to edit.</h2>)
+    return (<h2>We cannot find the gym you wish to edit.</h2>);
   }
 
   return (
@@ -137,7 +137,7 @@ const EditSingleGym = () => {
         </Paper>
       </Container>
     </Box>
-  )
+  );
 }
 
-  export default EditSingleGym
+  export default EditSingleGym;
