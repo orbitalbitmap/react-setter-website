@@ -2,7 +2,7 @@ import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { FormControl, Grid, TextField } from '@mui/material'
-import { Paper, Select, MenuItem, InputLabel, OutlinedInput, Checkbox, ListItemText, Typography } from '@mui/material'
+import { Paper, Select, MenuItem, InputLabel, Button, Typography } from '@mui/material'
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 
@@ -132,9 +132,8 @@ const EditSingleGym = () => {
                 />
               </Grid>
             </Grid>
+            <Button variant="contained" onClick={handleSubmit} sx={{ mt: 2 }}>Update Info</Button>
           </Paper>
-
-          <button onClick={handleSubmit} type="submit">Update Info</button>
         </Paper>
       </Container>
     </Box>

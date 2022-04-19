@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
-import { FormControl, Grid, TextField } from '@mui/material'
+import { FormControl, Grid, TextField , Button} from '@mui/material'
 import { Paper, Select, MenuItem, InputLabel, OutlinedInput, Checkbox, ListItemText } from '@mui/material'
 
 const NewEmployeeForm = (props) => {
@@ -143,8 +143,8 @@ const NewEmployeeForm = (props) => {
             </Select>
           </FormControl>
         </Grid>
-        <button onClick={handleSubmit} type='button'>Save Employee</button>
-        </Paper>
+        <Button variant="contained" onClick={handleSubmit} sx={{ mt: 2 }}>Save Employee</Button>
+      </Paper>
     </>
   )
 }

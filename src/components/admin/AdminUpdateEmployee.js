@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { FormControl, Grid, TextField } from '@mui/material'
-import { Paper, Select, MenuItem, InputLabel, OutlinedInput, Checkbox, ListItemText, Typography } from '@mui/material'
+import { Button, Paper, Select, MenuItem, InputLabel, OutlinedInput, Checkbox, ListItemText, Typography } from '@mui/material'
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 
@@ -84,8 +84,8 @@ const UpdateEmployee = (props) => {
       }}
     >
       <Container maxWidth="50rem" sx={{ mt: '7rem'}} >
-        <Grid container spacing={4} sx={{justifyContent: 'center'}}>
-          <Grid item xs={8}>
+        <Grid container spacing={4} sx={{ margin: '0 auto' }} xs={8}>
+          <Grid item>
           <Paper
             sx={{
               p: 2,
@@ -159,30 +159,30 @@ const UpdateEmployee = (props) => {
                 />
               </Grid>
               
-              <Grid item>
-                <FormControl fullWidth>
-                  <InputLabel id="role-label">Role</InputLabel>
-                  <Select
-                  name="roleId"
-                    labelId="role-label"
-                    label="employee.Role"
-                    value={roleId || 0}
-                    onChange={handleChange}
-                  >
-                    <MenuItem value={0} sx={{ color: '#fff' }}>Please select a role...</MenuItem>
-                    <MenuItem value={1} sx={{ color: '#fff' }}>Director of Routesetting</MenuItem>
-                    <MenuItem value={2} sx={{ color: '#fff' }}>Regional Head Setter</MenuItem>
-                    <MenuItem value={3} sx={{ color: '#fff' }}>Head Setter</MenuItem>
-                    <MenuItem value={4} sx={{ color: '#fff' }}>Full Time Setter</MenuItem>
-                    <MenuItem value={5} sx={{ color: '#fff' }}>Part Time Setter</MenuItem>
-                  </Select>
-                </FormControl>
+                <Grid item>
+                  <FormControl fullWidth>
+                    <InputLabel id="role-label">Role</InputLabel>
+                    <Select
+                    name="roleId"
+                      labelId="role-label"
+                      label="employee.Role"
+                      value={roleId || 0}
+                      onChange={handleChange}
+                    >
+                      <MenuItem value={0} sx={{ color: '#fff' }}>Please select a role...</MenuItem>
+                      <MenuItem value={1} sx={{ color: '#fff' }}>Director of Routesetting</MenuItem>
+                      <MenuItem value={2} sx={{ color: '#fff' }}>Regional Head Setter</MenuItem>
+                      <MenuItem value={3} sx={{ color: '#fff' }}>Head Setter</MenuItem>
+                      <MenuItem value={4} sx={{ color: '#fff' }}>Full Time Setter</MenuItem>
+                      <MenuItem value={5} sx={{ color: '#fff' }}>Part Time Setter</MenuItem>
+                    </Select>
+                  </FormControl>
+                </Grid>
               </Grid>
-            </Grid>
 
-            <Typography className="centered-text" variant="h4">Locations:</Typography>
-            <Grid sx={{m: 1}} >
-              <FormControl>
+              <Typography className="centered-text" variant="h4">Locations:</Typography>
+              <Grid sx={{m: 1}} >
+                <FormControl>
                   <InputLabel id="demo-multiple-checkbox-label">Employee's gyms</InputLabel>
                   <Select
                     labelId="demo-multiple-checkbox-label"
@@ -205,95 +205,15 @@ const UpdateEmployee = (props) => {
                     )}
                   </Select>
                 </FormControl>
-            </Grid>
-            <button onClick={handleSubmit} type="button">Save Employee</button>
+              </Grid>
+              <Button variant="contained" onClick={handleSubmit}>Save Employee</Button>
             </Paper>
-          </Paper>
+            </Paper>
           </Grid>
         </Grid>
       </Container>
     </Box>
   </>
-
-
-    // <form id="employee-form">
-      // <div className="employee-form-grid" name="update-employee-form">
-        /* <input className="hidden" name="id" defaultValue="employee.id" />
-
-        <label htmlFor="placardName">Name on placard:</label> 
-        <input 
-          value={employee.placardName}
-            onChange={handleChange}
-          name="placardName"
-          type="text"
-        />
-        
-        <label htmlFor="email">Email address:</label> 
-        <input 
-          value={employee.email}
-          name="email"
-          onChange={handleChange}
-          type="text"
-        />
-
-        <label htmlFor="password">Password:</label> 
-        <input 
-          value={employee.password}
-          name="password"
-          onChange={handleChange}
-          type="password"
-        />
-
-        <label htmlFor="phone-number">Phone #:</label> 
-        <input 
-          value={employee.phoneNumber}
-          name="phoneNumber"
-          onChange={handleChange}
-          type="phoneNumber"
-        />
-
-        <label htmlFor="roleId">
-          Role:
-        </label>
-        
-        <select 
-          name="roleId"
-          value={roleId || 5}
-          onChange={handleChange}
-          required
-        >
-          <option value={1}>Director of Routsetting</option>
-          <option value={2}>Regional Head Setter</option>
-          <option value={3}>Head Setter</option>
-          <option value={4}>Full Time Setter</option>
-          <option value={5}>Part Time Setter</option>
-        </select>
-      </div>
-
-      <h3 className="centered-text">Locations:</h3>
-      <div className="checkbox-grid">
-        {
-          props.gyms?.map(gym => {
-            return (
-            <div key={gym.id}>
-              <label htmlFor="gyms" form="update-employee-form">{`${gym.name}:`}</label> 
-              <input
-                checked={employee.gyms?.filter(employeeGym => employeeGym.id === gym.id).length > 0}
-                className="checkbox"
-                form="update-employee-form"
-                value={gym.id}
-                name="gyms"
-                onChange={handleCheckbox}
-                type="checkbox"
-
-              />
-            </div>
-            )
-          })
-        }
-      </div> */
-      // <button onClick={handleSubmit} type="submit">Update Employee</button>
-    /* </form> */
   )
 }
 
