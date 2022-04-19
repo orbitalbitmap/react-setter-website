@@ -4,7 +4,7 @@ import { Grid, Paper, Typography, List, ListItem, ListItemText  } from '@mui/mat
 const GymCard = ({ gymInfo }) => {
   return (
     <Grid item sx={{ pb: 4 }}>
-      <Paper sx={{ width: '30rem', m: '0 auto', p: 0, borderRadius: 4, }}>
+      <Paper sx={{ width: '30rem', m: '0 auto', p: 0, borderRadius: 2, }}>
         <Typography variant="h5" key={gymInfo.name} className="centered-text" sx={{pt: 2}}>
           <Link to={`/locations/${gymInfo.id}`}>{gymInfo.name}</Link>
           <List
