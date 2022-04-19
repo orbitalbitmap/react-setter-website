@@ -13,7 +13,7 @@ const Gyms = (props) => (
         m: '8rem auto 0 auto',
         maxWidth: '75rem',
         px: 2,
-        borderRadius: 4,
+        borderRadius: 2,
       }}
     >
       <Typography
@@ -32,7 +32,7 @@ const Gyms = (props) => (
           color: theme => theme.palette.primary.contrastText,
           bgcolor: theme => theme.palette.primary.light,
           m: '0 auto',
-          borderRadius: 4,
+          borderRadius: 2,
         }}>
         <Grid container xs={12} spacing={8} sx={{ m: '0 auto', }}>
           {
