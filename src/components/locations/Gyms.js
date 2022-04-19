@@ -38,7 +38,7 @@ const Gyms = (props) => (
           {
             props.gyms?.map(gym => {
               return (
-                <GymCard key={gym.name} gymInfo={gym} />
+                <GymCard key={gym.id} gymInfo={gym} />
               )
             })
           }
