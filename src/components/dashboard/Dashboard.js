@@ -103,7 +103,7 @@ function DashboardContent(props) {
           </Toolbar>
         </AppBar>
 
-        <Drawer variant="permanent" open={open} PaperProps={{ sx: { bgcolor: '#202A56' } }}>
+        <Drawer variant="permanent" open={open} sx={{ height: '100vh'}} PaperProps={{ sx: { bgcolor: '#202A56' } }}>
           <Toolbar
             sx={{
               display: 'flex',
