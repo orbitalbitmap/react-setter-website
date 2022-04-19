@@ -5,7 +5,7 @@ const GymCard = ({ gymInfo }) => {
   return (
     <Grid item sx={{ pb: 4 }}>
       <Paper sx={{ width: '30rem', m: '0 auto', p: 0, borderRadius: 4, }}>
-        <Typography variant="h5" key={gymInfo.name} className="centered-text">
+        <Typography variant="h5" key={gymInfo.name} className="centered-text" sx={{pt: 2}}>
           <Link to={`/locations/${gymInfo.id}`}>{gymInfo.name}</Link>
           <List
             sx={{ bgcolor: theme => theme.palette.common.white, }}

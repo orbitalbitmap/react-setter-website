@@ -10,7 +10,7 @@ const Gyms = (props) => (
       sx={{
         bgcolor: theme => theme.palette.primary.main,
         height: '50rem',
-        m: '8rem auto',
+        m: '8rem auto 0 auto',
         maxWidth: '75rem',
         px: 2,
         borderRadius: 4,
