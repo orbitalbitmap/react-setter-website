@@ -1,8 +1,10 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-
-import InputAndLabel from '../locations/InputAndLabel'
+import { FormControl, Grid, TextField } from '@mui/material'
+import { Paper, Select, MenuItem, InputLabel, OutlinedInput, Checkbox, ListItemText, Typography } from '@mui/material'
+import Container from '@mui/material/Container';
+import Box from '@mui/material/Box';
 
 const EditSingleGym = () => {
   const urlParams = useParams()
@@ -29,60 +31,113 @@ const EditSingleGym = () => {
   }
 
   return (
-    <>
-      <h1 className="centered-text">Edit {gym.name}'s Gym Information</h1>
+    <Box
+      component="main"
+      sx={{
+        backgroundColor: (theme) =>
+          theme.palette.mode === 'light'
+            ? theme.palette.grey[100]
+            : theme.palette.grey[900],
+        flexGrow: 1,
+        height: '100vh',
+        overflow: 'auto',
+        mt: 8
+      }}
+    >
+      <Container sx={{ mt: '7rem', width: "80rem"}} >
+        <Paper
+          sx={{
+            p: 2,
+            display: 'flex',
+            flexDirection: 'column',
+            color: 'primary.contrastText',
+            bgcolor: 'primary.main',
+          }}
+        >
+          <Typography className="centered-text" variant="h3">Edit {gym.name}'s Gym Information</Typography>
+          <Paper className="centered-text" elevation={12} component="div" sx={{ pb: '0.5rem', pt: '1rem' }}>
+            <Grid container xs={11} columnSpacing="4rem" rowSpacing="1rem" sx={{ pl: '1.5rem', m: '0 auto'}}>
+              <Grid item>
+                <TextField
+                  name="address"
+                  label="Address:"
+                  value={gym.address}
+                  required
+                  onChange={(event) => { setGym({...gym, address: event.target.value})}}
+                />
+              </Grid>
 
-      <form id="editable-gym-form">
-        <div className="employee-form-grid">
-          <InputAndLabel
-            handleChange={(event) => { setGym({...gym, address: event.target.value})}}
-            name="address"
-            text="Address"
-            value={gym.address}
-          />
-          
-          <InputAndLabel
-            handleChange={(event) => { setGym({...gym, phoneNumber: event.target.value})}}
-            name="phoneNumber"
-            text="Phone number"
-            value={gym.phoneNumber}
-          />
+              <Grid item>
+                <TextField
+                  name="phoneNumber"
+                  label="Phone number:"
+                  value={gym.phoneNumber}
+                  onChange={(event) => { setGym({...gym, phoneNumber: event.target.value})}}
+                />
+              </Grid>
 
-          <label htmlFor="headSetterId">Head Setter:</label>
-          <select name="headSetterId"  onChange={(event) => { setGym({...gym, headSetterId: parseInt(event.target.value)})}} value={gym.headSetterId}>
-            {
-              gym.employees.map(employee => {
-                return (
-                  <option key={employee.id} value={employee.id}>{`${employee.firstName} ${employee.lastName}`}</option>
-                )
-              })
-            }
-          </select>
+              <Grid item>
+                <FormControl fullWidth>
+                  <InputLabel id="headSetterId">Role</InputLabel>
+                  <Select
+                    name="headSetterId"
+                    labelId="headSetterId"
+                    label="headSetter: "
+                    value={gym.headSetterId || 0}
+                    onChange={(event) => { setGym({...gym, headSetterId: parseInt(event.target.value)})}}
+                  >
+                    {
+                      gym.employees.map(employee => {
+                        return (
+                          <MenuItem
+                            key={employee.id}
+                            value={employee.id}
+                            sx={{
+                              color: (theme) => theme.palette.primary.contrastText
+                            }}
+                          >
+                            {`${employee.firstName} ${employee.lastName}`}
+                          </MenuItem>
+                        )
+                      })
+                    }
+                  </Select>
+                </FormControl>
+              </Grid>
 
-          <InputAndLabel
-            handleChange={(event) => { setGym({...gym, facebook: event.target.value})}}
-            name="facebook"
-            text="Facebook page"
-            value={gym.facebook}
-          />
+              <Grid item>
+                <TextField
+                  name="facebook"
+                  label="Facebook:"
+                  value={gym.facebook}
+                  onChange={(event) => { setGym({...gym, facebook: event.target.value})}}
+                />
+              </Grid>
 
-          <InputAndLabel
-            handleChange={(event) => { setGym({...gym, instagram: event.target.value})}}
-            name="instagram"
-            text="Instagram Account"
-            value={gym.instagram}
-          />
+              <Grid item>
+                <TextField
+                  name="instagram"
+                  label="Instagram Account:"
+                  value={gym.instagram}
+                  onChange={(event) => { setGym({...gym, instagram: event.target.value})}}
+                />
+              </Grid>
 
-          <InputAndLabel
-            handleChange={(event) => { setGym({...gym, twitter: event.target.value})}}
-            name="twitter"
-            text="Twitter Account"
-            value={gym.twitter}
-          />
-        </div>
-        <button onClick={handleSubmit} type="submit">Update Info</button>
-      </form>
-    </>
+              <Grid item>
+                <TextField
+                  name="twitter"
+                  label="Twitter Account:"
+                  value={gym.twitter}
+                  onChange={(event) => { setGym({...gym, twitter: event.target.value})}}
+                />
+              </Grid>
+            </Grid>
+          </Paper>
+
+          <button onClick={handleSubmit} type="submit">Update Info</button>
+        </Paper>
+      </Container>
+    </Box>
   )
 }
 
