@@ -9,7 +9,8 @@ export default createTheme({
     common: {
       primaryBlue: `${mainBlue}`,
       lighterBlue: `${actionBlue}`,
-      white: '#fff'
+      white: '#fff',
+      black: '#000',
     },
     primary: {
       main: `${mainBlue}`,
