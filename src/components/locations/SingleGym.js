@@ -1,7 +1,8 @@
-import { Box, Container, List, ListItem, ListItemText, Typography } from '@mui/material';
+import { Box, Button, Container, List, ListItem, ListItemText, Typography } from '@mui/material';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import theme from '../../utils/theme';
 
 const SingleGym = () => {
   const urlParams = useParams()
@@ -27,9 +28,16 @@ const SingleGym = () => {
     }, [gymInfo.employees, gymInfo.headSetterId]);
 
     return (
-      <Box style={{margin: '4rem auto', }}>
-        <Typography variant="h3" className="centered-text">{gymInfo.name}</Typography>
-        <Container style={{ overflowY: 'scroll', height: '40rem' }}>
+      <Box sx={{
+        bgcolor: theme => theme.palette.primary.main,
+        height: '50rem',
+        m: '8rem auto 0 auto',
+        width: '50rem',
+        px: 2,
+        borderRadius: 2,
+      }}>
+        <Typography variant="h3" className="centered-text" sx={{ py: 2, color: theme => theme.palette.common.white, }}>{gymInfo.name}</Typography>
+        <Container style={{ overflowY: 'scroll', height: '40rem' }} sx={{ borderRadius: 2, bgcolor: theme.palette.common.white}}>
           <Typography variant="h6" className="centered-text">{gymInfo.address}</Typography>
           <Typography variant="h6" className="centered-text">{gymInfo.phoneNumber}</Typography>
           <Typography variant="h6" className="centered-text">{`Facebook: ${gymInfo.facebook !== null ? gymInfo.facebook : 'None available'}`}</Typography>
@@ -63,7 +71,7 @@ const SingleGym = () => {
           </List>
 
           <Typography variant="h6" className="centered-text">Part Time Setters</Typography>
-          <List sx={{ bgcolor: theme => theme.palette.common.white}}>
+          <List sx={{ bgcolor: theme => theme.palette.common.white,}}>
           {
               partTimeEmployeeList?.map(setter => {
                 return (
@@ -78,7 +86,22 @@ const SingleGym = () => {
           </List>
         </Container>
 
-        <Link class='centered-text' to={`/admin/location/${gymInfo?.id}`}>Edit Gym info</Link>
+        <Button variant="contained" sx={{
+          position: 'relative',
+          top: '0%',
+          left: '50%',
+          transform: 'translate(-50%, 50%)',
+          // m: '1rem auto',
+          width: '10rem',
+          color: theme => theme.palette.common.black,
+          bgcolor: theme => theme.palette.common.white,
+            "&:hover": {
+              color: theme => theme.palette.common.white,
+              bgcolor: theme => theme.palette.primary.light,
+            },
+          }} >
+          <Link class='centered-text' to={`/admin/location/${gymInfo?.id}`} style={{ color: 'inherit'}}>Edit Gym info</Link>
+        </Button>
       </Box>
     );
   }
