@@ -1,6 +1,8 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import EmployeeCard from './EmployeeCard'
+import { Box, Container, Grid, Typography } from '@mui/material';
+
 
 const EmployeeList = () => {
   const [employees, setEmployees] = useState([])
@@ -15,23 +17,48 @@ const EmployeeList = () => {
     getInfo()
   }, [])
 
-  const renderList = () => {
-      return employees.map(employee => {
-        return (
-          <h3 key={employee.id} className="centered-text">
-            <Link to={`/employees/${employee.id}`}>
-              {`${employee.firstName} ${employee.lastName}`}
-            </Link>
-          </h3>
-        )
-      })
-  }
-
   return (
-    <div>
-      <h1 className="centered-text">Employees</h1>
-      {renderList()}
-    </div>
+    <>
+      <Box
+      sx={{
+        bgcolor: theme => theme.palette.primary.main,
+        height: '50rem',
+        m: '8rem auto 0 auto',
+        maxWidth: '75rem',
+        px: 2,
+        borderRadius: 2,
+      }}
+    >
+      <Typography
+        variant="h3"
+        className="centered-text"
+        sx={{
+          py: 2,
+          color: theme => theme.palette.primary.contrastText
+        }}
+      >
+        Employees:
+      </Typography>
+      <Container
+        style={{ overflowY: 'scroll', height: '40rem', }}
+        sx={{
+          color: theme => theme.palette.primary.contrastText,
+          bgcolor: theme => theme.palette.primary.light,
+          m: '0 auto',
+          borderRadius: 2,
+        }}>
+        <Grid container xs={12} spacing={8} sx={{ m: '0 auto', }}>
+          {
+            employees.map(employee => {
+              return (
+                <EmployeeCard key={employee.id} employeeInfo={employee} />
+              )
+            })
+          }
+        </Grid>
+      </Container>
+    </Box>
+    </>
   )
 }
 
