@@ -50,8 +50,8 @@ const AdminDashboard = () => {
       }}
     >
       <Container maxWidth="50rem" sx={{ mt: '7rem' }} >
-        <Grid container spacing={4} sx={{justifyContent: 'center'}}>
-          <Grid item xs={8}>
+        <Grid container spacing={4} sx={{ margin: '0 auto'}} xs={8}>
+          <Grid item>
           <Paper
             sx={{
               p: 2,

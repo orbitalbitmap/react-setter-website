@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
-import { FormControl, Grid, TextField } from '@mui/material'
+import { FormControl, Grid, TextField, Button } from '@mui/material'
 import { Paper, Select, MenuItem, InputLabel } from '@mui/material'
 
 const NewGymForm = () => {
@@ -123,9 +123,9 @@ const NewGymForm = () => {
             
             
           </Grid>
+        <Button variant="contained" onClick={handleSubmit} sx={{ mt: 2 }}>Update Info</Button>
         </Paper>
 
-        <button onClick={handleSubmit} type='submit'>Update Info</button>
     </>
   )
 }
