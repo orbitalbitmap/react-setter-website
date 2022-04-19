@@ -113,7 +113,7 @@ const ItemList = (props) => {
       <Divider sx={{ my: 1 }} />
 
       {
-        renderCollapsableList({id: 8, title: 'Your Locations'}, '/locations/current/', props?.user?.gyms, expandUserLocations, setExpandUserLocations)
+        renderCollapsableList({id: 8, title: 'Your Locations'}, '/locations/', props?.user?.gyms, expandUserLocations, setExpandUserLocations)
       }
     </React.Fragment>
   )
