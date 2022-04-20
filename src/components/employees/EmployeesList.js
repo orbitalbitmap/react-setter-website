@@ -1,20 +1,20 @@
-import axios from 'axios'
-import { useEffect, useState } from 'react'
-import EmployeeCard from './EmployeeCard'
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import EmployeeCard from './EmployeeCard';
 import { Box, Container, Grid, Typography } from '@mui/material';
 
 
 const EmployeeList = () => {
-  const [employees, setEmployees] = useState([])
+  const [employees, setEmployees] = useState([]);
 
   useEffect(() => {
     const getInfo = async () => {
-      const { data } = await axios.get(`${process.env.REACT_APP_API_PATH}/employees`)
+      const { data } = await axios.get(`${process.env.REACT_APP_API_PATH}/employees`);
 
-      setEmployees(data)
+      setEmployees(data);
     }
 
-    getInfo()
+    getInfo();
   }, [])
 
   return (
@@ -62,4 +62,4 @@ const EmployeeList = () => {
   )
 }
 
-export default EmployeeList
+export default EmployeeList;

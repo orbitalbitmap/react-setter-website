@@ -1,7 +1,7 @@
-import axios from 'axios'
-import { useEffect, useState } from 'react'
-import { connect } from 'react-redux'
-import { useParams } from 'react-router-dom'
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import {
   Box,
   Button,
@@ -17,64 +17,64 @@ import {
   Select,
   TextField,
   Typography,
-} from '@mui/material'
+} from '@mui/material';
 
 
 const UpdateEmployee = (props) => {
-  const urlParams = useParams()
-  const [employee, setEmployee] = useState({})
-  const [roleId, setRoleId] = useState(0)
-  const [currentGymNameList, setCurrentGymNameList] = useState([])
-  const [employeeGymNameList, setEmployeeGymNameList] = useState([])
+  const urlParams = useParams();
+  const [employee, setEmployee] = useState({});
+  const [roleId, setRoleId] = useState(0);
+  const [currentGymNameList, setCurrentGymNameList] = useState([]);
+  const [employeeGymNameList, setEmployeeGymNameList] = useState([]);
 
   const handleCheckbox = (event) => {
     const {
       target: { value },
     } = event;
     
-    const [gymName] = value.filter(gym => !employeeGymNameList.includes(gym)) 
-    const [gymInfo] = gymName !== undefined ? props.gyms.filter(gym => gym.name === gymName) : [null]
+    const [gymName] = value.filter(gym => !employeeGymNameList.includes(gym)) ;
+    const [gymInfo] = gymName !== undefined ? props.gyms.filter(gym => gym.name === gymName) : [null];
 
-    gymInfo !== null && setEmployee({...employee, gyms: employee.gyms.concat(gymInfo)})
-    setEmployeeGymNameList(value)
+    gymInfo !== null && setEmployee({...employee, gyms: employee.gyms.concat(gymInfo)});
+    setEmployeeGymNameList(value);
   }
 
   useEffect(() => {
     const getInfo = async () => {
-      const { data } = await axios.get(`${process.env.REACT_APP_API_PATH}/employees/${urlParams.id}`)
+      const { data } = await axios.get(`${process.env.REACT_APP_API_PATH}/employees/${urlParams.id}`);
 
       setEmployee({
           ...data,
           oldEmployeeGymList: data.gyms,
           password: 'NotYourRealPassword',
-        })
-      setEmployeeGymNameList(data.gyms.map(gym => gym.name))
-      setRoleId(data.roleId)
+        });
+      setEmployeeGymNameList(data.gyms.map(gym => gym.name));
+      setRoleId(data.roleId);
     }
 
-    getInfo()
+    getInfo();
   }, [urlParams])
 
   useEffect(() => {
-    const aRoleId = employee.roleId
-    setRoleId(aRoleId)
+    const aRoleId = employee.roleId;
+    setRoleId(aRoleId);
   }, [employee])
 
   useEffect(() => {
-    setCurrentGymNameList(props.gyms.map((gym) => gym.name))
+    setCurrentGymNameList(props.gyms.map((gym) => gym.name));
   }, [props.gyms])
 
   const handleChange = (event) => {
     setEmployee({
         ...employee,
         [event.target.name]: event.target.value
-      })
+      });
   }
 
   const handleSubmit = async(event)  =>{
-    event.preventDefault()
+    event.preventDefault();
 
-    await axios.post(`${process.env.REACT_APP_API_PATH}/updateEmployee`, employee)
+    await axios.post(`${process.env.REACT_APP_API_PATH}/updateEmployee`, employee);
   }
   
   if (!employee.id) {

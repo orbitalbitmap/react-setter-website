@@ -3,7 +3,7 @@ import { Container, Grid, Paper, Typography, } from '@mui/material';
 
 export const getLocationString = (employeeLocations) => {
   const locationNameList = employeeLocations.map(location => {
-    return location.name
+    return location.name;
   });
 
   return locationNameList.join(', ');
