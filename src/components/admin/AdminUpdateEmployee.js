@@ -2,10 +2,23 @@ import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { useParams } from 'react-router-dom'
-import { FormControl, Grid, TextField } from '@mui/material'
-import { Button, Paper, Select, MenuItem, InputLabel, OutlinedInput, Checkbox, ListItemText, Typography } from '@mui/material'
-import Container from '@mui/material/Container';
-import Box from '@mui/material/Box';
+import {
+  Box,
+  Button,
+  Checkbox,
+  Container,
+  FormControl,
+  Grid,
+  InputLabel,
+  ListItemText,
+  MenuItem,
+  OutlinedInput,
+  Paper,
+  Select,
+  TextField,
+  Typography,
+} from '@mui/material'
+
 
 const UpdateEmployee = (props) => {
   const urlParams = useParams()
@@ -35,8 +48,8 @@ const UpdateEmployee = (props) => {
           oldEmployeeGymList: data.gyms,
           password: 'NotYourRealPassword',
         })
-        setEmployeeGymNameList(data.gyms.map(gym => gym.name))
-        setRoleId(data.roleId)
+      setEmployeeGymNameList(data.gyms.map(gym => gym.name))
+      setRoleId(data.roleId)
     }
 
     getInfo()
