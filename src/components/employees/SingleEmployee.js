@@ -58,7 +58,7 @@ const SingleEmployee = (props) => {
             bgcolor: theme => theme.palette.primary.light,
           },
         }} >
-        <Link class='centered-text' to={`/admin/location/${employee?.id}`} style={{ color: 'inherit'}}>Edit Gym info</Link>
+        <Link className='centered-text' to={`/admin/employee/${employee?.id}`} style={{ color: 'inherit'}}>Edit Gym info</Link>
       </Button>
     </Box>
   );
