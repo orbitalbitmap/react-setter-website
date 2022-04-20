@@ -61,8 +61,7 @@ const UpdateEmployee = (props) => {
   const handleSubmit = async(event)  =>{
     event.preventDefault()
 
-    console.log(employee)
-    // await axios.post(`${process.env.REACT_APP_API_PATH}/updateEmployee`, employee)
+    await axios.post(`${process.env.REACT_APP_API_PATH}/updateEmployee`, employee)
   }
   
   if (!employee.id) {
