@@ -1,6 +1,6 @@
-import axios from 'axios'
-import { useEffect, useState } from 'react'
-import { connect } from 'react-redux'
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
 import {
   Box,
   Button,
@@ -16,39 +16,39 @@ import {
   Select,
   TextField,
   Typography,
-} from '@mui/material'
+} from '@mui/material';
 
-import { signIn } from '../../actions'
+import { signIn } from '../../actions';
 
 const UpdateEmployee = (props) => {
-  const [employee, setEmployee] = useState({})
-  const [currentGymNameList, setCurrentGymNameList] = useState([])
-  const [employeeGymNameList, setEmployeeGymNameList] = useState([])
+  const [employee, setEmployee] = useState({});
+  const [currentGymNameList, setCurrentGymNameList] = useState([]);
+  const [employeeGymNameList, setEmployeeGymNameList] = useState([]);
 
   useEffect(() => {
     const getInfo = async () => {
-      const { data } = await axios.get(`${process.env.REACT_APP_API_PATH}/employees/${props.user.id}`)
+      const { data } = await axios.get(`${process.env.REACT_APP_API_PATH}/employees/${props.user.id}`);
 
       setEmployee({
           ...data,
           oldEmployeeGymList: data.gyms,
           password: 'NotYourRealPassword'
-        })
-      setEmployeeGymNameList(data.gyms.map(gym => gym.name))
+        });
+      setEmployeeGymNameList(data.gyms.map(gym => gym.name));
     }
 
-    getInfo()
+    getInfo();
   }, [props.user])
 
   useEffect(() => {
-    setCurrentGymNameList(props.gyms.map((gym) => gym.name))
+    setCurrentGymNameList(props.gyms.map((gym) => gym.name));
   }, [props.gyms])
 
   const handleChange = (event) => {
     setEmployee({
         ...employee,
         [event.target.name]: event.target.value
-      })
+      });
   }
 
   const handleCheckbox = (event) => {
@@ -56,22 +56,22 @@ const UpdateEmployee = (props) => {
       target: { value },
     } = event;
     
-    const [gymName] = value.filter(gym => !employeeGymNameList.includes(gym)) 
-    const [gymInfo] = gymName !== undefined ? props.gyms.filter(gym => gym.name === gymName) : [null]
+    const [gymName] = value.filter(gym => !employeeGymNameList.includes(gym)) ;
+    const [gymInfo] = gymName !== undefined ? props.gyms.filter(gym => gym.name === gymName) : [null];
 
-    gymInfo !== null && setEmployee({...employee, gyms: employee.gyms.concat(gymInfo)})
-    setEmployeeGymNameList(value)
+    gymInfo !== null && setEmployee({...employee, gyms: employee.gyms.concat(gymInfo)});
+    setEmployeeGymNameList(value);
   }
 
   const handleSubmit = async (event) => {
-    event.preventDefault()
+    event.preventDefault();
 
-    await axios.post(`${process.env.REACT_APP_API_PATH}/updateEmployee`, employee)
-    props.signIn(await employee)
+    await axios.post(`${process.env.REACT_APP_API_PATH}/updateEmployee`, employee);
+    props.signIn(await employee);
   }
   
   if (!employee.id) {
-    return (<h2>Loading...</h2>)
+    return (<h2>Loading...</h2>);
   }
 
   return (
@@ -209,4 +209,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, { signIn })(UpdateEmployee)
+export default connect(mapStateToProps, { signIn })(UpdateEmployee);

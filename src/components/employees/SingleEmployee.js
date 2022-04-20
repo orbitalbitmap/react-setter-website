@@ -1,23 +1,23 @@
-import axios from 'axios'
-import {useEffect, useState} from 'react'
-import { connect } from 'react-redux'
-import { Link, useParams } from 'react-router-dom'
+import axios from 'axios';
+import {useEffect, useState} from 'react';
+import { connect } from 'react-redux';
+import { Link, useParams } from 'react-router-dom';
 import { Box, Button, Container, Typography } from '@mui/material';
-import { getLocationString } from './EmployeeCard'
+import { getLocationString } from './EmployeeCard';
 
 
 const SingleEmployee = (props) => {
-  const urlParams = useParams()
-  const [employee, setEmployee] = useState({})
+  const urlParams = useParams();
+  const [employee, setEmployee] = useState({});
 
   useEffect(() => {
     const getInfo = async () => {
-      const { data } = await axios.get(`${process.env.REACT_APP_API_PATH}/employees/${urlParams.id}`)
+      const { data } = await axios.get(`${process.env.REACT_APP_API_PATH}/employees/${urlParams.id}`);
 
-      setEmployee(data)
+      setEmployee(data);
     }
 
-    getInfo()
+    getInfo();
   }, [urlParams])
 
   return (
@@ -70,4 +70,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, {})(SingleEmployee)
+export default connect(mapStateToProps, {})(SingleEmployee);
