@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Container, Grid, Paper, Typography, } from '@mui/material';
 
-const getLocationString = (employeeLocations) => {
+export const getLocationString = (employeeLocations) => {
   const locationNameList = employeeLocations.map(location => {
     return location.name
   });
