@@ -8,6 +8,6 @@ function UpdateSectionsPage() {
       <UpdateClimbingSections />
     </Dashboard>
   );
-}
+};
 
 export default UpdateSectionsPage;
