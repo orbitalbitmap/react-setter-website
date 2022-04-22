@@ -1,84 +1,80 @@
-import axios from 'axios'
-import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 
-const UpdateClimbingSections = () => {
-  const urlParams = useParams()
-  const gymId = urlParams.id
-  const [gym, setGym] = useState({})
+function UpdateClimbingSections() {
+  const urlParams = useParams();
+  const gymId = urlParams.id;
+  const [gym, setGym] = useState({});
 
   useEffect(() => {
     const getInfo = async () => {
-      const { data } = await axios.get(`${process.env.REACT_APP_API_PATH}/gymWithSections/${gymId}`)
+      const { data } = await axios.get(`${process.env.REACT_APP_API_PATH}/gymWithSections/${gymId}`);
 
-      setGym(data)
-    }
+      setGym(data);
+    };
 
-    getInfo()
-  }, [gymId])
+    getInfo();
+  }, [gymId]);
 
   const handleChange = (event) => {
-    let sectionType = event.target.dataset.sectiontype
-    let updatedSectionList = [...gym[sectionType]]
-    const updatedSectionId = parseInt(event.target.dataset.gymid)-1
+    const sectionType = event.target.dataset.sectiontype;
+    const updatedSectionList = [...gym[sectionType]];
+    const updatedSectionId = parseInt(event.target.dataset.gymid) - 1;
 
     updatedSectionList[updatedSectionId] = {
       ...updatedSectionList[updatedSectionId],
-      name: event.target.value
-    }
+      name: event.target.value,
+    };
 
     setGym({
-        ...gym,
-        [sectionType]: updatedSectionList
-    })
-  }
+      ...gym,
+      [sectionType]: updatedSectionList,
+    });
+  };
 
   const handleSubmit = async (event) => {
-    event.preventDefault()
-    const type = event.target.name
+    event.preventDefault();
+    const type = event.target.name;
     const sectionToUpdate = type === 'Boulder'
       ? gym.boulderSections
-      : gym.routeSections
+      : gym.routeSections;
 
-    await axios.post(`${process.env.REACT_APP_API_PATH}/update${type}SectionNames`, {gymId, sectionToUpdate})
-  }
+    await axios.post(`${process.env.REACT_APP_API_PATH}/update${type}SectionNames`, { gymId, sectionToUpdate });
+  };
 
   const addNewSection = (event) => {
-    const sectionType = event.target.dataset.sectiontype
-    const newSectionId = gym[sectionType].length + 1
-    
-    const updatedGym = {...gym}
+    const sectionType = event.target.dataset.sectiontype;
+    const newSectionId = gym[sectionType].length + 1;
+
+    const updatedGym = { ...gym };
 
     updatedGym[sectionType] = [
       ...updatedGym[sectionType],
-        {
-          id: newSectionId,
-          gymId: gym.id,
-          name: ''
-        }
-    ]
+      {
+        id: newSectionId,
+        gymId: gym.id,
+        name: '',
+      },
+    ];
 
-    setGym(updatedGym)
-  }
+    setGym(updatedGym);
+  };
 
-  const renderSectionForm = (sections, type) => {
-    return sections.map(section => {
-      return (    
-        <div key={`${type}-section-${section.id}`} className="gym-section-grid">
-          <input className="hidden" name="id" value={section.id} disabled />
-          <label htmlFor="name">Name:</label>
-          <input
-            onChange={handleChange}
-            name="name"
-            value={section.name !== null ? section.name : ''}
-            data-sectiontype={`${type}Sections`}
-            data-gymid={section.id}
-            placeholder="Enter section name..."
-          />
-        </div>
-      )
-    })
-  }
+  const renderSectionForm = (sections, type) => sections.map(section => (
+    <div key={`${type}-section-${section.id}`} className="gym-section-grid">
+      <input className="hidden" name="id" value={section.id} disabled />
+      <label htmlFor="name">Name:</label>
+      <input
+        onChange={handleChange}
+        name="name"
+        value={section.name !== null ? section.name : ''}
+        data-sectiontype={`${type}Sections`}
+        data-gymid={section.id}
+        placeholder="Enter section name..."
+      />
+    </div>
+  ));
 
   return (
     <>
@@ -92,7 +88,7 @@ const UpdateClimbingSections = () => {
               : (<h2>No Route Sections Found.</h2>)
           }
         </div>
-        
+
         <div className="section-button-container">
           <button className="section-button" type="button" onClick={addNewSection} data-sectiontype="routeSections">Add New Section</button>
           <button className="section-button" name="Route" onClick={handleSubmit} type="submit">Save Info</button>
@@ -103,7 +99,7 @@ const UpdateClimbingSections = () => {
         <input className="hidden" name="gymId" value={gym.id} disabled />
         <h1 className="centered-text">Boulders</h1>
         <div className="section-details" id="boulder-sections">
-        {
+          {
             gym.boulderSections
               ? renderSectionForm(gym.boulderSections, 'boulder')
               : (<h2>No Boulder Sections Found.</h2>)
@@ -115,7 +111,7 @@ const UpdateClimbingSections = () => {
         </div>
       </form>
     </>
-  )
+  );
 }
 
-export default UpdateClimbingSections
+export default UpdateClimbingSections;

@@ -1,12 +1,12 @@
-import Dashboard from '../../components/dashboard/Dashboard'
-import MetricsContainer from '../../components/metrics/MetricsContainer'
+import Dashboard from '../../components/dashboard/Dashboard';
+import MetricsContainer from '../../components/metrics/MetricsContainer';
 
-const MetricsPage = () => {
+function MetricsPage() {
   return (
     <Dashboard>
       <MetricsContainer />
     </Dashboard>
-  )
+  );
 }
 
-export default MetricsPage
+export default MetricsPage;

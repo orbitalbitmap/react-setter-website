@@ -1,9 +1,12 @@
-import React from 'react'
+import React from 'react';
 
-const ClimbSelector = (props) => {
+function ClimbSelector(props) {
   return (
     <>
-      <label htmlFor={`${props.selectorType}1`}>{props.labelText} </label>
+      <label htmlFor={`${props.selectorType}1`}>
+        {props.labelText}
+        {' '}
+      </label>
       <select
         onChange={props.handleClimbSelector}
         className={`${props.selectorType}-selectors-box`}
@@ -11,17 +14,15 @@ const ClimbSelector = (props) => {
       >
         <option name="climb" value="blank">Blank</option>
         {
-          props.climbs.map(climb => {
-            return (
-              climb.station
-                ? <option key={climb.id} name="climb" value={climb.id}>{`${climb.station}: ${climb.color} ${climb.grade}`}</option>
-                : <option key={climb.id} name="climb" value={climb.id}>{`${climb.color} ${climb.grade}`}</option>
-            )
-          })
+          props.climbs.map(climb => (
+            climb.station
+              ? <option key={climb.id} name="climb" value={climb.id}>{`${climb.station}: ${climb.color} ${climb.grade}`}</option>
+              : <option key={climb.id} name="climb" value={climb.id}>{`${climb.color} ${climb.grade}`}</option>
+          ))
         }
       </select>
     </>
-  )
+  );
 }
 
-export default ClimbSelector
+export default ClimbSelector;

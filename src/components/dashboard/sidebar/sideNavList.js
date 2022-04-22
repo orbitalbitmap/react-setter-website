@@ -1,6 +1,6 @@
-import DashboardIcon from '@mui/icons-material/Dashboard'
-import PeopleIcon from '@mui/icons-material/People'
-import LayersIcon from '@mui/icons-material/Layers'
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import PeopleIcon from '@mui/icons-material/People';
+import LayersIcon from '@mui/icons-material/Layers';
 
 const sideNavList = [
   // {
@@ -17,7 +17,7 @@ const sideNavList = [
   {
     id: 3,
     title: 'Locations',
-    url: '/locations/'
+    url: '/locations/',
   },
   {
     id: 4,
@@ -28,7 +28,7 @@ const sideNavList = [
   {
     id: 5,
     title: 'Metrics',
-    url: '/metrics/'
+    url: '/metrics/',
   },
   {
     id: 6,
@@ -42,6 +42,6 @@ const sideNavList = [
   //   url: '/',
   //   onClick: ()=>{},
   // },
-]
+];
 
-export default sideNavList
+export default sideNavList;

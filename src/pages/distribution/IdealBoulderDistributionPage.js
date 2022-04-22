@@ -1,8 +1,8 @@
-import React from 'react'
-import DistributionEditForm from '../../components/distributions/DistributionEditForm'
-import Dashboard from '../../components/dashboard/Dashboard'
+import React from 'react';
+import DistributionEditForm from '../../components/distributions/DistributionEditForm';
+import Dashboard from '../../components/dashboard/Dashboard';
 
-const IdealBoulderDistributionPage = () => {
+function IdealBoulderDistributionPage() {
   return (
     <Dashboard>
       <DistributionEditForm
@@ -10,7 +10,7 @@ const IdealBoulderDistributionPage = () => {
         type="boulders"
       />
     </Dashboard>
-  )
+  );
 }
 
-export default IdealBoulderDistributionPage
+export default IdealBoulderDistributionPage;

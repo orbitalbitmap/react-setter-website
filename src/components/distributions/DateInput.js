@@ -1,6 +1,6 @@
-import React from 'react'
+import React from 'react';
 
-const DateInput = (props) => {  
+function DateInput(props) {
   return (
     <input
       className="gray-background date"
@@ -10,7 +10,7 @@ const DateInput = (props) => {
       type="date"
       value={props.climb.dateSet}
     />
-  )
+  );
 }
 
-export default DateInput
+export default DateInput;

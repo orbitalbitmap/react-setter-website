@@ -43,10 +43,10 @@ const SignIn = (props) => {
         navigate('/dashboard', {replace: true})
         break
       case false:
-        console.log('faiulre')
+        console.log('failure')
         break
       default:
-        console.log('faiulre')
+        console.log('failure')
         break
     }
   }

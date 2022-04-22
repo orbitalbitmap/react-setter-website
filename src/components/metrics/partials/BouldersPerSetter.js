@@ -1,6 +1,6 @@
-import { Bar } from 'react-chartjs-2'
+import { Bar } from 'react-chartjs-2';
 
-const BouldersPerSetter = (props) => {
+function BouldersPerSetter(props) {
   const chartData = {
     labels: Object.keys(props.data) || null,
     datasets: [
@@ -8,30 +8,30 @@ const BouldersPerSetter = (props) => {
         data: Object.values(props.data) || null,
         label: 'Total Boulders',
         backgroundColor: 'black',
-        fill: false
+        fill: false,
       },
-    ]
-  }
+    ],
+  };
 
   return (
-      <div>
-        <Bar
-          data={chartData}
-          options={{
-            plugins: {
-              title: {
-                display: true,
-                text: "Boulders Per Setter"
-              },
-              legend: {
-                display: true,
-                position: "bottom"
-              }
-            }
-          }}
-        />
+    <div>
+      <Bar
+        data={chartData}
+        options={{
+          plugins: {
+            title: {
+              display: true,
+              text: 'Boulders Per Setter',
+            },
+            legend: {
+              display: true,
+              position: 'bottom',
+            },
+          },
+        }}
+      />
     </div>
-  )
+  );
 }
 
-export default BouldersPerSetter
+export default BouldersPerSetter;
