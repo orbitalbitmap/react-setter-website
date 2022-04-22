@@ -59,8 +59,8 @@ const SingleGym = () => {
             {
               fullTimeEmployeeList?.map(setter => {
                 return (
-                  <ListItem>
-                    <ListItemText key={`full-time-${setter?.id}`} className="centered-text inside-bullet">
+                  <ListItem key={`full-time-${setter?.id}`}>
+                    <ListItemText className="centered-text inside-bullet">
                       <Link to={`/employees/${setter?.id}`}>{`${setter?.firstName} ${setter?.lastName}`}</Link>
                     </ListItemText>
                   </ListItem>
@@ -74,8 +74,8 @@ const SingleGym = () => {
           {
               partTimeEmployeeList?.map(setter => {
                 return (
-                  <ListItem>
-                    <ListItemText key={`part-time-${setter?.id}`} className="centered-text inside-bullet">
+                  <ListItem key={`part-time-${setter?.id}`}>
+                    <ListItemText className="centered-text inside-bullet">
                       <Link to={`/employees/${setter?.id}`}>{`${setter?.firstName} ${setter?.lastName}`}</Link>
                     </ListItemText>
                   </ListItem>
@@ -99,7 +99,7 @@ const SingleGym = () => {
               bgcolor: theme => theme.palette.primary.light,
             },
           }} >
-          <Link class='centered-text' to={`/admin/location/${gymInfo?.id}`} style={{ color: 'inherit'}}>Edit Gym info</Link>
+          <Link className='centered-text' to={`/admin/location/${gymInfo?.id}`} style={{ color: 'inherit'}}>Edit Gym info</Link>
         </Button>
       </Box>
     );

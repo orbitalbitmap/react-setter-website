@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Box, Container, Grid, Typography } from '@mui/material';
+import { Box, Container, Typography } from '@mui/material';
 
-import GymCard from './GymCard';
+import GymCardContainer from './GymCardsContainer';
 
 const Gyms = (props) => (
   <>
@@ -34,15 +34,7 @@ const Gyms = (props) => (
           m: '0 auto',
           borderRadius: 2,
         }}>
-        <Grid container xs={12} spacing={8} sx={{ m: '0 auto', }}>
-          {
-            props.gyms?.map(gym => {
-              return (
-                <GymCard key={gym.id} gymInfo={gym} />
-              )
-            })
-          }
-        </Grid>
+        <GymCardContainer gyms={props.gym} />
       </Container>
     </Box>
   </>
