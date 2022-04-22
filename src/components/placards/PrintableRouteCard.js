@@ -1,13 +1,13 @@
-import { useReducer } from 'react'
+import { useReducer } from 'react';
 
-import PlacardSelectors from './PlacardSelectors'
-import RoutePlacard from './RoutePlacard'
+import PlacardSelectors from './PlacardSelectors';
+import RoutePlacard from './RoutePlacard';
 
-const PrintableRouteCard = (props) => {
+function PrintableRouteCard(props) {
   const initialState = {
     climb1: {
       grade: null,
-      color: null, 
+      color: null,
       dateSet: null,
       setter: null,
       ropeStyle: null,
@@ -16,7 +16,7 @@ const PrintableRouteCard = (props) => {
     },
     climb2: {
       grade: null,
-      color: null, 
+      color: null,
       dateSet: null,
       setter: null,
       ropeStyle: null,
@@ -25,67 +25,74 @@ const PrintableRouteCard = (props) => {
     },
     climb3: {
       grade: null,
-      color: null, 
+      color: null,
       dateSet: null,
       setter: null,
       ropeStyle: null,
       name: null,
       areteMessage: null,
     },
-  }
+  };
 
   const reducer = (state, action) => {
     switch (action.type) {
       case 'climb1':
         return {
-          ...state, 
-          climb1: 
-            { ...state.climb1, ...action.payload }
-        }
+          ...state,
+          climb1:
+            { ...state.climb1, ...action.payload },
+        };
       case 'climb2':
         return {
-          ...state, 
-          climb2: 
-            { ...state.climb2, ...action.payload }
-        }
+          ...state,
+          climb2:
+            { ...state.climb2, ...action.payload },
+        };
       case 'climb3':
         return {
-          ...state, 
-          climb3: 
-            { ...state.climb3, ...action.payload }
-        }
+          ...state,
+          climb3:
+            { ...state.climb3, ...action.payload },
+        };
       default:
-        return state
+        return state;
     }
-  }
+  };
 
-  const [selectedClimbs, dispatch] = useReducer(reducer, initialState)
+  const [selectedClimbs, dispatch] = useReducer(reducer, initialState);
 
   const handleNonAreteInfo = (event) => {
-    const climbInArray = parseInt(event.target.value) - 1
-    const { color, setter, grade, dateSet, ropeStyle, climbName } = props.distribution[climbInArray]
+    const climbInArray = parseInt(event.target.value) - 1;
+    const {
+      color, setter, grade, dateSet, ropeStyle, climbName,
+    } = props.distribution[climbInArray];
 
-    const dateSetFormatted = new Date(dateSet).toLocaleDateString('en-us')
+    const dateSetFormatted = new Date(dateSet).toLocaleDateString('en-us');
 
-    dispatch({ type: event.target.name, payload: { color, setter, grade, dateSet: dateSetFormatted, ropeStyle, name: climbName } })
-  }
+    dispatch({
+      type: event.target.name,
+      payload: {
+        color, setter, grade, dateSet: dateSetFormatted, ropeStyle, name: climbName,
+      },
+    });
+  };
 
   const handleAreteInfo = (event) => {
-    let areteMessage
+    let areteMessage;
 
     switch (parseInt(event.target.value)) {
       case 2:
-        areteMessage = "Arete on"
-        break
+        areteMessage = 'Arete on';
+        break;
       case 3:
-        areteMessage = "Arete off"
-        break
+        areteMessage = 'Arete off';
+        break;
       default:
-        areteMessage = null
+        areteMessage = null;
     }
 
-    dispatch({ type: event.target.name, payload: { areteMessage } })
-  }
+    dispatch({ type: event.target.name, payload: { areteMessage } });
+  };
 
   return (
     <>
@@ -95,14 +102,14 @@ const PrintableRouteCard = (props) => {
         handleClimbSelector={handleNonAreteInfo}
         handleAreteSelector={handleAreteInfo}
         startingSlotNum={0} // set to zero as the .map in the component starts by adding 1 to it
-        nameList={['climb1','climb2','climb3']}
+        nameList={['climb1', 'climb2', 'climb3']}
         selectorType="route"
       />
 
-      <div className="route-placard-container centered-text"> 
+      <div className="route-placard-container centered-text">
         <div className="route-three-grid-column">
           <RoutePlacard
-            climbs={ selectedClimbs }
+            climbs={selectedClimbs}
             nameList={['climb1', 'climb2', 'climb3']}
           />
         </div>
@@ -112,22 +119,22 @@ const PrintableRouteCard = (props) => {
           </div>
           <div className="route-social-grid">
             <div>
-              <img className="route-instagram-logo" src="/images/Facebook_logo.png" alt="Facbook logo"/>
+              <img className="route-instagram-logo" src="/images/Facebook_logo.png" alt="Facebook logo" />
               <div className="route-insta-handle">Central Rock Worcester</div>
             </div>
             <div>
-              <img className="route-instagram-logo" src="/images/Twitter_colored_logo.png" alt="Twitter logo"/>
+              <img className="route-instagram-logo" src="/images/Twitter_colored_logo.png" alt="Twitter logo" />
               <span className="route-insta-handle">@crgworcester</span>
             </div>
             <div>
-              <img className="route-instagram-logo" src="/images/IG_logo.png" alt="Instagram logo"/>
+              <img className="route-instagram-logo" src="/images/IG_logo.png" alt="Instagram logo" />
               <span className="route-insta-handle">@crgworcester</span>
             </div>
           </div>
         </div>
       </div>
     </>
-  )
+  );
 }
 
-export default PrintableRouteCard
+export default PrintableRouteCard;

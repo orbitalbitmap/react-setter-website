@@ -2,7 +2,7 @@ import { createTheme } from '@mui/material/styles';
 import { grey } from '@mui/material/colors';
 
 const mainBlue = '#202A56';
-const actionBlue ='#364784';
+const actionBlue = '#364784';
 
 export default createTheme({
   palette: {
@@ -15,17 +15,17 @@ export default createTheme({
     primary: {
       main: `${mainBlue}`,
       light: `${actionBlue}`,
-      contrastText: "#fff",
+      contrastText: '#fff',
     },
     secondary: {
       main: `${grey[500]}`,
-    }
+    },
   },
   components: {
     MuiButton: {
-      styleOverrides : {
+      styleOverrides: {
         root: {
-          "&:hover": {
+          '&:hover': {
             backgroundColor: `${actionBlue}`,
           },
         },
@@ -35,43 +35,43 @@ export default createTheme({
       styleOverrides: {
         root: {
           backgroundColor: `${mainBlue}`,
-        }
-      }
+        },
+      },
     },
     MuiListItemText: {
-      styleOverrides : {
+      styleOverrides: {
         root: {
-            color: `#fff`,
+          color: '#fff',
         },
       },
     },
     MuiListItemIcon: {
-      styleOverrides : {
+      styleOverrides: {
         root: {
-            color: `#fff`,
+          color: '#fff',
         },
       },
     },
     MuiDivider: {
-      styleOverrides : {
+      styleOverrides: {
         root: {
-            borderColor: `${grey[500]}`,
+          borderColor: `${grey[500]}`,
         },
-      }
+      },
     },
     MuiTextField: {
       styleOverrides: {
         root: {
-          width: '25rem'
-        }
-      }
+          width: '25rem',
+        },
+      },
     },
     MuiFormControl: {
       styleOverrides: {
         root: {
-          width: '25rem'
-        }
-      }
+          width: '25rem',
+        },
+      },
     },
     MuiIconButton: {
       styleOverrides: {

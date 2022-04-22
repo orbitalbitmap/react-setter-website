@@ -1,9 +1,9 @@
-import React from 'react'
+import React from 'react';
 import {
   BrowserRouter,
   Routes,
   Route,
-} from "react-router-dom";
+} from 'react-router-dom';
 
 // import './styles.css'
 import history from '../history';
@@ -30,7 +30,7 @@ import UpdateEmployeePage from '../pages/employees/UpdateEmployeePage';
 import UpdateLocationPage from '../pages/admin/UpdateLocationInfo';
 import UpdateSectionsPage from '../pages/sections/UpdateSectionsPage';
 
-const App = () => {
+function App() {
   return (
     <div>
       <BrowserRouter history={history}>
@@ -39,14 +39,12 @@ const App = () => {
           <Route exact path="/" element={<LoginPage />} />
           <Route exact path="/dashboard" element={<DashboardPage />} />
 
-
           {/* Admin paths */}
           <Route exact path="/admin" element={<AdminDashboardPage />} />
           <Route exact path="/admin/employee/new" element={<NewEmployeePage />} />
           <Route exact path="/admin/employee/:id" element={<AdminUpdateEmployeePage />} />
           <Route exact path="/admin/location/new" element={<NewGymPage />} />
           <Route exact path="/admin/location/:id" element={<UpdateLocationPage />} />
-
 
           {/* Distribution paths */}
 
@@ -67,10 +65,8 @@ const App = () => {
           <Route exact path="/employees/:id" element={<SingleEmployeePage />} />
           <Route exact path="/employees/edit" element={<UpdateEmployeePage />} />
 
-
           {/* Metric paths */}
           <Route exact path="/metrics/:id" element={<MetricsPage />} />
-
 
           {/* Location paths */}
           <Route exact path="/locations" element={<AllLocations />} />
@@ -83,7 +79,7 @@ const App = () => {
         </Routes>
       </BrowserRouter>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

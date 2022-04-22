@@ -1,13 +1,13 @@
-import React from 'react'
-import UpdateClimbingSections from '../../components/sections/UpdateClimbingSections'
-import Dashboard from '../../components/dashboard/Dashboard'
+import React from 'react';
+import UpdateClimbingSections from '../../components/sections/UpdateClimbingSections';
+import Dashboard from '../../components/dashboard/Dashboard';
 
-const UpdateSectionsPage = () => {
+function UpdateSectionsPage() {
   return (
     <Dashboard>
-      <UpdateClimbingSections /> 
+      <UpdateClimbingSections />
     </Dashboard>
-  )
+  );
 }
 
-export default UpdateSectionsPage
+export default UpdateSectionsPage;
