@@ -5,7 +5,7 @@ const GymCardsContainer = (props) => {
   return (
     <Grid key="gym-card-list-container" container xs={12} spacing={8} sx={{ m: '0 auto', }}>
       {
-        props.gyms?.map(gymInfo => {
+        props?.gyms.map(gymInfo => {
           return (
             <Grid key={gymInfo.id} item sx={{ pb: 4 }}>
               <Paper sx={{ width: '30rem', m: '0 auto', pb: 2, }}>

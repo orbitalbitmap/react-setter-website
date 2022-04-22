@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import EmployeeCard from './EmployeeCard';
-import { Box, Container, Grid, Typography } from '@mui/material';
+import EmployeeCardContainer from './EmployeeCardContainer';
+import { Box, Container, Typography } from '@mui/material';
 
 
 const EmployeeList = () => {
@@ -47,15 +47,7 @@ const EmployeeList = () => {
           m: '0 auto',
           borderRadius: 2,
         }}>
-        <Grid container xs={12} spacing={8} sx={{ m: '0 auto', }}>
-          {
-            employees.map(employee => {
-              return (
-                <EmployeeCard key={employee.id} employeeInfo={employee} />
-              )
-            })
-          }
-        </Grid>
+        <EmployeeCardContainer employees={employees} />
       </Container>
     </Box>
     </>
