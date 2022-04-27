@@ -47,11 +47,12 @@ const AdminDashboard = () => {
         flexGrow: 1,
         height: '100vh',
         overflow: 'auto',
+        m: '0 auto',
       }}
     >
-      <Container maxWidth="50rem" sx={{ mt: '7rem' }} >
-        <Grid container spacing={4} sx={{ margin: '0 auto'}} xs={8}>
-          <Grid item>
+      <Container sx={{ mt: '7rem', mx: 'auto', }}>
+        <Grid container>
+          <Grid item xs={10}>
           <Paper
             sx={{
               p: 2,
@@ -59,6 +60,7 @@ const AdminDashboard = () => {
               flexDirection: 'column',
               color: 'primary.contrastText',
               bgcolor: 'primary.main',
+              mx: 'auto',
             }}
           >
             <Tabs
