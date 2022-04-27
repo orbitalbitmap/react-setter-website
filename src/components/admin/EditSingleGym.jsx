@@ -56,8 +56,8 @@ const EditSingleGym = () => {
         >
           <Typography className="centered-text" variant="h3">Edit {gym.name}'s Gym Information</Typography>
           <Paper className="centered-text" elevation={12} component="div" sx={{ pb: '0.5rem', pt: '1rem' }}>
-            <Grid container xs={11} columnSpacing="4rem" rowSpacing="1rem" sx={{ pl: '1.5rem', m: '0 auto'}}>
-              <Grid item>
+            <Grid container rowSpacing="1rem" sx={{ m: '0 auto'}}>
+              <Grid item xs={6}>
                 <TextField
                   name="address"
                   label="Address:"
@@ -67,7 +67,7 @@ const EditSingleGym = () => {
                 />
               </Grid>
 
-              <Grid item>
+              <Grid item xs={6}>
                 <TextField
                   name="phoneNumber"
                   label="Phone number:"
@@ -76,7 +76,7 @@ const EditSingleGym = () => {
                 />
               </Grid>
 
-              <Grid item>
+              <Grid item xs={6}>
                 <FormControl fullWidth>
                   <InputLabel id="headSetterId">Role</InputLabel>
                   <Select
@@ -89,7 +89,7 @@ const EditSingleGym = () => {
                     {
                       gym.employees.map(employee => {
                         return (
-                          <MenuItem
+                          <MenuItem xs={6}
                             key={employee.id}
                             value={employee.id}
                             sx={{
@@ -105,7 +105,7 @@ const EditSingleGym = () => {
                 </FormControl>
               </Grid>
 
-              <Grid item>
+              <Grid item xs={6}>
                 <TextField
                   name="facebook"
                   label="Facebook:"
@@ -114,7 +114,7 @@ const EditSingleGym = () => {
                 />
               </Grid>
 
-              <Grid item>
+              <Grid item xs={6}>
                 <TextField
                   name="instagram"
                   label="Instagram Account:"
@@ -123,7 +123,7 @@ const EditSingleGym = () => {
                 />
               </Grid>
 
-              <Grid item>
+              <Grid item xs={6}>
                 <TextField
                   name="twitter"
                   label="Twitter Account:"
