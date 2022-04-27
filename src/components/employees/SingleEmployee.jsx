@@ -49,8 +49,7 @@ const SingleEmployee = (props) => {
         top: '0%',
         left: '50%',
         transform: 'translate(-50%, 50%)',
-        // m: '1rem auto',
-        width: '10rem',
+        width: '12rem',
         color: theme => theme.palette.common.black,
         bgcolor: theme => theme.palette.common.white,
           "&:hover": {
@@ -58,7 +57,7 @@ const SingleEmployee = (props) => {
             bgcolor: theme => theme.palette.primary.light,
           },
         }} >
-        <Link className='centered-text' to={`/admin/employee/${employee?.id}`} style={{ color: 'inherit'}}>Edit Gym info</Link>
+        <Link className='centered-text' to={`/admin/employee/${employee?.id}`} style={{ color: 'inherit'}}>Edit Employee's info</Link>
       </Button>
     </Box>
   );

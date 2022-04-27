@@ -95,8 +95,8 @@ const UpdateEmployee = (props) => {
         overflow: 'auto',
       }}
     >
-      <Container maxWidth="50rem" sx={{ mt: '7rem'}} >
-        <Grid container spacing={4} sx={{ margin: '0 auto' }} xs={8}>
+      <Container sx={{ mt: '7rem'}} >
+        <Grid container spacing={4} sx={{ margin: '0 auto' }}>
           <Grid item>
           <Paper
             sx={{
@@ -109,8 +109,8 @@ const UpdateEmployee = (props) => {
           >
           <Typography className="centered-text" variant="h2" sx={{mb: '0.5rem'}} >{`${employee.firstName}'s Info`}</Typography>
           <Paper className="centered-text" elevation={12} component="div" sx={{ pb: '0.5rem', pt: '1rem' }}>
-            <Grid container columnSpacing="4rem" rowSpacing="1rem" sx={{ pl: '1.5rem' }}>
-              <Grid item>
+            <Grid container rowSpacing="1rem">
+              <Grid item xs={6}>
                 <TextField
                   name="firstName"
                   label="First Name"
@@ -120,7 +120,7 @@ const UpdateEmployee = (props) => {
                 />
               </Grid>
 
-              <Grid item>
+              <Grid item xs={6}>
                 <TextField
                   name="lastName"
                   label="Last Name"
@@ -130,7 +130,7 @@ const UpdateEmployee = (props) => {
                 />
               </Grid>
 
-              <Grid item>
+              <Grid item xs={6}>
                 <TextField
                   name="placardName"
                   label="Name on placard"
@@ -139,7 +139,7 @@ const UpdateEmployee = (props) => {
                 />
               </Grid>
 
-              <Grid item>
+              <Grid item xs={6}>
                 <TextField
                   name="email"
                   label="Email"
@@ -152,7 +152,7 @@ const UpdateEmployee = (props) => {
                 />
               </Grid>
 
-              <Grid item>
+              <Grid item xs={6}>
                 <TextField
                   name="password"
                   label="Password"
@@ -162,7 +162,7 @@ const UpdateEmployee = (props) => {
                 />
               </Grid>
 
-              <Grid item>
+              <Grid item xs={6}>
                 <TextField
                   name="phoneNumber"
                   label="Phone Number #"
@@ -171,8 +171,8 @@ const UpdateEmployee = (props) => {
                 />
               </Grid>
               
-                <Grid item>
-                  <FormControl fullWidth>
+                <Grid item xs={6}>
+                  <FormControl>
                     <InputLabel id="role-label">Role</InputLabel>
                     <Select
                     name="roleId"
