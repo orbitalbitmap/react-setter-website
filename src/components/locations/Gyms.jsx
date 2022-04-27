@@ -5,6 +5,7 @@ import { Box, Container, Typography } from '@mui/material';
 import GymCardContainer from './GymCardsContainer';
 
 const Gyms = (props) => (
+  
   <>
     <Box
       sx={{
@@ -34,7 +35,7 @@ const Gyms = (props) => (
           m: '0 auto',
           borderRadius: 2,
         }}>
-        <GymCardContainer gyms={props.gym} />
+        <GymCardContainer />
       </Container>
     </Box>
   </>
