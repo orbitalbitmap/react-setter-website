@@ -1,7 +1,9 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { Box, Grid } from '@mui/material';
+import SectionCardsContainer from './SectionCardsContainer';
+
 
 const AllClimbingSections = () => {
   const [gyms, setGyms] = useState([]);
@@ -16,45 +18,24 @@ const AllClimbingSections = () => {
     getInfo();
   }, []);
 
-  const renderSections = (name, sections) => sections.map(section => (
-    <li key={`${name}-${section.name}`} className="centered-text inside-bullet">{section.name}</li>
-  ));
-
-  return gyms.map(gym => (
-    <React.Fragment key={`${gym.name}-sections`}>
-      <h1 className="centered-text">{gym.name}</h1>
-
-      <div className="location-grid">
-        <div className="boulder-locations">
-          <h3 className="centered-text">Boulder sections</h3>
-          <ul>
-            {
-              gym.boulderSections.length > 0
-                ? renderSections(gym.name, gym.boulderSections)
-                : (<p className="centered-text">No boulder sections found</p>)
-            }
-          </ul>
-        </div>
-
-        <div className="rope-locations">
-          <h3 className="centered-text">Rope sections</h3>
-          <ul>
-            {
-              gym.routeSections.length > 0
-                ? renderSections(gym.name, gym.boulderSections)
-                : (<p className="centered-text">No route sections found</p>)
-            }
-          </ul>
-        </div>
-
-        <div>
-          <h4 className="centered-text">
-            <Link to={`/sections/edit/${gym.id}`}>Edit All Section Names</Link>
-          </h4>
-        </div>
-      </div>
-    </React.Fragment>
-  ));
+  return (
+  <Grid key="gym-card-list-container" container sx={{ m: '0 auto', }}>
+  {
+    gyms?.map(gym => {
+      return (
+        <SectionCardsContainer
+          key={gym.id}
+          boulderSections={gym.boulderSections}
+          routeSections={gym.routeSections}
+          gymName={gym.name}
+        />
+      )
+      })
+      
+      }
+  </Grid>
+  )
 };
 
-export default connect(null, {})(AllClimbingSections);
+
+export default AllClimbingSections

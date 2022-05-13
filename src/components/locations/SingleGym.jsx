@@ -1,7 +1,8 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { Box, Button, Container, List, ListItem, ListItemText, Typography } from '@mui/material';
+import { connect } from 'react-redux';
+import { Box, Button, Container, Link as MUILink, List, ListItem, ListItemText, Typography } from '@mui/material';
 
 const SingleGym = () => {
   const urlParams = useParams()
@@ -37,6 +38,9 @@ const SingleGym = () => {
       }}>
         <Typography variant="h3" className="centered-text" sx={{ py: 2, color: theme => theme.palette.common.white, }}>{gymInfo.name}</Typography>
         <Container style={{ overflowY: 'scroll', height: '40rem' }} sx={{ borderRadius: 2, bgcolor: theme => theme.palette.common.white}}>
+          <Link to="/sections">
+              Sections
+          </Link>
           <Typography variant="h6" className="centered-text">{gymInfo.address}</Typography>
           <Typography variant="h6" className="centered-text">{gymInfo.phoneNumber}</Typography>
           <Typography variant="h6" className="centered-text">{`Facebook: ${gymInfo.facebook !== null ? gymInfo.facebook : 'None available'}`}</Typography>
@@ -105,4 +109,10 @@ const SingleGym = () => {
     );
   }
 
-export default SingleGym;
+  const mapStateToProps = (state) => {
+    return {
+      gyms: state.gyms
+    };
+  }
+
+export default connect(mapStateToProps, {})(SingleGym);

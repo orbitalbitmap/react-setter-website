@@ -6,7 +6,7 @@ import Dashboard from '../../components/dashboard/Dashboard';
 function AllLocationsAndSections(props) {
   return (
     <Dashboard>
-      {props.gyms ? <AllClimbingSections /> : null}
+      <AllClimbingSections />
     </Dashboard>
   );
 }
