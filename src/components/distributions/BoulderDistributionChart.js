@@ -150,7 +150,7 @@ const BoulderDistributionChart = () => {
                   sectionDistribution.map(climb => {
                     return (
                       <React.Fragment key={`table-row-${climb.id}`}>
-                        <tr className={`climb${climb.id} distribution-tr ${climb.color.toLowerCase()}`}>
+                        <tr className={`climb${climb.id} distribution-tr ${climb?.color.toLowerCase()}`}>
                           <td className="distribution-td">
                             <SelectionContainer
                               climb={climb}
@@ -200,7 +200,7 @@ const BoulderDistributionChart = () => {
                           </td>
 
                           {/* //- 86400000 milliseconds in a day */}
-                          <td className={`climb${climb.id} distribution-td ${climb.color.toLowerCase()}`}>{Math.floor((today - Date.parse(climb.dateSet)) / (86400000))}</td>
+                          <td className={`climb${climb.id} distribution-td ${climb?.color.toLowerCase()}`}>{Math.floor((today - Date.parse(climb.dateSet)) / (86400000))}</td>
                         </tr>
                       </React.Fragment>
                     )

@@ -198,7 +198,7 @@ const PrintableBoulderCard = (props) => {
 
   return (
     <>
-      <span className='boulders-per-climb'>
+      <span className='boulders-per-climb noprint'>
         <label >Climbs per placards: </label>
         <select className="boulder-selectors-box" onChange={handleNumberOfClimbChange} defaultValue="3">
           <option value="1">1 climbs</option>
