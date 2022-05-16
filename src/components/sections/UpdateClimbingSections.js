@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { Box, Button, Container, Typography} from '@mui/material'
 
 function UpdateClimbingSections() {
   const urlParams = useParams();
@@ -77,8 +78,9 @@ function UpdateClimbingSections() {
   ));
 
   return (
-    <>
+    <Container sx={{ mt: 6 }}>
       <h1 className="centered-text">{gym.name}</h1>
+      <Box sx={{ display: 'flex', flexDirection: 'row', }}>
       <form className="editable-section-form">
         <h1 className="centered-text">Ropes</h1>
         <div className="section-details" id="route-sections">
@@ -110,7 +112,8 @@ function UpdateClimbingSections() {
           <button className="section-button" name="Boulder" onClick={handleSubmit} type="submit">Save Info</button>
         </div>
       </form>
-    </>
+      </Box>
+    </Container>
   );
 }
 
