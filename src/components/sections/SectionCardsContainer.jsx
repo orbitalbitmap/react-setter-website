@@ -37,8 +37,6 @@ const SectionCardsContainer = ({ boulderSections, routeSections, gymName, gymId 
   const getRenderedSections = (sectionList, sectionType) => {
     return sectionList.length ? renderSections(boulderSections, sectionType) : renderNoSection(sectionType)
   }
-
-  console.log()
   
   return (
       <Box
@@ -53,6 +51,7 @@ const SectionCardsContainer = ({ boulderSections, routeSections, gymName, gymId 
             variant="h4"
             className="centered-text"
             sx={{
+              pt: 1,
               color: theme => theme.palette.primary.contrastText
             }}
           >
