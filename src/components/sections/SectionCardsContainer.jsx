@@ -40,47 +40,47 @@ const SectionCardsContainer = ({ boulderSections, routeSections, gymName, gymId 
   }
   
   return (
-      <Box
-        sx={{
-          bgcolor: theme => theme.palette.primary.main,
-          borderRadius: 2,
-          mt: 2,
-          pb: 1,
-        }}
-      >    
-        <Link to={`/locations/${gymId}`} style={{ textDecoration: 'none' }}>
-          <Typography
-            variant="h4"
-            className="centered-text"
-            sx={{
-              pt: 1,
-              color: theme => theme.palette.primary.contrastText
-            }}
-          >
-            {gymName}
-          </Typography>
-        </Link>
+    <Box
+      sx={{
+        bgcolor: theme => theme.palette.primary.main,
+        borderRadius: 2,
+        mt: 2,
+        pb: 1,
+      }}
+    >    
+      <Link to={`/locations/${gymId}`} style={{ textDecoration: 'none' }}>
+        <Typography
+          variant="h4"
+          className="centered-text"
+          sx={{
+            pt: 1,
+            color: theme => theme.palette.primary.contrastText
+          }}
+        >
+          {gymName}
+        </Typography>
+      </Link>
 
-        <Paper sx={{ m: 2, py: 1 }}>
-          <span style={{ position: 'relative', margin: 0, left: '0.75rem', }}>
-            <Link to={`/sections/edit/${gymId}`}>Edit sections</Link>
-          </span>
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: stateFlexDirection,
-              justifyContent: 'space-evenly',
-            }}
-          >
-            {
-              getRenderedSections(boulderSections, "Boulder")
-            }
-            {
-              getRenderedSections(routeSections, "Route")
-            }
-          </div>
-        </Paper>
-      </Box>
+      <Paper sx={{ m: 2, py: 1 }}>
+        <span style={{ position: 'relative', margin: 0, left: '0.75rem', }}>
+          <Link to={`/sections/edit/${gymId}`}>Edit sections</Link>
+        </span>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: stateFlexDirection,
+            justifyContent: 'space-evenly',
+          }}
+        >
+          {
+            getRenderedSections(boulderSections, "Boulder")
+          }
+          {
+            getRenderedSections(routeSections, "Route")
+          }
+        </div>
+      </Paper>
+    </Box>
   )
 }
 
