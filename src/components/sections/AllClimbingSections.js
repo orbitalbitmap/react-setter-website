@@ -1,9 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Box, Grid } from '@mui/material';
 import SectionCardsContainer from './SectionCardsContainer';
-
+import { Masonry } from '@mui/lab'
 
 const AllClimbingSections = () => {
   const [gyms, setGyms] = useState([]);
@@ -19,23 +17,22 @@ const AllClimbingSections = () => {
   }, []);
 
   return (
-  <Grid key="gym-card-list-container" container sx={{ m: '0 auto', }}>
-  {
-    gyms?.map(gym => {
-      return (
-        <SectionCardsContainer
-          key={gym.id}
-          boulderSections={gym.boulderSections}
-          routeSections={gym.routeSections}
-          gymName={gym.name}
-        />
-      )
-      })
-      
+    <Masonry columns={2} spacing={4} sx={{ m: '5rem auto 1rem auto', width: '80%' }}>
+      {
+        gyms?.map(gym => {
+          return (
+            <SectionCardsContainer
+              key={gym.id}
+              boulderSections={gym.boulderSections}
+              routeSections={gym.routeSections}
+              gymName={gym.name}
+              gymId={gym.id}
+            />
+          )
+        })
       }
-  </Grid>
+    </Masonry>  
   )
 };
-
 
 export default AllClimbingSections
