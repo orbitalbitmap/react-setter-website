@@ -32,7 +32,7 @@ const SpecificGymSection = () => {
   }, [urlParams])
 
   return gym.id 
-    ?  renderInfo()
+    ? renderInfo()
     : null
 }
 
