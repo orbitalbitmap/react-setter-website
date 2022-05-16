@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Box, Button, Container, Link as MUILink, List, ListItem, ListItemText, Typography } from '@mui/material';
+import { Box, Button, Container, List, ListItem, ListItemText, Typography } from '@mui/material';
 
 const SingleGym = () => {
   const urlParams = useParams()
