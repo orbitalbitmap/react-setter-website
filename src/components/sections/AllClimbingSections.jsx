@@ -17,7 +17,7 @@ const AllClimbingSections = () => {
   }, []);
 
   return (
-    <Masonry columns={2} spacing={4} sx={{ m: '5rem auto 1rem auto', width: '80%' }}>
+    <Masonry columns={2} spacing={4} sx={{ m: '5rem auto 1rem auto', width: '90%' }}>
       {
         gyms?.map(gym => {
           return (

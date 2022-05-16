@@ -24,9 +24,9 @@ const SectionCardsContainer = ({ boulderSections, routeSections, gymName, gymId 
   const renderNoSection = (sectionType) => {
     if (stateFlexDirection !== "column") setStateFlexDirection('column');
     return (
-      <List sx={{ bgcolor: theme=> theme.palette.common.white, }}>
+      <List sx={{ bgcolor: theme=> theme.palette.common.white, p: 0, }}>
         <ListItem style={{ marginBottom: '.25rem' }}>
-          <ListItemText sx={{color: theme => theme.palette.common.black, textAlign: 'center', }}>
+          <ListItemText className="centered-text" sx={{color: theme => theme.palette.common.black, }}>
             No {sectionType.toLowerCase()} sections found.
           </ListItemText>
         </ListItem>
@@ -45,18 +45,16 @@ const SectionCardsContainer = ({ boulderSections, routeSections, gymName, gymId 
         sx={{
           bgcolor: theme => theme.palette.primary.main,
           borderRadius: 2,
-          mt: 12,
-          mx: 'auto',
-          p: 1,
-          width: '50%',
-        }}
-        style={{
+          mt: 2,
         }}
       >    
         <Link to={`/locations/${gymId}`} style={{ textDecoration: 'none' }}>
-          <Typography variant="h4" sx={{
-            textAlign: 'center',
-            color: theme => theme.palette.primary.contrastText}}
+          <Typography
+            variant="h4"
+            className="centered-text"
+            sx={{
+              color: theme => theme.palette.primary.contrastText
+            }}
           >
             {gymName}
           </Typography>
@@ -67,10 +65,7 @@ const SectionCardsContainer = ({ boulderSections, routeSections, gymName, gymId 
             style={{
               display: 'flex',
               flexDirection: stateFlexDirection,
-              flexGrow: 1,
-              flexWrap: 'wrap',
               justifyContent: 'space-evenly',
-              textAlign: 'center',
             }}
           >
             {
