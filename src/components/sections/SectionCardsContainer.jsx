@@ -4,6 +4,7 @@ import { Box, Paper, Typography, List, ListItem, ListItemText  } from '@mui/mate
 
 const SectionCardsContainer = ({ boulderSections, routeSections, gymName, gymId }) => {
   const [stateFlexDirection, setStateFlexDirection] = useState('row')
+  
   const renderSections = (sectionList, sectionType) => {
     return ( 
       <List sx={{ bgcolor: theme=> theme.palette.common.white,  }}>
@@ -35,7 +36,7 @@ const SectionCardsContainer = ({ boulderSections, routeSections, gymName, gymId 
   }
 
   const getRenderedSections = (sectionList, sectionType) => {
-    return sectionList.length ? renderSections(boulderSections, sectionType) : renderNoSection(sectionType)
+    return sectionList.length ? renderSections(sectionList, sectionType) : renderNoSection(sectionType)
   }
   
   return (
@@ -61,6 +62,9 @@ const SectionCardsContainer = ({ boulderSections, routeSections, gymName, gymId 
         </Link>
 
         <Paper sx={{ m: 2, py: 1 }}>
+          <span style={{ position: 'relative', margin: 0, left: '0.75rem', }}>
+            <Link to={`/sections/edit/${gymId}`}>Edit sections</Link>
+          </span>
           <div
             style={{
               display: 'flex',
