@@ -44,6 +44,7 @@ const SectionCardsContainer = ({ boulderSections, routeSections, gymName, gymId 
           bgcolor: theme => theme.palette.primary.main,
           borderRadius: 2,
           mt: 2,
+          pb: 1,
         }}
       >    
         <Link to={`/locations/${gymId}`} style={{ textDecoration: 'none' }}>
