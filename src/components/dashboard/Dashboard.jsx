@@ -70,7 +70,7 @@ function DashboardContent(props) {
   };
 
   return (
-      <Box sx={{ display: 'flex' }}>
+      <Box sx={{ display: 'flex', }}>
         <AppBar position="absolute" open={open}>
           <Toolbar
             sx={{
@@ -101,12 +101,12 @@ function DashboardContent(props) {
           </Toolbar>
         </AppBar>
 
-        <Drawer variant="permanent" open={open} sx={{ height: '100vh'}} PaperProps={{ sx: { bgcolor: '#202A56' } }}>
+        <Drawer variant="permanent" open={open} sx={{ height: '100%', position: 'fixed', zIndex: 999}} PaperProps={{ sx: { bgcolor: '#202A56' } }}>
           <Toolbar
             sx={{
               display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'flex-end',
+              // alignItems: 'center',
+              // justifyContent: 'flex-end',
               px: [1],
             }}
           >
