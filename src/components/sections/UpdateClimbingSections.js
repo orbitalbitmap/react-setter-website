@@ -40,8 +40,7 @@ function UpdateClimbingSections() {
       ? gym.boulderSections
       : gym.routeSections;
 
-
-      await axios.post(`${process.env.REACT_APP_API_PATH}/update${type}SectionNames`, { gymId, sectionToUpdate });
+    await axios.post(`${process.env.REACT_APP_API_PATH}/update${type}SectionNames`, { gymId, sectionToUpdate });
   };
 
   const addNewSection = (event, sectionType) => {
