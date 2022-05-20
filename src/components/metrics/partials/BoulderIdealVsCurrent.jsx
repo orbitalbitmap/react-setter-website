@@ -1,3 +1,4 @@
+import { Box } from '@mui/material';
 import { Bar } from 'react-chartjs-2';
 
 function BoulderIdealVsCurrent(props) {
@@ -64,7 +65,7 @@ function BoulderIdealVsCurrent(props) {
   };
 
   return (
-    <div>
+    <Box>
       <Bar
         data={chartData}
         options={{
@@ -80,7 +81,7 @@ function BoulderIdealVsCurrent(props) {
           },
         }}
       />
-    </div>
+    </Box>
   );
 }
 

@@ -1,3 +1,4 @@
+import { Box } from '@mui/material';
 import { Bar } from 'react-chartjs-2';
 
 function RouteIdealVsCurrent(props) {
@@ -78,7 +79,7 @@ function RouteIdealVsCurrent(props) {
   };
 
   return (
-    <div>
+    <Box>
       <Bar
         data={chartData}
         options={{
@@ -94,7 +95,7 @@ function RouteIdealVsCurrent(props) {
           },
         }}
       />
-    </div>
+    </Box>
   );
 }
 

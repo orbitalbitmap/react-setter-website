@@ -1,12 +1,13 @@
+import { Box } from '@mui/material';
 import { Bar } from 'react-chartjs-2';
 
-function RoutesPerSetter(props) {
+function BouldersPerSetter(props) {
   const chartData = {
     labels: Object.keys(props.data) || null,
     datasets: [
       {
         data: Object.values(props.data) || null,
-        label: 'Total Routes',
+        label: 'Total Boulders',
         backgroundColor: 'black',
         fill: false,
       },
@@ -14,14 +15,14 @@ function RoutesPerSetter(props) {
   };
 
   return (
-    <div>
+    <Box>
       <Bar
         data={chartData}
         options={{
           plugins: {
             title: {
               display: true,
-              text: 'Routes Per Setter',
+              text: 'Boulders Per Setter',
             },
             legend: {
               display: true,
@@ -30,8 +31,8 @@ function RoutesPerSetter(props) {
           },
         }}
       />
-    </div>
+    </Box>
   );
 }
 
-export default RoutesPerSetter;
+export default BouldersPerSetter;
