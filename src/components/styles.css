@@ -386,9 +386,7 @@ body {
 }
 
 .distribution-holder {
-  width: 95%;
-  overflow-x: scroll;
-  margin: 0 auto;
+  width: 100%;
 }
 
 #distribution-form {
@@ -421,7 +419,7 @@ body {
 .distribution-table {
   border-collapse: collapse;
   margin: 0 auto;
-  width: 95%;
+  width: 100%;
 }
 
 .distribution-td {
@@ -613,11 +611,10 @@ body {
   display: flex;
   gap: 0.25rem;
   flex-direction: column;
-  left: 55rem;
   margin-bottom: 0.5rem;
-  position: relative;
   text-align: right;
   width: 11rem;
+  margin-left: auto;
 }
 
 .date-updater {
