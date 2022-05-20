@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Box, Button, Container, Typography} from '@mui/material'
+import { Box, Button, Container, TextField, Typography} from '@mui/material'
 
 function UpdateClimbingSections() {
   const urlParams = useParams();
@@ -18,10 +18,9 @@ function UpdateClimbingSections() {
     getInfo();
   }, [gymId]);
 
-  const handleChange = (event) => {
-    const sectionType = event.target.dataset.sectiontype;
+  const handleChange = (event, sectionType, gymId) => {
     const updatedSectionList = [...gym[sectionType]];
-    const updatedSectionId = parseInt(event.target.dataset.gymid) - 1;
+    const updatedSectionId = parseInt(gymId) - 1;
 
     updatedSectionList[updatedSectionId] = {
       ...updatedSectionList[updatedSectionId],
@@ -41,13 +40,12 @@ function UpdateClimbingSections() {
       ? gym.boulderSections
       : gym.routeSections;
 
-    await axios.post(`${process.env.REACT_APP_API_PATH}/update${type}SectionNames`, { gymId, sectionToUpdate });
+
+      await axios.post(`${process.env.REACT_APP_API_PATH}/update${type}SectionNames`, { gymId, sectionToUpdate });
   };
 
-  const addNewSection = (event) => {
-    const sectionType = event.target.dataset.sectiontype;
+  const addNewSection = (event, sectionType) => {
     const newSectionId = gym[sectionType].length + 1;
-
     const updatedGym = { ...gym };
 
     updatedGym[sectionType] = [
@@ -63,55 +61,51 @@ function UpdateClimbingSections() {
   };
 
   const renderSectionForm = (sections, type) => sections.map(section => (
-    <div key={`${type}-section-${section.id}`} className="gym-section-grid">
-      <input className="hidden" name="id" value={section.id} disabled />
-      <label htmlFor="name">Name:</label>
-      <input
-        onChange={handleChange}
-        name="name"
+    <Box key={`${type}-section-${section.id}`}>
+      <TextField
+        label="Name"
+        variant="outlined"
+        onChange={(event) => { handleChange(event, `${type}Sections`, section.id) }}
         value={section.name !== null ? section.name : ''}
-        data-sectiontype={`${type}Sections`}
-        data-gymid={section.id}
         placeholder="Enter section name..."
       />
-    </div>
+    </Box>
   ));
 
   return (
-    <Container sx={{ mt: 6 }}>
-      <h1 className="centered-text">{gym.name}</h1>
-      <Box sx={{ display: 'flex', flexDirection: 'row', }}>
-      <form className="editable-section-form">
-        <h1 className="centered-text">Ropes</h1>
-        <div className="section-details" id="route-sections">
-          {
-            gym.routeSections
-              ? renderSectionForm(gym.routeSections, 'route')
-              : (<h2>No Route Sections Found.</h2>)
-          }
-        </div>
+    <Container maxWidth="lg" sx={{ bgcolor: theme => theme.palette.primary.main, mt: 12, mb: 6, minHeight: '40rem', borderRadius: '8px', p: 3}}>
+      <Typography variant="h2" className="centered-text" sx={{ color: theme => theme.palette.common.white, mb: 2, }}>{gym.name}</Typography>
+      <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', bgcolor: theme => theme.palette.common.white, p: 2 }}>
+        <Container className="centered-text">
+          <Typography variant="h3" sx={{ mb: 2, }}>Ropes</Typography>
+          <Box className="section-details" id="route-sections">
+            {
+              gym.routeSections
+                ? renderSectionForm(gym.routeSections, 'route')
+                : (<h2>No Route Sections Found.</h2>)
+            }
+          </Box>
 
-        <div className="section-button-container">
-          <button className="section-button" type="button" onClick={addNewSection} data-sectiontype="routeSections">Add New Section</button>
-          <button className="section-button" name="Route" onClick={handleSubmit} type="submit">Save Info</button>
-        </div>
-      </form>
+          <Box sx={{ textAlign: 'center' }}>
+            <Button variant="contained" type="button" onClick={(event) => { addNewSection(event, 'routeSections') }} sx={{ mr: '0.75rem', mt: '1rem', }}>Add New Section</Button>
+            <Button variant="contained" name="Route" onClick={handleSubmit} type="submit" sx={{ mt: '1rem', }}>Save Info</Button>
+          </Box>
+        </Container>
 
-      <form className="editable-section-form">
-        <input className="hidden" name="gymId" value={gym.id} disabled />
-        <h1 className="centered-text">Boulders</h1>
-        <div className="section-details" id="boulder-sections">
-          {
-            gym.boulderSections
-              ? renderSectionForm(gym.boulderSections, 'boulder')
-              : (<h2>No Boulder Sections Found.</h2>)
-          }
-        </div>
-        <div className="section-button-container">
-          <button className="section-button" type="button" onClick={addNewSection} data-sectiontype="boulderSections">Add New Section</button>
-          <button className="section-button" name="Boulder" onClick={handleSubmit} type="submit">Save Info</button>
-        </div>
-      </form>
+        <Container className="centered-text">
+          <Typography variant="h3" sx={{ mb: 2, }}>Boulders</Typography>
+          <Box className="section-details" id="boulder-sections">
+            {
+              gym.boulderSections
+                ? renderSectionForm(gym.boulderSections, 'boulder')
+                : (<h2>No Boulder Sections Found.</h2>)
+            }
+          </Box>
+          <Box className="centered-text">
+            <Button variant="contained" onClick={(event) => { addNewSection(event, 'boulderSections') }} sx={{ mr: '0.75rem', mt: '1rem', }}>Add New Section</Button>
+            <Button variant="contained" name="Boulder" onClick={handleSubmit} type="submit" sx={{ mt: '1rem', }}>Save Info</Button>
+          </Box>
+        </Container>
       </Box>
     </Container>
   );
