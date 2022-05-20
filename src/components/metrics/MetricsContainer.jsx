@@ -8,6 +8,7 @@ import BouldersPerColor from './partials/BouldersPerColor';
 import RouteIdealVsCurrent from './partials/RouteIdealVsCurrent';
 import RoutesPerSetter from './partials/RoutesPerSetter';
 import RoutesPerColor from './partials/RoutesPerColor';
+import { Box, Container, Typography } from '@mui/material';
 
 function MetricsContainer() {
   const urlParams = useParams();
@@ -26,48 +27,48 @@ function MetricsContainer() {
   }, [urlParams]);
 
   return (
-    <>
-      <h1 className="centered-text">
+    <Container sx={{ mt: 12 }}>
+      <Typography className="centered-text" variant="h3">
         {gymName}
         {' '}
         Metrics
-      </h1>
+      </Typography>
 
-      <div className="idealVsCurrent-wrapper centered-text">
+      <Box className="idealVsCurrent-wrapper centered-text">
         {
           metrics.boulderSetterCount
             ? <BouldersPerSetter data={metrics.boulderSetterCount} />
-            : <h2 className="centered-text">No Data Found For Setters Per Boulders</h2>
+            : <Typography className="centered-text" variant="h6" >No Data Found For Setters Per Boulders</Typography>
         }
-      </div>
+      </Box>
 
-      <div className="idealVsCurrent-wrapper centered-text">
+      <Box className="idealVsCurrent-wrapper centered-text">
         {
           metrics.routeSetterCount
             ? <RoutesPerSetter data={metrics.routeSetterCount} />
-            : <h2 className="centered-text">No Data Found For Setters Per Routes</h2>
+            : <Typography className="centered-text" variant="h6" >No Data Found For Setters Per Routes</Typography>
         }
-      </div>
+      </Box>
 
-      <div className="idealVsCurrent-wrapper centered-text">
+      <Box className="idealVsCurrent-wrapper centered-text">
         {
           metrics.boulderColorCount
             ? <BouldersPerColor data={metrics.boulderColorCount} />
-            : <h2 className="centered-text">No Data Found For Boulders Per Color</h2>
+            : <Typography className="centered-text" variant="h6" >No Data Found For Boulders Per Color</Typography>
         }
-      </div>
+      </Box>
 
       {/* r/color */}
-      <div className="idealVsCurrent-wrapper centered-text">
+      <Box className="idealVsCurrent-wrapper centered-text">
         {
           metrics.routeColorCount
             ? <RoutesPerColor data={metrics.routeColorCount} />
-            : <h2 className="centered-text">No Data Found For Setters Per Routes</h2>
+            : <Typography className="centered-text" variant="h6" >No Data Found For Setters Per Routes</Typography>
         }
-      </div>
+      </Box>
 
       {/* ideal vs current boulder */}
-      <div className="idealVsCurrent-wrapper centered-text">
+      <Box className="idealVsCurrent-wrapper centered-text">
         {
           metrics.boulderSetterCount
             ? (
@@ -78,12 +79,12 @@ function MetricsContainer() {
                 }}
               />
             )
-            : <h2 className="centered-text">No Data Found For Setters Per Routes</h2>
+            : <Typography className="centered-text" variant="h6" >No Data Found For Setters Per Routes</Typography>
         }
-      </div>
+      </Box>
 
       {/* ideal vs current rope */}
-      <div className="idealVsCurrent-wrapper centered-text">
+      <Box className="idealVsCurrent-wrapper centered-text">
         {
           metrics.currentRouteGradeCount && metrics.idealRouteGradeCount
             ? (
@@ -94,10 +95,10 @@ function MetricsContainer() {
                 }}
               />
             )
-            : <h2 className="centered-text">No Data Found For Setters Per Routes</h2>
+            : <Typography className="centered-text" variant="h6" >No Data Found For Setters Per Routes</Typography>
         }
-      </div>
-    </>
+      </Box>
+    </Container>
   );
 }
 
