@@ -4,7 +4,7 @@ import React from 'react'
 const SectionsList = (props) => {
   return (
   <Box>
-    <FormControl>
+    <FormControl sx={{ width: '15rem' }}>
       <InputLabel>Section</InputLabel>
       <Select
         label="Section"

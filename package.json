@@ -8,6 +8,7 @@
     "@mui/icons-material": "^5.5.0",
     "@mui/lab": "^5.0.0-alpha.81",
     "@mui/material": "^5.5.0",
+    "@mui/x-data-grid": "^5.11.1",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
@@ -51,5 +52,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "react-error-overlay": "^6.0.9"
   }
 }
