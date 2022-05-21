@@ -11,9 +11,6 @@ import reducers from './reducers';
 import theme from './utils/theme';
 // import history from './history'
 
-if (module.hot) {
-  module.hot.accept();
-}
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(

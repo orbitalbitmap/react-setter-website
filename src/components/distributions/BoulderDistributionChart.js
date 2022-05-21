@@ -118,7 +118,7 @@ const handleDateSetChange = async (event, index) => {
   }, [distribution, currentSection])
 
   return (
-    <Box sx={{ m: '0 auto', mt: '5rem', width: '80rem' }}>
+    <Box sx={{ m: '0 auto', mt: '5rem', width: '90rem' }}>
         <Typography  variant="h4" sx={{ mb: 4 }} className="centered-text">Distribution Spread for {gymName}</Typography>
 
         <Box sx={{ display: 'flex', flexDirection: 'row', }}>
@@ -154,18 +154,30 @@ const handleDateSetChange = async (event, index) => {
             <Table className="distribution-table">
               <TableHead>
                 <TableRow className="distribution-tr">
-                  <TableCell className="distribution-th"> Grade</TableCell>
-                  <TableCell className="distribution-th">Color</TableCell>
-                  <TableCell className="distribution-th">Setter</TableCell>
-                  <TableCell className="distribution-th">Location</TableCell>
-                  <TableCell className="distribution-th">Date</TableCell>
-                  <TableCell className="distribution-th">Days Old</TableCell>
+                  <TableCell className="distribution-th" sx={{ color: 'white', textAlign: 'center', fontSize: '1.25rem',  }}> Grade</TableCell>
+                  <TableCell className="distribution-th" sx={{ color: 'white', textAlign: 'center', fontSize: '1.25rem',  }}>Color</TableCell>
+                  <TableCell className="distribution-th" sx={{ color: 'white', textAlign: 'center', fontSize: '1.25rem',  }}>Setter</TableCell>
+                  <TableCell className="distribution-th" sx={{ color: 'white', textAlign: 'center', fontSize: '1.25rem',  }}>Location</TableCell>
+                  <TableCell className="distribution-th" sx={{ color: 'white', textAlign: 'center', fontSize: '1.25rem',  }}>Date</TableCell>
+                  <TableCell className="distribution-th" sx={{ color: 'white', textAlign: 'center', fontSize: '1.25rem',  }}>Days Old</TableCell>
                 </TableRow>
               </TableHead>
               
               <TableBody>
                 {
-                  sectionDistribution.map((climb, index) => {
+                  sectionDistribution.map((climb) => {
+                    let fontColor = 'black';
+                    switch(climb.color) {
+                      case 'Green':
+                      case 'Blue':
+                      case 'Purple':
+                      case 'Black':
+                        fontColor = '#fff';
+                        break;
+                      default:
+                        fontColor = 'black';
+                        break;
+                    }
                     return (
                       <React.Fragment key={`table-row-${climb.id}`}>
                         <TableRow className={`climb${climb.id} distribution-tr ${climb?.color.toLowerCase()}`}>
@@ -173,7 +185,6 @@ const handleDateSetChange = async (event, index) => {
                             <SelectionContainer
                               handleChange={handleChange}
                               value={climb.grade}
-                              index={index}
                               name="grade"
                               list={['VB', 'V0', 'V1', 'V2', 'V3', 'V4', 'V5', 'V6', 'V7', 'V8', 'V9', 'V10', 'V11', 'V12', 'V13', 'V14', 'V15', 'V16', 'V17']}
                               id={climb.id}
@@ -185,7 +196,6 @@ const handleDateSetChange = async (event, index) => {
                             <SelectionContainer
                               handleChange={handleChange}
                               value={climb.color}
-                              index={index}
                               name="color"
                               list={['White', 'Green', 'Black', 'Orange', 'Blue', 'Yellow', 'Red', 'Purple', 'Tan', 'Pink']}
                               id={climb.id}
@@ -222,9 +232,10 @@ const handleDateSetChange = async (event, index) => {
                           {/* //- 86400000 milliseconds in a day */}
                           <TableCell
                             className={`climb${climb.id} distribution-td ${climb?.color.toLowerCase()}`}
-                            sx={{ color: climb.color === 'black' ? 'white' : 'black', minWidth: '4rem', textAlign: 'center', }}
+                            sx={{ minWidth: '4rem', textAlign: 'center', }}
+                            classes={{ TableCell: { root: { color: 'white'} }}}
                           >
-                            { Math.floor((today - Date.parse(climb.dateSet)) / (86400000)) }
+                            <Box sx={{ color: fontColor }}>{ Math.floor((today - Date.parse(climb.dateSet)) / (86400000)) }</Box>
                           </TableCell>
                         </TableRow>
                       </React.Fragment>

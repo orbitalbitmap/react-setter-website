@@ -26,8 +26,11 @@ function DateInput(props) {
       sx={{ width: '11rem', }}
       InputLabelProps={{
         shrink: true,
+        sx: { color: fontColor }
       }}
-      
+      inputProps={{
+        sx: { color: fontColor }
+      }}
     />
     );
   }
