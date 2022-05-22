@@ -283,7 +283,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import DateInput from './DateInput'
 import SectionsList from './SectionsList'
 import SelectionContainer from './SelectionContainer'
-import { Box, Button, InputLabel, Table, TableBody, TableCell, TableHead, TableRow, TextField, Typography } from '@mui/material';
+import { Box, Button, Table, TableBody, TableCell, TableHead, TableRow, TextField, Typography } from '@mui/material';
 
 const RouteDistributionChart = () => {
   const today = new Date()
@@ -479,8 +479,8 @@ const handleDateSetChange = async (event, index) => {
                       <React.Fragment key={`table-row-${climb.id}`}>
                         <TableRow className={`climb${climb.id} distribution-tr ${climb?.color.toLowerCase()}`}>
                           <TableCell className="distribution-td">
-                          <InputLabel sx={{ color: fontColor, }}>Station</InputLabel>
                             <TextField
+                              label="Station"
                               id={`${climb.id}`}
                               sx={{ color: fontColor, width: '4rem', textAlign: 'center', }}
                               variant="outlined"
@@ -495,8 +495,8 @@ const handleDateSetChange = async (event, index) => {
                           </TableCell>
 
                           <TableCell className="distribution-td">
-                          <InputLabel sx={{ color: fontColor, }}>Name</InputLabel>
                             <TextField
+                              label="Name"
                               id={`${climb.id}`}
                               sx={{ color: fontColor, width: '12rem', textAlign: 'center', }}
                               variant="outlined"
