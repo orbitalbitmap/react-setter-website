@@ -209,7 +209,7 @@ function PrintableBoulderCard(props) {
         </select>
       </Box>
 
-      <Box sx={{ mb: '5rem', height: '50rem', display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+      <Box sx={{ mb: '5rem', height: '40rem', display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
         <PlacardSelectors
           class="noprint"
           distribution={props.distribution}

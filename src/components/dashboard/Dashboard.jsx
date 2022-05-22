@@ -71,7 +71,7 @@ function DashboardContent(props) {
 
   return (
       <Box sx={{ display: 'flex', }}>
-        <AppBar position="fixed" open={open}>
+        <AppBar position="fixed" open={open} className="noprint">
           <Toolbar
             sx={{
               pr: '24px', // keep right padding when drawer closed
@@ -101,7 +101,13 @@ function DashboardContent(props) {
           </Toolbar>
         </AppBar>
 
-        <Drawer variant="permanent" open={open} sx={{ height: '100%', position: 'fixed', zIndex: 999}} PaperProps={{ sx: { bgcolor: '#202A56' } }}>
+        <Drawer
+          variant="permanent"
+          open={open}
+          sx={{ height: '100%', position: 'fixed', zIndex: 999}}
+          PaperProps={{ sx: { bgcolor: '#202A56' } }}
+          className="noprint"
+        >
           <Toolbar
             sx={{
               display: 'flex',
