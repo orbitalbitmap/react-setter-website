@@ -333,7 +333,6 @@ body {
 .editable-section-form select,
 #editable-gym-form input,
 #editable-gym-form select {
-  margin-bottom: 0.5rem;
   padding: 0.7em;
 }
 
