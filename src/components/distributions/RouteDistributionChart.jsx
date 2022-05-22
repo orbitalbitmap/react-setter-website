@@ -217,6 +217,9 @@ const handleDateSetChange = async (event, index) => {
                                 'data-index': climb.id - 1,
                                 sx: { color: fontColor }
                               }}
+                              InputLabelProps={{
+                                sx: { color: fontColor}
+                              }}
                             />
                           </TableCell>
 
