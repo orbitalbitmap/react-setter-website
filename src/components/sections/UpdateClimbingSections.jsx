@@ -1,12 +1,35 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Box, Button, Container, TextField, Typography} from '@mui/material'
+import { Box, Button, Container, TextField, Typography} from '@mui/material';
+import Snackbar from '@mui/material/Snackbar';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
 
 function UpdateClimbingSections() {
   const urlParams = useParams();
   const gymId = urlParams.id;
   const [gym, setGym] = useState({});
+  const [open, setOpen] = useState(false)
+  const [snackbarMessage, setSnackbarMessage] = useState('')
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
+  const snackBarAction = (
+    <IconButton
+      size="small"
+      aria-label="close"
+      color="inherit"
+      onClick={handleClose}
+    >
+      <CloseIcon fontSize="small" />
+    </IconButton>
+  )
 
   useEffect(() => {
     const getInfo = async () => {
@@ -41,6 +64,14 @@ function UpdateClimbingSections() {
       : gym.routeSections;
 
     await axios.post(`${process.env.REACT_APP_API_PATH}/update${type}SectionNames`, { gymId, sectionToUpdate });
+    try {
+      await axios.post(`${process.env.REACT_APP_API_PATH}/update${type}SectionNames`, { gymId, sectionToUpdate });
+      setOpen(true)
+      setSnackbarMessage('The sections info has been saved!')
+    } catch {
+      setOpen(true)
+      setSnackbarMessage('Oops! Looks like something went wrong. Please Try again.')
+    }
   };
 
   const addNewSection = (event, sectionType) => {
@@ -106,6 +137,14 @@ function UpdateClimbingSections() {
           </Box>
         </Container>
       </Box>
+      <Snackbar
+        open={open}
+        autoHideDuration={3000}
+        message={snackbarMessage}
+        onClose={handleClose}
+        action={snackBarAction}
+        sx={{ bottom: {xs: 16 } }}
+      />
     </Container>
   );
 }
