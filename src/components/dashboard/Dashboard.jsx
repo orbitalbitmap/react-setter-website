@@ -71,7 +71,7 @@ function DashboardContent(props) {
 
   return (
       <Box sx={{ display: 'flex', }}>
-        <AppBar position="absolute" open={open}>
+        <AppBar position="fixed" open={open}>
           <Toolbar
             sx={{
               pr: '24px', // keep right padding when drawer closed
@@ -105,8 +105,6 @@ function DashboardContent(props) {
           <Toolbar
             sx={{
               display: 'flex',
-              // alignItems: 'center',
-              // justifyContent: 'flex-end',
               px: [1],
             }}
           >
