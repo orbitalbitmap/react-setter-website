@@ -22,10 +22,27 @@ function SelectionContainer(props) {
   ? { maxWidth: '12rem', minWidth: '5rem', ...props.sx }
   : { maxWidth: '12rem', minWidth: '5rem', }
 
+  let labelText = props.name
+
+  switch (props.name) {
+    case 'sectionId':
+      labelText = 'Location';
+      break;
+    case 'ropeStyle':
+      labelText = 'Rope Type';
+      break;
+    default:
+      const split = props.name.split('')
+      split[0] = split[0].toUpperCase()
+      const modifiedName = split.join('')
+
+      labelText = modifiedName;
+      break;
+  }
 
   return (
     <FormControl sx={styles}>
-      <InputLabel sx={{ color: fontColor, width: props.sx ? props.sx.width : 'inherit'}}>{props.name === 'sectionId' ? 'Location' : props.name}</InputLabel>
+      <InputLabel sx={{ color: fontColor, width: props.sx ? props.sx.width : 'inherit'}}>{labelText}</InputLabel>
       <Select
         label={props.name}
         classes={{select: props.color.toLowerCase}}
