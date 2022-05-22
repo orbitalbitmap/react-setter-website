@@ -4,6 +4,10 @@ import { connect } from 'react-redux';
 import { FormControl, Grid, TextField , Button} from '@mui/material';
 import { Paper, Select, MenuItem, InputLabel, OutlinedInput, Checkbox, ListItemText } from '@mui/material';
 
+import Snackbar from '@mui/material/Snackbar';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
+
 const NewEmployeeForm = (props) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -14,6 +18,26 @@ const NewEmployeeForm = (props) => {
   const [employeeGymList, setEmployeeGymList] = useState([]);
   const [currentGymNameList, setCurrentGymNameList] = useState([]);
   const [employeeGymNameList, setEmployeeGymNameList] = useState([]);
+  const [open, setOpen] = useState(false)
+  const [snackbarMessage, setSnackbarMessage] = useState('')
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
+  const snackBarAction = (
+    <IconButton
+      size="small"
+      aria-label="close"
+      color="inherit"
+      onClick={handleClose}
+    >
+      <CloseIcon fontSize="small" />
+    </IconButton>
+  )
 
   const handleCheckbox = (event) => {
     const {
@@ -39,7 +63,15 @@ const NewEmployeeForm = (props) => {
       roleId,
       gyms: employeeGymList,
     }
-    await axios.post(`${process.env.REACT_APP_API_PATH}/saveEmployee`, newUser);
+
+    try {
+      await axios.post(`${process.env.REACT_APP_API_PATH}/saveEmployee`, newUser);
+      setOpen(true)
+      setSnackbarMessage('A new employee has been saved!')
+    } catch {
+      setOpen(true)
+      setSnackbarMessage('Oops! Looks like something went wrong. Please Try again.')
+    }
   }
 
   useEffect(() => {
@@ -145,6 +177,14 @@ const NewEmployeeForm = (props) => {
         </Grid>
         <Button variant="contained" onClick={handleSubmit} sx={{ mt: 2 }}>Save Employee</Button>
       </Paper>
+      <Snackbar
+          open={open}
+          autoHideDuration={3000}
+          message={snackbarMessage}
+          onClose={handleClose}
+          action={snackBarAction}
+          sx={{ bottom: {xs: 16 } }}
+        />
     </>
   );
 }
