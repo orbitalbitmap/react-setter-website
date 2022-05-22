@@ -1,3 +1,4 @@
+import { Box } from '@mui/material';
 import { useEffect, useReducer, useState } from 'react';
 
 import BoulderPlacard from './BoulderPlacard';
@@ -197,8 +198,8 @@ function PrintableBoulderCard(props) {
   }, []);
 
   return (
-    <>
-      <span className='boulders-per-climb noprint'>
+    <Box sx={{ mt: 12, mx: 'auto', }}>
+      <Box className='noprint' sx={{ mb: '2rem', textAlign: 'center', }}>
         <label >Climbs per placards: </label>
         <select className="boulder-selectors-box" onChange={handleNumberOfClimbChange} defaultValue="3">
           <option value="1">1 climbs</option>
@@ -206,42 +207,44 @@ function PrintableBoulderCard(props) {
           <option value="3">3 climbs</option>
           <option value="4">4 climbs</option>
         </select>
-      </span>
+      </Box>
 
-      <PlacardSelectors
-        class="noprint selection-container-top"
-        distribution={props.distribution}
-        handleClimbSelector={handleNonAreteInfo}
-        handleAreteSelector={handleAreteInfo}
-        startingSlotNum={0} // set to zero as the .map in the component starts by adding 1 to it
-        nameList={firstPlacardList}
-        selectorType="boulder"
-      />
+        <Box sx={{ mb: '5rem', height: '50rem', display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+          <PlacardSelectors
+            class="noprint"
+            distribution={props.distribution}
+            handleClimbSelector={handleNonAreteInfo}
+            handleAreteSelector={handleAreteInfo}
+            startingSlotNum={0} // set to zero as the .map in the component starts by adding 1 to it
+            nameList={firstPlacardList}
+            selectorType="boulder"
+          />
 
-      <BoulderPlacard
-        climbList={selectedClimbs}
-        climbsToDisplay={firstPlacardList}
-        numberOfClimbsClass={placardGridNumber}
-      />
+          <BoulderPlacard
+            climbList={selectedClimbs}
+            climbsToDisplay={firstPlacardList}
+            numberOfClimbsClass={placardGridNumber}
+          />
+        </Box>
 
-      <PlacardSelectors
-        class="noprint selection-container-bottom"
-        distribution={props.distribution}
-        handleClimbSelector={handleNonAreteInfo}
-        handleAreteSelector={handleAreteInfo}
-        startingSlotNum={numberOfClimbsToDisplay} // set to zero as the .map in the component starts by adding 1 to it
-        nameList={secondPlacardList}
-        selectorType="boulder"
-      />
+        <Box sx={{ height: '40rem', display: 'flex', flexDirection: 'row', width: '90rem', alignItems: 'center' }}>
+          <PlacardSelectors
+            class="noprint"
+            distribution={props.distribution}
+            handleClimbSelector={handleNonAreteInfo}
+            handleAreteSelector={handleAreteInfo}
+            startingSlotNum={numberOfClimbsToDisplay} // set to zero as the .map in the component starts by adding 1 to it
+            nameList={secondPlacardList}
+            selectorType="boulder"
+          />
 
-      <BoulderPlacard
-        climbList={selectedClimbs}
-        climbsToDisplay={secondPlacardList}
-        numberOfClimbsClass={placardGridNumber}
-      />
-
-      <button className="noprint" type="submit" onClick={window.print}>Print</button>
-    </>
+          <BoulderPlacard
+            climbList={selectedClimbs}
+            climbsToDisplay={secondPlacardList}
+            numberOfClimbsClass={placardGridNumber}
+          />
+        </Box>
+      </Box>
   );
 }
 
