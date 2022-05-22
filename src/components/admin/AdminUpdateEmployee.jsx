@@ -101,7 +101,7 @@ const [open, setOpen] = useState(false)
     try {
       await axios.post(`${process.env.REACT_APP_API_PATH}/updateEmployee`, employee);
       setOpen(true)
-      setSnackbarMessage('Distribution has been saved!')
+      setSnackbarMessage('The employee\'s info has been saved!')
     } catch {
       setOpen(true)
       setSnackbarMessage('Oops! Looks like something went wrong. Please Try again.')

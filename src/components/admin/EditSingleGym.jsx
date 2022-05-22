@@ -5,15 +5,45 @@ import { FormControl, Grid, TextField } from '@mui/material';
 import { Paper, Select, MenuItem, InputLabel, Button, Typography } from '@mui/material';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
+import Snackbar from '@mui/material/Snackbar';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
 
 const EditSingleGym = () => {
   const urlParams = useParams();
   const [gym, setGym] = useState({});
+  const [open, setOpen] = useState(false)
+  const [snackbarMessage, setSnackbarMessage] = useState('')
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
+  const snackBarAction = (
+    <IconButton
+      size="small"
+      aria-label="close"
+      color="inherit"
+      onClick={handleClose}
+    >
+      <CloseIcon fontSize="small" />
+    </IconButton>
+  )
 
   const handleSubmit = async (event) => {
     event.preventDefault()
 
-    await axios.post(`${process.env.REACT_APP_API_PATH}/updateGymInfo`, gym)
+    try {
+      await axios.post(`${process.env.REACT_APP_API_PATH}/updateGymInfo`, gym)
+      setOpen(true)
+      setSnackbarMessage('The gym\'s information has been saved!')
+    } catch {
+      setOpen(true)
+      setSnackbarMessage('Oops! Looks like something went wrong. Please Try again.')
+    }
   }
 
   useEffect(() => {
@@ -136,6 +166,14 @@ const EditSingleGym = () => {
           </Paper>
         </Paper>
       </Container>
+      <Snackbar
+        open={open}
+        autoHideDuration={3000}
+        message={snackbarMessage}
+        onClose={handleClose}
+        action={snackBarAction}
+        sx={{ bottom: {xs: 16 } }}
+      />
     </Box>
   );
 }
