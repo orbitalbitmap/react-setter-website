@@ -2,6 +2,9 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { FormControl, Grid, TextField, Button } from '@mui/material';
 import { Paper, Select, MenuItem, InputLabel } from '@mui/material';
+import Snackbar from '@mui/material/Snackbar';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
 
 const NewGymForm = () => {
   const [name, setName] = useState('');
@@ -12,6 +15,26 @@ const NewGymForm = () => {
   const [instagram, setInstagram] = useState('');
   const [twitter, setTwitter] = useState('');
   const [employees, setEmployees] = useState([]);
+  const [open, setOpen] = useState(false)
+  const [snackbarMessage, setSnackbarMessage] = useState('')
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
+  const snackBarAction = (
+    <IconButton
+      size="small"
+      aria-label="close"
+      color="inherit"
+      onClick={handleClose}
+    >
+      <CloseIcon fontSize="small" />
+    </IconButton>
+  )
 
   useEffect(() => {
     const getInfo = async () =>{
@@ -24,17 +47,24 @@ const NewGymForm = () => {
   }, [])
 
   const handleSubmit = async (event) => {
-    event.preventDefault()
+    event.preventDefault();
 
-    await axios.post(`${process.env.REACT_APP_API_PATH}/saveNewGym`, {
-      name,
-      address,
-      phoneNumber,
-      headSetterId,
-      facebook,
-      instagram,
-      twitter,
-    });
+    try {
+      await axios.post(`${process.env.REACT_APP_API_PATH}/saveNewGym`, {
+        name,
+        address,
+        phoneNumber,
+        headSetterId,
+        facebook,
+        instagram,
+        twitter,
+      });
+      setOpen(true)
+      setSnackbarMessage('A new gym has been saved!')
+    } catch {
+      setOpen(true)
+      setSnackbarMessage('Oops! Looks like something went wrong. Please Try again.')
+    }
   }
 
 
@@ -125,6 +155,14 @@ const NewGymForm = () => {
         </Grid>
         <Button variant="contained" onClick={handleSubmit} sx={{ mt: 2 }}>Save Gym</Button>
       </Paper>
+      <Snackbar
+        open={open}
+        autoHideDuration={3000}
+        message={snackbarMessage}
+        onClose={handleClose}
+        action={snackBarAction}
+        sx={{ bottom: {xs: 16 } }}
+      />
     </>
   );
 }

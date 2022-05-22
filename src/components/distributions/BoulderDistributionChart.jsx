@@ -119,151 +119,151 @@ const handleDateSetChange = async (event, index) => {
 
   return (
     <Box sx={{ m: '0 auto', mt: '5rem', width: '90rem' }}>
-        <Typography  variant="h4" sx={{ mb: 4 }} className="centered-text">Distribution Spread for {gymName}</Typography>
+      <Typography  variant="h4" sx={{ mb: 4 }} className="centered-text">Distribution Spread for {gymName}</Typography>
 
-        <Box sx={{ display: 'flex', flexDirection: 'row', }}>
-          <Box className="section-selectors-container centered-text">
-            {
-              sectionList.length > 0
-                ? <SectionsList sectionList={sectionList} onClick={handleSectionChange} currentSelectedId={currentSection} />
-                : null
-            }
-          </Box>
-
-          <Box className="date-udpater-container">
-            <TextField
-              id="date"
-              label="Date"
-              type="date"
-              name="dateSet"
-              value={fullDateChange}
-              onChange={(event) => setFullDateChange(event.target.value)}
-              sx={{ width: '11rem' }}
-              InputLabelProps={{
-                shrink: true,
-              }}
-            />
-            <Button variant="contained" className="date-updater button" type="button" onClick={handleChangeAllDatesInSection}>
-              Set Current Dates
-            </Button>
-          </Box>
+      <Box sx={{ display: 'flex', flexDirection: 'row', }}>
+        <Box className="section-selectors-container centered-text">
+          {
+            sectionList.length > 0
+              ? <SectionsList sectionList={sectionList} onClick={handleSectionChange} currentSelectedId={currentSection} />
+              : null
+          }
         </Box>
 
-        <Box className="distribution-holder" sx={{ height: '100%', }}>
-          <form name="distribution-table">
-            <Table className="distribution-table">
-              <TableHead>
-                <TableRow className="distribution-tr">
-                  <TableCell className="distribution-th" sx={{ color: 'white', textAlign: 'center', fontSize: '1.25rem',  }}> Grade</TableCell>
-                  <TableCell className="distribution-th" sx={{ color: 'white', textAlign: 'center', fontSize: '1.25rem',  }}>Color</TableCell>
-                  <TableCell className="distribution-th" sx={{ color: 'white', textAlign: 'center', fontSize: '1.25rem',  }}>Setter</TableCell>
-                  <TableCell className="distribution-th" sx={{ color: 'white', textAlign: 'center', fontSize: '1.25rem',  }}>Location</TableCell>
-                  <TableCell className="distribution-th" sx={{ color: 'white', textAlign: 'center', fontSize: '1.25rem',  }}>Date</TableCell>
-                  <TableCell className="distribution-th" sx={{ color: 'white', textAlign: 'center', fontSize: '1.25rem',  }}>Days Old</TableCell>
-                </TableRow>
-              </TableHead>
-              
-              <TableBody>
-                {
-                  sectionDistribution.map((climb) => {
-                    let fontColor = 'black';
-                    switch(climb.color) {
-                      case 'Green':
-                      case 'Blue':
-                      case 'Purple':
-                      case 'Black':
-                        fontColor = '#fff';
-                        break;
-                      default:
-                        fontColor = 'black';
-                        break;
-                    }
-                    return (
-                      <React.Fragment key={`table-row-${climb.id}`}>
-                        <TableRow className={`climb${climb.id} distribution-tr ${climb?.color.toLowerCase()}`}>
-                          <TableCell className="distribution-td">
-                            <SelectionContainer
-                              handleChange={handleChange}
-                              value={climb.grade}
-                              name="grade"
-                              list={['VB', 'V0', 'V1', 'V2', 'V3', 'V4', 'V5', 'V6', 'V7', 'V8', 'V9', 'V10', 'V11', 'V12', 'V13', 'V14', 'V15', 'V16', 'V17']}
-                              id={climb.id}
-                              color={climb.color}
-                            />
-                          </TableCell>
-
-                          <TableCell className="distribution-td">
-                            <SelectionContainer
-                              handleChange={handleChange}
-                              value={climb.color}
-                              name="color"
-                              list={['White', 'Green', 'Black', 'Orange', 'Blue', 'Yellow', 'Red', 'Purple', 'Tan', 'Pink']}
-                              id={climb.id}
-                              color={climb.color}
-                            />
-                          </TableCell>
-
-                          <TableCell className="distribution-td">
-                            <SelectionContainer
-                              value={climb.setter}
-                              handleChange={handleChange}
-                              name="setter"
-                              list={employeeList}
-                              id={climb.id}
-                              color={climb.color}
-                            />
-                          </TableCell>
-
-                          <TableCell className="distribution-td">
-                            <SelectionContainer
-                              value={climb.sectionId}
-                              handleChange={handleChange}
-                              name="sectionId"
-                              list={sectionList}
-                              id={climb.id}
-                              color={climb.color}
-                            />
-                          </TableCell>
-
-                          <TableCell className="distribution-td">
-                            <DateInput id={climb.id} color={climb.color} name="dateSet" value={climb.dateSet} onChange={handleDateSetChange}/>
-                          </TableCell>
-
-                          {/* //- 86400000 milliseconds in a day */}
-                          <TableCell
-                            className={`climb${climb.id} distribution-td ${climb?.color.toLowerCase()}`}
-                            sx={{ minWidth: '4rem', textAlign: 'center', }}
-                            classes={{ TableCell: { root: { color: 'white'} }}}
-                          >
-                            <Box sx={{ color: fontColor }}>{ Math.floor((today - Date.parse(climb.dateSet)) / (86400000)) }</Box>
-                          </TableCell>
-                        </TableRow>
-                      </React.Fragment>
-                    )
-                  })
-                }
-              </TableBody>
-            </Table>
-
-            <Box className="distribution-button-container">
-              <Button variant="contained" sx={{ mx: 2, }} className="distribution-button" onClick={handleSubmit} type="submit">Save Distribution</Button>
-              <Link to="/placard/boulders" state={{ distribution: sectionDistribution}} style={{color: 'white', textDecoration: 'none'}}>
-                <Button variant="outlined" sx={{ mx: 2, }} className="distribution-button" type="button">
-                  Print Boulder Placard
-                </Button>
-              </Link>
-              <Button variant="outlined" sx={{ mx: 2, }} className="distribution-button" onClick={() => console.log('not yet implemented')} type="button" >Print Boulder Bash Placard</Button>
-            </Box>
-          </form>
+        <Box className="date-udpater-container">
+          <TextField
+            id="date"
+            label="Date"
+            type="date"
+            name="dateSet"
+            value={fullDateChange}
+            onChange={(event) => setFullDateChange(event.target.value)}
+            sx={{ width: '11rem' }}
+            InputLabelProps={{
+              shrink: true,
+            }}
+          />
+          <Button variant="contained" className="date-updater button" type="button" onClick={handleChangeAllDatesInSection}>
+            Set Current Dates
+          </Button>
         </Box>
-        <Snackbar
-          open={open}
-          autoHideDuration={3000}
-          message={snackbarMessage}
-          onClose={handleClose}
-          action={snackBarAction}
-          sx={{ bottom: {xs: 16 } }}
-        />
+      </Box>
+
+      <Box className="distribution-holder" sx={{ height: '100%', }}>
+        <form name="distribution-table">
+          <Table className="distribution-table">
+            <TableHead>
+              <TableRow className="distribution-tr">
+                <TableCell className="distribution-th" sx={{ color: 'white', textAlign: 'center', fontSize: '1.25rem',  }}> Grade</TableCell>
+                <TableCell className="distribution-th" sx={{ color: 'white', textAlign: 'center', fontSize: '1.25rem',  }}>Color</TableCell>
+                <TableCell className="distribution-th" sx={{ color: 'white', textAlign: 'center', fontSize: '1.25rem',  }}>Setter</TableCell>
+                <TableCell className="distribution-th" sx={{ color: 'white', textAlign: 'center', fontSize: '1.25rem',  }}>Location</TableCell>
+                <TableCell className="distribution-th" sx={{ color: 'white', textAlign: 'center', fontSize: '1.25rem',  }}>Date</TableCell>
+                <TableCell className="distribution-th" sx={{ color: 'white', textAlign: 'center', fontSize: '1.25rem',  }}>Days Old</TableCell>
+              </TableRow>
+            </TableHead>
+            
+            <TableBody>
+              {
+                sectionDistribution.map((climb) => {
+                  let fontColor = 'black';
+                  switch(climb.color) {
+                    case 'Green':
+                    case 'Blue':
+                    case 'Purple':
+                    case 'Black':
+                      fontColor = '#fff';
+                      break;
+                    default:
+                      fontColor = 'black';
+                      break;
+                  }
+                  return (
+                    <React.Fragment key={`table-row-${climb.id}`}>
+                      <TableRow className={`climb${climb.id} distribution-tr ${climb?.color.toLowerCase()}`}>
+                        <TableCell className="distribution-td">
+                          <SelectionContainer
+                            handleChange={handleChange}
+                            value={climb.grade}
+                            name="grade"
+                            list={['VB', 'V0', 'V1', 'V2', 'V3', 'V4', 'V5', 'V6', 'V7', 'V8', 'V9', 'V10', 'V11', 'V12', 'V13', 'V14', 'V15', 'V16', 'V17']}
+                            id={climb.id}
+                            color={climb.color}
+                          />
+                        </TableCell>
+
+                        <TableCell className="distribution-td">
+                          <SelectionContainer
+                            handleChange={handleChange}
+                            value={climb.color}
+                            name="color"
+                            list={['White', 'Green', 'Black', 'Orange', 'Blue', 'Yellow', 'Red', 'Purple', 'Tan', 'Pink']}
+                            id={climb.id}
+                            color={climb.color}
+                          />
+                        </TableCell>
+
+                        <TableCell className="distribution-td">
+                          <SelectionContainer
+                            value={climb.setter}
+                            handleChange={handleChange}
+                            name="setter"
+                            list={employeeList}
+                            id={climb.id}
+                            color={climb.color}
+                          />
+                        </TableCell>
+
+                        <TableCell className="distribution-td">
+                          <SelectionContainer
+                            value={climb.sectionId}
+                            handleChange={handleChange}
+                            name="sectionId"
+                            list={sectionList}
+                            id={climb.id}
+                            color={climb.color}
+                          />
+                        </TableCell>
+
+                        <TableCell className="distribution-td">
+                          <DateInput id={climb.id} color={climb.color} name="dateSet" value={climb.dateSet} onChange={handleDateSetChange}/>
+                        </TableCell>
+
+                        {/* //- 86400000 milliseconds in a day */}
+                        <TableCell
+                          className={`climb${climb.id} distribution-td ${climb?.color.toLowerCase()}`}
+                          sx={{ minWidth: '4rem', textAlign: 'center', }}
+                          classes={{ TableCell: { root: { color: 'white'} }}}
+                        >
+                          <Box sx={{ color: fontColor }}>{ Math.floor((today - Date.parse(climb.dateSet)) / (86400000)) }</Box>
+                        </TableCell>
+                      </TableRow>
+                    </React.Fragment>
+                  )
+                })
+              }
+            </TableBody>
+          </Table>
+
+          <Box className="distribution-button-container">
+            <Button variant="contained" sx={{ mx: 2, }} className="distribution-button" onClick={handleSubmit} type="submit">Save Distribution</Button>
+            <Link to="/placard/boulders" state={{ distribution: sectionDistribution}} style={{color: 'white', textDecoration: 'none'}}>
+              <Button variant="outlined" sx={{ mx: 2, }} className="distribution-button" type="button">
+                Print Boulder Placard
+              </Button>
+            </Link>
+            <Button variant="outlined" sx={{ mx: 2, }} className="distribution-button" onClick={() => console.log('not yet implemented')} type="button" >Print Boulder Bash Placard</Button>
+          </Box>
+        </form>
+      </Box>
+      <Snackbar
+        open={open}
+        autoHideDuration={3000}
+        message={snackbarMessage}
+        onClose={handleClose}
+        action={snackBarAction}
+        sx={{ bottom: {xs: 16 } }}
+      />
     </Box>
   )
 }
