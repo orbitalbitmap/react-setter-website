@@ -319,12 +319,11 @@ const handleDateSetChange = async (event, index) => {
 
             <Box className="distribution-button-container">
               <Button variant="contained" sx={{ mx: 2, }} className="distribution-button" onClick={handleSubmit} type="submit">Save Distribution</Button>
-              <Button variant="contained" sx={{ mx: 2, }} className="distribution-button" type="submit">
-                <Link to="/placard/routes" state={{ distribution: sectionDistribution}} style={{color: 'white', textDecoration: 'none'}}>
-                  Print Boulder Placard
-                </Link>
-              </Button>
-              <Button variant="contained" sx={{ mx: 2, }} className="distribution-button" onClick={() => console.log('not yet implemented')} type="submit" >Print Boulder Bash Placard</Button>
+              <Link to="/placard/ropes" state={{ distribution }} style={{ textDecoration: 'none'}}>
+                <Button variant="outlined" sx={{ mx: 2, }} className="distribution-button" type="button">
+                  Print Route Placard
+                </Button>
+              </Link>
             </Box>
           </form>
         </Box>
