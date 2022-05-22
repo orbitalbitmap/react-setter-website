@@ -1,3 +1,4 @@
+import { Box, Typography } from '@mui/material';
 import { useReducer } from 'react';
 
 import PlacardSelectors from './PlacardSelectors';
@@ -95,9 +96,9 @@ function PrintableRouteCard(props) {
   };
 
   return (
-    <>
+    <Box sx={{ mt: 12, mx: 'auto', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', width: '90rem' }}>
       <PlacardSelectors
-        class="noprint selection-container-top"
+        class="noprint"
         distribution={props.distribution}
         handleClimbSelector={handleNonAreteInfo}
         handleAreteSelector={handleAreteInfo}
@@ -106,34 +107,34 @@ function PrintableRouteCard(props) {
         selectorType="route"
       />
 
-      <div className="route-placard-container centered-text">
-        <div className="route-three-grid-column">
+      <Box className="route-placard-container centered-text">
+        <Box className="route-three-grid-column">
           <RoutePlacard
             climbs={selectedClimbs}
             nameList={['climb1', 'climb2', 'climb3']}
           />
-        </div>
-        <div className="route-image-grid">
-          <div className="route-placard-images">
+        </Box>
+        <Box className="route-image-grid">
+          <Box className="route-placard-images">
             <img className="route-crg-logo" src="/images/CRG_Logo_Text_M.jpeg" alt="Central Rock Gym logo" />
-          </div>
-          <div className="route-social-grid">
-            <div>
+          </Box>
+          <Box className="route-social-grid">
+            <Box>
               <img className="route-instagram-logo" src="/images/Facebook_logo.png" alt="Facebook logo" />
-              <div className="route-insta-handle">Central Rock Worcester</div>
-            </div>
-            <div>
+              <Typography variant="body1" className="route-insta-handle">Central Rock Worcester</Typography>
+            </Box>
+            <Box>
               <img className="route-instagram-logo" src="/images/Twitter_colored_logo.png" alt="Twitter logo" />
-              <span className="route-insta-handle">@crgworcester</span>
-            </div>
-            <div>
+              <Typography variant="body1" className="route-insta-handle">@crgworcester</Typography>
+            </Box>
+            <Box>
               <img className="route-instagram-logo" src="/images/IG_logo.png" alt="Instagram logo" />
-              <span className="route-insta-handle">@crgworcester</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </>
+              <Typography variant="body1" className="route-insta-handle">@crgworcester</Typography>
+            </Box>
+          </Box>
+        </Box>
+      </Box>
+    </Box>
   );
 }
 
