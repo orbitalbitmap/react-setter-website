@@ -18,6 +18,9 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
+import Snackbar from '@mui/material/Snackbar';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
 
 
 const UpdateEmployee = (props) => {
@@ -26,6 +29,26 @@ const UpdateEmployee = (props) => {
   const [roleId, setRoleId] = useState(0);
   const [currentGymNameList, setCurrentGymNameList] = useState([]);
   const [employeeGymNameList, setEmployeeGymNameList] = useState([]);
+const [open, setOpen] = useState(false)
+  const [snackbarMessage, setSnackbarMessage] = useState('')
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
+  const snackBarAction = (
+    <IconButton
+      size="small"
+      aria-label="close"
+      color="inherit"
+      onClick={handleClose}
+    >
+      <CloseIcon fontSize="small" />
+    </IconButton>
+  )
 
   const handleCheckbox = (event) => {
     const {
@@ -74,7 +97,15 @@ const UpdateEmployee = (props) => {
   const handleSubmit = async(event)  =>{
     event.preventDefault();
 
-    await axios.post(`${process.env.REACT_APP_API_PATH}/updateEmployee`, employee);
+    
+    try {
+      await axios.post(`${process.env.REACT_APP_API_PATH}/updateEmployee`, employee);
+      setOpen(true)
+      setSnackbarMessage('Distribution has been saved!')
+    } catch {
+      setOpen(true)
+      setSnackbarMessage('Oops! Looks like something went wrong. Please Try again.')
+    }
   }
   
   if (!employee.id) {
@@ -225,6 +256,14 @@ const UpdateEmployee = (props) => {
         </Grid>
       </Container>
     </Box>
+    <Snackbar
+        open={open}
+        autoHideDuration={3000}
+        message={snackbarMessage}
+        onClose={handleClose}
+        action={snackBarAction}
+        sx={{ bottom: {xs: 16 } }}
+      />
   </>
   );
 }
