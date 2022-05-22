@@ -50,6 +50,7 @@ const GymTabContainer = ({ gym }) => {
       >
         <Tab label="Ropes" />
         <Tab label="Boulders" />
+        <Tab label="Sections" />
       </Tabs>
       <TabPanel value={value} index={0}>
         <Grid container spacing={12}>
@@ -155,6 +156,62 @@ const GymTabContainer = ({ gym }) => {
                 }}
               >
                 Ideal Boulder Distribution
+              </Link>
+
+            </Paper>
+          </Grid>
+        </Grid>
+      </TabPanel>
+      <TabPanel value={value} index={2}>
+        <Grid container spacing={12}>
+          <Grid item xs={6}>
+            <Paper
+              sx={{
+                p: 2,
+                display: 'flex',
+                flexDirection: 'rows',
+                bgcolor: '#fff',
+                color: '#000',
+                mt: '1rem',
+              }}
+            >
+              <Link
+                to={`/sections/${gym.id}`}
+                style={{
+                    color:
+                    '#000',
+                  margin: '0 auto',
+                  textDecoration: 'none',
+                  fontWeight: 500,
+                }}
+              >
+                View Sections
+              </Link>
+
+            </Paper>
+          </Grid>
+          <Grid item xs={6}>
+            <Paper
+              sx={{
+                p: 2,
+                display: 'flex',
+                flexDirection: 'rows',
+                bgcolor: '#fff',
+                color: '#000',
+                mt: '1rem',
+              }}
+            >
+              <Link
+                to={`/sections/edit/${gym.id}`}
+                style={{
+                    color:
+                    '#000',
+                  margin: '0 auto',
+                  textDecoration: 'none',
+                  fontWeight: 500,
+                }}
+              >
+                  Edit sections
               </Link>
 
             </Paper>
