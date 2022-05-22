@@ -209,42 +209,42 @@ function PrintableBoulderCard(props) {
         </select>
       </Box>
 
-        <Box sx={{ mb: '5rem', height: '50rem', display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-          <PlacardSelectors
-            class="noprint"
-            distribution={props.distribution}
-            handleClimbSelector={handleNonAreteInfo}
-            handleAreteSelector={handleAreteInfo}
-            startingSlotNum={0} // set to zero as the .map in the component starts by adding 1 to it
-            nameList={firstPlacardList}
-            selectorType="boulder"
-          />
+      <Box sx={{ mb: '5rem', height: '50rem', display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+        <PlacardSelectors
+          class="noprint"
+          distribution={props.distribution}
+          handleClimbSelector={handleNonAreteInfo}
+          handleAreteSelector={handleAreteInfo}
+          startingSlotNum={0} // set to zero as the .map in the component starts by adding 1 to it
+          nameList={firstPlacardList}
+          selectorType="boulder"
+        />
 
-          <BoulderPlacard
-            climbList={selectedClimbs}
-            climbsToDisplay={firstPlacardList}
-            numberOfClimbsClass={placardGridNumber}
-          />
-        </Box>
-
-        <Box sx={{ height: '40rem', display: 'flex', flexDirection: 'row', width: '90rem', alignItems: 'center' }}>
-          <PlacardSelectors
-            class="noprint"
-            distribution={props.distribution}
-            handleClimbSelector={handleNonAreteInfo}
-            handleAreteSelector={handleAreteInfo}
-            startingSlotNum={numberOfClimbsToDisplay} // set to zero as the .map in the component starts by adding 1 to it
-            nameList={secondPlacardList}
-            selectorType="boulder"
-          />
-
-          <BoulderPlacard
-            climbList={selectedClimbs}
-            climbsToDisplay={secondPlacardList}
-            numberOfClimbsClass={placardGridNumber}
-          />
-        </Box>
+        <BoulderPlacard
+          climbList={selectedClimbs}
+          climbsToDisplay={firstPlacardList}
+          numberOfClimbsClass={placardGridNumber}
+        />
       </Box>
+
+      <Box sx={{ height: '40rem', display: 'flex', flexDirection: 'row', width: '90rem', alignItems: 'center' }}>
+        <PlacardSelectors
+          class="noprint"
+          distribution={props.distribution}
+          handleClimbSelector={handleNonAreteInfo}
+          handleAreteSelector={handleAreteInfo}
+          startingSlotNum={numberOfClimbsToDisplay} // set to zero as the .map in the component starts by adding 1 to it
+          nameList={secondPlacardList}
+          selectorType="boulder"
+        />
+
+        <BoulderPlacard
+          climbList={selectedClimbs}
+          climbsToDisplay={secondPlacardList}
+          numberOfClimbsClass={placardGridNumber}
+        />
+      </Box>
+    </Box>
   );
 }
 
