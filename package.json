@@ -25,6 +25,9 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
+    "lint": "npm run lint:eslint",
+    "lint:eslint": "./node_modules/.bin/eslint --format codeframe .",
+    "lint:esfix": "./node_modules/.bin/eslint --fix --format codeframe .",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -47,5 +50,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "react-error-overlay": "^6.0.9"
   }
 }

@@ -333,7 +333,6 @@ body {
 .editable-section-form select,
 #editable-gym-form input,
 #editable-gym-form select {
-  margin-bottom: 0.5rem;
   padding: 0.7em;
 }
 
@@ -386,9 +385,7 @@ body {
 }
 
 .distribution-holder {
-  width: 95%;
-  overflow-x: scroll;
-  margin: 0 auto;
+  width: 100%;
 }
 
 #distribution-form {
@@ -421,7 +418,7 @@ body {
 .distribution-table {
   border-collapse: collapse;
   margin: 0 auto;
-  width: 95%;
+  width: 100%;
 }
 
 .distribution-td {
@@ -438,7 +435,7 @@ body {
 }
 
 .distribution-td input {
-  border: 0.125em solid #202A56;
+
   border-radius: 0.5rem;
   font-size: 1.125rem;
   margin-bottom: 0.5rem;
@@ -613,11 +610,10 @@ body {
   display: flex;
   gap: 0.25rem;
   flex-direction: column;
-  left: 55rem;
   margin-bottom: 0.5rem;
-  position: relative;
   text-align: right;
   width: 11rem;
+  margin-left: auto;
 }
 
 .date-updater {

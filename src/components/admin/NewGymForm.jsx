@@ -1,0 +1,170 @@
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { FormControl, Grid, TextField, Button } from '@mui/material';
+import { Paper, Select, MenuItem, InputLabel } from '@mui/material';
+import Snackbar from '@mui/material/Snackbar';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
+
+const NewGymForm = () => {
+  const [name, setName] = useState('');
+  const [address, setAddress] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [headSetterId, setHeadSetterId] = useState(0);
+  const [facebook, setFacebook] = useState('');
+  const [instagram, setInstagram] = useState('');
+  const [twitter, setTwitter] = useState('');
+  const [employees, setEmployees] = useState([]);
+  const [open, setOpen] = useState(false)
+  const [snackbarMessage, setSnackbarMessage] = useState('')
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
+  const snackBarAction = (
+    <IconButton
+      size="small"
+      aria-label="close"
+      color="inherit"
+      onClick={handleClose}
+    >
+      <CloseIcon fontSize="small" />
+    </IconButton>
+  )
+
+  useEffect(() => {
+    const getInfo = async () =>{
+      const { data } = await axios.get(`${process.env.REACT_APP_API_PATH}/employees`)
+
+      setEmployees(data)
+    }
+
+    getInfo()
+  }, [])
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    try {
+      await axios.post(`${process.env.REACT_APP_API_PATH}/saveNewGym`, {
+        name,
+        address,
+        phoneNumber,
+        headSetterId,
+        facebook,
+        instagram,
+        twitter,
+      });
+      setOpen(true)
+      setSnackbarMessage('A new gym has been saved!')
+    } catch {
+      setOpen(true)
+      setSnackbarMessage('Oops! Looks like something went wrong. Please Try again.')
+    }
+  }
+
+
+  return ( 
+    <>
+      <h1 className='centered-text'>New's Gym Information</h1>
+      <Paper elevation={12} component='div' sx={{ pb: '0.5rem', pt: '1rem' }}>
+        <Grid container columnSpacing='2rem' rowSpacing='1rem'  sx={{ ml: '-1rem' }}>
+          <Grid item>
+            <TextField
+              label='Gym Name'
+              value={name}
+              required
+              onChange = {(event) => setName(event.target.value)}
+            />
+          </Grid>
+
+          <Grid item>
+            <TextField
+              label='Address'
+              value={address}
+              onChange = {(event) => setAddress(event.target.value)}
+            />
+          </Grid>
+
+          <Grid item>
+            <TextField
+              label='Phone Number #'
+              value={phoneNumber}
+              onChange = {(event) => setPhoneNumber(event.target.value)}
+            />
+          </Grid>
+
+          <Grid item>
+            <TextField
+              label='Facebook'
+              value={facebook}
+              onChange = {(event) => setFacebook(event.target.value)}
+              inputProps={{
+                autoComplete: 'off'
+              }}
+            />
+          </Grid>
+
+          <Grid item>
+            <TextField
+              label='Instagram'
+              value={instagram}
+              onChange = {(event) => setInstagram(event.target.value)}
+            />
+          </Grid>
+
+          <Grid item>
+            <TextField
+              label='Twitter'
+              value={twitter}
+              onChange = {(event) => setTwitter(event.target.value)}
+            />
+          </Grid>
+          
+
+            <Grid item>
+              <FormControl fullWidth>
+                <InputLabel id='head-setter-label'>Head Setter</InputLabel>
+                <Select
+                  labelId='head-setter-label'
+                  label='Head Setter'
+                  value={headSetterId}
+                  onChange={(event) => setHeadSetterId(event.target.value)}
+                >
+                  <MenuItem value='0' sx={{ color: '#fff' }}>Please select a head setter...</MenuItem>
+                  {
+                    employees.map(employee => (
+                      <MenuItem 
+                        key={employee.id}
+                        value={employee.id}
+                        sx={{ color: '#fff' }}
+                      >
+                        {`${employee.firstName} ${employee.lastName}`}
+                      </MenuItem>
+                    ))
+                  }
+                </Select>
+              </FormControl>
+            </Grid>
+          
+          
+        </Grid>
+        <Button variant="contained" onClick={handleSubmit} sx={{ mt: 2 }}>Save Gym</Button>
+      </Paper>
+      <Snackbar
+        open={open}
+        autoHideDuration={3000}
+        message={snackbarMessage}
+        onClose={handleClose}
+        action={snackBarAction}
+        sx={{ bottom: {xs: 16 } }}
+      />
+    </>
+  );
+}
+
+export default NewGymForm;
