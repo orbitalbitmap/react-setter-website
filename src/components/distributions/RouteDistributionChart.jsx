@@ -82,12 +82,6 @@ const RouteDistributionChart = () => {
     const { index, name} = event.target.dataset;
     const { value } = event.target;
 
-    console.log({
-      index,
-      name,
-      value,
-    })
-
     let [...newDistribution] = distribution
     newDistribution[parseInt(index)][name] = name ==='station'
       ? parseInt(value)
