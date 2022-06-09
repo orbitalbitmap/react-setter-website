@@ -198,8 +198,8 @@ function PrintableBoulderCard(props) {
   }, []);
 
   return (
-    <Box sx={{ mt: 12, mx: 'auto', }}>
-      <Box className='noprint' sx={{ mb: '2rem', textAlign: 'center', }}>
+    <Box sx={{ mx: 'auto', }}>
+      <Box className='noprint' sx={{ mt: '5rem', mb: '2rem', textAlign: 'center', }}>
         <label >Climbs per placards: </label>
         <select className="boulder-selectors-box" onChange={handleNumberOfClimbChange} defaultValue="3">
           <option value="1">1 climbs</option>
@@ -209,7 +209,7 @@ function PrintableBoulderCard(props) {
         </select>
       </Box>
 
-      <Box sx={{ mb: '5rem', height: '40rem', display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+      <Box sx={{ mb: "-2rem", display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
         <PlacardSelectors
           class="noprint"
           distribution={props.distribution}
@@ -227,7 +227,9 @@ function PrintableBoulderCard(props) {
         />
       </Box>
 
-      <Box sx={{ height: '40rem', display: 'flex', flexDirection: 'row', width: '90rem', alignItems: 'center' }}>
+      <div class="noprint" style={{ height: '8rem', }} />
+
+      <Box sx={{ mt: "-2rem", display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
         <PlacardSelectors
           class="noprint"
           distribution={props.distribution}

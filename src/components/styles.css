@@ -640,7 +640,6 @@ body {
 /*********************************************************************************************************/
 .boulder-placard-container {
   font-family: "Oswald", sans-serif;
-  margin: 1.25rem auto 1.5rem auto;
   display: grid;
   grid-template-rows: 342px 82px;
   height: 480px;

@@ -7,7 +7,7 @@ import { Box, Typography } from '@mui/material';
 function ClimbSelectors(props) {
   let slotNumber = props.startingSlotNum;
   return (
-    <Box className={props.class}>
+    <Box className={props.class} sx={{ position: 'absolute', left: '10rem', }} >
       {
         props.nameList.map((climbName) => {
           slotNumber++;
