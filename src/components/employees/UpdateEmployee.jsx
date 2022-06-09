@@ -115,14 +115,13 @@ const UpdateEmployee = (props) => {
           theme.palette.mode === 'light'
             ? theme.palette.grey[100]
             : theme.palette.grey[900],
-        flexGrow: 1,
         height: '100vh',
-        overflow: 'auto',
+        width: '100%',
       }}
     >
-      <Container maxWidth="50rem" sx={{ mt: '7rem'}} >
-        <Grid container spacing={4} sx={{ margin: '0 auto' }} xs={8}>
-          <Grid item>
+      <Container maxWidth="xl" sx={{ mt: '7rem', }} >
+        <Grid container spacing={4}>
+          <Grid item xs={8} sx={{ mx: 'auto' }}>
           <Paper
             sx={{
               p: 2,
