@@ -1,5 +1,5 @@
-import AdminUpdateEmployee from '../../components/admin/AdminUpdateEmployee'
-import Dashboard from '../../components/dashboard/Dashboard'
+import AdminUpdateEmployee from '../../components/admin/AdminUpdateEmployee';
+import Dashboard from '../../components/dashboard/Dashboard';
 
 const AdminUpdateEmployeePage = () => {
   return (

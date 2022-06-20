@@ -1,159 +1,296 @@
-import axios from 'axios'
-import { useEffect, useState } from 'react'
-import { connect } from 'react-redux'
-import { useParams } from 'react-router-dom'
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
+import {
+  Box,
+  Button,
+  Checkbox,
+  Container,
+  FormControl,
+  Grid,
+  InputLabel,
+  ListItemText,
+  MenuItem,
+  OutlinedInput,
+  Paper,
+  Select,
+  TextField,
+  Typography,
+} from '@mui/material';
 
-const UpdateEmployee = (props) => {
-  const urlParams = useParams()
-  const [employee, setEmployee] = useState({})
-  const [roleId, setRoleId] = useState(5)
+import Snackbar from '@mui/material/Snackbar';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
+import { useParams } from 'react-router-dom';
+
+const AdminUpdateEmployee = (props) => {
+  const urlParams = useParams();
+  const [employee, setEmployee] = useState({});
+  const [currentGymNameList, setCurrentGymNameList] = useState([]);
+  const [employeeGymNameList, setEmployeeGymNameList] = useState([]);
+  const [open, setOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState('');
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
+
+  const snackBarAction = (
+    <IconButton
+      size="small"
+      aria-label="close"
+      color="inherit"
+      onClick={handleClose}
+    >
+      <CloseIcon fontSize="small" />
+    </IconButton>
+  );
 
   useEffect(() => {
     const getInfo = async () => {
-      const { data } = await axios.get(`${process.env.REACT_APP_API_PATH}/employees/${urlParams.id}`)
+      const { data } = await axios.get(
+        `${process.env.REACT_APP_API_PATH}/employees/${urlParams.id}`,
+      );
 
       setEmployee({
-          ...data,
-          oldEmployeeGymList: data.gyms,
-          password: 'NotYourRealPassword',
-        })
-    }
+        ...data,
+        oldEmployeeGymList: data.gyms,
+        password: 'NotYourRealPassword',
+      });
+      setEmployeeGymNameList(data.gyms.map((gym) => gym.name));
+    };
 
-    getInfo()
-  }, [urlParams])
+    getInfo();
+  }, [urlParams.id]);
 
   useEffect(() => {
-    const aRoleId = employee.roleId
-    setRoleId(aRoleId)
-  }, [employee])
+    setCurrentGymNameList(props.gyms.map((gym) => gym.name));
+  }, [props.gyms]);
 
   const handleChange = (event) => {
     setEmployee({
-        ...employee,
-        [event.target.name]: event.target.value
-      })
-  }
+      ...employee,
+      [event.target.name]: event.target.value,
+    });
+  };
 
   const handleCheckbox = (event) => {
-    const gymId = parseInt(event.target.value)
+    const {
+      target: { value },
+    } = event;
+    let newGymList;
 
-    switch (event.target.checked) {
-      case false: 
-        setEmployee({
-            ...employee,
-            gyms: employee.gyms?.filter(employeeGym => {
-              return employeeGym.id !== gymId
-            })
-          })
-        break
-      default:
-        const gymToAdd = props.gyms?.find(gym => gymId === gym.id)
-        setEmployee({
-            ...employee,
-            gyms: [
-              ...employee.gyms,
-              gymToAdd,
-            ].sort((gymA, gymB) => gymA.id - gymB.id)
-          })
+    // the if executes adding info the else removes info form the employee's gym list
+    if (value.length > employeeGymNameList.length) {
+      // find the gym name in the updated multi-select value that is not in the employeeGymList
+      const [gymNameToAdd] = value.filter(
+        (gym) => !employeeGymNameList.includes(gym),
+      );
+      // get the missing gym to add to the employee's gyms list
+      const [gymInfo] = props.gyms.filter((gym) => gym.name === gymNameToAdd);
+      // set a new gymList
+      newGymList = employee.gyms.concat(gymInfo);
+    } else {
+      // find the gym name in the employeeGymList that is not in the updated multi-select value
+      const [gymNameToRemove] = employeeGymNameList.filter(
+        (gym) => !value.includes(gym),
+      );
+      // remove gym from the employee's gyms list and set newGymList to the new list
+      newGymList = employee.gyms.filter((gym) => gym.name !== gymNameToRemove);
     }
-  }
 
-  const handleSubmit = async(event)  =>{
-    event.preventDefault()
+    setEmployee({ ...employee, gyms: newGymList });
+    setEmployeeGymNameList(value);
+  };
 
-    await axios.post(`${process.env.REACT_APP_API_PATH}/updateEmployee`, employee)
-  }
-  
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    try {
+      await axios.post(
+        `${process.env.REACT_APP_API_PATH}/updateEmployee`,
+        employee,
+      );
+      setOpen(true);
+      setSnackbarMessage('Your info has been saved!');
+    } catch {
+      setOpen(true);
+      setSnackbarMessage(
+        'Oops! Looks like something went wrong. Please Try again.',
+      );
+    }
+  };
+
   if (!employee.id) {
-    return (<h2>Loading...</h2>)
+    return <h2>Loading...</h2>;
   }
 
   return (
-    <form id="employee-form">
-      <div className="employee-form-grid" name="update-employee-form">
-        <input className="hidden" name="id" defaultValue="employee.id" />
+    <>
+      <Box
+        component="main"
+        sx={{
+          backgroundColor: (theme) =>
+            theme.palette.mode === 'light'
+              ? theme.palette.grey[100]
+              : theme.palette.grey[900],
+          height: '100vh',
+          width: '100%',
+        }}
+      >
+        <Container maxWidth="xl" sx={{ mt: '7rem' }}>
+          <Grid container spacing={4}>
+            <Grid item xs={8} sx={{ mx: 'auto' }}>
+              <Paper
+                sx={{
+                  p: 2,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  color: 'primary.contrastText',
+                  bgcolor: 'primary.main',
+                }}
+              >
+                <Typography
+                  className="centered-text"
+                  variant="h2"
+                  sx={{ mb: '0.5rem' }}
+                >{`${employee.firstName}'s Info`}</Typography>
+                <Paper
+                  className="centered-text"
+                  elevation={12}
+                  component="div"
+                  sx={{ pb: '0.5rem', pt: '1rem' }}
+                >
+                  <Grid
+                    container
+                    columnSpacing="4rem"
+                    rowSpacing="1rem"
+                    sx={{ pl: '1.5rem' }}
+                  >
+                    <Grid item>
+                      <TextField
+                        name="firstName"
+                        label="First Name"
+                        value={employee.firstName}
+                        required
+                        onChange={handleChange}
+                      />
+                    </Grid>
 
-        <label htmlFor="placardName">Name on placard:</label> 
-        <input 
-          value={employee.placardName}
-            onChange={handleChange}
-          name="placardName"
-          type="text"
+                    <Grid item>
+                      <TextField
+                        name="lastName"
+                        label="Last Name"
+                        value={employee.lastName}
+                        required
+                        onChange={handleChange}
+                      />
+                    </Grid>
+
+                    <Grid item>
+                      <TextField
+                        name="placardName"
+                        label="Name on placard"
+                        value={employee.placardName}
+                        onChange={handleChange}
+                      />
+                    </Grid>
+
+                    <Grid item>
+                      <TextField
+                        name="email"
+                        label="Email"
+                        value={employee.email}
+                        required
+                        onChange={handleChange}
+                        inputProps={{
+                          autoComplete: 'off',
+                        }}
+                      />
+                    </Grid>
+
+                    <Grid item>
+                      <TextField
+                        name="password"
+                        label="Password"
+                        value={employee.password}
+                        required
+                        onChange={handleChange}
+                      />
+                    </Grid>
+
+                    <Grid item>
+                      <TextField
+                        name="phoneNumber"
+                        label="Phone Number #"
+                        value={employee.phoneNumber}
+                        onChange={handleChange}
+                      />
+                    </Grid>
+                  </Grid>
+
+                  <Typography className="centered-text" variant="h4">
+                    Locations:
+                  </Typography>
+                  <Grid sx={{ m: 1 }}>
+                    <FormControl>
+                      <InputLabel id="demo-multiple-checkbox-label">
+                        Employee's gyms
+                      </InputLabel>
+                      <Select
+                        labelId="demo-multiple-checkbox-label"
+                        id="demo-multiple-checkbox"
+                        multiple
+                        value={employeeGymNameList}
+                        onChange={handleCheckbox}
+                        input={<OutlinedInput label="Employee's gyms" />}
+                        renderValue={(selected) => selected.join(', ')}
+                      >
+                        {currentGymNameList.map((gym) => {
+                          return (
+                            <MenuItem key={gym} value={gym}>
+                              <Checkbox
+                                sx={{ '&.Mui-checked': { color: '#fff' } }}
+                                checked={employeeGymNameList?.includes(gym)}
+                              />
+                              <ListItemText primary={gym} />
+                            </MenuItem>
+                          );
+                        })}
+                      </Select>
+                    </FormControl>
+                  </Grid>
+                  <Button variant="contained" onClick={handleSubmit}>
+                    Save Employee
+                  </Button>
+                </Paper>
+              </Paper>
+            </Grid>
+          </Grid>
+        </Container>
+        <Snackbar
+          open={open}
+          autoHideDuration={3000}
+          message={snackbarMessage}
+          onClose={handleClose}
+          action={snackBarAction}
+          sx={{ bottom: { xs: 16 } }}
         />
-        
-        <label htmlFor="email">Email address:</label> 
-        <input 
-          value={employee.email}
-          name="email"
-          onChange={handleChange}
-          type="text"
-        />
-
-        <label htmlFor="password">Password:</label> 
-        <input 
-          value={employee.password}
-          name="password"
-          onChange={handleChange}
-          type="password"
-        />
-
-        <label htmlFor="phone-number">Phone #:</label> 
-        <input 
-          value={employee.phoneNumber}
-          name="phoneNumber"
-          onChange={handleChange}
-          type="phoneNumber"
-        />
-
-        <label htmlFor="roleId">
-          Role:
-        </label>
-        
-        <select 
-          name="roleId"
-          value={roleId || 5}
-          onChange={handleChange}
-          required
-        >
-          <option value={1}>Director of Routsetting</option>
-          <option value={2}>Regional Head Setter</option>
-          <option value={3}>Head Setter</option>
-          <option value={4}>Full Time Setter</option>
-          <option value={5}>Part Time Setter</option>
-        </select>
-      </div>
-
-      <h3 className="centered-text">Locations:</h3>
-      <div className="checkbox-grid">
-        {
-          props.gyms?.map(gym => {
-            return (
-            <div key={gym.id}>
-              <label htmlFor="gyms" form="update-employee-form">{`${gym.name}:`}</label> 
-              <input
-                checked={employee.gyms?.filter(employeeGym => employeeGym.id === gym.id).length > 0}
-                className="checkbox"
-                form="update-employee-form"
-                value={gym.id}
-                name="gyms"
-                onChange={handleCheckbox}
-                type="checkbox"
-
-              />
-            </div>
-            )
-          })
-        }
-      </div>
-      <button onClick={handleSubmit} type="submit">Update Employee</button>
-    </form>
-  )
-}
+      </Box>
+    </>
+  );
+};
 
 const mapStateToProps = (state) => {
   return {
-    gyms: state.gyms
-  }
-}
+    user: state.user,
+    gyms: state.gyms,
+  };
+};
 
-export default connect(mapStateToProps, {})(UpdateEmployee)
+export default connect(mapStateToProps, {})(AdminUpdateEmployee);
+// export default AdminUpdateEmployee

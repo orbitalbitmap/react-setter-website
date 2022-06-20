@@ -78,13 +78,30 @@ const UpdateEmployee = (props) => {
     const {
       target: { value },
     } = event;
-    
-    const [gymName] = value.filter(gym => !employeeGymNameList.includes(gym)) ;
-    const [gymInfo] = gymName !== undefined ? props.gyms.filter(gym => gym.name === gymName) : [null];
+    let newGymList;
 
-    gymInfo !== null && setEmployee({...employee, gyms: employee.gyms.concat(gymInfo)});
+    // the if executes adding info the else removes info form the employee's gym list
+    if (value.length > employeeGymNameList.length) {
+      // find the gym name in the updated multi-select value that is not in the employeeGymList
+      const [gymNameToAdd] = value.filter(
+        (gym) => !employeeGymNameList.includes(gym),
+      );
+      // get the missing gym to add to the employee's gyms list
+      const [gymInfo] = props.gyms.filter((gym) => gym.name === gymNameToAdd);
+      // set a new gymList
+      newGymList = employee.gyms.concat(gymInfo);
+    } else {
+      // find the gym name in the employeeGymList that is not in the updated multi-select value
+      const [gymNameToRemove] = employeeGymNameList.filter(
+        (gym) => !value.includes(gym),
+      );
+      // remove gym from the employee's gyms list and set newGymList to the new list
+      newGymList = employee.gyms.filter((gym) => gym.name !== gymNameToRemove);
+    }
+
+    setEmployee({ ...employee, gyms: newGymList });
     setEmployeeGymNameList(value);
-  }
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
