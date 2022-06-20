@@ -144,7 +144,7 @@ const handleDateSetChange = async (event, index) => {
             }
           </Box>
 
-          <Box className="date-udpater-container">
+          <Box className="date-updater-container">
             <TextField
               id="date"
               label="Date"

@@ -148,7 +148,7 @@ const handleDateSetChange = async (event, index) => {
             <Button variant="outlined" sx={{ mx: 2, height: '2.5rem', }} onClick={() => console.log('not yet implemented')} type="button" >Print Boulder Bash Placard</Button>
           </Box>
 
-          <Box className="date-udpater-container">
+          <Box className="date-updater-container">
             <TextField
               id="date"
               label="Date"
