@@ -208,7 +208,7 @@ const handleDateSetChange = async (event, index) => {
                             value={climb.setter}
                             handleChange={handleChange}
                             name="setter"
-                            list={employeeList}
+                            list={[{placardName: 'Guest'}, ...employeeList]}
                             id={climb.id}
                             color={climb.color}
                           />
