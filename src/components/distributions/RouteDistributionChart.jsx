@@ -145,7 +145,7 @@ const addNewClimb = () => {
 
   useEffect(() => {
     const filteredDistribution = distribution.filter(climb => climb.sectionId === currentSection);
-    const sortedFilteredDistribution = filteredDistribution.sort((climbA, climbB) => climbA - climbB);
+    const sortedFilteredDistribution = filteredDistribution.sort((climbA, climbB) => climbA.station - climbB.station);
 
     setSectionDistribution(sortedFilteredDistribution);
   }, [distribution, currentSection])
