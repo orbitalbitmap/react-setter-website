@@ -3,6 +3,7 @@
 /*********************************************************************************************************/
 @media print {
   * {
+    print-color-adjust: exact;
     -webkit-print-color-adjust: exact;
   }
 
@@ -606,7 +607,7 @@ body {
   color: #fff
 }
 
-.date-udpater-container {
+.date-updater-container {
   display: flex;
   gap: 0.25rem;
   flex-direction: column;
