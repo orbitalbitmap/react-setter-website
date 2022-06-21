@@ -87,6 +87,18 @@ const BoulderDistributionChart = () => {
     setDistribution(newDistribution)
 }
 
+const handleInputChange = async (event) => {
+  const { index, name} = event.target.dataset;
+  const { value } = event.target;
+
+  let [...newDistribution] = distribution
+  newDistribution[parseInt(index)][name] = name ==='station'
+    ? parseInt(value)
+    : value;
+    
+  setDistribution(newDistribution)
+}
+
 const handleDateSetChange = async (event, index) => {
   const { name, value } = event.target;
   const [...newDistribution] = distribution
@@ -94,6 +106,24 @@ const handleDateSetChange = async (event, index) => {
   newDistribution[parseInt(index)][name] = value;
 
   setDistribution(newDistribution)
+}
+
+const addNewClimb = () => {
+  const newClimb = {
+    id: distribution.length + 1,
+    gymId: gymId,
+    grade: 'VB',
+    color: 'Pink',
+    setter: 'Guest',
+    holds: null,
+    style: null,
+    sectionId: currentSection,
+    dateSet: todayFormatted,
+    position: sectionDistribution.length + 1,
+  }
+
+  const newDistribution = [...distribution, newClimb];
+  setDistribution(newDistribution);
 }
 
   useEffect(() => {
@@ -113,7 +143,7 @@ const handleDateSetChange = async (event, index) => {
 
   useEffect(() => {
     const filteredDistribution = distribution.filter(climb => climb.sectionId === currentSection)
-    const sortedFilteredDistribution = filteredDistribution.sort((climbA, climbB) => climbA - climbB)
+    const sortedFilteredDistribution = filteredDistribution.sort((climbA, climbB) => climbA.position - climbB.position)
 
     setSectionDistribution(sortedFilteredDistribution)
   }, [distribution, currentSection])
@@ -138,14 +168,14 @@ const handleDateSetChange = async (event, index) => {
 
           <Box sx={{ mx: 'auto', display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
             <Button variant="contained" sx={{ mx: 2, height: '2.5rem', }} onClick={handleSubmit} type="submit">Save Distribution</Button>
-            <Button variant="outlined" sx={{ mx: 2, height: '2.5rem', }}>Add climbs</Button>
+            <Button variant="outlined" sx={{ mx: 2, height: '2.5rem', }} onClick={addNewClimb}>Add climb</Button>
           
             <Link to="/placard/boulders" state={{ distribution: sectionDistribution}} style={{ color: 'white', textDecoration: 'none', }}>
               <Button variant="outlined" sx={{ mx: 2, height: '2.5rem', }} className="distribution-button" type="button">
                 Print Boulder Placard
               </Button>
             </Link>
-            <Button variant="outlined" sx={{ mx: 2, height: '2.5rem', }} onClick={() => console.log('not yet implemented')} type="button" >Print Boulder Bash Placard</Button>
+            {/* <Button variant="outlined" sx={{ mx: 2, height: '2.5rem', }} onClick={() => console.log('not yet implemented')} type="button" >Print Boulder Bash Placard</Button> */}
           </Box>
 
           <Box className="date-updater-container">
@@ -172,12 +202,13 @@ const handleDateSetChange = async (event, index) => {
         <Table className="distribution-table">
           <TableHead>
             <TableRow className="distribution-tr">
-              <TableCell className="distribution-th" sx={{ color: 'white', textAlign: 'center', fontSize: '1.25rem',  }}> Grade</TableCell>
-              <TableCell className="distribution-th" sx={{ color: 'white', textAlign: 'center', fontSize: '1.25rem',  }}>Color</TableCell>
-              <TableCell className="distribution-th" sx={{ color: 'white', textAlign: 'center', fontSize: '1.25rem',  }}>Setter</TableCell>
-              <TableCell className="distribution-th" sx={{ color: 'white', textAlign: 'center', fontSize: '1.25rem',  }}>Location</TableCell>
-              <TableCell className="distribution-th" sx={{ color: 'white', textAlign: 'center', fontSize: '1.25rem',  }}>Date</TableCell>
-              <TableCell className="distribution-th" sx={{ color: 'white', textAlign: 'center', fontSize: '1.25rem',  }}>Days Old</TableCell>
+              <TableCell className="distribution-th" sx={{ color: 'white', textAlign: 'center', fontSize: '1.25rem', }}>Position</TableCell>
+              <TableCell className="distribution-th" sx={{ color: 'white', textAlign: 'center', fontSize: '1.25rem', }}>Grade</TableCell>
+              <TableCell className="distribution-th" sx={{ color: 'white', textAlign: 'center', fontSize: '1.25rem', }}>Color</TableCell>
+              <TableCell className="distribution-th" sx={{ color: 'white', textAlign: 'center', fontSize: '1.25rem', }}>Setter</TableCell>
+              <TableCell className="distribution-th" sx={{ color: 'white', textAlign: 'center', fontSize: '1.25rem', }}>Location</TableCell>
+              <TableCell className="distribution-th" sx={{ color: 'white', textAlign: 'center', fontSize: '1.25rem', }}>Date</TableCell>
+              <TableCell className="distribution-th" sx={{ color: 'white', textAlign: 'center', fontSize: '1.25rem', }}>Days Old</TableCell>
             </TableRow>
           </TableHead>
           
@@ -200,6 +231,24 @@ const handleDateSetChange = async (event, index) => {
                 return (
                   <React.Fragment key={`table-row-${climb.id}`}>
                     <TableRow className={`climb${climb.id} distribution-tr ${climb?.color.toLowerCase()}`}>
+                        <TableCell className="distribution-td" style={{ textAlign: 'center', }} >
+                          <TextField
+                            label="Position"
+                            id={`${climb.id}`}
+                            sx={{ color: fontColor, width: '5rem', }}
+                            variant="outlined"
+                            value={climb.position}
+                            onChange={handleInputChange}
+                            inputProps={{ 
+                              'data-name': 'position',
+                              'data-index': climb.id - 1,
+                              sx: { color: fontColor, textAlign: 'center' }
+                            }}
+                            InputLabelProps={{
+                              sx: { color: fontColor}
+                            }}
+                          />
+                        </TableCell>
                       <TableCell className="distribution-td">
                         <SelectionContainer
                           handleChange={handleChange}
