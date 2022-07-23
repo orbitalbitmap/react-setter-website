@@ -111,11 +111,15 @@ const handleDateSetChange = async (event, index) => {
 }
 
 const addNewClimb = () => {
+  const station = sectionDistribution.length
+    ? sectionDistribution[sectionDistribution.length - 1].station
+    : 1
+
   const newClimb = {
     id: distribution.length + 1,
     gymId: gymId,
     sectionId: currentSection,
-    station: sectionDistribution[sectionDistribution.length - 1].station,
+    station,
     ropeStyle: 'Top Rope Only',
     grade: '5.5',
     color: 'Pink',
@@ -154,6 +158,8 @@ const addNewClimb = () => {
     setTimeout(() => { setCurrentSection(1)}, 500)
   }, []);
 
+
+  console.log(sectionDistribution)
   return (
     <Box sx={{ m: '0 auto', mt: '5rem', width: '95rem' }}>
       <Box sx={{ mx: 'auto', position: 'fixed', top: '4rem', bgcolor: theme => theme.palette.common.white, width: "90%", zIndex: 999}}>
