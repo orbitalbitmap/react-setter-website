@@ -158,8 +158,6 @@ const addNewClimb = () => {
     setTimeout(() => { setCurrentSection(1)}, 500)
   }, []);
 
-
-  console.log(sectionDistribution)
   return (
     <Box sx={{ m: '0 auto', mt: '5rem', width: '95rem' }}>
       <Box sx={{ mx: 'auto', position: 'fixed', top: '4rem', bgcolor: theme => theme.palette.common.white, width: "90%", zIndex: 999}}>
