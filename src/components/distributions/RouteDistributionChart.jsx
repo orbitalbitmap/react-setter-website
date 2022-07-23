@@ -111,11 +111,15 @@ const handleDateSetChange = async (event, index) => {
 }
 
 const addNewClimb = () => {
+  const station = sectionDistribution.length
+    ? sectionDistribution[sectionDistribution.length - 1].station
+    : 1
+
   const newClimb = {
     id: distribution.length + 1,
     gymId: gymId,
     sectionId: currentSection,
-    station: sectionDistribution[sectionDistribution.length - 1].station,
+    station,
     ropeStyle: 'Top Rope Only',
     grade: '5.5',
     color: 'Pink',
