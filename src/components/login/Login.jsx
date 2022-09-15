@@ -15,46 +15,51 @@ import Typography from '@mui/material/Typography';
 
 import Copyright from './copyright/Copyright';
 import { getLocations, signIn } from '../../actions'
+import userReducer from '../../reducers/userReducer';
+import { useAppSelector, useAppDispatch } from '../../hooks/rtkHooks';
 
-import { getEmployeeByIdQuery } from '../../services/gym';
+// import { getEmployeeByIdQuery } from '../../services/gym';
 
-const { checkPass } = require('../../utils/bcrypt');
 
 const SignIn = (props) => {
-  getEmployeeByIdQuery(1)
-  // console.log({ data, isError, isLoading })
+  console.log(useAppSelector(state => state));
+  // getEmployeeByIdQuery('1')
 
   const cookies = new Cookies()
   const navigate = useNavigate()
   const [enteredEmail, setEnteredEmail] = useState('')
   const [enteredPassword, setEnteredPassword] = useState('')
 
-  // const handleSubmit = async (event) => {
-  //   event.preventDefault()
+  const handleSubmit = async (event) => {
+    event.preventDefault()
 
-  //   if (enteredPassword.length <= 0 || enteredEmail.length <= 0) {
-  //     window.alert("password and email are required")
-  //     return
-  //   }
+    if (enteredPassword.length <= 0 || enteredEmail.length <= 0) {
+      window.alert("password and email are required")
+      return
+    }
 
-  //   const {password, ...user} = (await axios.get(`${process.env.REACT_APP_API_PATH}/employeeByEmail/${enteredEmail}`)).data
-  //   const passwordDoesMatch = await checkPass(enteredPassword, password);
+    const {user, error} = (
+      await axios.get(
+        `${process.env.REACT_APP_API_PATH}/employeeByEmail/${enteredEmail}/${enteredPassword}`
+      )
+    ).data
 
-  //   switch (passwordDoesMatch) {
-  //     case true:
-  //       props.signIn(user)
-  //       props.getLocations()
-  //       cookies.set('setter', user, { path: '/' })
-  //       navigate('/dashboard', {replace: true})
-  //       break
-  //     case false:
-  //       console.log('failure')
-  //       break
-  //     default:
-  //       console.log('failure')
-  //       break
-  //   }
-  // }
+
+    switch (error) {
+      case null:
+        props.signIn(user)
+        props.getLocations()
+        cookies.set('setter', user, { path: '/' })
+        navigate('/dashboard', {replace: true})
+        break
+      case true:
+        console.log(error)
+        break
+      default:
+        console.log('failure')
+        break
+    }
+  }
 
   return (
       <Container component="main" maxWidth="xs">
@@ -77,7 +82,7 @@ const SignIn = (props) => {
             Sign in
           </Typography>
 
-          <Box component="form" /* onSubmit={handleSubmit} */ noValidate sx={{ mt: 1 }}>
+          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
             <TextField
               autoComplete="email"
               autoFocus
