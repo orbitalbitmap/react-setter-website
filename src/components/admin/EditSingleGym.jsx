@@ -108,11 +108,11 @@ const EditSingleGym = () => {
 
               <Grid item xs={6}>
                 <FormControl fullWidth>
-                  <InputLabel id="headSetterId">Role</InputLabel>
+                  <InputLabel id="headSetterId">Head Setter:</InputLabel>
                   <Select
                     name="headSetterId"
                     labelId="headSetterId"
-                    label="headSetter: "
+                    label="Head Setter:"
                     value={gym.headSetterId || 0}
                     onChange={(event) => { setGym({...gym, headSetterId: parseInt(event.target.value)})}}
                   >
