@@ -1,14 +1,25 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
-import { FormControl, Grid, TextField , Button} from '@mui/material';
-import { Paper, Select, MenuItem, InputLabel, OutlinedInput, Checkbox, ListItemText } from '@mui/material';
-
-import Snackbar from '@mui/material/Snackbar';
-import IconButton from '@mui/material/IconButton';
+import { useSelector } from 'react-redux';
+import {
+  FormControl,
+  Grid,
+  TextField ,
+  Button,
+  Paper,
+  Select,
+  MenuItem,
+  InputLabel,
+  OutlinedInput,
+  Checkbox,
+  ListItemText,
+  Snackbar,
+  IconButton,
+} from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 
-const NewEmployeeForm = (props) => {
+const NewEmployeeForm = () => {
+  const locations = useSelector(state => state.locations)
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -45,7 +56,7 @@ const NewEmployeeForm = (props) => {
     } = event;
     
     const [gymName] = value.filter(gym => !employeeGymNameList.includes(gym)) 
-    const [gymInfo] = gymName !== undefined ? props.gyms.filter(gym => gym.name === gymName) : [null]
+    const [gymInfo] = gymName !== undefined ? locations.filter(gym => gym.name === gymName) : [null]
 
     gymInfo !== null && setEmployeeGymList(employeeGymList.concat(gymInfo))
     setEmployeeGymNameList(value)
@@ -75,8 +86,8 @@ const NewEmployeeForm = (props) => {
   }
 
   useEffect(() => {
-    setCurrentGymNameList(props.gyms.map((gym) => gym.name))
-  }, [props.gyms])
+    setCurrentGymNameList(locations.map((gym) => gym.name))
+  }, [locations])
 
   return (
     <>
@@ -189,11 +200,4 @@ const NewEmployeeForm = (props) => {
   );
 }
 
-const mapStateToProps = (state) => {
-  return {
-    user: state.user,
-    gyms: state.gyms,
-  };
-}
-
-export default connect(mapStateToProps, {})(NewEmployeeForm);
+export default NewEmployeeForm;
