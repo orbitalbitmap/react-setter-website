@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios'
-import { useNavigate } from 'react-router-dom'
-import { connect } from 'react-redux'
-import { Cookies } from 'react-cookie'
+// import { useNavigate } from 'react-router-dom'
+import { connect, useDispatch, /* useSelector */ } from 'react-redux'
 
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -15,18 +14,12 @@ import Typography from '@mui/material/Typography';
 
 import Copyright from './copyright/Copyright';
 import { getLocations, signIn } from '../../actions'
-import userReducer from '../../reducers/userReducer';
-import { useAppSelector, useAppDispatch } from '../../hooks/rtkHooks';
-
-// import { getEmployeeByIdQuery } from '../../services/gym';
-
+import { setUser, } from '../../reducers/userReducer';
+import { useNavigate } from 'react-router-dom';
 
 const SignIn = (props) => {
-  console.log(useAppSelector(state => state));
-  // getEmployeeByIdQuery('1')
-
-  const cookies = new Cookies()
-  const navigate = useNavigate()
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [enteredEmail, setEnteredEmail] = useState('')
   const [enteredPassword, setEnteredPassword] = useState('')
 
@@ -37,28 +30,37 @@ const SignIn = (props) => {
       window.alert("password and email are required")
       return
     }
+    const {data} = await axios({ 
+          url: `${process.env.REACT_APP_API_PATH}/employeeByEmail`,
+          method: 'POST',
+          data: {
+            email: enteredEmail,
+            password: enteredPassword,
+        },
+      })
+      console.log(data)
 
-    const {user, error} = (
-      await axios.get(
-        `${process.env.REACT_APP_API_PATH}/employeeByEmail/${enteredEmail}/${enteredPassword}`
-      )
-    ).data
+      if (data.id) {
+        dispatch(setUser(data))
+        navigate("/dashboard")
+      } else {
+        console.log('Error occurred')
+      }
 
-
-    switch (error) {
-      case null:
-        props.signIn(user)
-        props.getLocations()
-        cookies.set('setter', user, { path: '/' })
-        navigate('/dashboard', {replace: true})
-        break
-      case true:
-        console.log(error)
-        break
-      default:
-        console.log('failure')
-        break
-    }
+  //   switch (error) {
+  //     case null:
+  //       props.signIn(user)
+  //       props.getLocations()
+  //       cookies.set('setter', user, { path: '/' })
+  //       navigate('/dashboard', {replace: true})
+  //       break
+  //     case true:
+  //       console.log(error)
+  //       break
+  //     default:
+  //       console.log('failure')
+  //       break
+  //   }
   }
 
   return (

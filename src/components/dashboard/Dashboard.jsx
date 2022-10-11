@@ -13,7 +13,6 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ListItems from './sidebar/ListItems';
 import { grey } from '@mui/material/colors'
 
-
 const drawerWidth = 240;
 
 const AppBar = styled(MuiAppBar, {
@@ -63,7 +62,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 );
 
 
-function DashboardContent(props) {
+function DashboardContent({ children }) {
   const [open, setOpen] = React.useState(false);
   const toggleDrawer = () => {
     setOpen(!open);
@@ -74,7 +73,7 @@ function DashboardContent(props) {
         <AppBar position="fixed" open={open} className="noprint">
           <Toolbar
             sx={{
-              pr: '24px', // keep right padding when drawer closed
+              pr: '24px', // keep right padding when drawer is closed
             }}
           >
             <IconButton
@@ -124,7 +123,7 @@ function DashboardContent(props) {
           </List>
         </Drawer>
 
-        {props.children}
+        {children}
       </Box>
   );
 }

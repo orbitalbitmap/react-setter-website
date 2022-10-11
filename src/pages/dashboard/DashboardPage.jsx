@@ -1,27 +1,41 @@
-import { connect } from 'react-redux'
-
-import '../../components/styles.css'
+import axios from 'axios';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Dashboard from '../../components/dashboard/Dashboard'
-import { getLocations } from '../../actions'
 import DashboardContent from '../../components/dashboard/content/Content'
+import '../../components/styles.css'
+import { setGymList } from '../../reducers/locationReducers';
 
-const DashboardPage = (props) => {  
+const DashboardPage = () => { 
+  const { user } = useSelector(state => state.user)
+  const dispatch = useDispatch()
+
+
+  useEffect(() => {
+    const fetchLocations = async () => {
+      const { data } = await axios({ 
+        url: `${process.env.REACT_APP_API_PATH}/gyms`,
+        method: 'GET',
+      })
+  
+      dispatch(setGymList({gyms: data}))
+    }
+
+    fetchLocations()
+  }, [dispatch])
+
+
   return (
     <>
       {
-        props.user?.id
-          ? <Dashboard><DashboardContent /></Dashboard>
-          : null // create loading component />
+        user?.loggedIn
+          ? <Dashboard>
+              <DashboardContent />
+            </Dashboard>
+          : <div>Log in failed</div> // create loading component />
       }
     </>
   )
 }
 
-const mapStateToProps = (state) => {
-  return {
-    user: state.user,
-    gyms: state.gyms
-  }
-}
-
-export default connect(mapStateToProps, { getLocations })(DashboardPage)
+export default DashboardPage

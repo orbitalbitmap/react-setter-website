@@ -1,24 +1,28 @@
 import * as React from 'react'
-import ListItemButton from '@mui/material/ListItemButton'
-import ListItemIcon from '@mui/material/ListItemIcon'
-import ListItemText from '@mui/material/ListItemText'
-import Collapse from '@mui/material/Collapse'
-import ExpandMore from '@mui/icons-material/ExpandMore'
-import ExpandLess from '@mui/icons-material/ExpandLess'
 import { Link } from 'react-router-dom'
-import List from '@mui/material/List'
-import Divider from '@mui/material/Divider'
-import Tooltip from '@mui/material/Tooltip'
-
-import { connect } from 'react-redux'
-
+import { useSelector } from 'react-redux'
+import { 
+  Collapse,
+  List,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  Divider,
+  Tooltip, 
+} from '@mui/material'
+import {
+  ExpandMore,
+  ExpandLess,
+} from '@mui/icons-material'
 import sideNavList from './sideNavList'
-
 import Logout from '../logout/Logout'
 import AdminLink from '../navAdmin/NavAdmin'
 
-
 const ItemList = (props) => {
+  const { user } = useSelector(state => state.user);
+  const locations = useSelector(state => state.locations)
+
+  console.log({ user, locations})
   const [expandAllLocations, setExpandAllLocations] = React.useState(false)
   const [expandMetrics, setExpandMetrics] = React.useState(false)
   const [expandUserLocations, setExpandUserLocations] = React.useState(false)
@@ -83,9 +87,9 @@ const ItemList = (props) => {
   const renderList = (list) => list.map((listItem) => {
     switch (listItem.title) {
       case 'Locations':
-        return renderCollapsableList(listItem, '/locations/', props?.gyms, expandAllLocations, setExpandAllLocations)
+        return renderCollapsableList(listItem, '/locations/', locations, expandAllLocations, setExpandAllLocations)
     case 'Metrics':
-      return renderCollapsableList(listItem, '/metrics/', props?.user?.gyms, expandMetrics, setExpandMetrics)
+      return renderCollapsableList(listItem, '/metrics/', user?.gyms, expandMetrics, setExpandMetrics)
     default:
       return renderListItemWithLink(listItem)
     }
@@ -103,27 +107,22 @@ const ItemList = (props) => {
 
     <React.Fragment>
       <AdminLink />
-
       {
         renderList(sideNavList)
       }
-
       <Logout />
-
       <Divider sx={{ my: 1 }} />
-
       {
-        renderCollapsableList({id: 8, title: 'Your Locations'}, '/locations/', props?.user?.gyms, expandUserLocations, setExpandUserLocations)
+        renderCollapsableList(
+          { id: 8, title: 'Your Locations'},
+          '/locations/',
+          user?.gyms,
+          expandUserLocations,
+          setExpandUserLocations
+        )
       }
     </React.Fragment>
   )
 }
 
-const mapStateToProps = (state) => {
-  return {
-    user: state.user,
-    gyms: state.gyms
-  }
-}
-
-export default connect(mapStateToProps, {})(ItemList)
+export default ItemList;

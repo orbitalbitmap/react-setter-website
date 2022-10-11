@@ -1,14 +1,16 @@
-import { GET_LOCATIONS, REMOVE_LOCATIONS } from '../actions/types';
+import { createSlice } from '@reduxjs/toolkit';
 
-const locations = (state = null, action) => {
-  switch (action.type) {
-    case GET_LOCATIONS:
-      return action.payload.locations;
-    case REMOVE_LOCATIONS:
-      return null;
-    default:
-      return state;
-  }
-};
+const initialState = [];
 
-export default locations;
+export const locationSlice = createSlice({
+  name: 'locations',
+  initialState,
+  reducers: {
+    setGymList: (state, action) => action.payload.gyms,
+  },
+})
+
+// Action creators are generated for each case reducer function
+export const { setGymList } = locationSlice.actions
+
+export default locationSlice.reducer
