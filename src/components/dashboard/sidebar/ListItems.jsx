@@ -19,10 +19,9 @@ import Logout from '../logout/Logout'
 import AdminLink from '../navAdmin/NavAdmin'
 
 const ItemList = (props) => {
-  const { user } = useSelector(state => state.user);
+  const user = useSelector(state => state.user);
   const locations = useSelector(state => state.locations)
 
-  console.log({ user, locations})
   const [expandAllLocations, setExpandAllLocations] = React.useState(false)
   const [expandMetrics, setExpandMetrics] = React.useState(false)
   const [expandUserLocations, setExpandUserLocations] = React.useState(false)

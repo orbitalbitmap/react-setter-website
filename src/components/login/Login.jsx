@@ -38,7 +38,6 @@ const SignIn = (props) => {
             password: enteredPassword,
         },
       })
-      console.log(data)
 
       if (data.id) {
         dispatch(setUser(data))

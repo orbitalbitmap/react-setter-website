@@ -14,23 +14,25 @@ const initialState = {
   loggedIn: null,
 };
 
+const setUserInfo = (state, action) => {
+  state.id = action.payload.id;
+  state.firstName = action.payload.firstName;
+  state.lastName = action.payload.lastName;
+  state.placardName = action.payload.placardName;
+  state.email = action.payload.email;
+  state.phoneNumber = action.payload.phoneNumber;
+  state.roleId = action.payload.roleId;
+  state.deletedAt = action.payload.deletedAt;
+  state.role = action.payload.role;
+  state.gyms = action.payload.gyms;
+  state.loggedIn = true
+}
+
 export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    setUser: (state, action) => {
-      state.id = action.payload.id;
-      state.firstName = action.payload.firstName;
-      state.lastName = action.payload.lastName;
-      state.placardName = action.payload.placardName;
-      state.email = action.payload.email;
-      state.phoneNumber = action.payload.phoneNumber;
-      state.roleId = action.payload.roleId;
-      state.deletedAt = action.payload.deletedAt;
-      state.role = action.payload.role;
-      state.gyms = action.payload.gyms;
-      state.loggedIn = true
-    },
+    setUser: setUserInfo,
   },
 })
 

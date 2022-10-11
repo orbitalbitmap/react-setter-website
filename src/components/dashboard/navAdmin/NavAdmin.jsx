@@ -12,7 +12,7 @@ import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 // import  from '@mui/material/Tooltip'
 
 const AdminLink = () => {
-  const { user } = useSelector(state => state.user)
+  const user = useSelector(state => state.user)
   if (user?.roleId <= 3) {
     return (
       <Link to="/admin" style={{textDecoration: 'none'}}>
