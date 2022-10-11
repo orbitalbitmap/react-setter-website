@@ -1,4 +1,4 @@
-import * as React from 'react'
+import {useEffect, useState, Fragment} from 'react'
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { 
@@ -21,10 +21,9 @@ import AdminLink from '../navAdmin/NavAdmin'
 const ItemList = (props) => {
   const user = useSelector(state => state.user);
   const locations = useSelector(state => state.locations)
-
-  const [expandAllLocations, setExpandAllLocations] = React.useState(false)
-  const [expandMetrics, setExpandMetrics] = React.useState(false)
-  const [expandUserLocations, setExpandUserLocations] = React.useState(false)
+  const [expandAllLocations, setExpandAllLocations] = useState(false)
+  const [expandMetrics, setExpandMetrics] = useState(false)
+  const [expandUserLocations, setExpandUserLocations] = useState(false)
 
   const renderListItemWithLink = (listItem) => (
     <Link key={listItem.id} to={listItem.url} style={{textDecoration: 'none'}}>
@@ -45,7 +44,7 @@ const ItemList = (props) => {
     }
 
   const renderCollapsableList = (listItem, baseUrl, subList, opener, setter) => (
-    <React.Fragment key={listItem.id}>
+    <Fragment key={listItem.id}>
       <Tooltip key={listItem.id} title={listItem.title} disableInteractive>
         <ListItemButton key={listItem.id} onClick={() => {!props.drawerOpen ? toggleDrawerAndList(setter) : setter(!opener)}}>
             <ListItemIcon>
@@ -80,7 +79,7 @@ const ItemList = (props) => {
             <Divider sx={{ my: 1 }} />
         </List>
       </Collapse>
-    </React.Fragment>
+    </Fragment>
   )
 
   const renderList = (list) => list.map((listItem) => {
@@ -94,7 +93,7 @@ const ItemList = (props) => {
     }
   })
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!props.drawerOpen) {
       setExpandAllLocations(false)
       setExpandMetrics(false)
@@ -104,7 +103,7 @@ const ItemList = (props) => {
 
   return (
 
-    <React.Fragment>
+    <Fragment>
       <AdminLink />
       {
         renderList(sideNavList)
@@ -120,7 +119,7 @@ const ItemList = (props) => {
           setExpandUserLocations
         )
       }
-    </React.Fragment>
+    </Fragment>
   )
 }
 

@@ -1,11 +1,11 @@
-import * as React from 'react'
-import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import Paper from '@mui/material/Paper';
-import Typography from '@mui/material/Typography';
+import {
+  Container,
+  Grid,
+  Box,
+  Paper,
+  Typography,
+} from '@mui/material';
 import { useSelector } from 'react-redux'
-
 import GymTabContainer from './gymTabContainer/GymTabContainer'
 
 const Content = () => {

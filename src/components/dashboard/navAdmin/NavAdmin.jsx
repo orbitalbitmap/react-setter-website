@@ -6,10 +6,7 @@ import {
   ListItemText,
   Tooltip,
 } from '@mui/material';
-// import  from '@mui/material/ListItemIcon';
-// import  from '@mui/material/ListItemText';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
-// import  from '@mui/material/Tooltip'
 
 const AdminLink = () => {
   const user = useSelector(state => state.user)

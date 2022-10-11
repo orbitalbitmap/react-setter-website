@@ -10,20 +10,16 @@ const DashboardPage = () => {
   const user = useSelector(state => state.user)
   const dispatch = useDispatch()
 
-
   useEffect(() => {
     const fetchLocations = async () => {
       const { data } = await axios({ 
         url: `${process.env.REACT_APP_API_PATH}/gyms`,
         method: 'GET',
       })
-  
       dispatch(setGymList({gyms: data}))
     }
-
     fetchLocations()
   }, [dispatch])
-
 
   return (
     <>

@@ -1,23 +1,22 @@
-import React, { useState } from 'react';
 import axios from 'axios'
-// import { useNavigate } from 'react-router-dom'
-import { connect, useDispatch, /* useSelector */ } from 'react-redux'
-
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import Box from '@mui/material/Box';
+import { useState } from 'react';
+import { useDispatch, } from 'react-redux'
+import {
+  Avatar,
+  Button,
+  CssBaseline,
+  TextField,
+  Box,
+  Container,
+  Typography,
+} from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Container from '@mui/material/Container';
-import Typography from '@mui/material/Typography';
 
 import Copyright from './copyright/Copyright';
-import { getLocations, signIn } from '../../actions'
 import { setUser, } from '../../reducers/userReducer';
 import { useNavigate } from 'react-router-dom';
 
-const SignIn = (props) => {
+const SignIn = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [enteredEmail, setEnteredEmail] = useState('')
@@ -43,23 +42,8 @@ const SignIn = (props) => {
         dispatch(setUser(data))
         navigate("/dashboard")
       } else {
-        console.log('Error occurred')
+        console.log('Error occurred') // @TODO: add log in error alerts
       }
-
-  //   switch (error) {
-  //     case null:
-  //       props.signIn(user)
-  //       props.getLocations()
-  //       cookies.set('setter', user, { path: '/' })
-  //       navigate('/dashboard', {replace: true})
-  //       break
-  //     case true:
-  //       console.log(error)
-  //       break
-  //     default:
-  //       console.log('failure')
-  //       break
-  //   }
   }
 
   return (
@@ -125,4 +109,4 @@ const SignIn = (props) => {
   );
 }
 
-export default connect(null, { getLocations, signIn })(SignIn)
+export default SignIn

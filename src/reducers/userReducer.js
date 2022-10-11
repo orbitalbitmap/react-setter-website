@@ -1,16 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  id: "",
-  firstName: "",
-  lastName: "",
-  placardName: "",
-  email: "",
-  phoneNumber: "",
-  roleId: 999,
+  id: null,
+  firstName: null,
+  lastName: null,
+  placardName: null,
+  email: null,
+  phoneNumber: null,
+  roleId: null,
   deletedAt: null,
-  role: {},
-  gyms: [],
+  role: null,
+  gyms: null,
   loggedIn: null,
 };
 
