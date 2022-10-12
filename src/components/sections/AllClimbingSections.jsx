@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import SectionCardsContainer from './SectionCardsContainer';
-import { Masonry } from '@mui/lab'
+import Masonry from '@mui/lab/Masonry'
 
 const AllClimbingSections = () => {
   const [gyms, setGyms] = useState([]);

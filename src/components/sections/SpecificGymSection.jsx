@@ -8,6 +8,15 @@ const SpecificGymSection = () => {
   const urlParams = useParams()
   const [gym, setGym] = useState({})
 
+  useEffect(() => {
+    const getInfo = async () => {
+      const { data } = await axios.get(`${process.env.REACT_APP_API_PATH}/gymWithSections/${urlParams.id}`)
+      setGym(data)
+    }
+
+    getInfo()
+  }, [urlParams])
+
   const renderInfo = () => {
     return (
       <div style={{ margin: '5rem auto 0', width: '50%', }}>
@@ -21,15 +30,6 @@ const SpecificGymSection = () => {
       </div>
     )
   }
-
-  useEffect(() => {
-    const getInfo = async () => {
-      const { data } = await axios.get(`${process.env.REACT_APP_API_PATH}/gymWithSections/${urlParams.id}`)
-      setGym(data)
-    }
-
-    getInfo()
-  }, [urlParams])
 
   return gym.id 
     ? renderInfo()
