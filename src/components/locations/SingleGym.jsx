@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { connect } from 'react-redux';
 import { Box, Button, Container, List, ListItem, ListItemText, Typography } from '@mui/material';
 
 const SingleGym = () => {
@@ -109,10 +108,4 @@ const SingleGym = () => {
     );
   }
 
-  const mapStateToProps = (state) => {
-    return {
-      gyms: state.gyms
-    };
-  }
-
-export default connect(mapStateToProps, {})(SingleGym);
+export default SingleGym;
