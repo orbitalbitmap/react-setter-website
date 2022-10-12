@@ -1,11 +1,8 @@
-import React from 'react';
-import { connect } from 'react-redux';
 import { Box, Container, Typography } from '@mui/material';
 
 import GymCardContainer from './GymCardsContainer';
 
-const Gyms = (props) => (
-  
+const Gyms = () => (
   <>
     <Box
       sx={{
@@ -41,11 +38,4 @@ const Gyms = (props) => (
   </>
 );
 
-const mapStateToProps = (state) => {
-  return {
-    user: state.user,
-    gyms: state.gyms
-  }
-};
-
-export default connect(mapStateToProps, {})(Gyms);
+export default Gyms;
