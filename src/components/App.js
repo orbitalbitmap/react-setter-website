@@ -63,7 +63,8 @@ function App() {
           {/* Employee paths */}
           <Route exact path="/employees" element={<AllEmployeesPage />} />
           <Route exact path="/employees/:id" element={<SingleEmployeePage />} />
-          <Route exact path="/employees/edit" element={<UpdateEmployeePage />} />
+          <Route exact path="/employees/edit/:id" element={<UpdateEmployeePage />} />
+          <Route exact path="/employee/edit" element={<UpdateEmployeePage />} />
 
           {/* Metric paths */}
           <Route exact path="/metrics/:id" element={<MetricsPage />} />

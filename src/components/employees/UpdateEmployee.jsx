@@ -1,6 +1,7 @@
-import axios from 'axios';
+// import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import {
   Box,
   Button,
@@ -18,54 +19,65 @@ import {
   Typography,
 } from '@mui/material';
 
-import { signIn } from '../../actions';
-import Snackbar from '@mui/material/Snackbar';
-import IconButton from '@mui/material/IconButton';
-import CloseIcon from '@mui/icons-material/Close';
+// import { signIn } from '../../actions'; // was passed in as a prop to "resign in" the current user when updating their own information
+// import Snackbar from '@mui/material/Snackbar';
+// import IconButton from '@mui/material/IconButton';
+// import CloseIcon from '@mui/icons-material/Close';
 
 const UpdateEmployee = (props) => {
+  const urlParams = useParams();
+  const urlId = parseInt(urlParams.id);
+  const employeesList = useSelector(state =>  state.employees);
+  const locations = useSelector(state => state.locations);
   const [employee, setEmployee] = useState({});
-  const [currentGymNameList, setCurrentGymNameList] = useState([]);
-  const [employeeGymNameList, setEmployeeGymNameList] = useState([]);
-  const [open, setOpen] = useState(false)
-  const [snackbarMessage, setSnackbarMessage] = useState('')
+  const [currentLocationNameList, setCurrentLocationNameList] = useState([]);
+  const [employeeLocationNameList, setEmployeeLocationNameList] = useState([]);
+  const [disableSaveButton, setDisableSaveButton] = useState();
 
-  const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
+  // const [open, setOpen] = useState(false)
+  // const [snackbarMessage, setSnackbarMessage] = useState('')
 
-    setOpen(false);
-  };
-  const snackBarAction = (
-    <IconButton
-      size="small"
-      aria-label="close"
-      color="inherit"
-      onClick={handleClose}
-    >
-      <CloseIcon fontSize="small" />
-    </IconButton>
-  )
+
+  // const handleClose = (event, reason) => {
+  //   if (reason === 'clickaway') {
+  //     return;
+  //   }
+
+  //   setOpen(false);
+  // };
+  
+  // const snackBarAction = (
+  //   <IconButton
+  //     size="small"
+  //     aria-label="close"
+  //     color="inherit"
+  //     onClick={handleClose}
+  //   >
+  //     <CloseIcon fontSize="small" />
+  //   </IconButton>
+  // )
 
   useEffect(() => {
-    const getInfo = async () => {
-      const { data } = await axios.get(`${process.env.REACT_APP_API_PATH}/employees/${props.user.id}`);
+    const employeeInfo = employeesList.find(emp => {
+      return emp.id === urlId
+    });
 
       setEmployee({
-          ...data,
-          oldEmployeeGymList: data.gyms,
+          ...employeeInfo,
+          oldEmployeeGymList: employeeInfo.gyms,
           password: 'NotYourRealPassword'
         });
-      setEmployeeGymNameList(data.gyms.map(gym => gym.name));
-    }
-
-    getInfo();
-  }, [props.user])
+      setEmployeeLocationNameList(employeeInfo.gyms.map(gym => gym.name));
+    }, [employeesList, urlId])
 
   useEffect(() => {
-    setCurrentGymNameList(props.gyms.map((gym) => gym.name));
-  }, [props.gyms])
+    setCurrentLocationNameList(locations.map((gym) => gym.name));
+  }, [locations])
+  useEffect(() => {
+    const shouldDisable = employee?.roleId > 3 || employee?.roleId !== urlId
+
+    setDisableSaveButton(shouldDisable)
+  }, [employee, urlId, setDisableSaveButton])
 
   const handleChange = (event) => {
     setEmployee({
@@ -81,18 +93,18 @@ const UpdateEmployee = (props) => {
     let newGymList;
 
     // the if executes adding info the else removes info form the employee's gym list
-    if (value.length > employeeGymNameList.length) {
+    if (value.length > employeeLocationNameList.length) {
       // find the gym name in the updated multi-select value that is not in the employeeGymList
       const [gymNameToAdd] = value.filter(
-        (gym) => !employeeGymNameList.includes(gym),
+        (gym) => !employeeLocationNameList.includes(gym),
       );
       // get the missing gym to add to the employee's gyms list
-      const [gymInfo] = props.gyms.filter((gym) => gym.name === gymNameToAdd);
+      const [gymInfo] = employee.gyms.filter((gym) => gym.name === gymNameToAdd);
       // set a new gymList
       newGymList = employee.gyms.concat(gymInfo);
     } else {
       // find the gym name in the employeeGymList that is not in the updated multi-select value
-      const [gymNameToRemove] = employeeGymNameList.filter(
+      const [gymNameToRemove] = employeeLocationNameList.filter(
         (gym) => !value.includes(gym),
       );
       // remove gym from the employee's gyms list and set newGymList to the new list
@@ -100,29 +112,32 @@ const UpdateEmployee = (props) => {
     }
 
     setEmployee({ ...employee, gyms: newGymList });
-    setEmployeeGymNameList(value);
+    setEmployeeLocationNameList(value);
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    console.log('Update coming soon....')
+    // @TODO: uncomment axios import above & fix this so it sends the updated info to the db
 
-    await axios.post(`${process.env.REACT_APP_API_PATH}/updateEmployee`, employee);
-    props.signIn(await employee);
-    try {
-      await axios.post(`${process.env.REACT_APP_API_PATH}/updateEmployee`, employee);
-      props.signIn(await employee);
-      setOpen(true)
-      setSnackbarMessage('Your info has been saved!')
-    } catch {
-      setOpen(true)
-      setSnackbarMessage('Oops! Looks like something went wrong. Please Try again.')
-    }
+    // await axios.post(`${process.env.REACT_APP_API_PATH}/updateEmployee`, employee);
+    // props.signIn(await employee);
+    // try {
+    //   await axios.post(`${process.env.REACT_APP_API_PATH}/updateEmployee`, employee);
+    //   props.signIn(await employee);
+    //   setOpen(true)
+    //   setSnackbarMessage('Your info has been saved!')
+    // } catch {
+    //   setOpen(true)
+    //   setSnackbarMessage('Oops! Looks like something went wrong. Please Try again.')
+    // }
   }
   
   if (!employee.id) {
     return (<h2>Loading...</h2>);
   }
 
+  // @TODO: clean this up!!!!
   return (
     <>
     <Box
@@ -221,16 +236,16 @@ const UpdateEmployee = (props) => {
                     labelId="demo-multiple-checkbox-label"
                     id="demo-multiple-checkbox"
                     multiple
-                    value={employeeGymNameList}
+                    value={employeeLocationNameList}
                     onChange={handleCheckbox}
                     input={<OutlinedInput label="Employee's gyms" />}
                     renderValue={(selected) => selected.join(', ')}
                   >
-                    {currentGymNameList.map((gym) => {
+                    {currentLocationNameList.map((gym) => {
                       return (
                       <MenuItem key={gym} value={gym}>
                         <Checkbox sx={{ '&.Mui-checked': { color: '#fff'} }}
-                          checked={employeeGymNameList?.includes(gym)}
+                          checked={employeeLocationNameList?.includes(gym)}
                         />
                         <ListItemText primary={gym} />
                       </MenuItem>
@@ -239,12 +254,14 @@ const UpdateEmployee = (props) => {
                   </Select>
                 </FormControl>
               </Grid>
-              <Button variant="contained" onClick={handleSubmit}>Save Employee</Button>
+              <Button variant="contained" onClick={handleSubmit} disabled={disableSaveButton}>Save Employee</Button>
             </Paper>
             </Paper>
           </Grid>
         </Grid>
       </Container>
+      {/*
+      @TODO: Get the snackbar working again and then turn it into a global snackbar not page specific 
       <Snackbar
         open={open}
         autoHideDuration={3000}
@@ -252,17 +269,10 @@ const UpdateEmployee = (props) => {
         onClose={handleClose}
         action={snackBarAction}
         sx={{ bottom: {xs: 16 } }}
-      />
+      /> */}
     </Box>
   </>
   );
 }
 
-const mapStateToProps = (state) => {
-  return {
-    user: state.user,
-    gyms: state.gyms
-  }
-}
-
-export default connect(mapStateToProps, { signIn })(UpdateEmployee);
+export default UpdateEmployee;

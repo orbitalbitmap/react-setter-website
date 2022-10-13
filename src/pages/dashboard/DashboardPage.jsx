@@ -5,6 +5,7 @@ import Dashboard from '../../components/dashboard/Dashboard'
 import DashboardContent from '../../components/dashboard/content/Content'
 import '../../components/styles.css'
 import { setGymList } from '../../reducers/locationReducers';
+import { setEmployeeList } from '../../reducers/employeeReducers';
 
 const DashboardPage = () => { 
   const user = useSelector(state => state.user)
@@ -16,9 +17,20 @@ const DashboardPage = () => {
         url: `${process.env.REACT_APP_API_PATH}/gyms`,
         method: 'GET',
       })
-      dispatch(setGymList({gyms: data}))
+      dispatch(setGymList({ gyms: data }))
     }
     fetchLocations()
+  }, [dispatch])
+
+  useEffect(() => {
+    const fetchEmployees = async () => {
+      const { data } = await axios({
+        url: `${process.env.REACT_APP_API_PATH}/employees`,
+        method: 'GET'
+      })
+      dispatch(setEmployeeList({ employees: data }))
+    }
+    fetchEmployees()
   }, [dispatch])
 
   return (
