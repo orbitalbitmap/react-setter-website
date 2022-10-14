@@ -1,7 +1,9 @@
+import { useSelector } from "react-redux"
 import { Link } from "react-router-dom"
 
-const AdminLink = (props) => {
-  if (props.user.roleId <= 3) {
+const AdminLink = () => {
+  const userRoleId = useSelector(state => state.user.roleId)
+  if (userRoleId <= 3) {
     return (
       <li className="parent">
         <Link to="/admin">Admin</Link>
