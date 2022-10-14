@@ -66,6 +66,7 @@ function App() {
           <Route exact path="/employees/edit/:id" element={<UpdateEmployeePage />} />
 
           {/* Metric paths */}
+          <Route exact path="/metrics" element={<>Under construction</>} /> {/* @TODO: metrics page for all gyms */}
           <Route exact path="/metrics/:id" element={<MetricsPage />} />
 
           {/* Location paths */}
