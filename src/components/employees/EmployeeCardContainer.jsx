@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Container, Grid, Paper, Typography, } from '@mui/material';
 import { useSelector } from 'react-redux';
-
+// @TODO: Break this out to its own file
 export const getLocationString = (employeeLocations) => {
   const locationNameList = employeeLocations?.map(location => {
     return location.name;

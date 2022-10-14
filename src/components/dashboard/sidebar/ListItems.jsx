@@ -13,6 +13,7 @@ import {
 import {
   ExpandMore,
   ExpandLess,
+  Layers,
 } from '@mui/icons-material'
 import sideNavList from './sideNavList'
 import Logout from '../logout/Logout'
@@ -108,6 +109,16 @@ const ItemList = (props) => {
       {
         renderList(sideNavList)
       }
+      <Link key={6} to={`/employees/edit/${user.id}`} style={{textDecoration: 'none'}}>
+        <Tooltip title="Profile" disableInteractive >
+          <ListItemButton>
+            <ListItemIcon>
+              <Layers />
+            </ListItemIcon>
+            <ListItemText primary="Profile" />
+          </ListItemButton>
+        </Tooltip>
+      </Link>
       <Logout />
       <Divider sx={{ my: 1 }} />
       {

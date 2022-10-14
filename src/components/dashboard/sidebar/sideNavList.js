@@ -30,12 +30,12 @@ const sideNavList = [
     title: 'Metrics',
     url: '/metrics/',
   },
-  {
-    id: 6,
-    title: 'Profile',
-    url: '/employees/edit',
-    icon: <LayersIcon />,
-  },
+  // {
+  //   id: 6,
+  //   title: 'Profile',
+  //   url: '/dashboard',
+  //   icon: <LayersIcon />,
+  // },
   // {
   //   id: 7,
   //   title: 'Logout',

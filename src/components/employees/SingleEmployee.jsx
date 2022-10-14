@@ -35,6 +35,7 @@ const SingleEmployee = () => {
         </Container>
       </Container>
 
+      {/* @TODO: only display this button when the user is a manager */}
       <Button variant="contained" sx={{
         position: 'relative',
         top: '0%',

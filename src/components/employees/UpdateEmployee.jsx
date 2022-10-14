@@ -74,7 +74,7 @@ const UpdateEmployee = (props) => {
     setCurrentLocationNameList(locations.map((gym) => gym.name));
   }, [locations])
   useEffect(() => {
-    const shouldDisable = employee?.roleId > 3 || employee?.roleId !== urlId
+    const shouldDisable = employee.roleId > 3 || employee.roleId !== urlId
 
     setDisableSaveButton(shouldDisable)
   }, [employee, urlId, setDisableSaveButton])
