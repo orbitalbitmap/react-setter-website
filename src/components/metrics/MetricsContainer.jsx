@@ -10,6 +10,7 @@ import RoutesPerSetter from './partials/RoutesPerSetter';
 import RoutesPerColor from './partials/RoutesPerColor';
 import { Box, Container, Typography } from '@mui/material';
 
+// @TODO: move data to redux store and then change from using props grabbing the data from the redux store
 function MetricsContainer() {
   const urlParams = useParams();
   const [gymName, setGymName] = useState('');
@@ -50,6 +51,7 @@ function MetricsContainer() {
         }
       </Box>
 
+      {/* boulders per color */}
       <Box className="idealVsCurrent-wrapper centered-text">
         {
           metrics.boulderColorCount
@@ -58,7 +60,7 @@ function MetricsContainer() {
         }
       </Box>
 
-      {/* r/color */}
+      {/* routes per color */}
       <Box className="idealVsCurrent-wrapper centered-text">
         {
           metrics.routeColorCount

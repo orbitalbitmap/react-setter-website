@@ -30,6 +30,12 @@ import UpdateEmployeePage from '../pages/employees/UpdateEmployeePage';
 import UpdateLocationPage from '../pages/admin/UpdateLocationInfo';
 import UpdateSectionsPage from '../pages/sections/UpdateSectionsPage';
 
+// @TODO items: 
+//    -- remove all instances of props from the app and call data from redux store
+//    -- move data loads to redux actions or custom useEffects instead of calling them directly in the components
+//    -- add comment everywhere (make checklist of files beforehand)
+//    -- upgrade to typescript
+
 function App() {
   return (
     <div>

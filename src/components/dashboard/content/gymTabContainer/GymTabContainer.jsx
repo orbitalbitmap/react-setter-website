@@ -9,7 +9,7 @@ import Paper from '@mui/material/Paper';
 
 import {Link} from 'react-router-dom'
 
-
+// @TODO: remove props
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 

@@ -1,5 +1,6 @@
 import React from 'react';
 
+// reimplement this?
 function DatabaseError({ erroredOn }) {
   return (
     <h2 className="centered-text">

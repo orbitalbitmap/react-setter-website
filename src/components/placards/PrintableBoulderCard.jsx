@@ -4,6 +4,7 @@ import { useEffect, useReducer, useState } from 'react';
 import BoulderPlacard from './BoulderPlacard';
 import PlacardSelectors from './PlacardSelectors';
 
+// @TODO: remove props
 function PrintableBoulderCard(props) {
   const initialState = {
     climb1: {

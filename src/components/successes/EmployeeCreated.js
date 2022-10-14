@@ -1,5 +1,6 @@
 import React from 'react';
 
+// make this a function based component and reimplement?
 class EmployeeCreated extends React.Component {
   constructor(props) {
     super(props);

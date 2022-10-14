@@ -1,6 +1,7 @@
 import React from 'react';
 import { TextField} from '@mui/material'
 
+// @TODO: remove props?
 function DateInput(props) {
   let fontColor = 'black';
 

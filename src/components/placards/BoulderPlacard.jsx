@@ -3,6 +3,7 @@ import React from 'react'
 
 import BoulderSlot from './BoulderSlot'
 
+// @TODO: remove props
 const BoulderPlacard = (props) => {
   let slotId = 0
   return (

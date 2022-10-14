@@ -1,30 +1,24 @@
-import axios from 'axios';
-import {
-  GET_LOCATIONS,
-  REMOVE_LOCATIONS,
-  SIGN_IN,
-  SIGN_OUT,
-} from './types';
+//  @TODO: remove this file in its entirety after making sure each of the below
+//    functions have been replaced by rtk calls or just removed
 
-export const signIn = user => ({
-  type: SIGN_IN,
-  payload: user,
-});
+const SIGN_IN = 'SIGN_IN';
+const SIGN_OUT = 'SIGN_OUT';
+const REMOVE_LOCATIONS = 'REMOVE_LOCATIONS';
 
+
+// currently only imported in the UpdateEmployee function
+// export const signIn = user => ({
+//   type: SIGN_IN,
+//   payload: user,
+// });
+
+// used in the the Logout and NavLogout components
 export const signOut = () => ({
   type: SIGN_OUT,
   payload: null,
 });
 
-export const getLocations = () => async (dispatch) => {
-  const locationList = (await axios.get(`${process.env.REACT_APP_API_PATH}/gyms`));
-
-  dispatch({
-    type: GET_LOCATIONS,
-    payload: { locations: locationList.data },
-  });
-};
-
+// used in the the Logout and NavLogout components
 export const removeLocations = () => ({
   type: REMOVE_LOCATIONS,
   payload: null,

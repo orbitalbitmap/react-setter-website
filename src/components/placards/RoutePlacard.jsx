@@ -1,6 +1,7 @@
 import { Box, Typography } from '@mui/material'
 import React from 'react'
 
+// @TODO: remove props
 const RoutePlacard = (props) => {
   return (
     <>

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Box, Paper, Typography, List, ListItem, ListItemText  } from '@mui/material';
 
+// @TODO: remove props
 const SectionCardsContainer = ({ boulderSections, routeSections, gymName, gymId }) => {
   const [stateFlexDirection, setStateFlexDirection] = useState('row')
   

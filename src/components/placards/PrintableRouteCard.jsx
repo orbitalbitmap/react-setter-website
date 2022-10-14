@@ -4,6 +4,7 @@ import { useReducer } from 'react';
 import PlacardSelectors from './PlacardSelectors';
 import RoutePlacard from './RoutePlacard';
 
+// @TODO: remove props
 function PrintableRouteCard(props) {
   const initialState = {
     climb1: {

@@ -1,3 +1,4 @@
+// @TODO: update to jsx
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
@@ -23,6 +24,7 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import { useParams } from 'react-router-dom';
 
+// @TODO: remove props
 const AdminUpdateEmployee = (props) => {
   const urlParams = useParams();
   const [employee, setEmployee] = useState({});
