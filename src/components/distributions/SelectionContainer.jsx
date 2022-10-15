@@ -1,7 +1,6 @@
 import { Select, MenuItem, FormControl, InputLabel } from '@mui/material';
 import React from 'react';
 
-// @TODO: should this update to not require props?
 function SelectionContainer(props) {
   const { handleChange } = props
 

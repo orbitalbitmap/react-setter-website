@@ -1,7 +1,6 @@
 import { Box } from '@mui/material';
 import React from 'react';
 
-// @TODO: remove props
 function BoulderSlot(props) {
   return (
     <Box className="boulder-slot-grid">

@@ -10,7 +10,6 @@ import RoutesPerSetter from './partials/RoutesPerSetter';
 import RoutesPerColor from './partials/RoutesPerColor';
 import { Box, Container, Typography } from '@mui/material';
 
-// @TODO: move data to redux store and then change from using props grabbing the data from the redux store
 function MetricsContainer() {
   const urlParams = useParams();
   const [gymName, setGymName] = useState('');

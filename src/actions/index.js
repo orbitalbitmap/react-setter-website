@@ -1,6 +1,3 @@
-//  @TODO: remove this file in its entirety after making sure each of the below
-//    functions have been replaced by rtk calls or just removed
-
 const SIGN_IN = 'SIGN_IN';
 const SIGN_OUT = 'SIGN_OUT';
 const REMOVE_LOCATIONS = 'REMOVE_LOCATIONS';

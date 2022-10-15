@@ -9,7 +9,6 @@ import Tooltip from "@mui/material/Tooltip";
 
 import { removeLocations, signOut } from '../../../actions'
 
-// @TODO: remove props
 const NavLogout = (props) => {
   const cookies = new Cookies()
 

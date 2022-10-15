@@ -1,7 +1,6 @@
 import { Box, FormControl, InputLabel, MenuItem, Select } from '@mui/material'
 import React from 'react'
 
-// @TODO: should this update to not require props?
 const SectionsList = (props) => {
   return (
   <Box>

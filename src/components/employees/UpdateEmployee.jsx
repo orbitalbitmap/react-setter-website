@@ -118,7 +118,6 @@ const UpdateEmployee = (props) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log('Update coming soon....')
-    // @TODO: uncomment axios import above & fix this so it sends the updated info to the db
 
     // await axios.post(`${process.env.REACT_APP_API_PATH}/updateEmployee`, employee);
     // props.signIn(await employee);
@@ -137,7 +136,6 @@ const UpdateEmployee = (props) => {
     return (<h2>Loading...</h2>);
   }
 
-  // @TODO: clean this up!!!!
   return (
     <>
     <Box
@@ -260,8 +258,7 @@ const UpdateEmployee = (props) => {
           </Grid>
         </Grid>
       </Container>
-      {/*
-      @TODO: Get the snackbar working again and then turn it into a global snackbar not page specific 
+      {/* 
       <Snackbar
         open={open}
         autoHideDuration={3000}

@@ -30,12 +30,6 @@ import UpdateEmployeePage from '../pages/employees/UpdateEmployeePage';
 import UpdateLocationPage from '../pages/admin/UpdateLocationInfo';
 import UpdateSectionsPage from '../pages/sections/UpdateSectionsPage';
 
-// @TODO items: 
-//    -- remove all instances of props from the app and call data from redux store
-//    -- move data loads to redux actions or custom useEffects instead of calling them directly in the components
-//    -- add comment everywhere (make checklist of files beforehand)
-//    -- upgrade to typescript
-
 function App() {
   return (
     <div>
@@ -72,7 +66,7 @@ function App() {
           <Route exact path="/employees/edit/:id" element={<UpdateEmployeePage />} />
 
           {/* Metric paths */}
-          <Route exact path="/metrics" element={<>Under construction</>} /> {/* @TODO: metrics page for all gyms */}
+          <Route exact path="/metrics" element={<>Under construction</>} /> 
           <Route exact path="/metrics/:id" element={<MetricsPage />} />
 
           {/* Location paths */}

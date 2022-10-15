@@ -4,7 +4,6 @@ import ClimbSelector from './ClimbSelector';
 import AreteSelector from './AreteSelector';
 import { Box, Typography } from '@mui/material';
 
-// @TODO: remove props
 function ClimbSelectors(props) {
   let slotNumber = props.startingSlotNum;
   return (

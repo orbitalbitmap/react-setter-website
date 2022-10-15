@@ -42,7 +42,7 @@ const SignIn = () => {
         dispatch(setUser(data))
         navigate("/dashboard")
       } else {
-        console.log('Error occurred') // @TODO: add log in error alerts
+        console.log('Error occurred')
       }
   }
 

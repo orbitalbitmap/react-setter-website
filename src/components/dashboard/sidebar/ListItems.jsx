@@ -19,7 +19,6 @@ import sideNavList from './sideNavList'
 import Logout from '../logout/Logout'
 import AdminLink from '../navAdmin/NavAdmin'
 
-// @TODO: remove props?
 const ItemList = (props) => {
   const user = useSelector(state => state.user);
   const locations = useSelector(state => state.locations)

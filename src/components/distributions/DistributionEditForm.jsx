@@ -3,7 +3,6 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-// @TODO: remove props?
 function DistributionEditForm(props) {
   const urlParams = useParams();
   const [distributionSpread, setDistributionSpread] = useState({});

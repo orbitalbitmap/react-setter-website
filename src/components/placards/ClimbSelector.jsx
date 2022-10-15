@@ -1,7 +1,6 @@
 import { Box, FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import React from 'react';
 
-// @TODO: remove props
 function ClimbSelector(props) {
   return (
     <Box>
