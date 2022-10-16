@@ -25,18 +25,19 @@ const setUserInfo = (state, action) => {
   state.deletedAt = action.payload.deletedAt;
   state.role = action.payload.role;
   state.gyms = action.payload.gyms;
-  state.loggedIn = true
-}
+  state.loggedIn = true;
+};
 
 export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
     setUser: setUserInfo,
+    removeUserInfo: (state, action) => initialState,
   },
-})
+});
 
 // Action creators are generated for each case reducer function
-export const { setUser } = userSlice.actions
+export const { setUser, removeUserInfo } = userSlice.actions;
 
-export default userSlice.reducer
+export default userSlice.reducer;

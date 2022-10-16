@@ -7,10 +7,11 @@ export const locationSlice = createSlice({
   initialState,
   reducers: {
     setGymList: (state, action) => action.payload.gyms,
+    removeLocationList: (state, action) => null,
   },
-})
+});
 
 // Action creators are generated for each case reducer function
-export const { setGymList } = locationSlice.actions
+export const { setGymList, removeLocationList } = locationSlice.actions;
 
-export default locationSlice.reducer
+export default locationSlice.reducer;

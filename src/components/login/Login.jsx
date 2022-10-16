@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch, } from 'react-redux'
 import {
   Avatar,
@@ -14,7 +15,6 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 
 import Copyright from './copyright/Copyright';
 import { setUser, } from '../../reducers/userReducer';
-import { useNavigate } from 'react-router-dom';
 
 const SignIn = () => {
   const dispatch = useDispatch();

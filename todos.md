@@ -1,9 +1,6 @@
 # Things to get working
 This is the list of thing to get working before new things should be worked on
 
-  ## src/components/dashboard/logout/Logout
-  Remove props
-
   ## src/components/dashboard/sidebar/ListItems
   Remove props?
 
