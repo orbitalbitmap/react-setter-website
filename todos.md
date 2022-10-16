@@ -1,6 +1,41 @@
 # Things to get working
 This is the list of thing to get working before new things should be worked on
 
+  ## src/components/dashboard/logout/Logout
+  Remove props
+
+  ## src/components/dashboard/sidebar/ListItems
+  Remove props?
+
+  ## src/components/distributions/DateInput
+  Remove props?
+
+  ## src/components/distributions/DistributionEditForm
+  Remove props?
+
+  ## src/components/placards/BoulderPlacard
+  Remove props
+
+  ## src/components/placards/BoulderSlot
+  Remove props
+
+  ## src/components/placards/ClimbSelector
+  Remove props
+
+  ## src/components/placards/PlacardSelectors
+  Remove props
+
+  ## src/components/placards/PrintableBoulderCard
+  Remove props
+
+  ## src/components/placards/PrintableRouteCard
+  Remove props
+
+  ## src/components/placards/RoutePlacard
+  Remove props
+
+  ## src/components/sections/SectionCardsContainer
+  Remove props
 
   ## src/history.js
   Implement back to working order
@@ -11,21 +46,6 @@ This is the list of thing to get working before new things should be worked on
   ## src/components/admin/AdminUpdateEmployee
   Update to jsx
   Remove props
-  
-  ## src/components/dashboard/content/gymTabContainer/GymTabContainer
-  Remove props
-
-  ## src/components/dashboard/logout/Logout
-  Remove props
-
-  ## src/components/dashboard/sidebar/ListItems
-  Remove props?
-
-  ## src/components/distributions/DateInput
-  Remove props?
-
-  ## src/components/distributions/DistributionEditForm  <---->
-  Remove props?
 
   ## src/components/distributions/SectionsList
   Should this update to not require props?
@@ -53,32 +73,12 @@ This is the list of thing to get working before new things should be worked on
   ## src/components/placards/boulderBashCard.pug
   Make this a component and not a template file
 
-  ## src/components/placards/BoulderPlacard
-  Remove props
-
-  ## src/components/placards/BoulderSlot
-  Remove props
-
-  ## src/components/placards/ClimbSelector
-  Remove props
-
-  ## src/components/placards/PlacardSelectors
-  Remove props
-
-  ## src/components/placards/PrintableBoulderCard
-  Remove props
-
-  ## src/components/placards/PrintableRouteCard
-  Remove props
-
-  ## src/components/placards/RoutePlacard
-  Remove props
-
-  ## src/components/sections/SectionCardsContainer
-  Remove props
+  ## src/components/dashboard/content/gymTabContainer/GymTabPanel
+  Clean this up
 
   ## src/services/gym.js (rtk api creator)
   Should this continue to be developed?
+
 
 # Upgrades to work on after
 Remove all instances of props from the app and call data from redux store

@@ -1,4 +1,4 @@
-const SIGN_IN = 'SIGN_IN';
+// const SIGN_IN = 'SIGN_IN';
 const SIGN_OUT = 'SIGN_OUT';
 const REMOVE_LOCATIONS = 'REMOVE_LOCATIONS';
 
