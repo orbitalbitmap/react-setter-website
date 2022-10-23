@@ -29,6 +29,7 @@ const UpdateEmployee = (props) => {
   const urlId = parseInt(urlParams.id);
   const employeesList = useSelector(state =>  state.employees);
   const locations = useSelector(state => state.locations);
+  const userRoleId = useSelector(state => state.user.roleId)
   const [employee, setEmployee] = useState({});
   const [currentLocationNameList, setCurrentLocationNameList] = useState([]);
   const [employeeLocationNameList, setEmployeeLocationNameList] = useState([]);
@@ -74,10 +75,10 @@ const UpdateEmployee = (props) => {
     setCurrentLocationNameList(locations.map((gym) => gym.name));
   }, [locations])
   useEffect(() => {
-    const shouldDisable = employee.roleId > 3 || employee.roleId !== urlId
+    const shouldDisable = userRoleId > 3 || employee.id !== urlId
 
     setDisableSaveButton(shouldDisable)
-  }, [employee, urlId, setDisableSaveButton])
+  }, [employee, userRoleId, urlId, setDisableSaveButton])
 
   const handleChange = (event) => {
     setEmployee({

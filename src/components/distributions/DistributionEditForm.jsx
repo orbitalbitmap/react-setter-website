@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-function DistributionEditForm(props) {
+function DistributionEditForm({ path, type }) {
   const urlParams = useParams();
   const [distributionSpread, setDistributionSpread] = useState({});
   const [gymId, setGymId] = useState(0);
@@ -11,7 +11,7 @@ function DistributionEditForm(props) {
 
   useEffect(() => {
     const getInfo = async () => {
-      const { data } = await axios.get(`${process.env.REACT_APP_API_PATH}/${props.path}/${urlParams.id}`);
+      const { data } = await axios.get(`${process.env.REACT_APP_API_PATH}/${path}/${urlParams.id}`);
       const { gymId, gym, ...rest } = data;
       
       setDistributionSpread(rest);
@@ -20,7 +20,7 @@ function DistributionEditForm(props) {
     };
 
     getInfo();
-  }, [urlParams, props.path]);
+  }, [urlParams, path]);
 
   const handleChange = (event) => {
     const newSpread = {
@@ -33,16 +33,16 @@ function DistributionEditForm(props) {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    await axios.post(`${process.env.REACT_APP_API_PATH}/saveDistribution/${props.type}`, { gymId, distributionSpread });
+    await axios.post(`${process.env.REACT_APP_API_PATH}/saveDistribution/${type}`, { gymId, distributionSpread });
   };
 
   return (
     <Box sx={{ mt: 12, mx: 'auto', width: '40rem' }}>
-      <Typography variant="h2" sx={{ textAlign: 'center', }}>{`${gym?.name}'s ${props?.type}`}</Typography>
+      <Typography variant="h2" sx={{ textAlign: 'center', }}>{`${gym?.name}'s ${type}`}</Typography>
       <form id="distribution-form" style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', padding: '1rem', width: '30rem' }}>
         {
           Object.keys(distributionSpread).map((grade) => {
-            const displayedGrade = props.type === 'routes'
+            const displayedGrade = type === 'routes'
               ? grade.replace('_', '.')
               : grade;
             const numberOfGrade = distributionSpread[grade];

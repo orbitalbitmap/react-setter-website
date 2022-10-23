@@ -19,7 +19,7 @@ import sideNavList from './sideNavList'
 import Logout from '../logout/Logout'
 import AdminLink from '../navAdmin/NavAdmin'
 
-const ItemList = (props) => {
+const ItemList = ({ drawerOpen, drawerSetter }) => {
   const user = useSelector(state => state.user);
   const locations = useSelector(state => state.locations)
   const [expandAllLocations, setExpandAllLocations] = useState(false)
@@ -40,14 +40,14 @@ const ItemList = (props) => {
   )
 
     const toggleDrawerAndList = (setter) => {
-      props.drawerSetter(true)
+      drawerSetter(true)
       setter(true)
     }
 
   const renderCollapsableList = (listItem, baseUrl, subList, opener, setter) => (
     <Fragment key={listItem.id}>
       <Tooltip key={listItem.id} title={listItem.title} disableInteractive>
-        <ListItemButton key={listItem.id} onClick={() => {!props.drawerOpen ? toggleDrawerAndList(setter) : setter(!opener)}}>
+        <ListItemButton key={listItem.id} onClick={() => {!drawerOpen ? toggleDrawerAndList(setter) : setter(!opener)}}>
             <ListItemIcon>
               {opener ? <ExpandLess /> : <ExpandMore />}
             </ListItemIcon>
@@ -95,12 +95,12 @@ const ItemList = (props) => {
   })
 
   useEffect(() => {
-    if (!props.drawerOpen) {
+    if (!drawerOpen) {
       setExpandAllLocations(false)
       setExpandMetrics(false)
       setExpandUserLocations(false)
     }
-  }, [props.drawerOpen])
+  }, [drawerOpen])
 
   return (
 

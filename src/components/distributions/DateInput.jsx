@@ -1,10 +1,10 @@
 import React from 'react';
 import { TextField} from '@mui/material'
 
-function DateInput(props) {
+function DateInput({ id, color, value, onChange }) {
   let fontColor = 'black';
 
-  switch(props.color) {
+  switch(color) {
     case 'Green':
     case 'Blue':
     case 'Purple':
@@ -21,8 +21,8 @@ function DateInput(props) {
       label="Date"
       type="date"
       name="dateSet"
-      value={props.value}
-      onChange={(event) => { props.onChange(event, props.id-1) }}
+      value={value}
+      onChange={(event) => { onChange(event, id-1) }}
       sx={{ width: '11rem', }}
       InputLabelProps={{
         shrink: true,

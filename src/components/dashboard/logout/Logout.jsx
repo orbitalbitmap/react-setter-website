@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import { connect, useDispatch } from "react-redux"
+import { useDispatch, } from "react-redux"
 import LogoutIcon from '@mui/icons-material/Logout';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -10,9 +10,7 @@ import { removeLocationList } from "../../../reducers/locationReducers";
 import { removePanel } from "../../../reducers/gymTabPanelReducers";
 import { removeUserInfo } from "../../../reducers/userReducer";
 
-import { removeLocations, signOut } from '../../../actions'
-
-const NavLogout = (props) => {
+const NavLogout = () => {
   const dispatch = useDispatch();
 
   const handleLogout = () => {
@@ -36,4 +34,4 @@ const NavLogout = (props) => {
   )
 }
 
-export default connect(null, { removeLocations, signOut })(NavLogout)
+export default NavLogout;

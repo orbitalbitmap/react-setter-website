@@ -1,15 +1,6 @@
 # Things to get working
 This is the list of thing to get working before new things should be worked on
 
-  ## src/components/dashboard/sidebar/ListItems
-  Remove props?
-
-  ## src/components/distributions/DateInput
-  Remove props?
-
-  ## src/components/distributions/DistributionEditForm
-  Remove props?
-
   ## src/components/placards/BoulderPlacard
   Remove props
 
@@ -31,18 +22,11 @@ This is the list of thing to get working before new things should be worked on
   ## src/components/placards/RoutePlacard
   Remove props
 
-  ## src/components/sections/SectionCardsContainer
-  Remove props
+  ## src/components/employee/SingleEmployee
+  Update the Edit button to only display for specific roles
 
   ## src/history.js
   Implement back to working order
-
-  ## src/actions/index
-  Make sure this file can be removed and get rid of it
-
-  ## src/components/admin/AdminUpdateEmployee
-  Update to jsx
-  Remove props
 
   ## src/components/distributions/SectionsList
   Should this update to not require props?

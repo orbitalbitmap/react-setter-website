@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import {
   Box,
   Button,
@@ -23,7 +23,8 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import { useParams } from 'react-router-dom';
 
-const AdminUpdateEmployee = (props) => {
+const AdminUpdateEmployee = () => {
+  const locations = useSelector(state => state.locations);
   const urlParams = useParams();
   const [employee, setEmployee] = useState({});
   const [currentGymNameList, setCurrentGymNameList] = useState([]);
@@ -68,8 +69,8 @@ const AdminUpdateEmployee = (props) => {
   }, [urlParams.id]);
 
   useEffect(() => {
-    setCurrentGymNameList(props.gyms.map((gym) => gym.name));
-  }, [props.gyms]);
+    setCurrentGymNameList(locations.map((location) => location.name));
+  }, [locations]);
 
   const handleChange = (event) => {
     setEmployee({
@@ -91,7 +92,7 @@ const AdminUpdateEmployee = (props) => {
         (gym) => !employeeGymNameList.includes(gym),
       );
       // get the missing gym to add to the employee's gyms list
-      const [gymInfo] = props.gyms.filter((gym) => gym.name === gymNameToAdd);
+      const [gymInfo] = locations.filter((gym) => gym.name === gymNameToAdd);
       // set a new gymList
       newGymList = employee.gyms.concat(gymInfo);
     } else {
