@@ -5,27 +5,30 @@ import { Link, useParams } from 'react-router-dom'
 import Snackbar from '@mui/material/Snackbar';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
+import { Box, Button, Table, TableBody, TableCell, TableHead, TableRow, TextField, Typography } from '@mui/material';
 
 import DateInput from './DateInput'
 import SectionsList from './SectionsList'
 import SelectionContainer from './SelectionContainer'
-import { Box, Button, Table, TableBody, TableCell, TableHead, TableRow, TextField, Typography } from '@mui/material';
+import { setPlacardDistribution } from '../../reducers/placardDistribution';
+import { useDispatch } from 'react-redux';
 
 const BoulderDistributionChart = () => {
-  const today = new Date()
-  const todayFormatted = today.toISOString().split('T')[0]
-  const urlParams = useParams()
-  const gymId = urlParams.id
+  const today = new Date();
+  const todayFormatted = today.toISOString().split('T')[0];
+  const urlParams = useParams();
+  const gymId = urlParams.id;
+  const dispatch = useDispatch()
 
-  const [currentSection, setCurrentSection] = useState(0)
-  const [distribution, setDistribution] = useState([])
-  const [employeeList, setEmployeeList] = useState([])
-  const [gymName, setGymName] = useState('')
-  const [sectionDistribution, setSectionDistribution] = useState([])
-  const [sectionList, setSectionList] = useState([])
-  const [fullDateChange, setFullDateChange] = useState(todayFormatted)
-  const [open, setOpen] = useState(false)
-  const [snackbarMessage, setSnackbarMessage] = useState('')
+  const [currentSection, setCurrentSection] = useState(0);
+  const [distribution, setDistribution] = useState([]);
+  const [employeeList, setEmployeeList] = useState([]);
+  const [gymName, setGymName] = useState('');
+  const [sectionDistribution, setSectionDistribution] = useState([]);
+  const [sectionList, setSectionList] = useState([]);
+  const [fullDateChange, setFullDateChange] = useState(todayFormatted);
+  const [open, setOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState('');
 
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
@@ -136,10 +139,11 @@ const addNewClimb = () => {
       setGymName(gymInfo.data.name)
       setEmployeeList(gymInfo.data.employees)
       setSectionList(sectionList.data)
+      dispatch(setPlacardDistribution(climbInfoList.data))
     }
 
     getInfo()
-  }, [gymId])
+  }, [gymId, dispatch])
 
   useEffect(() => {
     const filteredDistribution = distribution.filter(climb => climb.sectionId === currentSection)
@@ -170,7 +174,7 @@ const addNewClimb = () => {
             <Button variant="contained" sx={{ mx: 2, height: '2.5rem', }} onClick={handleSubmit} type="submit">Save Distribution</Button>
             <Button variant="outlined" sx={{ mx: 2, height: '2.5rem', }} onClick={addNewClimb}>Add climb</Button>
           
-            <Link to="/placard/boulders" state={{ distribution: sectionDistribution}} style={{ color: 'white', textDecoration: 'none', }}>
+            <Link to="/placard/boulders" style={{ color: 'white', textDecoration: 'none', }}>
               <Button variant="outlined" sx={{ mx: 2, height: '2.5rem', }} className="distribution-button" type="button">
                 Print Boulder Placard
               </Button>

@@ -1,10 +1,17 @@
+import axios from 'axios';
 import { Box } from '@mui/material';
 import { useEffect, useReducer, useState } from 'react';
+import { useSelector } from 'react-redux';
 
 import BoulderPlacard from './BoulderPlacard';
 import PlacardSelectors from './PlacardSelectors';
+import SectionsList from '../distributions/SectionsList';
+import { MenuItem, Select } from '@mui/material'
 
-function PrintableBoulderCard(props) {
+
+const PrintableBoulderCard = () => {
+  const distribution = useSelector(state => state.placardDistribution)
+  const gymId = distribution[0].gymId;
   const initialState = {
     climb1: {
       color: null,
@@ -64,7 +71,7 @@ function PrintableBoulderCard(props) {
     },
   };
 
-  const reducer = (state, action) => {
+  const placardSlotReducer = (state, action) => {
     switch (action.type) {
       case 'climb1':
         return {
@@ -119,19 +126,47 @@ function PrintableBoulderCard(props) {
     }
   };
 
-  const [selectedClimbs, dispatch] = useReducer(reducer, initialState);
+  const [selectedClimbs, dispatchSelectedClimbs] = useReducer(placardSlotReducer, initialState);
   const [numberOfClimbsToDisplay, setNumberOfClimbsToDisplay] = useState(3);
   const [placardGridNumber, setPlacardGridNumber] = useState('three');
   const [firstPlacardList, setFirstPlacardList] = useState([]);
   const [secondPlacardList, setSecondPlacardList] = useState([]);
+  const [currentSection, setCurrentSection] = useState(0);
+  const [sectionDistribution, setSectionDistribution] = useState([]);
+  const [sectionList, setSectionList] = useState([]);
+
+  const handleSectionChange = (event) => {
+    const sectionId = parseInt(event.target.id)
+
+    setCurrentSection(sectionId)
+  }
+
+  useEffect(() => {
+    const getInfo = async() => {
+      const sectionList = await axios.get(`${process.env.REACT_APP_API_PATH}/boulderSections/${gymId}`)
+      setSectionList(sectionList.data)
+    }
+
+    getInfo()
+  }, [gymId])
+
+  useEffect(() => {
+    const filteredDistribution = distribution.filter(climb => climb.sectionId === currentSection)
+    const sortedFilteredDistribution = filteredDistribution.sort((climbA, climbB) => climbA.position - climbB.position)
+
+    setSectionDistribution(sortedFilteredDistribution)
+  }, [distribution, currentSection])
 
   const handleNonAreteInfo = (event) => {
-    const climbInDistribution = parseInt(event.target.value) - (props.distribution[0].id);
-    const { color, setter, grade, dateSet } = props.distribution[climbInDistribution];
+    // subtracts the id from the first climb in the selected distribution list to get the climb's position in the array
+    // IE: if the selected list contains ids from 31 - 88, the we need to subtract 31 from the event's value to get
+    // the position of the climb in the filtered array 
+    const climbInDistribution = parseInt(event.target.value) - (distribution[0].id);
+    const { color, setter, grade, dateSet } = distribution[climbInDistribution];
 
     const dateSetFormatted = new Date(dateSet).toLocaleDateString('en-us');
 
-    dispatch({ type: event.target.name, payload: { color, setter, grade, dateSet: dateSetFormatted } });
+    dispatchSelectedClimbs({ type: event.target.name, payload: { color, setter, grade, dateSet: dateSetFormatted } });
   };
 
   const handleAreteInfo = (event) => {
@@ -148,7 +183,7 @@ function PrintableBoulderCard(props) {
         areteMessage = null;
     }
 
-    dispatch({ type: event.target.name, payload: { areteMessage } });
+    dispatchSelectedClimbs({ type: event.target.name, payload: { areteMessage } });
   };
 
   const handleNumberOfClimbChange = (event) => {
@@ -193,26 +228,31 @@ function PrintableBoulderCard(props) {
     setSecondPlacardList(secondClimbList);
   }, [numberOfClimbsToDisplay]);
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
   return (
     <Box sx={{ mx: 'auto', }}>
       <Box className='noprint' sx={{ mt: '5rem', mb: '2rem', textAlign: 'center', }}>
-        <label >Climbs per placards: </label>
-        <select className="boulder-selectors-box" onChange={handleNumberOfClimbChange} defaultValue="3">
-          <option value="1">1 climbs</option>
-          <option value="2">2 climbs</option>
-          <option value="3">3 climbs</option>
-          <option value="4">4 climbs</option>
-        </select>
+        <div>
+          <label >Climbs per placards: </label>
+          <select className="boulder-selectors-box" onChange={handleNumberOfClimbChange} defaultValue="3">
+            <option value="1">1 climbs</option>
+            <option value="2">2 climbs</option>
+            <option value="3">3 climbs</option>
+            <option value="4">4 climbs</option>
+          </select>
+        </div>
+        <Box className="section-selectors-container centered-text" sx={{ mx: 'auto', }}>
+            {
+              sectionList.length > 0
+                ? <SectionsList sectionList={sectionList} onClick={handleSectionChange} currentSelectedId={currentSection} />
+                : null
+            }
+          </Box>
       </Box>
 
       <Box sx={{ mb: "-2rem", display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
         <PlacardSelectors
           class="noprint"
-          distribution={props.distribution}
+          distribution={sectionDistribution}
           handleClimbSelector={handleNonAreteInfo}
           handleAreteSelector={handleAreteInfo}
           startingSlotNum={0} // set to zero as the .map in the component starts by adding 1 to it
@@ -227,12 +267,12 @@ function PrintableBoulderCard(props) {
         />
       </Box>
 
-      <div class="noprint" style={{ height: '8rem', }} />
+      <div className="noprint" style={{ height: '8rem', }} />
 
-      <Box sx={{ mt: "-2rem", display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+      <Box sx={{ mt: "12rem", display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
         <PlacardSelectors
           class="noprint"
-          distribution={props.distribution}
+          distribution={sectionDistribution}
           handleClimbSelector={handleNonAreteInfo}
           handleAreteSelector={handleAreteInfo}
           startingSlotNum={numberOfClimbsToDisplay} // set to zero as the .map in the component starts by adding 1 to it

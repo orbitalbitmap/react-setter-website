@@ -6,7 +6,7 @@ export const placardDistributionSlice = createSlice({
   name: 'placard distribution',
   initialState,
   reducers: {
-    setPlacardDistribution: (state, action) => action.payload.distribution,
+    setPlacardDistribution: (state, action) => action.payload,
     removePlacardDistribution: (state, action) => null,
   }
 });

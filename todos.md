@@ -1,12 +1,6 @@
 # Things to get working
 This is the list of thing to get working before new things should be worked on
 
-  ## src/components/placards/BoulderPlacard
-  Remove props
-
-  ## src/components/placards/BoulderSlot
-  Remove props
-
   ## src/components/placards/ClimbSelector
   Remove props
 
