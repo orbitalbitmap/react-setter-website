@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 import BoulderPlacard from './BoulderPlacard';
 import PlacardSelectors from './PlacardSelectors';
 import SectionsList from '../distributions/SectionsList';
-import { MenuItem, Select } from '@mui/material'
+import { FormControl, Grid, InputLabel, MenuItem, Select } from '@mui/material'
 
 
 const PrintableBoulderCard = () => {
@@ -187,7 +187,7 @@ const PrintableBoulderCard = () => {
   };
 
   const handleNumberOfClimbChange = (event) => {
-    setNumberOfClimbsToDisplay(parseInt(event.target.value));
+    setNumberOfClimbsToDisplay(parseInt(event.target.id));
   };
 
   const getClimbListForPlacard = (startNuber, numberOfClimbs) => {
@@ -230,24 +230,64 @@ const PrintableBoulderCard = () => {
 
   return (
     <Box sx={{ mx: 'auto', }}>
-      <Box className='noprint' sx={{ mt: '5rem', mb: '2rem', textAlign: 'center', }}>
-        <div>
-          <label >Climbs per placards: </label>
-          <select className="boulder-selectors-box" onChange={handleNumberOfClimbChange} defaultValue="3">
-            <option value="1">1 climbs</option>
-            <option value="2">2 climbs</option>
-            <option value="3">3 climbs</option>
-            <option value="4">4 climbs</option>
-          </select>
-        </div>
-        <Box className="section-selectors-container centered-text" sx={{ mx: 'auto', }}>
-            {
-              sectionList.length > 0
-                ? <SectionsList sectionList={sectionList} onClick={handleSectionChange} currentSelectedId={currentSection} />
-                : null
-            }
-          </Box>
-      </Box>
+      <Grid container  spacing={2} className='noprint' sx={{ mt: '5rem', mb: '2rem', textAlign: 'center', }}>
+        <Grid item xs={6}>
+          <FormControl sx={{ width: '10rem' }}>
+            <InputLabel>Climbs Per Placard</InputLabel>
+            <Select
+              label="Climbs Per Placard"
+              labelId="Climbs-Per-Placard"
+              style={{ color: theme => theme.palette.common.black }}
+              value={numberOfClimbsToDisplay}
+            >
+              <MenuItem
+                key={`per-placard-${1}`}
+                id={1}
+                value="1"
+                onClick={handleNumberOfClimbChange}
+                sx={{ color: theme => theme.palette.common.white }}
+              >
+                1
+              </MenuItem>
+              <MenuItem
+                key={`per-placard-${2}`}
+                id={2}
+                value="2"
+                onClick={handleNumberOfClimbChange}
+                sx={{ color: theme => theme.palette.common.white }}
+              >
+                2
+              </MenuItem>
+              <MenuItem
+                key={`per-placard-${3}`}
+                id={3}
+                value="3"
+                onClick={handleNumberOfClimbChange}
+                sx={{ color: theme => theme.palette.common.white }}
+              >
+                3
+              </MenuItem>
+              <MenuItem
+                key={`per-placard-${4}`}
+                id={4}
+                value="4"
+                onClick={handleNumberOfClimbChange}
+                sx={{ color: theme => theme.palette.common.white }}
+              >
+                4
+              </MenuItem>
+            </Select>
+          </FormControl>
+        </Grid>
+
+        <Grid item xs={6} className="section-selectors-container centered-text" sx={{ mx: 'auto', }}>
+          {
+            sectionList.length > 0
+              ? <SectionsList sectionList={sectionList} onClick={handleSectionChange} currentSelectedId={currentSection} />
+              : null
+          }
+        </Grid>
+      </Grid>
 
       <Box sx={{ mb: "-2rem", display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
         <PlacardSelectors
@@ -269,7 +309,7 @@ const PrintableBoulderCard = () => {
 
       <div className="noprint" style={{ height: '8rem', }} />
 
-      <Box sx={{ mt: "12rem", display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+      <Box sx={{ mt: "6rem", display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
         <PlacardSelectors
           class="noprint"
           distribution={sectionDistribution}
