@@ -229,8 +229,8 @@ const PrintableBoulderCard = () => {
   }, [numberOfClimbsToDisplay]);
 
   return (
-    <Box sx={{ mx: 'auto', }}>
-      <Grid container  spacing={2} className='noprint' sx={{ mt: '5rem', mb: '2rem', textAlign: 'center', }}>
+    <Box sx={{ mx: 'auto', ml: '10rem', }}>
+      <Grid container  spacing={1} className='noprint' sx={{ mt: '5rem', mb: '5rem', textAlign: 'center', width: '40rem', }}>
         <Grid item xs={6}>
           <FormControl sx={{ width: '10rem' }}>
             <InputLabel>Climbs Per Placard</InputLabel>
@@ -289,43 +289,49 @@ const PrintableBoulderCard = () => {
         </Grid>
       </Grid>
 
-      <Box sx={{ mb: "-2rem", display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-        <PlacardSelectors
-          class="noprint"
-          distribution={sectionDistribution}
-          handleClimbSelector={handleNonAreteInfo}
-          handleAreteSelector={handleAreteInfo}
-          startingSlotNum={0} // set to zero as the .map in the component starts by adding 1 to it
-          nameList={firstPlacardList}
-          selectorType="boulder"
-        />
+      <Grid container spacing={2} sx={{ mb: '5rem', }}>
+        <Grid item xs={6} className='noprint'>
+          <PlacardSelectors
+            class="noprint"
+            distribution={sectionDistribution}
+            handleClimbSelector={handleNonAreteInfo}
+            handleAreteSelector={handleAreteInfo}
+            startingSlotNum={0} // set to zero as the .map in the component starts by adding 1 to it
+            nameList={firstPlacardList}
+            selectorType="boulder"
+          />
+        </Grid>
 
-        <BoulderPlacard
-          climbList={selectedClimbs}
-          climbsToDisplay={firstPlacardList}
-          numberOfClimbsClass={placardGridNumber}
-        />
-      </Box>
+        <Grid item xs={6} >
+          <BoulderPlacard
+            climbList={selectedClimbs}
+            climbsToDisplay={firstPlacardList}
+            numberOfClimbsClass={placardGridNumber}
+          />
+        </Grid>
+      </Grid>
 
-      <div className="noprint" style={{ height: '8rem', }} />
 
-      <Box sx={{ mt: "6rem", display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-        <PlacardSelectors
-          class="noprint"
-          distribution={sectionDistribution}
-          handleClimbSelector={handleNonAreteInfo}
-          handleAreteSelector={handleAreteInfo}
-          startingSlotNum={numberOfClimbsToDisplay} // set to zero as the .map in the component starts by adding 1 to it
-          nameList={secondPlacardList}
-          selectorType="boulder"
-        />
-
-        <BoulderPlacard
-          climbList={selectedClimbs}
-          climbsToDisplay={secondPlacardList}
-          numberOfClimbsClass={placardGridNumber}
-        />
-      </Box>
+      <Grid container spacing={2}>
+        <Grid item xs={6} className='noprint'>
+          <PlacardSelectors
+            class="noprint"
+            distribution={sectionDistribution}
+            handleClimbSelector={handleNonAreteInfo}
+            handleAreteSelector={handleAreteInfo}
+            startingSlotNum={numberOfClimbsToDisplay} // set to zero as the .map in the component starts by adding 1 to it
+            nameList={secondPlacardList}
+            selectorType="boulder"
+          />
+        </Grid>
+        <Grid item xs={6} >
+          <BoulderPlacard
+            climbList={selectedClimbs}
+            climbsToDisplay={secondPlacardList}
+            numberOfClimbsClass={placardGridNumber}
+          />
+        </Grid>
+      </Grid>
     </Box>
   );
 }

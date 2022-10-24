@@ -7,7 +7,7 @@ import { Box, Grid, Typography } from '@mui/material';
 function ClimbSelectors(props) {
   let slotNumber = props.startingSlotNum;
   return (
-    <Box className={props.class} sx={{ position: 'absolute', left: '10rem', width: "40rem" }} >
+    <Box className={props.class} sx={{ width: '40rem', }} >
       <Grid container>
         {
           props.nameList.map((climbName) => {

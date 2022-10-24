@@ -643,8 +643,10 @@ body {
   font-family: "Oswald", sans-serif;
   display: grid;
   grid-template-rows: 342px 82px;
-  height: 480px;
-  width: 576px;
+  max-height: 480px;
+  max-width: 576px;
+  position: relative;
+  left: 0;
 }
 
 .boulder-grid-one-column {
