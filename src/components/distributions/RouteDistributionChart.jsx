@@ -1,31 +1,34 @@
-import axios from 'axios'
-import React, { useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { Link, useParams } from 'react-router-dom';
 
 import Snackbar from '@mui/material/Snackbar';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
-
-import DateInput from './DateInput'
-import SectionsList from './SectionsList'
-import SelectionContainer from './SelectionContainer'
 import { Box, Button, Table, TableBody, TableCell, TableHead, TableRow, TextField, Typography } from '@mui/material';
 
-const RouteDistributionChart = () => {
-  const today = new Date()
-  const todayFormatted = today.toISOString().split('T')[0]
-  const urlParams = useParams()
-  const gymId = urlParams.id
+import DateInput from './DateInput';
+import SectionsList from './SectionsList';
+import SelectionContainer from './SelectionContainer';
+import { setRouteDistribution } from '../../reducers/placardDistribution';
+import { useDispatch } from 'react-redux';
 
-  const [currentSection, setCurrentSection] = useState(0)
-  const [distribution, setDistribution] = useState([])
-  const [employeeList, setEmployeeList] = useState([])
-  const [gymName, setGymName] = useState('')
-  const [sectionDistribution, setSectionDistribution] = useState([])
-  const [sectionList, setSectionList] = useState([])
-  const [fullDateChange, setFullDateChange] = useState(todayFormatted)
-  const [open, setOpen] = useState(false)
-  const [snackbarMessage, setSnackbarMessage] = useState('')
+const RouteDistributionChart = () => {
+  const today = new Date();
+  const todayFormatted = today.toISOString().split('T')[0];
+  const urlParams = useParams();
+  const gymId = urlParams.id;
+  const dispatch = useDispatch();
+
+  const [currentSection, setCurrentSection] = useState(0);
+  const [distribution, setDistribution] = useState([]);
+  const [employeeList, setEmployeeList] = useState([]);
+  const [gymName, setGymName] = useState('');
+  const [sectionDistribution, setSectionDistribution] = useState([]);
+  const [sectionList, setSectionList] = useState([]);
+  const [fullDateChange, setFullDateChange] = useState(todayFormatted);
+  const [open, setOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState('');
 
 
   const handleClose = (event, reason) => {
@@ -134,18 +137,19 @@ const addNewClimb = () => {
 
   useEffect(() => {
     const getInfo = async () => {
-      const climbInfoList = await axios.get(`${process.env.REACT_APP_API_PATH}/currentRouteGrades/${gymId}`)
-      const sectionList = await axios.get(`${process.env.REACT_APP_API_PATH}/routeSections/${gymId}`)
-      const gymInfo = await axios.get(`${process.env.REACT_APP_API_PATH}/gymById/${gymId}`)
+      const climbInfoList = await axios.get(`${process.env.REACT_APP_API_PATH}/currentRouteGrades/${gymId}`);
+      const sectionList = await axios.get(`${process.env.REACT_APP_API_PATH}/routeSections/${gymId}`);
+      const gymInfo = await axios.get(`${process.env.REACT_APP_API_PATH}/gymById/${gymId}`);
       
-      setDistribution(climbInfoList.data)
-      setGymName(gymInfo.data.name)
-      setEmployeeList(gymInfo.data.employees)
-      setSectionList(sectionList.data)
+      setDistribution(climbInfoList.data);
+      setGymName(gymInfo.data.name);
+      setEmployeeList(gymInfo.data.employees);
+      setSectionList(sectionList.data);
+      dispatch(setRouteDistribution(climbInfoList.data));
     }
 
     getInfo()
-  }, [gymId])
+  }, [gymId, dispatch])
 
   useEffect(() => {
     const filteredDistribution = distribution.filter(climb => climb.sectionId === currentSection);

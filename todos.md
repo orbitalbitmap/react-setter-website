@@ -1,23 +1,14 @@
 # Things to get working
 This is the list of thing to get working before new things should be worked on
 
-  ## src/components/placards/ClimbSelector
-  Remove props
-
-  ## src/components/placards/PlacardSelectors
-  Remove props
-
-  ## src/components/placards/PrintableBoulderCard
-  Remove props
-
   ## src/components/placards/PrintableRouteCard
-  Remove props
-
-  ## src/components/placards/RoutePlacard
   Remove props
 
   ## src/components/employee/SingleEmployee
   Update the Edit button to only display for specific roles
+
+  ## src/component/employee/updateEmployee
+  fix broken gym selection for user's gyms
 
   ## src/history.js
   Implement back to working order

@@ -13,8 +13,8 @@ function ClimbSelectors(props) {
           props.nameList.map((climbName) => {
             slotNumber++;
             return (
-              <Grid item xs={6} >
-                <Box key={climbName} className={`${props.selectorType}-selectors`}>
+              <Grid item xs={6} key={climbName}>
+                <Box className={`${props.selectorType}-selectors`}>
                   <Typography>Slot #{slotNumber}</Typography>
                   <Box sx={{ border: '1px solid gray', p: 2}} >
                     <ClimbSelector

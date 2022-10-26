@@ -1,16 +1,30 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = null;
+const initialState = {
+  boulderDistribution: null,
+  routeDistribution: null,
+};
 
 export const placardDistributionSlice = createSlice({
   name: 'placard distribution',
   initialState,
   reducers: {
-    setPlacardDistribution: (state, action) => action.payload,
-    removePlacardDistribution: (state, action) => null,
+    setBoulderDistribution: (state, action) => {
+      return {
+        ...state,
+        boulderDistribution: action.payload,
+      }
+    },
+    setRouteDistribution: (state, action) => {
+      return {
+        ...state,
+        routeDistribution: action.payload,
+      }
+    },
+    removeDistributions: (state, action) => initialState,
   }
 });
 
-export const { setPlacardDistribution, removePlacardDistribution } = placardDistributionSlice.actions;
+export const { setBoulderDistribution, setRouteDistribution, removeDistributions } = placardDistributionSlice.actions;
 
 export default placardDistributionSlice.reducer;

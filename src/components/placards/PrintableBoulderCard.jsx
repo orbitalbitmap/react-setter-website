@@ -10,7 +10,7 @@ import { FormControl, Grid, InputLabel, MenuItem, Select } from '@mui/material'
 
 
 const PrintableBoulderCard = () => {
-  const distribution = useSelector(state => state.placardDistribution)
+  const distribution = useSelector(state => state.placardDistribution.boulderDistribution)
   const gymId = distribution[0].gymId;
   const initialState = {
     climb1: {
@@ -289,7 +289,7 @@ const PrintableBoulderCard = () => {
         </Grid>
       </Grid>
 
-      <Grid container spacing={2} sx={{ mb: '5rem', }}>
+      <Grid container spacing={6} sx={{ mb: '5rem', }}>
         <Grid item xs={6} className='noprint'>
           <PlacardSelectors
             class="noprint"
@@ -312,7 +312,7 @@ const PrintableBoulderCard = () => {
       </Grid>
 
 
-      <Grid container spacing={2}>
+      <Grid container spacing={6}>
         <Grid item xs={6} className='noprint'>
           <PlacardSelectors
             class="noprint"
