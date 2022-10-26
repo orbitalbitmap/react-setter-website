@@ -16,9 +16,6 @@ This is the list of thing to get working before new things should be worked on
   ## src/components/employees/EmployeeCardContainer
   Break the getLocationString function out to its own file
 
-  ## src/components/employees/SingleEmployee
-  Only display the 'Edit Employee' button when the user is a manager
-
   ## src/components/employees/UpdateEmployee
   Uncomment axios import & fix the handleSubmit so it sends the updated info to the db 
   Clean the file up

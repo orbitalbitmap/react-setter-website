@@ -6,12 +6,10 @@ import DashboardContent from '../../components/dashboard/content/Content'
 import '../../components/styles.css'
 import { setGymList } from '../../reducers/locationReducers';
 import { setEmployeeList } from '../../reducers/employeeReducers';
-import { setGymPanel } from '../../reducers/gymTabPanelReducers';
 
 const DashboardPage = () => { 
   const user = useSelector(state => state.user)
   const dispatch = useDispatch()
-  dispatch(setGymPanel())
 
   useEffect(() => {
     const fetchLocations = async () => {

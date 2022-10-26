@@ -72,7 +72,7 @@ export const gymTabPanelSlice = createSlice({
   initialState,
   reducers: {
     setGymPanel: setGymPanelInfo,
-    removePanel: (state, action) => null,
+    removePanel: (state, action) => initialState,
   },
 });
 

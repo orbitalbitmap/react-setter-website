@@ -15,6 +15,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 
 import Copyright from './copyright/Copyright';
 import { setUser, } from '../../reducers/userReducer';
+import { setGymPanel } from '../../reducers/gymTabPanelReducers';
 
 const SignIn = () => {
   const dispatch = useDispatch();
@@ -39,8 +40,9 @@ const SignIn = () => {
       })
 
       if (data.id) {
-        dispatch(setUser(data))
-        navigate("/dashboard")
+        dispatch(setUser(data));
+        dispatch(setGymPanel())
+        navigate("/dashboard");
       } else {
         console.log('Error occurred')
       }
