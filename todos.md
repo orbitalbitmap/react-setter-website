@@ -1,12 +1,6 @@
 # Things to get working
 This is the list of thing to get working before new things should be worked on
 
-  ## src/components/placards/PrintableRouteCard
-  Remove props
-
-  ## src/components/employee/SingleEmployee
-  Update the Edit button to only display for specific roles
-
   ## src/component/employee/updateEmployee
   fix broken gym selection for user's gyms
 

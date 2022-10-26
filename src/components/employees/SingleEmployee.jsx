@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import { Box, Button, Container, Typography } from '@mui/material';
@@ -5,11 +6,23 @@ import { getLocationString } from './EmployeeCardContainer';
 
 
 const SingleEmployee = () => {
+  const user = useSelector(state => state.user)
   const urlParams = useParams();
-  const employeesList = useSelector(state => state.employees) 
+  const employeesList = useSelector(state => state.employees) ;
   const employee = employeesList.find(emp => {
     return emp.id === parseInt(urlParams.id)
-  })
+  });
+
+  const [shouldDisplay, setShouldDisplay] = useState('none');
+
+  useEffect(() => {
+    const string = employee.id === user.id || user.roleId <= 3
+      ? 'block'
+      : 'none';
+
+    setShouldDisplay(string)
+  }, [employee, user])
+
 
   return (
     <Box sx={{
@@ -36,6 +49,7 @@ const SingleEmployee = () => {
       </Container>
 
       <Button variant="contained" sx={{
+        display: shouldDisplay,
         position: 'relative',
         top: '0%',
         left: '50%',
