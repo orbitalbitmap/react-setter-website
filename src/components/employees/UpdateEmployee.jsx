@@ -100,7 +100,8 @@ const UpdateEmployee = (props) => {
         (gym) => !employeeLocationNameList.includes(gym),
       );
       // get the missing gym to add to the employee's gyms list
-      const [gymInfo] = employee.gyms.filter((gym) => gym.name === gymNameToAdd);
+      const [gymInfo] = locations.filter((gym) => {
+        return gym.name === gymNameToAdd});
       // set a new gymList
       newGymList = employee.gyms.concat(gymInfo);
     } else {
@@ -111,7 +112,6 @@ const UpdateEmployee = (props) => {
       // remove gym from the employee's gyms list and set newGymList to the new list
       newGymList = employee.gyms.filter((gym) => gym.name !== gymNameToRemove);
     }
-
     setEmployee({ ...employee, gyms: newGymList });
     setEmployeeLocationNameList(value);
   };

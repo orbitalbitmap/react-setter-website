@@ -1,25 +1,17 @@
 # Things to get working
 This is the list of thing to get working before new things should be worked on
 
-  ## src/component/employee/updateEmployee
-  fix broken gym selection for user's gyms
-
-  ## src/history.js
-  Implement back to working order
-
-  ## src/components/distributions/SectionsList
-  Should this update to not require props?
-
-  ## src/components/distributions/SelectionContainer
-  Should this update to not require props?
-
-  ## src/components/employees/EmployeeCardContainer
-  Break the getLocationString function out to its own file
-
   ## src/components/employees/UpdateEmployee
   Uncomment axios import & fix the handleSubmit so it sends the updated info to the db 
   Clean the file up
   Get the snackbar working again and then turn it into a global snackbar component, not page specific 
+
+  ## src/components/distributions
+  Fix distribution tables back to working order
+  'Can't update rea only property' error message
+
+  ## src/components/employees/EmployeeCardContainer
+  Break the getLocationString function out to its own file
 
   ## src/components/login/Login
   Add log in error alerts
@@ -35,6 +27,9 @@ This is the list of thing to get working before new things should be worked on
 
   ## src/services/gym.js (rtk api creator)
   Should this continue to be developed?
+
+  ## src/history.js
+  Implement back to working order
 
 
 # Upgrades to work on after
