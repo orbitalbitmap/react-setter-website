@@ -5,8 +5,8 @@ const initialState = {
   routeDistribution: null,
 };
 
-export const placardDistributionSlice = createSlice({
-  name: 'placard distribution',
+export const distributionSlice = createSlice({
+  name: 'distribution',
   initialState,
   reducers: {
     setBoulderDistribution: (state, action) => {
@@ -25,6 +25,6 @@ export const placardDistributionSlice = createSlice({
   }
 });
 
-export const { setBoulderDistribution, setRouteDistribution, removeDistributions } = placardDistributionSlice.actions;
+export const { setBoulderDistribution, setRouteDistribution, removeDistributions } = distributionSlice.actions;
 
-export default placardDistributionSlice.reducer;
+export default distributionSlice.reducer;

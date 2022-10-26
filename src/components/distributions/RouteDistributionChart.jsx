@@ -10,7 +10,7 @@ import { Box, Button, Table, TableBody, TableCell, TableHead, TableRow, TextFiel
 import DateInput from './DateInput';
 import SectionsList from './SectionsList';
 import SelectionContainer from './SelectionContainer';
-import { setRouteDistribution } from '../../reducers/placardDistribution';
+import { setRouteDistribution } from '../../reducers/distribution';
 import { useDispatch } from 'react-redux';
 
 const RouteDistributionChart = () => {

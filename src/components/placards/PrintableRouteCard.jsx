@@ -6,7 +6,7 @@ import PlacardSelectors from './PlacardSelectors';
 import RoutePlacard from './RoutePlacard';
 
 function PrintableRouteCard() {
-  const distribution = useSelector(state => state.placardDistribution.routeDistribution);
+  const distribution = useSelector(state => state.distribution.routeDistribution);
   const initialState = {
     climb1: {
       grade: null,
@@ -98,7 +98,7 @@ function PrintableRouteCard() {
   };
 
   return (
-    <Box sx={{ mt: 12, ml: '5rem', width: '90%' }}>
+    <Box sx={{ mt: 12, ml: '5rem', width: '85rem' }}>
       <Grid container spacing={0} >
         <Grid item xs={6}>
           <PlacardSelectors

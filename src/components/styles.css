@@ -870,7 +870,6 @@ body {
   display: grid;
   grid-template-rows: 333px 140px;
   height: 476px;
-  margin: 2rem auto;
   width: 860px;
 }
 

@@ -10,7 +10,7 @@ import { FormControl, Grid, InputLabel, MenuItem, Select } from '@mui/material'
 
 
 const PrintableBoulderCard = () => {
-  const distribution = useSelector(state => state.placardDistribution.boulderDistribution)
+  const distribution = useSelector(state => state.distribution.boulderDistribution)
   const gymId = distribution[0].gymId;
   const initialState = {
     climb1: {
