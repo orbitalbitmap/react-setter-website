@@ -29,6 +29,7 @@ import SingleLocationPage from '../pages/locations/SingleLocationPage';
 import UpdateEmployeePage from '../pages/employees/UpdateEmployeePage';
 import UpdateLocationPage from '../pages/admin/UpdateLocationInfo';
 import UpdateSectionsPage from '../pages/sections/UpdateSectionsPage';
+import Snackbar from './snackbar/Snackbar';
 
 function App() {
   return (
@@ -79,6 +80,8 @@ function App() {
           <Route exact path="/sections/edit/:id" element={<UpdateSectionsPage />} />
         </Routes>
       </BrowserRouter>
+      
+      <Snackbar />
     </div>
   );
 }

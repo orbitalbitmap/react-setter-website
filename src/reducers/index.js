@@ -3,7 +3,8 @@ import userReducer from './userReducer';
 import locationReducer from './locationReducers';
 import employeeReducers from './employeeReducers';
 import gymTabPanelReducers from './gymTabPanelReducers';
-import distributionReducers from './distribution';
+import distributionReducers from './distributionReducers';
+import snackbarReducers from './snackbarReducers';
 
 export default combineReducers({
   user: userReducer,
@@ -11,4 +12,5 @@ export default combineReducers({
   employees: employeeReducers,
   gymTabPanel: gymTabPanelReducers,
   distribution: distributionReducers,
+  snackbarDetails: snackbarReducers,
 });

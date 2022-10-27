@@ -8,7 +8,8 @@ This is the list of thing to get working before new things should be worked on
 
   ## src/components/distributions
   Fix distribution tables back to working order
-  'Can't update rea only property' error message
+    'Can't update rea only property' error message
+  Fix backend to update previous setter placard names and/or first names to new ones
 
   ## src/components/employees/EmployeeCardContainer
   Break the getLocationString function out to its own file

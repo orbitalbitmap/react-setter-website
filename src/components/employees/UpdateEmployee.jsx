@@ -1,6 +1,6 @@
-// import axios from 'axios';
+import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import {
   Box,
@@ -18,13 +18,12 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
+import { setSnackAlert } from '../../reducers/snackbarReducers';
 
 // import { signIn } from '../../actions'; // was passed in as a prop to "resign in" the current user when updating their own information
-// import Snackbar from '@mui/material/Snackbar';
-// import IconButton from '@mui/material/IconButton';
-// import CloseIcon from '@mui/icons-material/Close';
 
 const UpdateEmployee = (props) => {
+  const dispatch = useDispatch();
   const urlParams = useParams();
   const urlId = parseInt(urlParams.id);
   const employeesList = useSelector(state =>  state.employees);
@@ -34,29 +33,6 @@ const UpdateEmployee = (props) => {
   const [currentLocationNameList, setCurrentLocationNameList] = useState([]);
   const [employeeLocationNameList, setEmployeeLocationNameList] = useState([]);
   const [disableSaveButton, setDisableSaveButton] = useState();
-
-  // const [open, setOpen] = useState(false)
-  // const [snackbarMessage, setSnackbarMessage] = useState('')
-
-
-  // const handleClose = (event, reason) => {
-  //   if (reason === 'clickaway') {
-  //     return;
-  //   }
-
-  //   setOpen(false);
-  // };
-  
-  // const snackBarAction = (
-  //   <IconButton
-  //     size="small"
-  //     aria-label="close"
-  //     color="inherit"
-  //     onClick={handleClose}
-  //   >
-  //     <CloseIcon fontSize="small" />
-  //   </IconButton>
-  // )
 
   useEffect(() => {
     const employeeInfo = employeesList.find(emp => {
@@ -68,12 +44,13 @@ const UpdateEmployee = (props) => {
           oldEmployeeGymList: employeeInfo.gyms,
           password: 'NotYourRealPassword'
         });
-      setEmployeeLocationNameList(employeeInfo.gyms.map(gym => gym.name));
-    }, [employeesList, urlId])
+    setEmployeeLocationNameList(employeeInfo.gyms.map(gym => gym.name));
+  }, [employeesList, urlId])
 
   useEffect(() => {
     setCurrentLocationNameList(locations.map((gym) => gym.name));
   }, [locations])
+  
   useEffect(() => {
     const shouldDisable = userRoleId > 3 || employee.id !== urlId
 
@@ -118,19 +95,19 @@ const UpdateEmployee = (props) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log('Update coming soon....')
 
-    // await axios.post(`${process.env.REACT_APP_API_PATH}/updateEmployee`, employee);
-    // props.signIn(await employee);
-    // try {
-    //   await axios.post(`${process.env.REACT_APP_API_PATH}/updateEmployee`, employee);
-    //   props.signIn(await employee);
-    //   setOpen(true)
-    //   setSnackbarMessage('Your info has been saved!')
-    // } catch {
-    //   setOpen(true)
-    //   setSnackbarMessage('Oops! Looks like something went wrong. Please Try again.')
-    // }
+    try {
+      await axios.post(`${process.env.REACT_APP_API_PATH}/updateEmployee`, employee);
+      dispatch(setSnackAlert({
+        alertType: 'success',
+        messageBody: 'Employee info updated!',
+      }));
+    } catch {
+      dispatch(setSnackAlert({
+        alertType: 'error',
+        messageBody: 'Employee info could not be updated.  Please, try again.',
+      }));
+    }
   }
   
   if (!employee.id) {
@@ -259,18 +236,9 @@ const UpdateEmployee = (props) => {
           </Grid>
         </Grid>
       </Container>
-      {/* 
-      <Snackbar
-        open={open}
-        autoHideDuration={3000}
-        message={snackbarMessage}
-        onClose={handleClose}
-        action={snackBarAction}
-        sx={{ bottom: {xs: 16 } }}
-      /> */}
     </Box>
   </>
   );
-}
+};
 
 export default UpdateEmployee;
