@@ -2,9 +2,7 @@
 This is the list of thing to get working before new things should be worked on
 
   ## src/components/employees/UpdateEmployee
-  Uncomment axios import & fix the handleSubmit so it sends the updated info to the db 
   Clean the file up
-  Get the snackbar working again and then turn it into a global snackbar component, not page specific 
 
   ## src/components/distributions
   Fix distribution tables back to working order

@@ -19,10 +19,9 @@ import {
   Typography,
 } from '@mui/material';
 import { setSnackAlert } from '../../reducers/snackbarReducers';
+import { setUser } from '../../reducers/userReducer'
 
-// import { signIn } from '../../actions'; // was passed in as a prop to "resign in" the current user when updating their own information
-
-const UpdateEmployee = (props) => {
+const UpdateEmployee = () => {
   const dispatch = useDispatch();
   const urlParams = useParams();
   const urlId = parseInt(urlParams.id);
@@ -102,6 +101,7 @@ const UpdateEmployee = (props) => {
         alertType: 'success',
         messageBody: 'Employee info updated!',
       }));
+      dispatch(setUser(employee));
     } catch {
       dispatch(setSnackAlert({
         alertType: 'error',
