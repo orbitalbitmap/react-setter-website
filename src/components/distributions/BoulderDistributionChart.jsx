@@ -283,6 +283,7 @@ const addNewClimb = () => {
                           list={[{placardName: 'Guest'}, ...employeeList]}
                           id={climb.id}
                           color={climb.color}
+                          setterId={climb.setterId}
                         />
                       </TableCell>
 

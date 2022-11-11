@@ -331,6 +331,7 @@ const addNewClimb = () => {
                             id={climb.id}
                             color={climb.color}
                             sx={{ width: '6rem' }}
+                            setterId={climb.setterId}
                           />
                         </TableCell>
 
