@@ -1,4 +1,4 @@
-import SnackbarMui from '@mui/material/Snackbar';
+import {Snackbar as SnackbarMui} from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { resetSnackAlert } from '../../reducers/snackbarReducers';
 import SnackBarAction from './SnackbarAction';

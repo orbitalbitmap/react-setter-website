@@ -2,7 +2,6 @@
 This is the list of thing to get working before new things should be worked on
 
   ## src/components/employees/UpdateEmployee
-  Add the updated placard name to the all previously set climbs
   Clean the file up
 
   ## src/components/distributions

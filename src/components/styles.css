@@ -612,9 +612,7 @@ body {
   gap: 0.25rem;
   flex-direction: column;
   margin-bottom: 0.5rem;
-  text-align: right;
-  width: 11rem;
-  margin-left: auto;
+  width: 5rem;
 }
 
 .date-updater {
@@ -628,7 +626,8 @@ body {
 .date-updater.button {
   background: #202A56;
   color: #fff;
-  height: 2.25rem;
+  height: fit-content;
+  width: 11rem;
 }
 
 #ropes-updater {

@@ -39,14 +39,27 @@ function SelectionContainer({ color, id, list, name, setterId, sx, value, handle
   }
 
   return (
-    <div data-setterId={setterId}>
-      <FormControl sx={styles}>
+    <div data-setterid={setterId}>
+      <FormControl sx={styles} data-index={id-1}>
         <InputLabel sx={{ color: fontColor, width: sx ? sx.width : 'inherit'}}>{labelText}</InputLabel>
         <Select
           label={name}
           classes={{select: color.toLowerCase}}
           value={value}
           sx={{ color: fontColor, ...sx }}
+          data-value={'test'}
+          name="test"
+          dataset={{
+            test: "test"
+          }}
+          onChange={handleChange}
+          /* id={name}
+          SelectDisplayProps={{
+            data: {
+              index: id-1,
+              name: name,
+            }
+          }} */
         >
           {
             list?.map((item) => {
@@ -54,18 +67,18 @@ function SelectionContainer({ color, id, list, name, setterId, sx, value, handle
               switch (name) {
                 case 'color':
                 case 'grade':
-                  component = <MenuItem sx={{ color: theme => theme.palette.primary.contrastText }} key={`${name}-${item}-${id}`} onClick={handleChange} className={`climb${id} ${color.toLowerCase()}`} id={name} data-index={id-1} data-name={name} value={item}>{item}</MenuItem>
+                  component = <MenuItem sx={{ color: theme => theme.palette.primary.contrastText }} key={`${name}-${item}-${id}`} /* onClick={handleChange} */ className={`climb${id} ${color.toLowerCase()}`} id={name} data-index={id-1} name={name} value={item}>{item}</MenuItem>
                   break;
                 case 'ropeStyle':
-                  component = (<MenuItem sx={{ color: theme => theme.palette.primary.contrastText }} key={`${name}-${item}-${id}`} className={`climb${id} ${color.toLowerCase()}`} onClick={handleChange} id={name} data-index={id-1} data-name={name} value={item}>{item}</MenuItem>);
+                  component = (<MenuItem sx={{ color: theme => theme.palette.primary.contrastText }} key={`${name}-${item}-${id}`} className={`climb${id} ${color.toLowerCase()}`} /* onClick={handleChange} */ id={name} data-index={id-1} data-name={name} value={item}>{item}</MenuItem>);
                   break;
                 case 'setter':
                   component = item.placardName
-                    ? (<MenuItem sx={{ color: theme => theme.palette.primary.contrastText }} key={`${name}-${item.placardName}-${item.id}-${id}`} className={`climb${id} ${color.toLowerCase()}`} onClick={handleChange} id={name} data-index={id-1} data-name={name} value={item.placardName}>{item.placardName}</MenuItem>)
-                    : (<MenuItem sx={{ color: theme => theme.palette.primary.contrastText }} key={`${name}-${item.firstName}-${item.id}-${id}`} className={`climb${id} ${color.toLowerCase()}`} onClick={handleChange} id={name} data-index={id-1} data-name={name}  value={item.firstName}>{item.firstName}</MenuItem>);
+                    ? (<MenuItem sx={{ color: theme => theme.palette.primary.contrastText }} key={`${name}-${item.placardName}-${item.id}-${id}`} className={`climb${id} ${color.toLowerCase()}`} /* onClick={handleChange} */ id={name} data-index={id-1} data-name={name} value={item.placardName}>{item.placardName}</MenuItem>)
+                    : (<MenuItem sx={{ color: theme => theme.palette.primary.contrastText }} key={`${name}-${item.firstName}-${item.id}-${id}`} className={`climb${id} ${color.toLowerCase()}`} /* onClick={handleChange} */ id={name} data-index={id-1} data-name={name}  value={item.firstName}>{item.firstName}</MenuItem>);
                   break;
                 default:
-                  component = (<MenuItem sx={{ color: theme => theme.palette.primary.contrastText }} key={`${name}-${item.name}-${id}`} className={`climb${id} ${color.toLowerCase()}`} onClick={handleChange} id={name} data-index={id-1} data-name={name} value={item.id}>{item.name}</MenuItem>);
+                  component = (<MenuItem sx={{ color: theme => theme.palette.primary.contrastText }} key={`${name}-${item.name}-${id}`} className={`climb${id} ${color.toLowerCase()}`} /* onClick={handleChange} */ id={name} data-index={id-1} data-name={name} value={item.id}>{item.name}</MenuItem>);
                   break;
               }
 
