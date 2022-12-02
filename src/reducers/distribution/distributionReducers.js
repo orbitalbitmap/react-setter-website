@@ -1,4 +1,5 @@
 import { createSlice, } from "@reduxjs/toolkit";
+import updateDistributionDates from "./utils/updateDistributionDates";
 
 const initialState = {
   boulderDistribution: null,
@@ -33,10 +34,12 @@ export const distributionSlice = createSlice({
         ...state,
         routeDistribution: distribution
       }
-    }
+    },
+    updateDates: updateDistributionDates,
   }
+
 });
 
-export const { removeDistributions, setBoulderDistribution, setRouteDistribution, updateRouteDistribution } = distributionSlice.actions;
+export const { removeDistributions, setBoulderDistribution, setRouteDistribution, updateDates, updateRouteDistribution } = distributionSlice.actions;
 
 export default distributionSlice.reducer;

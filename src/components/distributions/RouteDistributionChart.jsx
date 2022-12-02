@@ -6,7 +6,7 @@ import { DataGrid, } from '@mui/x-data-grid';
 import { useDispatch, useSelector } from 'react-redux';
 
 import SectionsList from './SectionsList';
-import { setRouteDistribution, updateRouteDistribution } from '../../reducers/distributionReducers';
+import { setRouteDistribution, updateDates, updateRouteDistribution } from '../../reducers/distribution/distributionReducers';
 import ropeColumnDefs from './constants/ropeColumnDefs';
 import { setSnackAlert } from '../../reducers/snackbarReducers';
 
@@ -89,25 +89,29 @@ const RouteDistributionChart = () => {
     }
   }
 
-  const handleChangeAllDatesInSection = (event) => {
-    const currentDistribution = [...filteredDistribution]
-
-    const newDistribution = currentDistribution.map( climb => {
-      if (climb.sectionId === selectedSectionId) {
-        climb.dateSet = fullDateChange
-      }
-      return climb
-    })
-    
-    dispatch(setRouteDistribution(newDistribution));
+  const onDateChange = (event) => {
+    dispatch(updateDates({
+      type: 'routeDistribution',
+      newDate: fullDateChange,
+      sectionIdToUpdate: selectedSectionId,
+    }));
   }
 
   return (
-    <Box sx={{ m: '0 auto', mt: '5rem', width: '80rem' }}>
-      <Box sx={{  position: 'fixed', top: '4rem', bgcolor: theme => theme.palette.common.white, zIndex: 999, textAlign: 'center', mx: 'auto', width: '100%'}}>
+    <Box sx={{ mx: 'auto', mt: '5rem', ml: '10rem', width: '100%' }}>
+      <Box sx={{ 
+        position: 'fixed',
+        top: '4rem',
+        bgcolor: theme => theme.palette.common.white,
+        zIndex: 999,
+        textAlign: 'center',
+        mx: 'auto',
+        width: '100rem'
+        }}
+      >
         <Typography  variant="h4" sx={{ mb: 4 }} className="centered-text">Distribution Spread for {gymName}</Typography>
 
-        <Box sx={{ mx: 'auto', display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+        <Box sx={{ width: '100%', mx: 'auto', display: 'flex', flexDirection: 'row', alignItems: 'center', /* justifyContent: 'center' */}}>
           {
             sectionList.length > 0
               ? <SectionsList sectionList={sectionList} onClick={handleSectionChange} currentSelectedId={selectedSectionId} />
@@ -137,7 +141,7 @@ const RouteDistributionChart = () => {
                 shrink: true,
               }}
             />
-            <Button variant="contained" className="date-updater button" type="button" onClick={handleChangeAllDatesInSection}>
+            <Button variant="contained" className="date-updater button" type="button" onClick={onDateChange}>
             Set Current Dates
             </Button>
           </Box>
@@ -145,7 +149,7 @@ const RouteDistributionChart = () => {
       </Box>
     
       
-      <Box className="distribution-holder" sx={{ height: '40rem', mt: '15rem', }}>
+      <Box className="distribution-holder" sx={{ width: '80rem', height: '40rem', mt: '15rem', mx: 'auto'}}>
         <DataGrid
           editMode='row'
           rows={filteredDistribution || []}
