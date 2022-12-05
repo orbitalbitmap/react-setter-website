@@ -98,10 +98,10 @@ const RouteDistributionChart = () => {
   }
 
   return (
-    <Box sx={{ mx: 'auto', mt: '5rem', /* ml: '10rem', */ width: '100%' }}>
+    <Box sx={{ mx: 'auto', mt: '5rem', width: '100%' }}>
       <Box sx={{ 
         position: 'fixed',
-        top: '4rem',
+        top: '5rem',
         bgcolor: theme => theme.palette.common.white,
         zIndex: 900,
         textAlign: 'center',
