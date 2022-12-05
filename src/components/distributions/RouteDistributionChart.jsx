@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useEffect, useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { Box, Button, TextField, Typography } from '@mui/material';
+import { Box, Button, ButtonGroup, TextField, Typography } from '@mui/material';
 import { DataGrid, } from '@mui/x-data-grid';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -98,34 +98,36 @@ const RouteDistributionChart = () => {
   }
 
   return (
-    <Box sx={{ mx: 'auto', mt: '5rem', ml: '10rem', width: '100%' }}>
+    <Box sx={{ mx: 'auto', mt: '5rem', /* ml: '10rem', */ width: '100%' }}>
       <Box sx={{ 
         position: 'fixed',
         top: '4rem',
         bgcolor: theme => theme.palette.common.white,
-        zIndex: 999,
+        zIndex: 900,
         textAlign: 'center',
         mx: 'auto',
-        width: '100rem'
+        width: '100%'
         }}
       >
         <Typography  variant="h4" sx={{ mb: 4 }} className="centered-text">Distribution Spread for {gymName}</Typography>
 
-        <Box sx={{ width: '100%', mx: 'auto', display: 'flex', flexDirection: 'row', alignItems: 'center', /* justifyContent: 'center' */}}>
+        <Box sx={{ width: '100%', mx: 'auto', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
           {
             sectionList.length > 0
               ? <SectionsList sectionList={sectionList} onClick={handleSectionChange} currentSelectedId={selectedSectionId} />
               : null
           }
 
-          <Box sx={{ mx: '4rem' }}>
-            <Button variant="contained" className="distribution-button" onClick={handleSubmit} type="submit">Save Distribution</Button>
-            <Button variant="outlined" sx={{ mx: 4, height: '2.5rem', }} onClick={addNewClimb}>Add climb</Button>
-            <Link to="/placard/ropes" state={{ distribution }} style={{ textDecoration: 'none'}}>
+          <Box sx={{ mx: '4rem', justifyContent: 'center', }}>
+            <ButtonGroup>
+              <Button variant="contained" className="distribution-button" onClick={handleSubmit} type="submit">Save Distribution</Button>
+              <Button variant="outlined" sx={{ mx: 4, height: '2.5rem', }} onClick={addNewClimb}>Add climb</Button>
               <Button variant="outlined" className="distribution-button" type="button">
-                Print Route Placard
+                <Link to="/placard/ropes" state={{ distribution }} style={{ textDecoration: 'none'}}>
+                    Print Route Placard
+                </Link>
               </Button>
-            </Link>
+            </ButtonGroup>
           </Box>
 
           <Box className="date-updater-container">
@@ -137,9 +139,6 @@ const RouteDistributionChart = () => {
               value={fullDateChange}
               onChange={(event) => setFullDateChange(event.target.value)}
               sx={{ width: '11rem' }}
-              InputLabelProps={{
-                shrink: true,
-              }}
             />
             <Button variant="contained" className="date-updater button" type="button" onClick={onDateChange}>
             Set Current Dates
@@ -149,7 +148,7 @@ const RouteDistributionChart = () => {
       </Box>
     
       
-      <Box className="distribution-holder" sx={{ width: '80rem', height: '40rem', mt: '15rem', mx: 'auto'}}>
+      <Box className="distribution-holder" sx={{ width: '80rem', height: '40rem', mt: '15rem', mx: 'auto', justifyContent: 'center', }}>
         <DataGrid
           editMode='row'
           rows={filteredDistribution || []}

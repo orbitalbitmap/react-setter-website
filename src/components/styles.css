@@ -612,7 +612,6 @@ body {
   gap: 0.25rem;
   flex-direction: column;
   margin-bottom: 0.5rem;
-  width: 5rem;
 }
 
 .date-updater {
