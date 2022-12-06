@@ -1,6 +1,9 @@
+import { Box } from '@mui/material';
+import ColorPicker from '../components/ColorPicker'
 import colorOptions from "./colorOptions";
 import ropeGrades from "./ropeGrades";
 import ropeTypes from "./ropeTypes";
+import { colorHexValues } from './colorOptions';
 
 const ropeColumnDefs = [
   { 
@@ -59,6 +62,27 @@ const ropeColumnDefs = [
     type: 'singleSelect',
     valueOptions: colorOptions,
     width: 150,
+    renderCell: (params) => (
+      <>
+        <Box
+          sx={{
+            bgcolor: colorHexValues[params.value],
+            width: '24px',
+            height: '24px',
+            borderRadius: '0.25rem',
+            border: '1px solid black',
+            mr: 2,
+          }}
+        />
+        {params.value}
+      </>
+    ),
+    renderEditCell: (params) => {
+      console.log(params)
+      return (
+        <ColorPicker {...params} value={params.row.color}/>
+      )
+    }
   },
   { 
     field: 'setter',

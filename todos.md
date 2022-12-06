@@ -6,8 +6,12 @@ This is the list of thing to get working before new things should be worked on
 
   ## src/components/distributions
   Fix distribution tables back to working order
-    'Can't update rea only property' error message
-  Fix backend to update previous setter placard names and/or first names to new ones
+    'Can't update read only property' error message
+    -- Route chart:
+      -- Create a new color picker for the dropdown editor for the bouldering charts
+    -- Boulder chart:
+      -- Complete overhaul still needed
+  Fix backend to update previous setter placard names and/or first names to new ones (what did I mean by this?)
 
   ## src/components/employees/EmployeeCardContainer
   Break the getLocationString function out to its own file
@@ -29,6 +33,11 @@ This is the list of thing to get working before new things should be worked on
 
   ## src/history.js
   Implement back to working order
+
+  ## Redo css
+  Turn the main big file into little files that are on a per component basis
+    This also means reworking the MUI custom theme
+    IMPORTANT: This includes dealing with any instance of '!important'
 
 
 # Upgrades to work on after

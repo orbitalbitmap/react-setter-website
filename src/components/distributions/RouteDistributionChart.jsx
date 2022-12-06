@@ -10,6 +10,8 @@ import { setRouteDistribution, updateDates, updateRouteDistribution } from '../.
 import ropeColumnDefs from './constants/ropeColumnDefs';
 import { setSnackAlert } from '../../reducers/snackbarReducers';
 
+import ColorPicker from './components/ColorPicker';
+
 
 const RouteDistributionChart = () => {
   const todayFormatted = useMemo(() => {
@@ -111,7 +113,7 @@ const RouteDistributionChart = () => {
       >
         <Typography  variant="h4" sx={{ mb: 4 }} className="centered-text">Distribution Spread for {gymName}</Typography>
 
-        <Box sx={{ width: '100%', mx: 'auto', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
+        <Box sx={{ width: '100%', mx: 'auto', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-evenly'}}>
           {
             sectionList.length > 0
               ? <SectionsList sectionList={sectionList} onClick={handleSectionChange} currentSelectedId={selectedSectionId} />
@@ -119,14 +121,21 @@ const RouteDistributionChart = () => {
           }
 
           <Box sx={{ mx: '4rem', justifyContent: 'center', }}>
-            <ButtonGroup>
-              <Button variant="contained" className="distribution-button" onClick={handleSubmit} type="submit">Save Distribution</Button>
-              <Button variant="outlined" sx={{ mx: 4, height: '2.5rem', }} onClick={addNewClimb}>Add climb</Button>
-              <Button variant="outlined" className="distribution-button" type="button">
-                <Link to="/placard/ropes" state={{ distribution }} style={{ textDecoration: 'none'}}>
-                    Print Route Placard
-                </Link>
+            <ButtonGroup variant="contained" orientation="vertical">
+              <Button onClick={addNewClimb}>Add climb</Button>
+              <Button
+                onClick={handleSubmit}
+                type="submit"
+                sx={{
+                  borderTop: '1px solid white',
+                  borderBottom: '1px solid white',
+                }}
+              >
+                Save Distribution
               </Button>
+              <Button component={Link}  to="/placard/ropes">
+                  Print Route Placard
+                </Button>
             </ButtonGroup>
           </Box>
 
@@ -138,10 +147,17 @@ const RouteDistributionChart = () => {
               name="dateSet"
               value={fullDateChange}
               onChange={(event) => setFullDateChange(event.target.value)}
-              sx={{ width: '11rem' }}
+              sx={{ width: '11rem',  }}
+              inputProps={{ height: '15rem', }}
             />
-            <Button variant="contained" className="date-updater button" type="button" onClick={onDateChange}>
-            Set Current Dates
+            <Button
+              variant="contained"
+              className="date-updater button"
+              type="button"
+              onClick={onDateChange}
+              sx={{ height: '15rem', }}
+            >
+              Set Current Dates
             </Button>
           </Box>
         </Box>
@@ -156,6 +172,9 @@ const RouteDistributionChart = () => {
           disableColumnFilter
           experimentalFeatures={{ newEditingApi: true }} 
           processRowUpdate={(newRow, oldRow) => {
+            console.log({
+              newRow
+            })
             dispatch(updateRouteDistribution(newRow));
             dispatch(setSnackAlert({
               alertType: 'Success',
@@ -171,6 +190,7 @@ const RouteDistributionChart = () => {
           }}
         />
       </Box>
+      <ColorPicker />
     </Box>
   )
 }
