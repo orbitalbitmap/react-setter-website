@@ -3,11 +3,9 @@ import { useEffect, useState } from "react";
 import { Box, MenuItem, Select } from "@mui/material";
 import colorOptions from "../constants/colorOptions";
 import { updateClimbColor } from "../../../reducers/distribution/distributionReducers";
-import { useGridApiContext, } from '@mui/x-data-grid';
 
 const ColorPicker = ({ rowId, value, climbId, }) => {
   const dispatch = useDispatch();
-  const apiRef = useGridApiContext();
   const [colorName, setColorName] = useState('')
 
   useEffect(() => {setColorName(value)}, [value])
