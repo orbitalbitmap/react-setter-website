@@ -2,18 +2,18 @@ import axios from 'axios';
 import { useEffect, useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { Box, Button, ButtonGroup, TextField, Typography } from '@mui/material';
-import { DataGrid, } from '@mui/x-data-grid';
+import { DataGrid, useGridApiContext, } from '@mui/x-data-grid';
 import { useDispatch, useSelector } from 'react-redux';
 
 import SectionsList from './SectionsList';
 import { setRouteDistribution, updateDates, updateRouteDistribution } from '../../reducers/distribution/distributionReducers';
 import ropeColumnDefs from './constants/ropeColumnDefs';
 import { setSnackAlert } from '../../reducers/snackbarReducers';
-
-import ColorPicker from './components/ColorPicker';
+import { textAlign } from '@mui/system';
 
 
 const RouteDistributionChart = () => {
+  // const apiRef = useGridApiContext();
   const todayFormatted = useMemo(() => {
     const today = new Date();
     return today.toISOString().split('T')[0]
@@ -43,8 +43,7 @@ const RouteDistributionChart = () => {
     getInfo()
   }, [gymId, dispatch])
 
-  const filteredDistribution = useMemo(() =>
-    distribution?.filter(climbInfo => climbInfo.sectionId === selectedSectionId), [distribution, selectedSectionId]);
+  const filteredDistribution = distribution?.filter(climbInfo => climbInfo.sectionId === selectedSectionId);
 
   const handleSectionChange = (event) => {
     const sectionId = parseInt(event.target.id)
@@ -172,15 +171,12 @@ const RouteDistributionChart = () => {
           disableColumnFilter
           experimentalFeatures={{ newEditingApi: true }} 
           processRowUpdate={(newRow, oldRow) => {
-            console.log({
-              newRow
-            })
-            dispatch(updateRouteDistribution(newRow));
-            dispatch(setSnackAlert({
-              alertType: 'Success',
-              messageBody: `A climb at station #${newRow.station} has been updated!`,
-            }))
-            return newRow;
+            // @TODO: find a better way of handling the update with the color picker
+            // this might be useful: https://mui.com/x/react-data-grid/state/
+            const updatedRow = { ...newRow, color: distribution[newRow.id-1].color}
+
+            dispatch(updateRouteDistribution(updatedRow));
+            return updatedRow;
           }}
           onProcessRowUpdateError={() => {
             dispatch(setSnackAlert({
@@ -190,7 +186,6 @@ const RouteDistributionChart = () => {
           }}
         />
       </Box>
-      <ColorPicker />
     </Box>
   )
 }

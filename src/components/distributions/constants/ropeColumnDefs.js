@@ -78,9 +78,8 @@ const ropeColumnDefs = [
       </>
     ),
     renderEditCell: (params) => {
-      console.log(params)
       return (
-        <ColorPicker {...params} value={params.row.color}/>
+        <ColorPicker {...params} value={params.value} climbId={params.row.id} />
       )
     }
   },

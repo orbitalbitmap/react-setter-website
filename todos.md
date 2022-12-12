@@ -1,3 +1,6 @@
+# UPDATE REDUCERS FROM OLD WAY OF THINKING WITH REDUX TO THE NEW WAY OF RTK
+
+
 # Things to get working
 This is the list of thing to get working before new things should be worked on
 
@@ -8,7 +11,7 @@ This is the list of thing to get working before new things should be worked on
   Fix distribution tables back to working order
     'Can't update read only property' error message
     -- Route chart:
-      -- Create a new color picker for the dropdown editor for the bouldering charts
+      -- Fix the Color Picker (there's got to be a better way to edit the row and color picker cells)
     -- Boulder chart:
       -- Complete overhaul still needed
   Fix backend to update previous setter placard names and/or first names to new ones (what did I mean by this?)

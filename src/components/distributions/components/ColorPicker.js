@@ -1,9 +1,14 @@
+import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { Box, MenuItem, Select } from "@mui/material";
 import colorOptions from "../constants/colorOptions";
+import { updateClimbColor } from "../../../reducers/distribution/distributionReducers";
+import { useGridApiContext, } from '@mui/x-data-grid';
 
-const ColorPicker = ({ value, }) => {
-  const [colorName, setColorName] = useState('White')
+const ColorPicker = ({ rowId, value, climbId, }) => {
+  const dispatch = useDispatch();
+  const apiRef = useGridApiContext();
+  const [colorName, setColorName] = useState('')
 
   useEffect(() => {setColorName(value)}, [value])
 
@@ -12,8 +17,16 @@ const ColorPicker = ({ value, }) => {
         <Select
           label="Color"
           labelId="color"
+          defaultValue="Pink"
           value={colorName}
-          onChange={(event) => {  setColorName(event.target.value)}}
+          onChange={(event) => {
+            dispatch(updateClimbColor({
+              climbId,
+              color:event.target.value,
+              distributionType: 'routeDistribution'
+            })); 
+            setColorName(event.target.value)
+          }}
           sx={{
             height: '100%',
             width: '100%',

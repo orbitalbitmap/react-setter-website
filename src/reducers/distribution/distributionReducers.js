@@ -1,9 +1,9 @@
-import { createSlice, } from "@reduxjs/toolkit";
+import { createSlice, current } from "@reduxjs/toolkit";
 import updateDistributionDates from "./utils/updateDistributionDates";
 
 const initialState = {
-  boulderDistribution: null,
-  routeDistribution: null,
+  boulderDistribution: [],
+  routeDistribution: [],
 };
 
 export const distributionSlice = createSlice({
@@ -18,10 +18,7 @@ export const distributionSlice = createSlice({
       }
     },
     setRouteDistribution: (state, action) => {
-      return {
-        ...state,
-        routeDistribution: action.payload,
-      }
+        state.routeDistribution = action.payload;
     },
     updateRouteDistribution: (state, action) => {
       let [...distribution] = state.routeDistribution;
@@ -36,10 +33,18 @@ export const distributionSlice = createSlice({
       }
     },
     updateDates: updateDistributionDates,
+    
+    updateClimbColor: (state, action) => {
+      const { color, climbId, distributionType } = action.payload
+      const indexToUpdate =  state.routeDistribution.findIndex((climb) => climb.id === climbId);
+
+      state[distributionType][indexToUpdate].color = color;
+    }
+    
   }
 
 });
 
-export const { removeDistributions, setBoulderDistribution, setRouteDistribution, updateDates, updateRouteDistribution } = distributionSlice.actions;
+export const { removeDistributions, setBoulderDistribution, setRouteDistribution, updateClimbColor, updateDates, updateRouteDistribution } = distributionSlice.actions;
 
 export default distributionSlice.reducer;
