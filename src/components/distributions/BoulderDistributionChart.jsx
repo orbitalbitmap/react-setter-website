@@ -57,7 +57,6 @@ const BoulderDistributionChart = () => {
     }
   }
 
-
   const addNewClimb = () => {
     // @TODO: handle the position better
 

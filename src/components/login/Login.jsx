@@ -12,6 +12,7 @@ import {
   Typography,
 } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import { setSnackAlert } from '../../reducers/snackbarReducers';
 
 import Copyright from './copyright/Copyright';
 import { setUser, } from '../../reducers/userReducer';
@@ -27,9 +28,13 @@ const SignIn = () => {
     event.preventDefault()
 
     if (enteredPassword.length <= 0 || enteredEmail.length <= 0) {
-      window.alert("password and email are required")
+      dispatch(setSnackAlert({
+        alertType: 'Error',
+        messageBody: 'Please enter both an email and password'
+      }));
       return
     }
+    // handle login from the server side better (currently not handled at all and any valid email will work)
     const {data} = await axios({ 
           url: `${process.env.REACT_APP_API_PATH}/employeeByEmail`,
           method: 'POST',
@@ -44,7 +49,10 @@ const SignIn = () => {
         dispatch(setGymPanel())
         navigate("/dashboard");
       } else {
-        console.log('Error occurred')
+        dispatch(setSnackAlert({
+          alertType: 'Error',
+          messageBody: 'There was an error while logging in. Please make sure all information is correct and try again.'
+        }));
       }
   }
 

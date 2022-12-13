@@ -17,7 +17,7 @@ This is the list of thing to get working before new things should be worked on
   Fix backend to update previous setter placard names and/or first names to new ones (what did I mean by this?)
 
   ## src/components/login/Login
-  Add log in error alerts
+  Fix the log in
 
   ## src/components/metrics/MetricsContainer
   Move data to redux store and then change from using props grabbing the data from the redux store
