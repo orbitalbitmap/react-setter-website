@@ -1,14 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Container, Grid, Paper, Typography, } from '@mui/material';
 import { useSelector } from 'react-redux';
-
-export const getLocationString = (employeeLocations) => {
-  const locationNameList = employeeLocations?.map(location => {
-    return location.name;
-  });
-
-  return locationNameList?.join(', ');
-}
+import getLocationString from '../../utils/getLocationString';
 
 const EmployeeCardContainer = () => {
   const employees = useSelector(state => state.employees)

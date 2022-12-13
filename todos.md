@@ -10,14 +10,11 @@ This is the list of thing to get working before new things should be worked on
   ## src/components/distributions
   Fix distribution tables back to working order
     'Can't update read only property' error message
-    -- Route chart:
+    -- Route and Boulder chart:
       -- Fix the Color Picker (there's got to be a better way to edit the row and color picker cells)
-    -- Boulder chart:
-      -- Complete overhaul still needed
+      -- Fix the api's returned values
+      For the boulders, handle the position of a climb
   Fix backend to update previous setter placard names and/or first names to new ones (what did I mean by this?)
-
-  ## src/components/employees/EmployeeCardContainer
-  Break the getLocationString function out to its own file
 
   ## src/components/login/Login
   Add log in error alerts

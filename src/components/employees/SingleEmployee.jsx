@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import { Box, Button, Container, Typography } from '@mui/material';
-import { getLocationString } from './EmployeeCardContainer';
+import getLocationString from '../../utils/getLocationString';
 
 
 const SingleEmployee = () => {
