@@ -2,18 +2,16 @@ import axios from 'axios';
 import { useEffect, useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { Box, Button, ButtonGroup, TextField, Typography } from '@mui/material';
-import { DataGrid, useGridApiContext, } from '@mui/x-data-grid';
+import { DataGrid, } from '@mui/x-data-grid';
 import { useDispatch, useSelector } from 'react-redux';
 
 import SectionsList from './SectionsList';
 import { setRouteDistribution, updateDates, updateRouteDistribution } from '../../reducers/distribution/distributionReducers';
 import ropeColumnDefs from './constants/ropeColumnDefs';
 import { setSnackAlert } from '../../reducers/snackbarReducers';
-import { textAlign } from '@mui/system';
 
 
 const RouteDistributionChart = () => {
-  // const apiRef = useGridApiContext();
   const todayFormatted = useMemo(() => {
     const today = new Date();
     return today.toISOString().split('T')[0]
