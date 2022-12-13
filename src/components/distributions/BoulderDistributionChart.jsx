@@ -4,10 +4,9 @@ import { Link, useParams } from 'react-router-dom'
 import { DataGrid } from '@mui/x-data-grid';
 import { Box, Button, ButtonGroup, TextField, Typography } from '@mui/material';
 import SectionsList from './SectionsList'
-import { setBoulderDistribution, updateBoulderDistribution } from '../../reducers/distribution/distributionReducers';
+import { setBoulderDistribution, updateBoulderDistribution, updateDates } from '../../reducers/distribution/distributionReducers';
 import { useDispatch, useSelector } from 'react-redux';
 import { setSnackAlert } from '../../reducers/snackbarReducers';
-
 import getBoulderColumnDefs from './constants/boulderColumnDefs';
 
 const BoulderDistributionChart = () => {
@@ -39,6 +38,14 @@ const BoulderDistributionChart = () => {
 
     setSelectedSectionId(sectionId)
   }
+
+  const onDateChange = (event) => {
+    dispatch(updateDates({
+      type: 'boulderDistribution',
+      newDate: fullDateChange,
+      sectionIdToUpdate: selectedSectionId,
+    }));
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault()
@@ -148,7 +155,7 @@ const BoulderDistributionChart = () => {
               variant="contained"
               className="date-updater button"
               type="button"
-              onClick={(event) => setFullDateChange(event.target.value)}
+              onClick={onDateChange}
               sx={{ height: '15rem', }}
             >
               Set Current Dates

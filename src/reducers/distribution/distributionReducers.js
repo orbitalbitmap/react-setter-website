@@ -11,15 +11,8 @@ export const distributionSlice = createSlice({
   initialState,
   reducers: {
     removeDistributions: (state, action) => initialState,
-    setBoulderDistribution: (state, action) => {
-      return {
-        ...state,
-        boulderDistribution: action.payload,
-      }
-    },
-    setRouteDistribution: (state, action) => {
-        state.routeDistribution = action.payload;
-    },
+    setBoulderDistribution: (state, action) => { state.boulderDistribution = action.payload; },
+    setRouteDistribution: (state, action) => { state.routeDistribution = action.payload; },
     updateBoulderDistribution: (state, action) => {
       let [...distribution] = state.boulderDistribution;
       const newClimb = action.payload;
@@ -27,10 +20,7 @@ export const distributionSlice = createSlice({
 
       distribution[indexToChange] = newClimb;
 
-      return {
-        ...state,
-        boulderDistribution: distribution
-      }
+        state.boulderDistribution = distribution
     },
     updateRouteDistribution: (state, action) => {
       let [...distribution] = state.routeDistribution;
@@ -39,10 +29,7 @@ export const distributionSlice = createSlice({
 
       distribution[indexToChange] = newClimb;
 
-      return {
-        ...state,
-        routeDistribution: distribution
-      }
+      state.routeDistribution = distribution;
     },
     updateDates: updateDistributionDates,
     

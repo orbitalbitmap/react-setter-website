@@ -86,7 +86,7 @@ const RouteDistributionChart = () => {
         messageBody: 'There was an issue saving teh distribution, please try again.'
       }));
     }
-  }
+  };
 
   const onDateChange = (event) => {
     dispatch(updateDates({
@@ -94,7 +94,7 @@ const RouteDistributionChart = () => {
       newDate: fullDateChange,
       sectionIdToUpdate: selectedSectionId,
     }));
-  }
+  };
 
   return (
     <Box sx={{ mx: 'auto', mt: '5rem', width: '100%' }}>
