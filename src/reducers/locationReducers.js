@@ -1,13 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = null;
+const initialState = [];
 
 export const locationSlice = createSlice({
   name: 'locations',
   initialState,
   reducers: {
     setGymList: (state, action) => action.payload.gyms,
-    removeLocationList: (state, action) => null,
+    removeLocationList: (state, action) => initialState,
   },
 });
 

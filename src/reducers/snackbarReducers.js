@@ -10,7 +10,7 @@ const snackbarSlice = createSlice({
   initialState,
   reducers: {
     setSnackAlert: (state, action) => action.payload,
-    resetSnackAlert: () => initialState,
+    resetSnackAlert: (state, action) => initialState,
   },
 });
 

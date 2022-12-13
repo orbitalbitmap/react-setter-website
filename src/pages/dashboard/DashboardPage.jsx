@@ -13,11 +13,9 @@ const DashboardPage = () => {
 
   useEffect(() => {
     const fetchLocations = async () => {
-      const { data } = await axios({ 
-        url: `${process.env.REACT_APP_API_PATH}/gyms`,
-        method: 'GET',
-      })
-      dispatch(setGymList({ gyms: data }))
+      const { data } = await axios.get(`${process.env.REACT_APP_API_PATH}/gyms`);
+
+      dispatch(setGymList({ gyms: data }));
     }
     fetchLocations()
   }, [dispatch])

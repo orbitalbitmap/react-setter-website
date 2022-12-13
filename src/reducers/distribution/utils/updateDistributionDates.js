@@ -11,10 +11,7 @@ export const updateDistributionDates = (state, action) => {
     return updatedClimb;
   });
   
-  return {
-    ...state,
-    [type]: newDistribution
-  }
+  state[type] = newDistribution;
 }
 
 export default updateDistributionDates;
