@@ -1,16 +1,18 @@
 import { combineReducers } from 'redux';
-import userReducer from './userReducer';
-import locationReducer from './locationReducers';
+import distributionReducers from './distribution/distributionReducers';
 import employeeReducers from './employeeReducers';
 import gymTabPanelReducers from './gymTabPanelReducers';
-import distributionReducers from './distribution/distributionReducers';
+import locationReducers from './locationReducers';
+import metricsReducers from './distribution/metricsReducers';
 import snackbarReducers from './snackbarReducers';
+import userReducers from './userReducer';
 
 export default combineReducers({
-  user: userReducer,
-  locations: locationReducer,
+  distribution: distributionReducers,
   employees: employeeReducers,
   gymTabPanel: gymTabPanelReducers,
-  distribution: distributionReducers,
+  locations: locationReducers,
+  metrics: metricsReducers,
   snackbarDetails: snackbarReducers,
+  user: userReducers,
 });

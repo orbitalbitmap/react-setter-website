@@ -1,12 +1,17 @@
 import { Box } from '@mui/material';
 import { Bar } from 'react-chartjs-2';
+import { useSelector } from 'react-redux';
 
-function RoutesPerSetter(props) {
+function RoutesPerSetter() {
+  const routesPerSetter = useSelector(state => state.metrics.gymMetrics.routesPerSetter);
+  const labels = Object.keys(routesPerSetter);
+  const data = Object.values(routesPerSetter);
+
   const chartData = {
-    labels: Object.keys(props.data) || null,
+    labels,
     datasets: [
       {
-        data: Object.values(props.data) || null,
+        data,
         label: 'Total Routes',
         backgroundColor: 'black',
         fill: false,

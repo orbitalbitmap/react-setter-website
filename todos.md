@@ -1,11 +1,25 @@
-# UPDATE REDUCERS FROM OLD WAY OF THINKING WITH REDUX TO THE NEW WAY OF RTK
-
-
 # Things to get working
 This is the list of thing to get working before new things should be worked on
 
+  ## src/components/metrics/MetricsContainer
+  Move hardcoded values out to a separate file
+
+
+  ## src/components/login/Login
+  Fix the log in
+
+
+  ## src/components/dashboard/content/gymTabContainer/GymTabPanel
+  Clean this up
+
   ## src/components/employees/UpdateEmployee
   Clean the file up
+
+  ## src/services/gym.js (rtk api creator)
+  Should this continue to be developed?
+
+  ## src/history.js
+  Implement back to working order
 
   ## src/components/distributions
   Fix distribution tables back to working order
@@ -15,24 +29,6 @@ This is the list of thing to get working before new things should be worked on
       -- Fix the api's returned values
       For the boulders, handle the position of a climb
   Fix backend to update previous setter placard names and/or first names to new ones (what did I mean by this?)
-
-  ## src/components/login/Login
-  Fix the log in
-
-  ## src/components/metrics/MetricsContainer
-  Move data to redux store and then change from using props grabbing the data from the redux store
-
-  ## src/components/placards/boulderBashCard.pug
-  Make this a component and not a template file
-
-  ## src/components/dashboard/content/gymTabContainer/GymTabPanel
-  Clean this up
-
-  ## src/services/gym.js (rtk api creator)
-  Should this continue to be developed?
-
-  ## src/history.js
-  Implement back to working order
 
   ## Redo css
   Turn the main big file into little files that are on a per component basis
@@ -46,8 +42,16 @@ Move data loads to redux actions or custom useEffects instead of calling them di
 Add comment everywhere (make checklist of files beforehand)
 Upgrade to typescript
 
+  ## src/components/placards/boulderBashCard.pug
+  Make this a component and not a template file
+
   ## src/App.js
   Metrics page for all gyms url and page
 
   ## src/component/metrics/allGym Metrics
-  This need to be implemented at some point
+  This needs to be implemented at some point
+
+  ## Transitions, Loaders, and Styling
+  Add transitions on tab components
+  Create and implement loading status bars
+  Continue working on refining the styling

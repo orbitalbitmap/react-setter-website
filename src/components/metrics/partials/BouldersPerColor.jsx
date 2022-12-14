@@ -1,8 +1,11 @@
 import { Box } from '@mui/material';
 import { Pie } from 'react-chartjs-2';
+import { useSelector } from 'react-redux';
 
-function BouldersPerColor(props) {
-  const colorList = Object.keys(props.data) || null;
+function BouldersPerColor() {
+  const bouldersPerColor = useSelector(state => state.metrics.gymMetrics.bouldersPerColor);
+  const data = Object.values(bouldersPerColor);
+  const colorList = Object.keys(bouldersPerColor) || null;
 
   const chartData = {
     labels: colorList,
@@ -10,7 +13,7 @@ function BouldersPerColor(props) {
       {
         borderColor: 'black',
         borderWidth: 1,
-        data: Object.values(props.data),
+        data,
         backgroundColor: colorList,
         hoverOffset: 4,
       },

@@ -1,63 +1,67 @@
 import { Box } from '@mui/material';
 import { Bar } from 'react-chartjs-2';
+import { useSelector } from 'react-redux';
 
-function BoulderIdealVsCurrent(props) {
-  const { idealBoulderGradeCount, currentBoulderGradeCount } = props.data;
+function BoulderIdealVsCurrent() {
+  const { currentBouldersPerGrade, idealBouldersPerGrade } = useSelector(state => state.metrics.gymMetrics);
 
-  const orderedIdealBoulderGradeCount = {
-    VB: idealBoulderGradeCount.VB,
-    V0: idealBoulderGradeCount.V0,
-    V1: idealBoulderGradeCount.V1,
-    V2: idealBoulderGradeCount.V2,
-    V3: idealBoulderGradeCount.V3,
-    V4: idealBoulderGradeCount.V4,
-    V5: idealBoulderGradeCount.V5,
-    V6: idealBoulderGradeCount.V6,
-    V7: idealBoulderGradeCount.V7,
-    V8: idealBoulderGradeCount.V8,
-    V9: idealBoulderGradeCount.V9,
-    V10: idealBoulderGradeCount.V10,
-    V11: idealBoulderGradeCount.V11,
-    V12: idealBoulderGradeCount.V12,
-    V13: idealBoulderGradeCount.V13,
-    V14: idealBoulderGradeCount.V14,
-    V15: idealBoulderGradeCount.V15,
-    V16: idealBoulderGradeCount.V16,
+  // @TODO Move these out to a separate file
+  const orderedIdealBouldersPerGrade = {
+    VB: idealBouldersPerGrade.VB,
+    V0: idealBouldersPerGrade.V0,
+    V1: idealBouldersPerGrade.V1,
+    V2: idealBouldersPerGrade.V2,
+    V3: idealBouldersPerGrade.V3,
+    V4: idealBouldersPerGrade.V4,
+    V5: idealBouldersPerGrade.V5,
+    V6: idealBouldersPerGrade.V6,
+    V7: idealBouldersPerGrade.V7,
+    V8: idealBouldersPerGrade.V8,
+    V9: idealBouldersPerGrade.V9,
+    V10: idealBouldersPerGrade.V10,
+    V11: idealBouldersPerGrade.V11,
+    V12: idealBouldersPerGrade.V12,
+    V13: idealBouldersPerGrade.V13,
+    V14: idealBouldersPerGrade.V14,
+    V15: idealBouldersPerGrade.V15,
+    V16: idealBouldersPerGrade.V16,
   };
 
-  const orderedCurrentBoulderGradeCount = {
-    VB: currentBoulderGradeCount.VB || 0,
-    V0: currentBoulderGradeCount.V0 || 0,
-    V1: currentBoulderGradeCount.V1 || 0,
-    V2: currentBoulderGradeCount.V2 || 0,
-    V3: currentBoulderGradeCount.V3 || 0,
-    V4: currentBoulderGradeCount.V4 || 0,
-    V5: currentBoulderGradeCount.V5 || 0,
-    V6: currentBoulderGradeCount.V6 || 0,
-    V7: currentBoulderGradeCount.V7 || 0,
-    V8: currentBoulderGradeCount.V8 || 0,
-    V9: currentBoulderGradeCount.V9 || 0,
-    V10: currentBoulderGradeCount.V10 || 0,
-    V11: currentBoulderGradeCount.V11 || 0,
-    V12: currentBoulderGradeCount.V12 || 0,
-    V13: currentBoulderGradeCount.V13 || 0,
-    V14: currentBoulderGradeCount.V14 || 0,
-    V15: currentBoulderGradeCount.V15 || 0,
-    V16: currentBoulderGradeCount.V16 || 0,
+  // @TODO Move these out to a separate file
+  const orderedCurrentBouldersPerGrade = {
+    VB: currentBouldersPerGrade.VB || 0,
+    V0: currentBouldersPerGrade.V0 || 0,
+    V1: currentBouldersPerGrade.V1 || 0,
+    V2: currentBouldersPerGrade.V2 || 0,
+    V3: currentBouldersPerGrade.V3 || 0,
+    V4: currentBouldersPerGrade.V4 || 0,
+    V5: currentBouldersPerGrade.V5 || 0,
+    V6: currentBouldersPerGrade.V6 || 0,
+    V7: currentBouldersPerGrade.V7 || 0,
+    V8: currentBouldersPerGrade.V8 || 0,
+    V9: currentBouldersPerGrade.V9 || 0,
+    V10: currentBouldersPerGrade.V10 || 0,
+    V11: currentBouldersPerGrade.V11 || 0,
+    V12: currentBouldersPerGrade.V12 || 0,
+    V13: currentBouldersPerGrade.V13 || 0,
+    V14: currentBouldersPerGrade.V14 || 0,
+    V15: currentBouldersPerGrade.V15 || 0,
+    V16: currentBouldersPerGrade.V16 || 0,
   };
+
 
   const chartData = {
-    labels: Object.keys(orderedIdealBoulderGradeCount),
+    labels: Object.keys(orderedIdealBouldersPerGrade),
     datasets: [
       {
-        data: Object.values(orderedIdealBoulderGradeCount),
-        label: 'Ideal Route Grades',
+        data: Object.values(orderedIdealBouldersPerGrade),
+        label: 'Ideal Boulder Grades',
         backgroundColor: 'black',
         fill: false,
       },
       {
-        data: Object.values(orderedCurrentBoulderGradeCount),
-        label: 'Current Route Grades',
+        data: Object.values(orderedCurrentBouldersPerGrade),
+        label: 'Current Boulder Grades',
         backgroundColor: 'darkred',
         fill: false,
       },
