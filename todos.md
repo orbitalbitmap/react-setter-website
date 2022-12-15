@@ -1,8 +1,4 @@
 # Things to get working
-This is the list of thing to get working before new things should be worked on
-
-  ## src/components/login/Login
-  Fix the log in
 
   ## src/components/dashboard/content/gymTabContainer/GymTabPanel
   Clean this up
@@ -33,9 +29,14 @@ This is the list of thing to get working before new things should be worked on
 
 # Upgrades to work on after
 Remove all instances of props from the app and call data from redux store
-Move data loads to redux actions or custom useEffects instead of calling them directly in the components
+Move data fetches to redux actions instead of calling them directly in the components
 Add comments everywhere (make checklist of files beforehand)
+Move custom useEffects out to custom hooks
+Add tests, E2E (playwright) and unit (jest)
 Upgrade to typescript
+
+  # Login notification
+  Failure notification is not working
 
   ## src/components/placards/boulderBashCard.pug
   Make this a component and not a template file

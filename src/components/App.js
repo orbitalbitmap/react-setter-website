@@ -81,6 +81,7 @@ function App() {
         </Routes>
       </BrowserRouter>
       
+      {/* Notifications snackbar */}
       <Snackbar />
     </div>
   );

@@ -34,19 +34,19 @@ const SignIn = () => {
       }));
       return
     }
-    // handle login from the server side better (currently not handled at all and any valid email will work)
+    
     const {data} = await axios({ 
-          url: `${process.env.REACT_APP_API_PATH}/employeeByEmail`,
+          url: `${process.env.REACT_APP_API_PATH}/login`,
           method: 'POST',
           data: {
             email: enteredEmail,
             password: enteredPassword,
         },
-      })
+      });
 
       if (data.id) {
         dispatch(setUser(data));
-        dispatch(setGymPanel())
+        dispatch(setGymPanel());
         navigate("/dashboard");
       } else {
         dispatch(setSnackAlert({
