@@ -9,15 +9,11 @@ const GymTabContainer = ({ gym }) => {
   const { ropePanel, boulderPanel, sectionPanel } = useSelector(state => state.gymTabPanel)
   const [value, setValue] = React.useState(0);
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
-
   return (
     <>
       <Tabs
         value={value}
-        onChange={handleChange}
+        onChange={(event, newValue) => {setValue(newValue)}}
         indicatorColor="secondary"
         textColor="inherit"
         variant="fullWidth"
