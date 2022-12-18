@@ -4,29 +4,37 @@ import ClimbSelector from './ClimbSelector';
 import AreteSelector from './AreteSelector';
 import { Box, Grid, Typography } from '@mui/material';
 
-function ClimbSelectors(props) {
-  let slotNumber = props.startingSlotNum;
+const ClimbSelectors =({
+  distribution,
+  class: className,
+  nameList,
+  selectorType,
+  startingSlotNum,
+  handleAreteSelector,
+  handleClimbSelector,
+})  => {
+  let slotNumber = startingSlotNum;
   return (
-    <Box className={props.class} sx={{ width: '40rem', }} >
+    <Box className={className} sx={{ width: '40rem', }} >
       <Grid container>
         {
-          props.nameList.map((climbName) => {
+          nameList.map((climbName) => {
             slotNumber++;
             return (
               <Grid item xs={6} key={climbName}>
-                <Box className={`${props.selectorType}-selectors`}>
+                <Box className={`${selectorType}-selectors`}>
                   <Typography>Slot #{slotNumber}</Typography>
                   <Box sx={{ border: '1px solid gray', p: 2}} >
                     <ClimbSelector
                       name={climbName}
-                      handleClimbSelector={props.handleClimbSelector}
-                      climbs={props.distribution}
+                      handleClimbSelector={handleClimbSelector}
+                      climbs={distribution}
                       selectorType="boulder"
                     />
 
                     <AreteSelector
                       name={climbName}
-                      onChange={props.handleAreteSelector}
+                      onChange={handleAreteSelector}
                     />
                   </Box>
                 </Box>

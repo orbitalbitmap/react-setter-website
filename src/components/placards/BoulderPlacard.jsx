@@ -3,15 +3,15 @@ import React from 'react'
 
 import BoulderSlot from './BoulderSlot'
 
-const BoulderPlacard = (props) => {
+const BoulderPlacard = ({ climbList, climbsToDisplay, numberOfClimbsClass, }) => {
   let slotId = 0
   return (
     <Box className="boulder-placard-container">
-      <Box className={`boulder-grid-${props.numberOfClimbsClass}-column`}>
+      <Box className={`boulder-grid-${numberOfClimbsClass}-column`}>
         {
-          props.climbsToDisplay.map(climbToDisplay => {
+          climbsToDisplay.map(climbToDisplay => {
             slotId++
-            const climb = props.climbList[climbToDisplay]
+            const climb = climbList[climbToDisplay]
             return (
               <BoulderSlot
                 key={slotId}

@@ -1,18 +1,18 @@
 import { Box } from '@mui/material';
 import React from 'react';
 
-function BoulderSlot(props) {
+function BoulderSlot({ arete, color, dateSet, grade, setter, }) {
   return (
     <Box className="boulder-slot-grid">
-      <Box className={`boulder-grades placard-${props.color}`}>
-        <p className="boulder-grade-value">{props.grade}</p>
-        <p className="boulder-arete">{props.arete}</p>
+      <Box className={`boulder-grades placard-${color}`}>
+        <p className="boulder-grade-value">{grade}</p>
+        <p className="boulder-arete">{arete}</p>
       </Box>
       <Box className="boulder-date-set">
-        <p className="boulder-date-value">{props.dateSet}</p>
+        <p className="boulder-date-value">{dateSet}</p>
       </Box>
       <Box className="boulder-setter-name">
-        <p className="boulder-setter-value">{props.setter}</p>
+        <p className="boulder-setter-value">{setter}</p>
       </Box>
     </Box>
   );

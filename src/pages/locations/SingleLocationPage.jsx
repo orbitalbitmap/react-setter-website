@@ -3,7 +3,7 @@ import SingleGym from '../../components/locations/SingleGym'
 import Dashboard from '../../components/dashboard/Dashboard'
 import { useSelector } from 'react-redux'
 
-const SingleLocationPage = (props) => {
+const SingleLocationPage = () => {
   const locations = useSelector(state => state.locations)
 
   return (

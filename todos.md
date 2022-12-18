@@ -1,8 +1,4 @@
 # Things to get working
-
-  ## src/history.js
-  Implement back to working order
-
   ## src/components/distributions
   Fix distribution tables back to working order
     -- Route and Boulder chart:
@@ -18,13 +14,15 @@
 
 
 # Upgrades to work on after
-Remove all instances of props from the app and call data from redux store
 Move data fetches to redux actions instead of calling them directly in the components
 Add comments everywhere (make checklist of files beforehand)
-Move custom useEffects out to custom hooks
+Move useEffects out to custom hooks
 Move all `submit` functions out to DRY the code up more (`handleSubmit = (url, htmlBody) => {}`) 
 Add tests, E2E (playwright) and unit (jest)
 Upgrade to typescript
+
+  ## src/history.js
+  Implement back to working order
 
   ## src/services/gym.js (rtk api creator)
   Should this continue to be developed?

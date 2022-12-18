@@ -134,8 +134,8 @@ const BoulderDistributionChart = () => {
               >
                 Save Distribution
               </Button>
-              <Button component={Link}  to="/placard/ropes">
-                  Print Route Placard
+              <Button component={Link}  to="/placard/boulders">
+                  Print Boulder Placard
                 </Button>
             </ButtonGroup>
           </Box>

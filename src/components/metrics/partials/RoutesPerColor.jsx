@@ -2,7 +2,7 @@ import { Box } from '@mui/material';
 import { Pie } from 'react-chartjs-2';
 import { useSelector } from 'react-redux';
 
-function RouterPerColor(props) {
+const RouterPerColor = () => {
   const routesPerColor = useSelector(state => state.metrics.gymMetrics.routesPerColor);
   const data = Object.values(routesPerColor);
   const colorList = Object.keys(routesPerColor) || null;

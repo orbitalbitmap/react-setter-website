@@ -9,8 +9,7 @@ import { Tabs, Tab } from "@mui/material";
 import NewEmployeeForm from './NewEmployeeForm';
 import NewGymForm from './NewGymForm';
 
-function TabPanel(props) {
-  const { children, value, index, ...other } = props;
+function TabPanel({ children, value, index, ...other }) {
 
   return (
     <div

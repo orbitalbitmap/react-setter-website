@@ -1,15 +1,15 @@
 import React from 'react';
 import { Box, FormControl, InputLabel, MenuItem, Select } from '@mui/material'
 
-function AreteSelector(props) {
+function AreteSelector({ name, onChange, }) {
   return (
     <Box sx={{ mx: 'auto', left: '1rem' }}>
       <FormControl sx={{ width: '15rem', textAlign: 'center', mx: 'auto', my: '1rem', }}>
         <InputLabel>Arete: </InputLabel>
         <Select
           label="Arete: "
-          onChange={props.onChange}
-          name={props.name}
+          onChange={onChange}
+          name={name}
           defaultValue="1"
           sx={{ height: '1.5rem' }}
         >

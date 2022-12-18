@@ -1,9 +1,7 @@
-import React from 'react';
-import { connect } from 'react-redux';
 import AllClimbingSections from '../../components/sections/AllClimbingSections';
 import Dashboard from '../../components/dashboard/Dashboard';
 
-function AllLocationsAndSections(props) {
+function AllLocationsAndSections() {
   return (
     <Dashboard>
       <AllClimbingSections />
@@ -11,9 +9,4 @@ function AllLocationsAndSections(props) {
   );
 }
 
-const mapStateToProps = state => ({
-  user: state.user,
-  gyms: state.gyms,
-});
-
-export default connect(mapStateToProps, {})(AllLocationsAndSections);
+export default AllLocationsAndSections;
