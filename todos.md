@@ -1,11 +1,4 @@
 # Things to get working
-  ## src/components/distributions
-  Fix distribution tables back to working order
-    -- Route and Boulder chart:
-      -- Fix the Color Picker (there's got to be a better way to edit the row and color picker cells)
-      -- Fix the api's returned values
-      For the boulders, handle the position of a climb
-  Fix backend to update previous setter placard names and/or first names to new ones (what did I mean by this?)
 
   ## Redo css
   Turn the main big file into little files that are on a per component basis
@@ -21,14 +14,18 @@ Move all `submit` functions out to DRY the code up more (`handleSubmit = (url, h
 Add tests, E2E (playwright) and unit (jest)
 Upgrade to typescript
 
+  ## src/components/distributions
+  Fix distribution tables back to working order
+    -- Route and Boulder chart:
+      -- Fix the api's returned values
+      For the boulders, handle the position of a climb
+  Fix backend to update previous setter placard names and/or first names to new ones (what did I mean by this?)
+
   ## src/history.js
   Implement back to working order
 
   ## src/services/gym.js (rtk api creator)
   Should this continue to be developed?
-
-  # Login notification
-  Failure notification is not working
 
   ## src/components/placards/boulderBashCard.pug
   Make this a component and not a template file

@@ -27,33 +27,33 @@ const SignIn = () => {
   const handleSubmit = async (event) => {
     event.preventDefault()
 
-    if (enteredPassword.length <= 0 || enteredEmail.length <= 0) {
-      dispatch(setSnackAlert({
-        alertType: 'Error',
-        messageBody: 'Please enter both an email and password'
-      }));
-      return
-    }
-    
-    const {data} = await axios({ 
-          url: `${process.env.REACT_APP_API_PATH}/login`,
-          method: 'POST',
-          data: {
-            email: enteredEmail,
-            password: enteredPassword,
+    try {
+      if (enteredPassword.length <= 0 || enteredEmail.length <= 0) {
+        dispatch(setSnackAlert({
+          alertType: 'Error',
+          messageBody: 'Please enter both an email and password'
+        }));
+        return
+      }
+      
+      const {data} = await axios({ 
+        url: `${process.env.REACT_APP_API_PATH}/login`,
+        method: 'POST',
+        data: {
+          email: enteredEmail,
+          password: enteredPassword,
         },
       });
 
-      if (data.id) {
-        dispatch(setUser(data));
-        dispatch(setGymPanel());
-        navigate("/dashboard");
-      } else {
-        dispatch(setSnackAlert({
-          alertType: 'Error',
-          messageBody: 'There was an error while logging in. Please make sure all information is correct and try again.'
-        }));
-      }
+      dispatch(setUser(data));
+      dispatch(setGymPanel());
+      navigate("/dashboard");
+    } catch(err) {
+      dispatch(setSnackAlert({
+        alertType: 'Error',
+        messageBody: 'There was an error while logging in. Please make sure all information is correct and try again.'
+      }));
+    }
   }
 
   return (
