@@ -51,6 +51,7 @@ const AdminUpdateEmployee = () => {
     </IconButton>
   );
 
+  // @TODO: FETCH DATA HOOK
   useEffect(() => {
     const getInfo = async () => {
       const { data } = await axios.get(

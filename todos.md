@@ -1,18 +1,10 @@
-# Things to get working
-
-  ## Redo css
-  Turn the main big file into little files that are on a per component basis
-    This also means reworking the MUI custom theme
-    IMPORTANT: This includes dealing with any instance of '!important'
-
-
-# Upgrades to work on after
+# Upgrades to work
 Move data fetches to redux actions instead of calling them directly in the components
-Add comments everywhere (make checklist of files beforehand)
 Move useEffects out to custom hooks
+Upgrade to typescript
+Add comments everywhere (make checklist of files beforehand)
 Move all `submit` functions out to DRY the code up more (`handleSubmit = (url, htmlBody) => {}`) 
 Add tests, E2E (playwright) and unit (jest)
-Upgrade to typescript
 
   ## src/components/distributions
   Fix distribution tables back to working order
@@ -30,7 +22,7 @@ Upgrade to typescript
   ## src/components/placards/boulderBashCard.pug
   Make this a component and not a template file
 
-  # @TODOs
+  ## @TODOs
   Take care of remaining @TODOs
 
   ## src/App.js
@@ -42,7 +34,13 @@ Upgrade to typescript
   ## src/components/employees/UpdateEmployee
   Uncontrolled input warning
 
+  ## Redo css
+  Turn the main big file into little files that are on a per component basis
+  This also means reworking the MUI custom theme
+  IMPORTANT: This includes dealing with any instance of `!important`
+
   ## Transitions, Loaders, and Styling
   Add transitions on tab components
   Create and implement loading status bars
   Continue working on refining the styling
+  Make sure there is no need for any css with the `!important` flag
