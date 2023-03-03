@@ -7,11 +7,21 @@ export const gymApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:1337/api/' }),
   endpoints: (builder) => ({
     getEmployeeById: builder.query({
-      query: (id) => `employee/${id}`,
+      query: (id) => `employees/${id}`,
     }),
-  }),
+    login: builder.mutation({
+      query: (body) => ({
+        url: 'signup',
+        method: 'POST',
+        body,
+      }),
+    }),
+  })
 })
 
 // Export hooks for usage in functional components, which are
 // auto-generated based on the defined endpoints
-export const { getEmployeeByIdQuery } = gymApi;
+export const {
+  useGetEmployeeByIdQuery,
+  useLoginMutation,
+} = gymApi;
