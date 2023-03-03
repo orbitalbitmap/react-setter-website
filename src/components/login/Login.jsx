@@ -3,13 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, } from 'react-redux'
 import {
   Avatar,
-  Button,
-  CssBaseline,
-  TextField,
   Box,
   Container,
+  TextField,
   Typography,
 } from '@mui/material';
+import { LoadingButton } from '@mui/lab';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { setSnackAlert } from '../../reducers/snackbarReducers';
 
@@ -60,8 +59,6 @@ const SignIn = () => {
 
   return (
       <Container component="main" maxWidth="xs">
-        <CssBaseline />
-
         <Box
           sx={{
             alignItems: 'center',
@@ -105,14 +102,15 @@ const SignIn = () => {
               type="password"
             />
 
-            <Button
+            <LoadingButton
+              load={isLoading || isUpdating}
               fullWidth
               sx={{ mt: 3, mb: 2 }}
               type="submit"
               variant="contained"
             >
               Sign In
-            </Button>
+            </LoadingButton>
           </Box>
         </Box>
 

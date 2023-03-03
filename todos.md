@@ -1,6 +1,6 @@
 # Upgrades to work
 Add reset functionality when leaving/entering a page (IE if persisting redux state I shouldn't see data for Worcester's metrics if I'm looking at another gym)
-Move data fetches to redux actions instead of calling them directly in the components
+Move data fetches to redux actions instead of calling them directly in the components and update submit buttons to use MUI's LoadingButton
 Move useEffects out to custom hooks
 Upgrade to typescript
 Add comments everywhere (make checklist of files beforehand)
