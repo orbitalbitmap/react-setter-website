@@ -11,7 +11,7 @@ export const gymApi = createApi({
     }),
     login: builder.mutation({
       query: (body) => ({
-        url: 'signup',
+        url: 'login',
         method: 'POST',
         body,
       }),

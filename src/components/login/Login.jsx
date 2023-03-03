@@ -1,4 +1,3 @@
-import axios from 'axios'
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, } from 'react-redux'
@@ -18,11 +17,18 @@ import Copyright from './copyright/Copyright';
 import { setUser, } from '../../reducers/userReducer';
 import { setGymPanel } from '../../reducers/gymTabPanelReducers';
 
+import { useLoginMutation } from '../../services/gym';
+
 const SignIn = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [enteredEmail, setEnteredEmail] = useState('')
   const [enteredPassword, setEnteredPassword] = useState('')
+
+  const [
+    login, 
+    {isLoading, isUpdating}
+  ] = useLoginMutation();
 
   const handleSubmit = async (event) => {
     event.preventDefault()
@@ -35,14 +41,10 @@ const SignIn = () => {
         }));
         return
       }
-      
-      const {data} = await axios({ 
-        url: `${process.env.REACT_APP_API_PATH}/login`,
-        method: 'POST',
-        data: {
-          email: enteredEmail,
-          password: enteredPassword,
-        },
+
+      const {data} = await login({
+        email: enteredEmail,
+        password: enteredPassword,
       });
 
       dispatch(setUser(data));
