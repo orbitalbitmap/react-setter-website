@@ -46,7 +46,6 @@ const ItemList = ({ drawerOpen, drawerSetter }) => {
 
   const renderCollapsableList = (listItem, baseUrl, subList, opener, setter) => {
     if (!subList) {
-      console.log({subList, listItem});
       return [];
     }
 

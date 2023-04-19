@@ -77,7 +77,6 @@ function MetricsContainer() {
       <Box className="idealVsCurrent-wrapper centered-text">
         {
           (gymMetrics.currentBouldersPerGrade && gymMetrics.idealBouldersPerGrade)
-            // ? console.log(gymMetrics.idealBoulderGrade[Object.keys(gymMetrics.idealBoulderGrade)[0]])
             ?  <BoulderIdealVsCurrent />
             : <Typography className="centered-text" variant="h6" >No Data Found For Setters Per Boulders</Typography>
         }
