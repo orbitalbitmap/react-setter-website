@@ -7,8 +7,6 @@ import { setGymList } from '../../reducers/locationReducers';
 import { setEmployeeList } from '../../reducers/employeeReducers';
 import { useGetAllEmployeesAndGymsQuery } from '../../services/gym';
 
-import '../../components/styles.css';
-
 const DashboardPage = () => { 
   const dispatch = useDispatch();
   const user = useSelector(state => state.user);
@@ -28,7 +26,7 @@ const DashboardPage = () => {
           ? <Dashboard>
               <DashboardContent />
             </Dashboard>
-          : <div>Log in failed</div> // create loading component />
+          : <div>Log in failed</div> // TODO: create loading component
       }
     </>
   )
