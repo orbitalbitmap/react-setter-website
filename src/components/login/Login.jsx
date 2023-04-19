@@ -103,7 +103,7 @@ const SignIn = () => {
             />
 
             <LoadingButton
-              load={isLoading || isUpdating}
+              load={isLoading || isUpdating ? 1 : 0}
               fullWidth
               sx={{ mt: 3, mb: 2 }}
               type="submit"
@@ -114,7 +114,7 @@ const SignIn = () => {
           </Box>
         </Box>
 
-        <Copyright sx={{ mt: 8, mb: 4 }} />
+        <Copyright />
       </Container>
   );
 }

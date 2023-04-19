@@ -6,9 +6,18 @@ export const gymApi = createApi({
   reducerPath: 'gymApi',
   baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:1337/api/' }),
   endpoints: (builder) => ({
+    // queries
+    getAllLocations: builder.query({
+      query: () => 'gyms',
+    }),
+    getAllEmployees: builder.query({
+      query: () => 'employees',
+    }),
     getEmployeeById: builder.query({
       query: (id) => `employees/${id}`,
     }),
+
+    // mutations
     login: builder.mutation({
       query: (body) => ({
         url: 'login',
@@ -22,6 +31,8 @@ export const gymApi = createApi({
 // Export hooks for usage in functional components, which are
 // auto-generated based on the defined endpoints
 export const {
+  useGetAllLocationsQuery,
+  useGetAllEmployeesQuery,
   useGetEmployeeByIdQuery,
   useLoginMutation,
 } = gymApi;

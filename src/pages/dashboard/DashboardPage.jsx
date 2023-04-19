@@ -1,21 +1,23 @@
 import axios from 'axios';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Dashboard from '../../components/dashboard/Dashboard'
-import DashboardContent from '../../components/dashboard/content/Content'
-import '../../components/styles.css'
+
+import Dashboard from '../../components/dashboard/Dashboard';
+import DashboardContent from '../../components/dashboard/content/Content';
 import { setGymList } from '../../reducers/locationReducers';
 import { setEmployeeList } from '../../reducers/employeeReducers';
-import { useGetEmployeeByIdQuery } from '../../services/gym';
+import { useGetEmployeeByIdQuery, useGetAllEmployeesQuery } from '../../services/gym';
+
+import '../../components/styles.css';
 
 const DashboardPage = () => { 
-  const user = useSelector(state => state.user)
-  const dispatch = useDispatch()
+  const user = useSelector(state => state.user);
+  const dispatch = useDispatch();
   const { data, error, isLoading } = useGetEmployeeByIdQuery(1);
-    console.log({ data });
+  const { data: allEmployeeData, error: allEmployeeDataError, isLoading: isAllEmployeeDataLoading } =  useGetAllEmployeesQuery();
+    console.log({ data, allEmployeeData });
 
   useEffect(() => {
-
     const fetchLocations = async () => {
       const { data } = await axios.get(`${process.env.REACT_APP_API_PATH}/gyms`);
 

@@ -44,44 +44,51 @@ const ItemList = ({ drawerOpen, drawerSetter }) => {
       setter(true)
     }
 
-  const renderCollapsableList = (listItem, baseUrl, subList, opener, setter) => (
-    <Fragment key={listItem.id}>
-      <Tooltip key={listItem.id} title={listItem.title} disableInteractive>
-        <ListItemButton key={listItem.id} onClick={() => {!drawerOpen ? toggleDrawerAndList(setter) : setter(!opener)}}>
-            <ListItemIcon>
-              {opener ? <ExpandLess /> : <ExpandMore />}
-            </ListItemIcon>
-            <ListItemText primary={listItem.title} />
-        </ListItemButton>
-      </Tooltip>
-      <Collapse in={opener} timeout="auto" unmountOnExit>
-        <List component="div" disablePadding>
-          <Divider sx={{ my: 1 }} />
-            <Link to={baseUrl} style={{textDecoration: 'none'}}>
-              <Tooltip title="All locations" disableInteractive>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemText primary="All" sx={{textAlign: 'center'}} />
-                </ListItemButton>
-              </Tooltip>
-            </Link>
-            {
-              subList?.map(gym => {
-                return (
-                  <Link key={gym.id} to={`${baseUrl}${gym.id}`} style={{textDecoration: 'none'}}>
-                    <Tooltip title={gym.name} disableInteractive>
-                      <ListItemButton sx={{ pl: 4 }}>
-                        <ListItemText primary={gym.name} sx={{textAlign: 'center'}} />
-                      </ListItemButton>
-                    </Tooltip>
-                  </Link>
-                )
-              })
-            }
+  const renderCollapsableList = (listItem, baseUrl, subList, opener, setter) => {
+    if (!subList) {
+      console.log({subList, listItem});
+      return [];
+    }
+
+    return (
+      <Fragment key={listItem.id}>
+        <Tooltip key={listItem.id} title={listItem.title} disableInteractive>
+          <ListItemButton key={listItem.id} onClick={() => {!drawerOpen ? toggleDrawerAndList(setter) : setter(!opener)}}>
+              <ListItemIcon>
+                {opener ? <ExpandLess /> : <ExpandMore />}
+              </ListItemIcon>
+              <ListItemText primary={listItem.title} />
+          </ListItemButton>
+        </Tooltip>
+        <Collapse in={opener} timeout="auto" unmountOnExit>
+          <List component="div" disablePadding>
             <Divider sx={{ my: 1 }} />
-        </List>
-      </Collapse>
-    </Fragment>
-  )
+              <Link to={baseUrl} style={{textDecoration: 'none'}}>
+                <Tooltip title="All locations" disableInteractive>
+                  <ListItemButton sx={{ pl: 4 }}>
+                    <ListItemText primary="All" sx={{textAlign: 'center'}} />
+                  </ListItemButton>
+                </Tooltip>
+              </Link>
+              {
+                subList?.map(gym => {
+                  return (
+                    <Link key={gym.id} to={`${baseUrl}${gym.id}`} style={{textDecoration: 'none'}}>
+                      <Tooltip title={gym.name} disableInteractive>
+                        <ListItemButton sx={{ pl: 4 }}>
+                          <ListItemText primary={gym.name} sx={{textAlign: 'center'}} />
+                        </ListItemButton>
+                      </Tooltip>
+                    </Link>
+                  )
+                })
+              }
+              <Divider sx={{ my: 1 }} />
+          </List>
+        </Collapse>
+      </Fragment>
+    )
+  }
 
   const renderList = (list) => list.map((listItem) => {
     switch (listItem.title) {
