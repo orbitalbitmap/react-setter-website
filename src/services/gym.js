@@ -9,6 +9,17 @@ export const gymApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl }),
   endpoints: (builder) => ({
     // queries
+    getAllEmployeesAndGyms: builder.query({
+      async queryFn(_arg, _queryApi, _extraOptions, fetchWithBQ) {
+        const locationResults = await fetchWithBQ('gyms');
+        const employeeResults = await fetchWithBQ('employees');
+
+        return { data: {
+          locationData: locationResults.data,
+          employeeData: employeeResults.data,
+        }}
+      }
+    }),
     getAllLocations: builder.query({
       query: () => 'gyms',
     }),
@@ -33,6 +44,7 @@ export const gymApi = createApi({
 // Export hooks for usage in functional components, which are
 // auto-generated based on the defined endpoints
 export const {
+  useGetAllEmployeesAndGymsQuery, 
   useGetAllLocationsQuery,
   useGetAllEmployeesQuery,
   useGetEmployeeByIdQuery,
