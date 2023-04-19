@@ -10,19 +10,16 @@ import { useGetAllEmployeesAndGymsQuery } from '../../services/gym';
 import '../../components/styles.css';
 
 const DashboardPage = () => { 
-  const user = useSelector(state => state.user);
   const dispatch = useDispatch();
-  const {data: testData} = useGetAllEmployeesAndGymsQuery();
+  const user = useSelector(state => state.user);
+  const {data} = useGetAllEmployeesAndGymsQuery();
 
   useEffect(() => {
-    if (testData?.locationData) {
-      dispatch(setGymList({ gyms: testData.locationData }))
+    if (data) {
+      dispatch(setGymList({ gyms: data.locationData }));
+      dispatch(setEmployeeList({ employees: data.employeeData }));
     }
-    if (testData?.employeeData) {
-      dispatch(setEmployeeList({ employees: testData.employeeData }))
-    }
-
-  }, [dispatch, testData])
+  }, [dispatch, data]);
 
   return (
     <>
