@@ -1,21 +1,15 @@
-import axios from 'axios';
 import { useEffect, useState } from 'react';
-import EmployeeCardContainer from './EmployeeCardContainer';
 import { Box, Container, Typography } from '@mui/material';
-
+import EmployeeCardContainer from './EmployeeCardContainer';
+import { useGetAllEmployeesQuery } from '../../services/gym';
 
 const EmployeeList = () => {
   const [employees, setEmployees] = useState([]);
+  const {data: allEmployees} = useGetAllEmployeesQuery();
 
   useEffect(() => {
-    const getInfo = async () => {
-      const { data } = await axios.get(`${process.env.REACT_APP_API_PATH}/employees`);
-
-      setEmployees(data);
-    }
-
-    getInfo();
-  }, [])
+    setEmployees(allEmployees);
+  }, [allEmployees])
 
   return (
     <>

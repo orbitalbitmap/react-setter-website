@@ -13,7 +13,6 @@ export const gymApi = createApi({
       // queryfn assists with multiple api calls 
       async queryFn(args, queryApi, extraOptions, fetchWithBQ) {
         // TODO: add error handling
-        console.log({args, queryApi, extraOptions})
         const locationResults = await fetchWithBQ('gyms');
         const employeeResults = await fetchWithBQ('employees');
 
