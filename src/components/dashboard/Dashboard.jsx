@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useState } from 'react';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
@@ -12,7 +12,7 @@ import AppBar from './styledComponents/AppBar';
 import Drawer from './styledComponents/Drawer';
 
 function DashboardContent({ children }) {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const toggleDrawer = () => {
     setOpen(!open);
   };

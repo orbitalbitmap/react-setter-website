@@ -5,8 +5,8 @@ import {
   Paper,
   Typography,
 } from '@mui/material';
-import { useSelector } from 'react-redux'
-import GymTabContainer from './gymTabContainer/GymTabContainer'
+import { useSelector } from 'react-redux';
+import GymTabContainer from './gymTabContainer/GymTabContainer';
 
 const Content = () => {
   const user = useSelector(state => state.user)
@@ -52,4 +52,4 @@ const Content = () => {
   )
 }
 
-export default Content
+export default Content;

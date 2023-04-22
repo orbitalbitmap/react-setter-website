@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useState } from 'react';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -29,7 +29,7 @@ function TabPanel({ children, value, index, ...other }) {
 }
 
 const AdminDashboard = () => {
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);

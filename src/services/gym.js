@@ -10,8 +10,10 @@ export const gymApi = createApi({
   endpoints: (builder) => ({
     // queries
     getAllEmployeesAndGyms: builder.query({
-      // TODO: add error handling
-      async queryFn(_arg, _queryApi, _extraOptions, fetchWithBQ) {
+      // queryfn assists with multiple api calls 
+      async queryFn(args, queryApi, extraOptions, fetchWithBQ) {
+        // TODO: add error handling
+        console.log({args, queryApi, extraOptions})
         const locationResults = await fetchWithBQ('gyms');
         const employeeResults = await fetchWithBQ('employees');
 

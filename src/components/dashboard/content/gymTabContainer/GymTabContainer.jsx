@@ -1,4 +1,4 @@
-import * as React from 'react'
+import{ useState } from 'react'
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import TabPanel from './TabPanel';
@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 
 const GymTabContainer = ({ gym }) => {
   const { ropePanel, boulderPanel, sectionPanel } = useSelector(state => state.gymTabPanel)
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = useState(0);
 
   return (
     <>
