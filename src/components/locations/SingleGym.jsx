@@ -1,30 +1,15 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { Box, Button, Container, List, ListItem, ListItemText, Typography } from '@mui/material';
+import useSingleGymInfo from './hooks/useSingleGymInfo';
 
 const SingleGym = () => {
-  const urlParams = useParams()
-
-  const [fullTimeEmployeeList, setFullTimeEmployeeList] = useState([]);
-  const [gymInfo, setGymInfo] = useState([]);
-  const [headSetter, setHeadSetter] = useState({});
-  const [partTimeEmployeeList, setPartTimeEmployeeList] = useState([]);
-
-  useEffect(() => {
-    const getInfo = async () => {
-      const fetchedInfo = (await axios.get(`${process.env.REACT_APP_API_PATH}/gymById/${urlParams.id}`)).data
-        setGymInfo(fetchedInfo)
-      }
-
-    getInfo()
-    }, [urlParams]);
-
-    useEffect(() => {
-      setHeadSetter(gymInfo?.employees?.find(employee => employee.id === gymInfo.headSetterId))
-      setFullTimeEmployeeList(gymInfo?.employees?.filter(employee => employee.roleId <= 4 && employee.id !== gymInfo.headSetterId && employee.id !== 1))
-      setPartTimeEmployeeList(gymInfo?.employees?.filter(employee => employee.roleId === 5))
-    }, [gymInfo.employees, gymInfo.headSetterId]);
+  const urlParams = useParams();
+  const {
+    gymInfo,
+    fullTimeEmployeeList,
+    headSetter,
+    partTimeEmployeeList,
+  } = useSingleGymInfo(urlParams);
 
     return (
       <Box sx={{
@@ -93,7 +78,6 @@ const SingleGym = () => {
           top: '0%',
           left: '50%',
           transform: 'translate(-50%, 50%)',
-          // m: '1rem auto',
           width: '10rem',
           color: theme => theme.palette.common.black,
           bgcolor: theme => theme.palette.common.white,

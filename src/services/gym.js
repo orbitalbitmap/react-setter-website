@@ -25,6 +25,9 @@ export const gymApi = createApi({
     getAllLocations: builder.query({
       query: () => 'gyms',
     }),
+    getLocationById: builder.query({
+      query: (gymId) => `gymById/${gymId}`,
+    }),
     getAllEmployees: builder.query({
       query: () => 'employees',
     }),
@@ -48,6 +51,7 @@ export const gymApi = createApi({
 export const {
   useGetAllEmployeesAndGymsQuery, 
   useGetAllLocationsQuery,
+  useGetLocationByIdQuery,
   useGetAllEmployeesQuery,
   useGetEmployeeByIdQuery,
   useLoginMutation,
