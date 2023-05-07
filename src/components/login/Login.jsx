@@ -36,7 +36,7 @@ const SignIn = () => {
       if (enteredPassword.length <= 0 || enteredEmail.length <= 0) {
         dispatch(setSnackAlert({
           alertType: 'Error',
-          messageBody: 'Please enter both an email and password'
+          messageBody: 'Please enter a valid email and valid password.'
         }));
         return
       }

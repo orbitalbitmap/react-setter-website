@@ -1,10 +1,8 @@
-import React from 'react';
-
 import ClimbSelector from './ClimbSelector';
 import AreteSelector from './AreteSelector';
 import { Box, Grid, Typography } from '@mui/material';
 
-const ClimbSelectors =({
+const PlacardSelectors =({
   distribution,
   class: className,
   nameList,
@@ -14,6 +12,7 @@ const ClimbSelectors =({
   handleClimbSelector,
 })  => {
   let slotNumber = startingSlotNum;
+
   return (
     <Box className={className} sx={{ width: '40rem', }} >
       <Grid container>
@@ -21,7 +20,7 @@ const ClimbSelectors =({
           nameList.map((climbName) => {
             slotNumber++;
             return (
-              <Grid item xs={6} key={climbName}>
+              <Grid item xs={5} key={climbName}>
                 <Box className={`${selectorType}-selectors`}>
                   <Typography>Slot #{slotNumber}</Typography>
                   <Box sx={{ border: '1px solid gray', p: 2}} >
@@ -47,4 +46,4 @@ const ClimbSelectors =({
   );
 }
 
-export default ClimbSelectors;
+export default PlacardSelectors;

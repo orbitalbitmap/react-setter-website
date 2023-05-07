@@ -2,12 +2,12 @@ import { Box, Grid, Typography } from '@mui/material';
 import { useReducer } from 'react';
 import { useSelector } from 'react-redux';
 
-import PlacardSelectors from './PlacardSelectors';
+import PlacardSelectors from '../components/PlacardSelectors';
 import RoutePlacard from './RoutePlacard';
 
 function PrintableRouteCard() {
   const distribution = useSelector(state => state.distribution.routeDistribution);
-  const initialState = {
+  const initialPlacardState = {
     climb1: {
       grade: null,
       color: null,
@@ -62,7 +62,7 @@ function PrintableRouteCard() {
     }
   };
 
-  const [selectedClimbs, dispatch] = useReducer(reducer, initialState);
+  const [selectedClimbs, dispatch] = useReducer(reducer, initialPlacardState);
 
   const handleNonAreteInfo = (event) => {
     const climbInArray = parseInt(event.target.value) - 1;
@@ -100,9 +100,8 @@ function PrintableRouteCard() {
   return (
     <Box sx={{ mt: 12, ml: '5rem', width: '85rem' }}>
       <Grid container spacing={0} >
-        <Grid item xs={6}>
+        <Grid item xs={5} className="noprint">
           <PlacardSelectors
-            class="noprint"
             distribution={distribution}
             handleClimbSelector={handleNonAreteInfo}
             handleAreteSelector={handleAreteInfo}

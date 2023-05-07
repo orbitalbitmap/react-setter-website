@@ -1,4 +1,4 @@
-import PrintableRouteCard from '../../components/placards/PrintableRouteCard';
+import PrintableRouteCard from '../../components/placards/printableRoutePlacard/PrintableRouteCard';
 import Dashboard from '../../components/dashboard/Dashboard';
 
 function PrintableBoulderPlacard() {

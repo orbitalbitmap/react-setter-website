@@ -1,5 +1,5 @@
 import Dashboard from '../../components/dashboard/Dashboard';
-import PrintableBoulderCard from '../../components/placards/PrintableBoulderCard';
+import PrintableBoulderCard from '../../components/placards/printableBoulderPlacard/PrintableBoulderCard';
 
 function PrintableBoulderPlacard() {
   return (

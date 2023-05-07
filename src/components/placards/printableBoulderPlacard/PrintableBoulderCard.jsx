@@ -1,78 +1,82 @@
 import axios from 'axios';
 import { Box } from '@mui/material';
-import { useEffect, useReducer, useState } from 'react';
+import { useEffect, useMemo, useReducer, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import BoulderPlacard from './BoulderPlacard';
-import PlacardSelectors from './PlacardSelectors';
-import SectionsList from '../distributions/SectionsList';
+import PlacardSelectors from '../components/PlacardSelectors';
+import SectionsList from '../../distributions/SectionsList';
 import { FormControl, Grid, InputLabel, MenuItem, Select } from '@mui/material'
 
 
 const PrintableBoulderCard = () => {
   const distribution = useSelector(state => state.distribution.boulderDistribution)
   const gymId = distribution[0].gymId;
-  const initialState = {
-    climb1: {
-      color: null,
-      grade: null,
-      setter: null,
-      areteMessage: null,
-      dateSet: null,
-    },
-    climb2: {
-      color: null,
-      grade: null,
-      setter: null,
-      areteMessage: null,
-      dateSet: null,
-    },
-    climb3: {
-      color: null,
-      grade: null,
-      setter: null,
-      areteMessage: null,
-      dateSet: null,
-    },
-    climb4: {
-      color: null,
-      grade: null,
-      setter: null,
-      areteMessage: null,
-      dateSet: null,
-    },
-    climb5: {
-      color: null,
-      grade: null,
-      setter: null,
-      areteMessage: null,
-      dateSet: null,
-    },
-    climb6: {
-      color: null,
-      grade: null,
-      setter: null,
-      areteMessage: null,
-      dateSet: null,
-    },
-    climb7: {
-      color: null,
-      grade: null,
-      setter: null,
-      areteMessage: null,
-      dateSet: null,
-    },
-    climb8: {
-      color: null,
-      grade: null,
-      setter: null,
-      areteMessage: null,
-      dateSet: null,
-    },
-  };
+  const initialPlacardState = useMemo(() => {
+    return {
+      climb1: {
+        color: null,
+        grade: null,
+        setter: null,
+        areteMessage: null,
+        dateSet: null,
+      },
+      climb2: {
+        color: null,
+        grade: null,
+        setter: null,
+        areteMessage: null,
+        dateSet: null,
+      },
+      climb3: {
+        color: null,
+        grade: null,
+        setter: null,
+        areteMessage: null,
+        dateSet: null,
+      },
+      climb4: {
+        color: null,
+        grade: null,
+        setter: null,
+        areteMessage: null,
+        dateSet: null,
+      },
+      climb5: {
+        color: null,
+        grade: null,
+        setter: null,
+        areteMessage: null,
+        dateSet: null,
+      },
+      climb6: {
+        color: null,
+        grade: null,
+        setter: null,
+        areteMessage: null,
+        dateSet: null,
+      },
+      climb7: {
+        color: null,
+        grade: null,
+        setter: null,
+        areteMessage: null,
+        dateSet: null,
+      },
+      climb8: {
+        color: null,
+        grade: null,
+        setter: null,
+        areteMessage: null,
+        dateSet: null,
+      },
+    }
+  }, []);
 
   const placardSlotReducer = (state, action) => {
     switch (action.type) {
+      case 'reset':
+        return action.payload;
       case 'climb1':
         return {
           ...state,
@@ -126,7 +130,7 @@ const PrintableBoulderCard = () => {
     }
   };
 
-  const [selectedClimbs, dispatchSelectedClimbs] = useReducer(placardSlotReducer, initialState);
+  const [selectedClimbs, dispatchSelectedClimbs] = useReducer(placardSlotReducer, initialPlacardState);
   const [numberOfClimbsToDisplay, setNumberOfClimbsToDisplay] = useState(3);
   const [placardGridNumber, setPlacardGridNumber] = useState('three');
   const [firstPlacardList, setFirstPlacardList] = useState([]);
@@ -143,12 +147,18 @@ const PrintableBoulderCard = () => {
 
   useEffect(() => {
     const getInfo = async() => {
-      const sectionList = await axios.get(`${process.env.REACT_APP_API_PATH}/boulderSections/${gymId}`)
-      setSectionList(sectionList.data)
+      const sectionList = await axios.get(`${process.env.REACT_APP_API_PATH}/boulderSections/${gymId}`);
+      setSectionList(sectionList.data);
     }
 
     getInfo()
-  }, [gymId])
+  }, [gymId, initialPlacardState])
+
+  useEffect(() => {
+    dispatchSelectedClimbs({ type: "reset", payload: initialPlacardState });
+  }, [initialPlacardState, sectionDistribution])
+
+  console.log({selectedClimbs, initialPlacardState})
 
   useEffect(() => {
     const filteredDistribution = distribution.filter(climb => climb.sectionId === currentSection)
@@ -237,7 +247,6 @@ const PrintableBoulderCard = () => {
             <Select
               label="Climbs Per Placard"
               labelId="Climbs-Per-Placard"
-              style={{ color: theme => theme.palette.common.black }}
               value={numberOfClimbsToDisplay}
             >
               <MenuItem
@@ -245,7 +254,6 @@ const PrintableBoulderCard = () => {
                 id={1}
                 value="1"
                 onClick={handleNumberOfClimbChange}
-                sx={{ color: theme => theme.palette.common.white }}
               >
                 1
               </MenuItem>
@@ -254,7 +262,6 @@ const PrintableBoulderCard = () => {
                 id={2}
                 value="2"
                 onClick={handleNumberOfClimbChange}
-                sx={{ color: theme => theme.palette.common.white }}
               >
                 2
               </MenuItem>
@@ -263,7 +270,6 @@ const PrintableBoulderCard = () => {
                 id={3}
                 value="3"
                 onClick={handleNumberOfClimbChange}
-                sx={{ color: theme => theme.palette.common.white }}
               >
                 3
               </MenuItem>
@@ -272,7 +278,6 @@ const PrintableBoulderCard = () => {
                 id={4}
                 value="4"
                 onClick={handleNumberOfClimbChange}
-                sx={{ color: theme => theme.palette.common.white }}
               >
                 4
               </MenuItem>
@@ -292,7 +297,6 @@ const PrintableBoulderCard = () => {
       <Grid container spacing={6} sx={{ mb: '5rem', }}>
         <Grid item xs={6} className='noprint'>
           <PlacardSelectors
-            class="noprint"
             distribution={sectionDistribution}
             handleClimbSelector={handleNonAreteInfo}
             handleAreteSelector={handleAreteInfo}

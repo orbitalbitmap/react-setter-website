@@ -16,7 +16,6 @@ const SectionsList = ({ currentSelectedId, sectionList, onClick, }) => {
           id={0}
           value={0}
           onClick={onClick}
-          sx={{ color: theme => theme.palette.common.white }}
         >
           Please select a section
         </MenuItem>
@@ -31,7 +30,6 @@ const SectionsList = ({ currentSelectedId, sectionList, onClick, }) => {
                 value={sectionId}
                 className={`section-selectors ${isSelected}`}
                 onClick={onClick}
-                sx={{ color: theme => theme.palette.common.white }}
               >
                 {section?.name}
               </MenuItem>

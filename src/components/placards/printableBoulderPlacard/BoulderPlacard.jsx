@@ -1,10 +1,9 @@
-import { Box, Typography } from '@mui/material'
-import React from 'react'
+import { Box, Typography } from '@mui/material';
 
-import BoulderSlot from './BoulderSlot'
+import BoulderSlot from './BoulderSlot';
 
 const BoulderPlacard = ({ climbList, climbsToDisplay, numberOfClimbsClass, }) => {
-  let slotId = 0
+  let slotId = 0;
   return (
     <Box className="boulder-placard-container">
       <Box className={`boulder-grid-${numberOfClimbsClass}-column`}>
@@ -12,15 +11,16 @@ const BoulderPlacard = ({ climbList, climbsToDisplay, numberOfClimbsClass, }) =>
           climbsToDisplay.map(climbToDisplay => {
             slotId++
             const climb = climbList[climbToDisplay]
+
             return (
               <BoulderSlot
                 key={slotId}
                 slotId={slotId}
-                color={climb.color?.toLowerCase()}
-                grade={climb.grade}
-                dateSet={climb.dateSet}
-                arete={climb.areteMessage}
-                setter={climb.setter}
+                color={climb?.color?.toLowerCase()}
+                grade={climb?.grade}
+                dateSet={climb?.dateSet}
+                arete={climb?.areteMessage}
+                setter={climb?.setter}
               />
             )
           })
@@ -41,4 +41,4 @@ const BoulderPlacard = ({ climbList, climbsToDisplay, numberOfClimbsClass, }) =>
   )
 }
 
-export default BoulderPlacard
+export default BoulderPlacard;

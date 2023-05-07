@@ -1,10 +1,15 @@
 import { Box, FormControl, InputLabel, MenuItem, Select } from '@mui/material';
-import React from 'react';
 
+// @TODO: Figure out why 'Blank'
 function ClimbSelector({ climbs, name, selectorType, handleClimbSelector, }) {
+  const boulderMenuItem = (climb) => {
+    return climb.grade !== null 
+    ? <MenuItem key={climb.id} name="climb" value={climb.id}>{`${climb.color} ${climb.grade}`}</MenuItem>
+    : <MenuItem name="climb" value="blank">Blank</MenuItem>
+  }
   return (
     <Box>
-      <FormControl sx={{ width: '15rem'}}>
+      <FormControl sx={{ width: '12rem'}}>
         <InputLabel>Climb: </InputLabel>
         <Select
           label="Climb: "
@@ -14,12 +19,12 @@ function ClimbSelector({ climbs, name, selectorType, handleClimbSelector, }) {
           defaultValue="blank"
           sx={{ height: '1.5rem' }}
         >
-          <MenuItem sx={{ color: theme => theme.palette.primary.contrastText }}name="climb" value="blank">Blank</MenuItem>
+          <MenuItem name="climb" value="blank">Blank</MenuItem>
           {
             climbs.map(climb => (
               climb.station
-                ? <MenuItem key={climb.id} name="climb" sx={{ color: theme => theme.palette.primary.contrastText }}value={climb.id}>{`${climb.station}: ${climb.color} ${climb.grade}`}</MenuItem>
-                : <MenuItem key={climb.id} name="climb" sx={{ color: theme => theme.palette.primary.contrastText }}value={climb.id}>{`${climb.color} ${climb.grade}`}</MenuItem>
+                ? <MenuItem key={climb.id} name="climb" value={climb.id}>{`${climb.station}: ${climb.color} ${climb.grade}`}</MenuItem>
+                : boulderMenuItem(climb)
             ))
           }
         </Select>
