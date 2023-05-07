@@ -12,6 +12,7 @@ const DashboardPage = () => {
   const user = useSelector(state => state.user);
   const {data} = useGetAllEmployeesAndGymsQuery();
 
+
   useEffect(() => {
     if (data) {
       dispatch(setGymList({ gyms: data.locationData }));

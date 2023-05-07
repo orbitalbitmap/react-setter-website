@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import { Box, Button, Container, Typography } from '@mui/material';
 import getLocationString from '../../utils/getLocationString';
+import useButtonDisplay from './hooks/useButtonDisplayType';
 
 
 const SingleEmployee = () => {
@@ -13,15 +13,7 @@ const SingleEmployee = () => {
     return emp.id === parseInt(urlParams.id)
   });
 
-  const [shouldDisplay, setShouldDisplay] = useState('none');
-
-  useEffect(() => {
-    const string = employee.id === user.id || user.roleId <= 3
-      ? 'block'
-      : 'none';
-
-    setShouldDisplay(string)
-  }, [employee, user])
+  const {buttonDisplayType } = useButtonDisplay(employee, user);
 
 
   return (
@@ -49,12 +41,12 @@ const SingleEmployee = () => {
       </Container>
 
       <Button variant="contained" sx={{
-        display: shouldDisplay,
+        display: buttonDisplayType,
         position: 'relative',
         top: '0%',
         left: '50%',
         transform: 'translate(-50%, 50%)',
-        width: '12rem',
+        width: '15rem',
         color: theme => theme.palette.common.black,
         bgcolor: theme => theme.palette.common.white,
           "&:hover": {
