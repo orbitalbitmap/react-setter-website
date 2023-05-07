@@ -23,7 +23,7 @@ const SingleGym = () => {
         <Typography variant="h3" className="centered-text" sx={{ py: 2, color: theme => theme.palette.common.white, }}>{gymInfo.name}</Typography>
         <Container style={{ overflowY: 'scroll', height: '40rem' }} sx={{ borderRadius: 2, bgcolor: theme => theme.palette.common.white}}>
           <Link to={`/sections/${gymInfo.id}`}>
-              Sections
+            Sections
           </Link>
           <Typography variant="h6" className="centered-text">{gymInfo.address}</Typography>
           <Typography variant="h6" className="centered-text">{gymInfo.phoneNumber}</Typography>
