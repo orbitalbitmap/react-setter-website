@@ -41,7 +41,10 @@ export const gymApi = createApi({
     getSpecificBoulderSections: builder.query({
       query: (gymId) => `boulderSections/${gymId}`
     }),
-    
+
+    getSectionsForSpecificGym: builder.query({
+      query: (gymId) => `gymWithSections/${gymId}`
+    }),
 
 
 
@@ -65,6 +68,7 @@ export const {
   useGetEmployeeByIdQuery,
   useGetLocationByIdQuery,
   useGetSpecificBoulderSectionsQuery,
+  useGetSectionsForSpecificGymQuery,
 
   useLoginMutation,
 } = gymApi;

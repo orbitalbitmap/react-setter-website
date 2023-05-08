@@ -1,21 +1,11 @@
-import axios from 'axios'
-import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom';
 import SectionCardsContainer from './SectionCardsContainer';
+import useSpecificGymWithSections from './hooks/useSpecificGymWithSections';
 
 
 const SpecificGymSection = () => {
-  const urlParams = useParams()
-  const [gym, setGym] = useState({})
-
-  useEffect(() => {
-    const getInfo = async () => {
-      const { data } = await axios.get(`${process.env.REACT_APP_API_PATH}/gymWithSections/${urlParams.id}`)
-      setGym(data)
-    }
-
-    getInfo()
-  }, [urlParams])
+  const urlParams = useParams();
+  const { gym } = useSpecificGymWithSections(urlParams);
 
   const renderInfo = () => {
     return (
@@ -31,9 +21,7 @@ const SpecificGymSection = () => {
     )
   }
 
-  return gym.id 
-    ? renderInfo()
-    : null
+  return gym?.id ? renderInfo() : null;
 }
 
-export default SpecificGymSection
+export default SpecificGymSection;
