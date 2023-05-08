@@ -1,4 +1,4 @@
-import { Box, Typography } from '@mui/material';
+import { Box, } from '@mui/material';
 
 import BoulderSlot from './BoulderSlot';
 import BoulderSocialsContainer from './components/BoulderSocialsContainer';
@@ -27,7 +27,6 @@ const BoulderPlacard = ({ climbList, climbsToDisplay, numberOfClimbsClass, }) =>
           })
         }
         </Box>
-        
 
         <BoulderSocialsContainer />
       </Box>

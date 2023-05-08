@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import { Box, Grid, Typography } from '@mui/material';
+import { Box, Grid, } from '@mui/material';
 
 import useRoutePlacardInfo from './hooks/useRoutePlacardInfo';
 import PlacardSelectors from '../components/PlacardSelectors';
