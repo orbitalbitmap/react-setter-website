@@ -28,12 +28,22 @@ export const gymApi = createApi({
     getLocationById: builder.query({
       query: (gymId) => `gymById/${gymId}`,
     }),
+    
+    
     getAllEmployees: builder.query({
       query: () => 'employees',
     }),
     getEmployeeById: builder.query({
-      query: (id) => `employees/${id}`,
+      query: (employeeId) => `employees/${employeeId}`,
     }),
+
+
+    getSpecificBoulderSections: builder.query({
+      query: (gymId) => `boulderSections/${gymId}`
+    }),
+    
+
+
 
     // mutations
     login: builder.mutation({
@@ -54,5 +64,7 @@ export const {
   useGetLocationByIdQuery,
   useGetAllEmployeesQuery,
   useGetEmployeeByIdQuery,
+  useGetSpecificBoulderSectionsQuery,
+  
   useLoginMutation,
 } = gymApi;
