@@ -61,10 +61,10 @@ export const gymApi = createApi({
 export const {
   useGetAllEmployeesAndGymsQuery, 
   useGetAllLocationsQuery,
-  useGetLocationByIdQuery,
   useGetAllEmployeesQuery,
   useGetEmployeeByIdQuery,
+  useGetLocationByIdQuery,
   useGetSpecificBoulderSectionsQuery,
-  
+
   useLoginMutation,
 } = gymApi;
