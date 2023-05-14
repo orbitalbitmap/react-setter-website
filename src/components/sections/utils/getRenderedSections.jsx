@@ -1,13 +1,17 @@
 import { List, ListItem, ListItemText, Typography } from "@mui/material"
 
 const renderSections = (sectionList, sectionType) => {
+  let sortedSectionList = [...sectionList];
+
+  sortedSectionList = sortedSectionList.sort((a,b) => a.id - b.id)
+  console.log({ sortedSectionList })
   return ( 
     <List sx={{ bgcolor: theme => theme.palette.common.white,  }}>
       <ListItem>
         <Typography variant="h6" sx={{ margin: '0 auto'}}>{sectionType}s:</Typography>
       </ListItem>
       {
-        sectionList?.map(section => (
+        sortedSectionList?.map(section => (
           <Typography variant="body1" key={section.id} className="centered-text" sx={{pt: 2}}>
             {section.name}
           </Typography>

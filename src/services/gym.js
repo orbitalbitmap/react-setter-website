@@ -43,8 +43,24 @@ export const gymApi = createApi({
     }),
 
     getSectionsForSpecificGym: builder.query({
-      query: (gymId) => `gymWithSections/${gymId}`
+      query: (gymId) => `gymWithSections/${gymId}`,
     }),
+
+    getGymWithSections: builder.query({
+      async queryFn(args, queryApi, extraOptions, fetchWithBQ) {
+        // TODO: add error handling
+        const {data: gym} = await fetchWithBQ(`gymWithSections/${args}`);
+        let sortedRouteSections = [...gym?.routeSections];
+
+        sortedRouteSections.sort((a,b) => a.id - b.id);
+
+        return {data: {
+          ...gym,
+          routeSections: sortedRouteSections
+        }}
+      }
+    }),
+    
 
 
 
@@ -54,6 +70,14 @@ export const gymApi = createApi({
         url: 'login',
         method: 'POST',
         body,
+      }),
+    }),
+
+    updateSections: builder.mutation({
+      query: ({type, sectionToUpdate}) => ({
+        url: `update${type}SectionNames`,  
+        method: 'POST',
+        body: sectionToUpdate,
       }),
     }),
   })
@@ -69,6 +93,8 @@ export const {
   useGetLocationByIdQuery,
   useGetSpecificBoulderSectionsQuery,
   useGetSectionsForSpecificGymQuery,
+  useGetGymWithSectionsQuery,
 
   useLoginMutation,
+  useUpdateSectionsMutation,
 } = gymApi;
