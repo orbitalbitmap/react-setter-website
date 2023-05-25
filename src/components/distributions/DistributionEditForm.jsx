@@ -1,26 +1,32 @@
 import { Box, InputLabel, TextField, Typography } from '@mui/material';
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-function DistributionEditForm(props) {
+import { useGetDistributionEditFormDataQuery, useUpdateIdealDistributionMutation } from '../../services/gym';
+
+function DistributionEditForm({ path, type }) {
   const urlParams = useParams();
   const [distributionSpread, setDistributionSpread] = useState({});
   const [gymId, setGymId] = useState(0);
   const [gym, setGym] = useState('')
 
+  const { data } = useGetDistributionEditFormDataQuery({path, gymId: urlParams.id});
+  const [
+    updateIdealDistribution,
+    { isLoading, isUpdating }
+  ] = useUpdateIdealDistributionMutation();
+
   useEffect(() => {
     const getInfo = async () => {
-      const { data } = await axios.get(`${process.env.REACT_APP_API_PATH}/${props.path}/${urlParams.id}`);
-      const { gymId, gym, ...rest } = data;
+        const { gymId, gym, ...rest } = data;
       
-      setDistributionSpread(rest);
-      setGym(gym)
-      setGymId(gymId);
+        setDistributionSpread(rest);
+        setGym(gym)
+        setGymId(gymId);
     };
 
     getInfo();
-  }, [urlParams, props.path]);
+  }, [data]);
 
   const handleChange = (event) => {
     const newSpread = {
@@ -33,16 +39,22 @@ function DistributionEditForm(props) {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    await axios.post(`${process.env.REACT_APP_API_PATH}/saveDistribution/${props.type}`, { gymId, distributionSpread });
+    await updateIdealDistribution({
+      type,
+      body: {
+        gymId,
+        distributionSpread,
+      },
+    });
   };
 
   return (
     <Box sx={{ mt: 12, mx: 'auto', width: '40rem' }}>
-      <Typography variant="h2" sx={{ textAlign: 'center', }}>{`${gym?.name}'s ${props?.type}`}</Typography>
+      <Typography variant="h2" sx={{ textAlign: 'center', }}>{`${gym?.name}'s ${type}`}</Typography>
       <form id="distribution-form" style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', padding: '1rem', width: '30rem' }}>
         {
           Object.keys(distributionSpread).map((grade) => {
-            const displayedGrade = props.type === 'routes'
+            const displayedGrade = type === 'routes'
               ? grade.replace('_', '.')
               : grade;
             const numberOfGrade = distributionSpread[grade];

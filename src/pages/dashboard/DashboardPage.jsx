@@ -1,27 +1,36 @@
-import { connect } from 'react-redux'
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-import '../../components/styles.css'
-import Dashboard from '../../components/dashboard/Dashboard'
-import { getLocations } from '../../actions'
-import DashboardContent from '../../components/dashboard/content/Content'
+import Dashboard from '../../components/dashboard/Dashboard';
+import DashboardContent from '../../components/dashboard/content/Content';
+import { setGymList } from '../../reducers/locationReducers';
+import { setEmployeeList } from '../../reducers/employeeReducers';
+import { useGetAllEmployeesAndGymsQuery } from '../../services/gym';
 
-const DashboardPage = (props) => {  
+const DashboardPage = () => { 
+  const dispatch = useDispatch();
+  const user = useSelector(state => state.user);
+  const {data} = useGetAllEmployeesAndGymsQuery();
+
+
+  useEffect(() => {
+    if (data) {
+      dispatch(setGymList({ gyms: data.locationData }));
+      dispatch(setEmployeeList({ employees: data.employeeData }));
+    }
+  }, [dispatch, data]);
+
   return (
     <>
       {
-        props.user?.id
-          ? <Dashboard><DashboardContent /></Dashboard>
-          : null // create loading component />
+        user?.loggedIn
+          ? <Dashboard>
+              <DashboardContent />
+            </Dashboard>
+          : <div>Log in failed</div> // TODO: create loading component
       }
     </>
   )
 }
 
-const mapStateToProps = (state) => {
-  return {
-    user: state.user,
-    gyms: state.gyms
-  }
-}
-
-export default connect(mapStateToProps, { getLocations })(DashboardPage)
+export default DashboardPage;

@@ -1,24 +1,20 @@
-import axios from 'axios';
-import {useEffect, useState} from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import { Box, Button, Container, Typography } from '@mui/material';
-import { getLocationString } from './EmployeeCardContainer';
+import getLocationString from '../../utils/getLocationString';
+import useButtonDisplay from './hooks/useButtonDisplayType';
 
 
-const SingleEmployee = (props) => {
+const SingleEmployee = () => {
+  const user = useSelector(state => state.user)
   const urlParams = useParams();
-  const [employee, setEmployee] = useState({});
+  const employeesList = useSelector(state => state.employees) ;
+  const employee = employeesList.find(emp => {
+    return emp.id === parseInt(urlParams.id)
+  });
 
-  useEffect(() => {
-    const getInfo = async () => {
-      const { data } = await axios.get(`${process.env.REACT_APP_API_PATH}/employees/${urlParams.id}`);
+  const {buttonDisplayType } = useButtonDisplay(employee, user);
 
-      setEmployee(data);
-    }
-
-    getInfo();
-  }, [urlParams])
 
   return (
     <Box sx={{
@@ -45,11 +41,12 @@ const SingleEmployee = (props) => {
       </Container>
 
       <Button variant="contained" sx={{
+        display: buttonDisplayType,
         position: 'relative',
         top: '0%',
         left: '50%',
         transform: 'translate(-50%, 50%)',
-        width: '12rem',
+        width: '15rem',
         color: theme => theme.palette.common.black,
         bgcolor: theme => theme.palette.common.white,
           "&:hover": {
@@ -57,16 +54,10 @@ const SingleEmployee = (props) => {
             bgcolor: theme => theme.palette.primary.light,
           },
         }} >
-        <Link className='centered-text' to={`/admin/employee/${employee?.id}`} style={{ color: 'inherit'}}>Edit Employee's info</Link>
+        <Link className='centered-text' to={`/employees/edit/${employee?.id}`} style={{ color: 'inherit'}}>Edit Employee's info</Link>
       </Button>
     </Box>
   );
 }
 
-const mapStateToProps = (state) => {
-  return {
-    user: state.user,
-  }
-}
-
-export default connect(mapStateToProps, {})(SingleEmployee);
+export default SingleEmployee;

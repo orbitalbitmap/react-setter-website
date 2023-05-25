@@ -1,14 +1,12 @@
-import React from 'react';
 import {
   BrowserRouter,
   Routes,
   Route,
 } from 'react-router-dom';
 
-// import './styles.css'
+import './styles.css'
 import history from '../history';
 import AdminDashboardPage from '../pages/admin/AdminDashboardPage';
-import AdminUpdateEmployeePage from '../pages/admin/AdminUpdateEmployeePage';
 import AllEmployeesPage from '../pages/employees/AllEmployeesPage';
 import AllLocations from '../pages/locations/AllLocationsPage';
 import AllLocationsAndSectionsPage from '../pages/sections/AllLocationsAndSectionsPage';
@@ -29,9 +27,13 @@ import SingleLocationPage from '../pages/locations/SingleLocationPage';
 import UpdateEmployeePage from '../pages/employees/UpdateEmployeePage';
 import UpdateLocationPage from '../pages/admin/UpdateLocationInfo';
 import UpdateSectionsPage from '../pages/sections/UpdateSectionsPage';
+import NotificationSnackbar from './notifications/NotificationSnackbar';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 
 function App() {
   return (
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
     <div>
       <BrowserRouter history={history}>
         <Routes>
@@ -42,7 +44,6 @@ function App() {
           {/* Admin paths */}
           <Route exact path="/admin" element={<AdminDashboardPage />} />
           <Route exact path="/admin/employee/new" element={<NewEmployeePage />} />
-          <Route exact path="/admin/employee/:id" element={<AdminUpdateEmployeePage />} />
           <Route exact path="/admin/location/new" element={<NewGymPage />} />
           <Route exact path="/admin/location/:id" element={<UpdateLocationPage />} />
 
@@ -63,9 +64,10 @@ function App() {
           {/* Employee paths */}
           <Route exact path="/employees" element={<AllEmployeesPage />} />
           <Route exact path="/employees/:id" element={<SingleEmployeePage />} />
-          <Route exact path="/employees/edit" element={<UpdateEmployeePage />} />
+          <Route exact path="/employees/edit/:id" element={<UpdateEmployeePage />} />
 
           {/* Metric paths */}
+          <Route exact path="/metrics" element={<>Under construction</>} /> 
           <Route exact path="/metrics/:id" element={<MetricsPage />} />
 
           {/* Location paths */}
@@ -78,7 +80,10 @@ function App() {
           <Route exact path="/sections/edit/:id" element={<UpdateSectionsPage />} />
         </Routes>
       </BrowserRouter>
+      
+      <NotificationSnackbar />
     </div>
+    </LocalizationProvider>
   );
 }
 

@@ -31,13 +31,13 @@ export default createTheme({
         },
       },
     },
-    MuiList: {
-      styleOverrides: {
-        root: {
-          backgroundColor: `${mainBlue}`,
-        },
-      },
-    },
+    // MuiList: {
+    //   styleOverrides: {
+    //     root: {
+    //       backgroundColor: `${mainBlue}`,
+    //     },
+    //   },
+    // },
     MuiListItemText: {
       styleOverrides: {
         root: {

@@ -1,21 +1,15 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import Gyms from '../../components/locations/Gyms';
 import Dashboard from '../../components/dashboard/Dashboard';
 
-const AllLocationsPage = (props) => {
+const AllLocationsPage = () => {
+  const locations = useSelector(state => state.locations)
   return (
     <Dashboard>
-      {props.gyms ? <Gyms /> : null}
+      { locations ? <Gyms /> : null }
     </Dashboard>
   );
 }
 
-const mapStateToProps = (state) => {
-  return {
-    user: state.user,
-    gyms: state.gyms,
-  }
-}
-
-export default connect(mapStateToProps, {})(AllLocationsPage);
+export default AllLocationsPage;

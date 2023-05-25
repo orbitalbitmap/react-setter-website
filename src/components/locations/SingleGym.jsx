@@ -1,31 +1,15 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { connect } from 'react-redux';
 import { Box, Button, Container, List, ListItem, ListItemText, Typography } from '@mui/material';
+import useSingleGymInfo from './hooks/useSingleGymInfo';
 
 const SingleGym = () => {
-  const urlParams = useParams()
-
-  const [fullTimeEmployeeList, setFullTimeEmployeeList] = useState([]);
-  const [gymInfo, setGymInfo] = useState([]);
-  const [headSetter, setHeadSetter] = useState({});
-  const [partTimeEmployeeList, setPartTimeEmployeeList] = useState([]);
-
-  useEffect(() => {
-    const getInfo = async () => {
-      const fetchedInfo = (await axios.get(`${process.env.REACT_APP_API_PATH}/gymById/${urlParams.id}`)).data
-        setGymInfo(fetchedInfo)
-      }
-
-    getInfo()
-    }, [urlParams]);
-
-    useEffect(() => {
-      setHeadSetter(gymInfo?.employees?.find(employee => employee.id === gymInfo.headSetterId))
-      setFullTimeEmployeeList(gymInfo?.employees?.filter(employee => employee.roleId <= 4 && employee.id !== gymInfo.headSetterId && employee.id !== 1))
-      setPartTimeEmployeeList(gymInfo?.employees?.filter(employee => employee.roleId === 5))
-    }, [gymInfo.employees, gymInfo.headSetterId]);
+  const urlParams = useParams();
+  const {
+    gymInfo,
+    fullTimeEmployeeList,
+    headSetter,
+    partTimeEmployeeList,
+  } = useSingleGymInfo(urlParams);
 
     return (
       <Box sx={{
@@ -39,7 +23,7 @@ const SingleGym = () => {
         <Typography variant="h3" className="centered-text" sx={{ py: 2, color: theme => theme.palette.common.white, }}>{gymInfo.name}</Typography>
         <Container style={{ overflowY: 'scroll', height: '40rem' }} sx={{ borderRadius: 2, bgcolor: theme => theme.palette.common.white}}>
           <Link to={`/sections/${gymInfo.id}`}>
-              Sections
+            Sections
           </Link>
           <Typography variant="h6" className="centered-text">{gymInfo.address}</Typography>
           <Typography variant="h6" className="centered-text">{gymInfo.phoneNumber}</Typography>
@@ -94,7 +78,6 @@ const SingleGym = () => {
           top: '0%',
           left: '50%',
           transform: 'translate(-50%, 50%)',
-          // m: '1rem auto',
           width: '10rem',
           color: theme => theme.palette.common.black,
           bgcolor: theme => theme.palette.common.white,
@@ -109,10 +92,4 @@ const SingleGym = () => {
     );
   }
 
-  const mapStateToProps = (state) => {
-    return {
-      gyms: state.gyms
-    };
-  }
-
-export default connect(mapStateToProps, {})(SingleGym);
+export default SingleGym;

@@ -1,14 +1,16 @@
-import * as React from 'react'
-import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import Paper from '@mui/material/Paper';
-import Typography from '@mui/material/Typography';
-import { connect } from 'react-redux'
+import {
+  Container,
+  Grid,
+  Box,
+  Paper,
+  Typography,
+} from '@mui/material';
+import { useSelector } from 'react-redux';
+import GymTabContainer from './gymTabContainer/GymTabContainer';
 
-import GymTabContainer from './gymTabContainer/GymTabContainer'
+const Content = () => {
+  const user = useSelector(state => state.user);
 
-const Content = (props) => {
   return (
     <Box
       component="main"
@@ -25,7 +27,7 @@ const Content = (props) => {
       <Container maxWidth="xl" sx={{ mt: 12, mb: 4, }}>
         <Grid container spacing={4}>
           {
-            props?.user?.gyms.map(gym => (
+            user?.gyms.map(gym => (
               <Grid key={gym.id} item xs={6}>
                 <Paper
                 elevation={24}
@@ -50,11 +52,4 @@ const Content = (props) => {
   )
 }
 
-const mapStateToProps = (state) => {
-  return {
-    user: state.user,
-    gyms: state.gyms
-  }
-}
-
-export default connect(mapStateToProps, {})(Content)
+export default Content;

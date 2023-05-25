@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useState } from 'react';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -9,8 +9,7 @@ import { Tabs, Tab } from "@mui/material";
 import NewEmployeeForm from './NewEmployeeForm';
 import NewGymForm from './NewGymForm';
 
-function TabPanel(props) {
-  const { children, value, index, ...other } = props;
+function TabPanel({ children, value, index, ...other }) {
 
   return (
     <div
@@ -30,7 +29,7 @@ function TabPanel(props) {
 }
 
 const AdminDashboard = () => {
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);

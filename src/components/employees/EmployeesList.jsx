@@ -1,25 +1,12 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react';
-import EmployeeCardContainer from './EmployeeCardContainer';
 import { Box, Container, Typography } from '@mui/material';
-
+import EmployeeCardContainer from './EmployeeCardContainer';
+import { useGetAllEmployeesQuery } from '../../services/gym';
 
 const EmployeeList = () => {
-  const [employees, setEmployees] = useState([]);
-
-  useEffect(() => {
-    const getInfo = async () => {
-      const { data } = await axios.get(`${process.env.REACT_APP_API_PATH}/employees`);
-
-      setEmployees(data);
-    }
-
-    getInfo();
-  }, [])
+  const {data: employees} = useGetAllEmployeesQuery();
 
   return (
-    <>
-      <Box
+    <Box
       sx={{
         bgcolor: theme => theme.palette.primary.main,
         height: '50rem',
@@ -46,11 +33,11 @@ const EmployeeList = () => {
           bgcolor: theme => theme.palette.primary.light,
           m: '0 auto',
           borderRadius: 2,
-        }}>
-        <EmployeeCardContainer employees={employees} />
+        }}
+      >
+        { employees ? <EmployeeCardContainer employees={employees} /> : null }
       </Container>
     </Box>
-    </>
   )
 }
 

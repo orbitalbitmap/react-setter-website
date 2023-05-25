@@ -1,17 +1,26 @@
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Box, Button, Container, TextField, Typography} from '@mui/material';
+import { Box, Button, Container, Typography} from '@mui/material';
 import Snackbar from '@mui/material/Snackbar';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 
-function UpdateClimbingSections() {
+import SectionForm from './components/SectionForm';
+import { useGetGymWithSectionsQuery, useUpdateSectionsMutation } from '../../services/gym';
+
+const UpdateClimbingSections = () => {
   const urlParams = useParams();
   const gymId = urlParams.id;
   const [gym, setGym] = useState({});
-  const [open, setOpen] = useState(false)
-  const [snackbarMessage, setSnackbarMessage] = useState('')
+  const [open, setOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState('');
+  const {data} = useGetGymWithSectionsQuery(gymId);
+
+  const [
+    updateSections,
+    // @TODO: set up loading and error handling
+    {isLoading, isUpdating}
+  ] = useUpdateSectionsMutation();
 
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
@@ -30,20 +39,18 @@ function UpdateClimbingSections() {
       <CloseIcon fontSize="small" />
     </IconButton>
   )
-
+  
   useEffect(() => {
     const getInfo = async () => {
-      const { data } = await axios.get(`${process.env.REACT_APP_API_PATH}/gymWithSections/${gymId}`);
-
       setGym(data);
     };
 
     getInfo();
-  }, [gymId]);
+  }, [data]);
 
-  const handleChange = (event, sectionType, gymId) => {
+  const handleChange = (event, sectionType, sectionId) => {
     const updatedSectionList = [...gym[sectionType]];
-    const updatedSectionId = parseInt(gymId) - 1;
+    const updatedSectionId = parseInt(sectionId) - 1;
 
     updatedSectionList[updatedSectionId] = {
       ...updatedSectionList[updatedSectionId],
@@ -60,12 +67,12 @@ function UpdateClimbingSections() {
     event.preventDefault();
     const type = event.target.name;
     const sectionToUpdate = type === 'Boulder'
-      ? gym.boulderSections
-      : gym.routeSections;
+      ? gym?.boulderSections
+      : gym?.routeSections;
 
-    await axios.post(`${process.env.REACT_APP_API_PATH}/update${type}SectionNames`, { gymId, sectionToUpdate });
     try {
-      await axios.post(`${process.env.REACT_APP_API_PATH}/update${type}SectionNames`, { gymId, sectionToUpdate });
+      await updateSections({type, sectionToUpdate})
+
       setOpen(true)
       setSnackbarMessage('The sections info has been saved!')
     } catch {
@@ -82,7 +89,7 @@ function UpdateClimbingSections() {
       ...updatedGym[sectionType],
       {
         id: newSectionId,
-        gymId: gym.id,
+        gymId: gym?.id,
         name: '',
       },
     ];
@@ -90,28 +97,17 @@ function UpdateClimbingSections() {
     setGym(updatedGym);
   };
 
-  const renderSectionForm = (sections, type) => sections.map(section => (
-    <Box key={`${type}-section-${section.id}`}>
-      <TextField
-        label="Name"
-        variant="outlined"
-        onChange={(event) => { handleChange(event, `${type}Sections`, section.id) }}
-        value={section.name !== null ? section.name : ''}
-        placeholder="Enter section name..."
-      />
-    </Box>
-  ));
 
   return (
     <Container maxWidth="lg" sx={{ bgcolor: theme => theme.palette.primary.main, mt: 12, mb: 6, minHeight: '40rem', borderRadius: '8px', p: 3}}>
-      <Typography variant="h2" className="centered-text" sx={{ color: theme => theme.palette.common.white, mb: 2, }}>{gym.name}</Typography>
+      <Typography variant="h2" className="centered-text" sx={{ color: theme => theme.palette.common.white, mb: 2, }}>{gym?.name}</Typography>
       <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', bgcolor: theme => theme.palette.common.white, p: 2 }}>
         <Container className="centered-text">
           <Typography variant="h3" sx={{ mb: 2, }}>Ropes</Typography>
           <Box className="section-details" id="route-sections">
             {
-              gym.routeSections
-                ? renderSectionForm(gym.routeSections, 'route')
+              gym?.routeSections
+                ? SectionForm(gym?.routeSections, 'route', handleChange)
                 : (<h2>No Route Sections Found.</h2>)
             }
           </Box>
@@ -126,8 +122,8 @@ function UpdateClimbingSections() {
           <Typography variant="h3" sx={{ mb: 2, }}>Boulders</Typography>
           <Box className="section-details" id="boulder-sections">
             {
-              gym.boulderSections
-                ? renderSectionForm(gym.boulderSections, 'boulder')
+              gym?.boulderSections
+                ? SectionForm(gym?.boulderSections, 'boulder', handleChange)
                 : (<h2>No Boulder Sections Found.</h2>)
             }
           </Box>

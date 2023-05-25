@@ -1,60 +1,64 @@
-import React, { useState } from 'react';
-import axios from 'axios'
-import { useNavigate } from 'react-router-dom'
-import { connect } from 'react-redux'
-import { Cookies } from 'react-cookie'
-
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import Box from '@mui/material/Box';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, } from 'react-redux'
+import {
+  Avatar,
+  Box,
+  Container,
+  TextField,
+  Typography,
+} from '@mui/material';
+import { LoadingButton } from '@mui/lab';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Container from '@mui/material/Container';
-import Typography from '@mui/material/Typography';
+import { setNotificationAlert } from '../../reducers/notificationsReducers';
 
 import Copyright from './copyright/Copyright';
-import { getLocations, signIn } from '../../actions'
+import { setUser, } from '../../reducers/userReducer';
+import { setGymPanel } from '../../reducers/gymTabPanelReducers';
 
-const { checkPass } = require('../../utils/bcrypt');
+import { useLoginMutation } from '../../services/gym';
 
-const SignIn = (props) => {
-  const cookies = new Cookies()
-  const navigate = useNavigate()
+const SignIn = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [enteredEmail, setEnteredEmail] = useState('')
   const [enteredPassword, setEnteredPassword] = useState('')
+
+  const [
+    login, 
+    {isLoading, isUpdating}
+  ] = useLoginMutation();
 
   const handleSubmit = async (event) => {
     event.preventDefault()
 
-    if (enteredPassword.length <= 0 || enteredEmail.length <= 0) {
-      window.alert("password and email are required")
-      return
-    }
+    try {
+      if (enteredPassword.length <= 0 || enteredEmail.length <= 0) {
+        dispatch(setNotificationAlert({
+          alertType: 'Error',
+          messageBody: 'Please enter a valid email and valid password.'
+        }));
+        return
+      }
 
-    const {password, ...user} = (await axios.get(`${process.env.REACT_APP_API_PATH}/employeeByEmail/${enteredEmail}`)).data
-    const passwordDoesMatch = await checkPass(enteredPassword, password);
+      const {data} = await login({
+        email: enteredEmail,
+        password: enteredPassword,
+      });
 
-    switch (passwordDoesMatch) {
-      case true:
-        props.signIn(user)
-        props.getLocations()
-        cookies.set('setter', user, { path: '/' })
-        navigate('/dashboard', {replace: true})
-        break
-      case false:
-        console.log('failure')
-        break
-      default:
-        console.log('failure')
-        break
+      dispatch(setUser(data));
+      dispatch(setGymPanel());
+      navigate("/dashboard");
+    } catch(err) {
+      dispatch(setNotificationAlert({
+        alertType: 'Error',
+        messageBody: 'There was an error while logging in. Please make sure all information is correct and try again.'
+      }));
     }
   }
 
   return (
       <Container component="main" maxWidth="xs">
-        <CssBaseline />
-
         <Box
           sx={{
             alignItems: 'center',
@@ -98,20 +102,21 @@ const SignIn = (props) => {
               type="password"
             />
 
-            <Button
+            <LoadingButton
+              load={isLoading || isUpdating ? 1 : 0}
               fullWidth
               sx={{ mt: 3, mb: 2 }}
               type="submit"
               variant="contained"
             >
               Sign In
-            </Button>
+            </LoadingButton>
           </Box>
         </Box>
 
-        <Copyright sx={{ mt: 8, mb: 4 }} />
+        <Copyright />
       </Container>
   );
 }
 
-export default connect(null, { getLocations, signIn })(SignIn)
+export default SignIn

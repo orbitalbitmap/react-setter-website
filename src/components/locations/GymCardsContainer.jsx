@@ -1,12 +1,14 @@
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Grid, Paper, Typography, List, ListItem, ListItemText  } from '@mui/material';
 
-const GymCardsContainer = (props) => {
+const GymCardsContainer = () => {
+  const locations = useSelector(state => state.locations)
+
   return (
     <Grid key="gym-card-list-container" container sx={{ m: '0 auto', }}>
       {
-        props?.gyms?.map(gymInfo => {
+        locations.map(gymInfo => {
           return (
             <Grid key={gymInfo.id} item xs={6} sx={{ py: 2 }}>
               <Paper sx={{ width: '30rem', m: '0 auto', pb: 2, }}>
@@ -40,11 +42,4 @@ const GymCardsContainer = (props) => {
   )
 }
 
-const mapStateToProps = (state) => {
-  return {
-    user: state.user,
-    gyms: state.gyms
-  }
-};
-
-export default connect(mapStateToProps, {})(GymCardsContainer);
+export default GymCardsContainer;

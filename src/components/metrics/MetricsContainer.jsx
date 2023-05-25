@@ -1,6 +1,7 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { Box, Container, Typography } from '@mui/material';
+import { useEffect, } from 'react';
 import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
 import BoulderIdealVsCurrent from './partials/BoulderIdealVsCurrent';
 import BouldersPerSetter from './partials/BouldersPerSetter';
@@ -8,23 +9,26 @@ import BouldersPerColor from './partials/BouldersPerColor';
 import RouteIdealVsCurrent from './partials/RouteIdealVsCurrent';
 import RoutesPerSetter from './partials/RoutesPerSetter';
 import RoutesPerColor from './partials/RoutesPerColor';
-import { Box, Container, Typography } from '@mui/material';
+import { setGymMetrics } from '../../reducers/distribution/metricsReducers';
+import { useGetGymMetricsQuery } from '../../services/gym';
 
 function MetricsContainer() {
+  const dispatch = useDispatch();
+  const gymName = useSelector((state) => state.metrics.gymName);
+  const gymMetrics = useSelector((state) => state.metrics.gymMetrics);
   const urlParams = useParams();
-  const [gymName, setGymName] = useState('');
-  const [metrics, setMetrics] = useState({});
+  const {data} = useGetGymMetricsQuery(urlParams.id);
 
   useEffect(() => {
     const getInfo = async () => {
-      const { data } = await axios.get(`${process.env.REACT_APP_API_PATH}/metrics/${urlParams.id}`);
-
-      setGymName(data.gym.name);
-      setMetrics(data.metrics);
+      dispatch(setGymMetrics({
+        gymName: data?.gym?.name,
+        gymMetrics: data?.metrics,
+      }));
     };
 
     getInfo();
-  }, [urlParams]);
+  }, [data, dispatch]);
 
   return (
     <Container sx={{ mt: 12 }}>
@@ -36,33 +40,34 @@ function MetricsContainer() {
 
       <Box className="idealVsCurrent-wrapper centered-text">
         {
-          metrics.boulderSetterCount
-            ? <BouldersPerSetter data={metrics.boulderSetterCount} />
+          gymMetrics.bouldersPerSetter
+            ? <BouldersPerSetter />
             : <Typography className="centered-text" variant="h6" >No Data Found For Setters Per Boulders</Typography>
         }
       </Box>
 
       <Box className="idealVsCurrent-wrapper centered-text">
         {
-          metrics.routeSetterCount
-            ? <RoutesPerSetter data={metrics.routeSetterCount} />
+          gymMetrics.routesPerSetter
+            ? <RoutesPerSetter />
             : <Typography className="centered-text" variant="h6" >No Data Found For Setters Per Routes</Typography>
         }
       </Box>
 
+      {/* boulders per color */}
       <Box className="idealVsCurrent-wrapper centered-text">
         {
-          metrics.boulderColorCount
-            ? <BouldersPerColor data={metrics.boulderColorCount} />
+          gymMetrics.bouldersPerColor
+            ? <BouldersPerColor />
             : <Typography className="centered-text" variant="h6" >No Data Found For Boulders Per Color</Typography>
         }
       </Box>
 
-      {/* r/color */}
+      {/* routes per color */}
       <Box className="idealVsCurrent-wrapper centered-text">
         {
-          metrics.routeColorCount
-            ? <RoutesPerColor data={metrics.routeColorCount} />
+          gymMetrics.routesPerColor
+            ? <RoutesPerColor />
             : <Typography className="centered-text" variant="h6" >No Data Found For Setters Per Routes</Typography>
         }
       </Box>
@@ -70,31 +75,17 @@ function MetricsContainer() {
       {/* ideal vs current boulder */}
       <Box className="idealVsCurrent-wrapper centered-text">
         {
-          metrics.boulderSetterCount
-            ? (
-              <BoulderIdealVsCurrent
-                data={{
-                  currentBoulderGradeCount: metrics.currentBoulderGradeCount,
-                  idealBoulderGradeCount: metrics.idealBoulderGradeCount,
-                }}
-              />
-            )
-            : <Typography className="centered-text" variant="h6" >No Data Found For Setters Per Routes</Typography>
+          (gymMetrics.currentBouldersPerGrade && gymMetrics.idealBouldersPerGrade)
+            ?  <BoulderIdealVsCurrent />
+            : <Typography className="centered-text" variant="h6" >No Data Found For Setters Per Boulders</Typography>
         }
       </Box>
 
       {/* ideal vs current rope */}
       <Box className="idealVsCurrent-wrapper centered-text">
         {
-          metrics.currentRouteGradeCount && metrics.idealRouteGradeCount
-            ? (
-              <RouteIdealVsCurrent
-                data={{
-                  currentRouteGradeCount: metrics.currentRouteGradeCount,
-                  idealRouteGradeCount: metrics.idealRouteGradeCount,
-                }}
-              />
-            )
+          (gymMetrics.currentRoutesPerGrade && gymMetrics.idealRoutesPerGrade)
+            ? <RouteIdealVsCurrent />
             : <Typography className="centered-text" variant="h6" >No Data Found For Setters Per Routes</Typography>
         }
       </Box>

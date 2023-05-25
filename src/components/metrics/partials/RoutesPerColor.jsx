@@ -1,8 +1,11 @@
 import { Box } from '@mui/material';
 import { Pie } from 'react-chartjs-2';
+import { useSelector } from 'react-redux';
 
-function RouterPerColor(props) {
-  const colorList = Object.keys(props.data);
+const RouterPerColor = () => {
+  const routesPerColor = useSelector(state => state.metrics.gymMetrics.routesPerColor);
+  const data = Object.values(routesPerColor);
+  const colorList = Object.keys(routesPerColor) || null;
 
   const chartData = {
     labels: colorList,
@@ -10,7 +13,7 @@ function RouterPerColor(props) {
       {
         borderColor: 'black',
         borderWidth: 1,
-        data: Object.values(props.data),
+        data,
         backgroundColor: colorList,
         hoverOffset: 4,
       },
