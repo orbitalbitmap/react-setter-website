@@ -6,7 +6,7 @@ import employeeReducers from './reducers/employeeReducers';
 import gymTabPanelReducers from './reducers/gymTabPanelReducers';
 import locationReducers from './reducers/locationReducers';
 import metricsReducers from './reducers/distribution/metricsReducers';
-import snackbarReducers from './reducers/snackbarReducers';
+import notificationsReducers from './reducers/notificationsReducers';
 import userReducers from './reducers/userReducer';
 
 
@@ -19,7 +19,7 @@ export const store = configureStore({
   gymTabPanel: gymTabPanelReducers,
   locations: locationReducers,
   metrics: metricsReducers,
-  snackbarDetails: snackbarReducers,
+  notificationsDetails: notificationsReducers,
   user: userReducers,
   },
   // Adding the api middleware enables caching, invalidation, polling,

@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Box, Button, Container, TextField, Typography} from '@mui/material';
+import { Box, Button, Container, Typography} from '@mui/material';
 import Snackbar from '@mui/material/Snackbar';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
+
+import SectionForm from './components/SectionForm';
 import { useGetGymWithSectionsQuery, useUpdateSectionsMutation } from '../../services/gym';
 
-function UpdateClimbingSections() {
+const UpdateClimbingSections = () => {
   const urlParams = useParams();
   const gymId = urlParams.id;
   const [gym, setGym] = useState({});
@@ -95,18 +97,6 @@ function UpdateClimbingSections() {
     setGym(updatedGym);
   };
 
-  const renderSectionForm = (sections, type) => sections
-    .map(section => (
-    <Box key={`${type}-section-${section.id}`}>
-      <TextField
-        label="Name"
-        variant="outlined"
-        onChange={(event) => { handleChange(event, `${type}Sections`, section.id) }}
-        value={section.name !== null ? section.name : ''}
-        placeholder="Enter section name..."
-      />
-    </Box>
-  ))
 
   return (
     <Container maxWidth="lg" sx={{ bgcolor: theme => theme.palette.primary.main, mt: 12, mb: 6, minHeight: '40rem', borderRadius: '8px', p: 3}}>
@@ -117,7 +107,7 @@ function UpdateClimbingSections() {
           <Box className="section-details" id="route-sections">
             {
               gym?.routeSections
-                ? renderSectionForm(gym?.routeSections, 'route')
+                ? SectionForm(gym?.routeSections, 'route', handleChange)
                 : (<h2>No Route Sections Found.</h2>)
             }
           </Box>
@@ -133,7 +123,7 @@ function UpdateClimbingSections() {
           <Box className="section-details" id="boulder-sections">
             {
               gym?.boulderSections
-                ? renderSectionForm(gym?.boulderSections, 'boulder')
+                ? SectionForm(gym?.boulderSections, 'boulder', handleChange)
                 : (<h2>No Boulder Sections Found.</h2>)
             }
           </Box>

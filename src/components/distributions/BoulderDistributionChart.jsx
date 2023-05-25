@@ -1,28 +1,60 @@
-import axios from 'axios'
 import { useEffect, useMemo, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { DataGrid } from '@mui/x-data-grid';
 import { Box, Button, ButtonGroup, TextField, Typography } from '@mui/material';
-import SectionsList from './SectionsList'
-import { setBoulderDistribution, updateBoulderDistribution, updateDates } from '../../reducers/distribution/distributionReducers';
 import { useDispatch, useSelector } from 'react-redux';
-import { setSnackAlert } from '../../reducers/snackbarReducers';
+
+import SectionsList from './SectionsList'
 import getBoulderColumnDefs from './constants/boulderColumnDefs';
+import { setBoulderDistribution, updateDates } from '../../reducers/distribution/distributionReducers';
+import { setNotificationAlert } from '../../reducers/notificationsReducers';
+import { 
+  useGetBoulderDistributionQuery,
+  useGetSpecificBoulderSectionsQuery,
+  useGetLocationByIdQuery,
+  useUpdateBoulderDistributionMutation,
+} from '../../services/gym';
 
 const BoulderDistributionChart = () => {
+  const dispatch = useDispatch();
+  const [
+    saveBoulderDistribution,
+    { isLoading, isUpdating }
+  ] = useUpdateBoulderDistributionMutation();
   const todayFormatted = useMemo(() => {
     const today = new Date();
-    return today.toISOString().split('T')[0]
+    return today.toISOString().split('T')[0];
   }, []);
   const urlParams = useParams();
   const gymId = urlParams.id;
-  const dispatch = useDispatch();
+  const { data } = useGetBoulderDistributionQuery(gymId);
+  const { data: sectionList } = useGetSpecificBoulderSectionsQuery(gymId);
+  const { data: gymInfo } = useGetLocationByIdQuery(gymId);
+  
+  const {employeeList, gymName} = useMemo(() => {
+    let employeeList = [];
+    let gymName = '';
+
+    if (gymInfo?.id) {
+      employeeList = gymInfo?.employees;
+      gymName = gymInfo?.name;
+    }
+    return {
+      employeeList,
+      gymName,
+    }
+  }, [gymInfo]);
+  
+  useEffect(() => {
+    if(data?.length > 0) {
+      dispatch(setBoulderDistribution(data));
+    }
+  }, [data, dispatch]);
+
+
   const distribution = useSelector(state => state.distribution.boulderDistribution);
   const [selectedSectionId, setSelectedSectionId] = useState(1);
-  const [sectionList, setSectionList] = useState([]);
-  const [gymName, setGymName] = useState('');
   const [fullDateChange, setFullDateChange] = useState(todayFormatted);
-  const [employeeList, setEmployeeList] = useState([]);
 
   const filteredDistribution = distribution?.filter(climbInfo => climbInfo.sectionId === selectedSectionId);
 
@@ -51,13 +83,13 @@ const BoulderDistributionChart = () => {
     event.preventDefault()
 
     try {
-      await axios.post(`${process.env.REACT_APP_API_PATH}/saveDistribution/currentBoulders`, {distribution})
-      dispatch(setSnackAlert({
+      await saveBoulderDistribution(distribution);
+      dispatch(setNotificationAlert({
         alertType: 'Success',
         messageBody: 'The distribution has been saved!'
       }));
     } catch {
-      dispatch(setSnackAlert({
+      dispatch(setNotificationAlert({
         alertType: 'Alert',
         messageBody: 'There was an issue saving teh distribution, please try again.'
       }));
@@ -84,21 +116,6 @@ const BoulderDistributionChart = () => {
     dispatch(setBoulderDistribution(newDistribution));
   }
 
-  useEffect(() => {
-    const getInfo = async () => {
-      // @TODO: fix the returned backend values for ropes and boulders
-      const climbInfoList = await axios.get(`${process.env.REACT_APP_API_PATH}/currentBoulderGrades/${gymId}`)
-      const sectionList = await axios.get(`${process.env.REACT_APP_API_PATH}/boulderSections/${gymId}`)
-      const gymInfo = await axios.get(`${process.env.REACT_APP_API_PATH}/gymById/${gymId}`)
-      
-      setGymName(gymInfo.data.name)
-      setEmployeeList(gymInfo.data.employees)
-      setSectionList(sectionList.data)
-      dispatch(setBoulderDistribution(climbInfoList.data))
-    }
-
-    getInfo()
-  }, [gymId, dispatch])
 
   return (
     <Box sx={{ mx: 'auto', mt: '5rem', width: '100%' }}>
@@ -116,7 +133,7 @@ const BoulderDistributionChart = () => {
 
         <Box sx={{ width: '100%', mx: 'auto', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-evenly'}}>
           {
-            sectionList.length > 0
+            sectionList?.length > 0
               ? <SectionsList sectionList={sectionList} onClick={handleSectionChange} currentSelectedId={selectedSectionId} />
               : null
           }
@@ -167,25 +184,11 @@ const BoulderDistributionChart = () => {
       
       <Box className="distribution-holder" sx={{ width: '80rem', height: '40rem', mt: '15rem', mx: 'auto', justifyContent: 'center', }}>
         <DataGrid
-          editMode='row'
           rows={filteredDistribution || []}
           columns={memoizedBoulderColumnDefs}
           disableColumnFilter
           experimentalFeatures={{ newEditingApi: true }} 
-          processRowUpdate={(newRow, oldRow) => {
-            // @TODO: find a better way of handling the update with the color picker
-            // this might be useful: https://mui.com/x/react-data-grid/state/
-            const updatedRow = { ...newRow, color: distribution[newRow.id-1].color}
-
-            dispatch(updateBoulderDistribution(updatedRow));
-            return updatedRow;
-          }}
-          onProcessRowUpdateError={() => {
-            dispatch(setSnackAlert({
-              alertType: 'Error',
-              messageBody: 'There was an issue updating the climb, please try again.',
-            }));
-          }}
+          getRowId={row => `${row.id}-${row.gymId}`}
         />
       </Box>
     </Box>

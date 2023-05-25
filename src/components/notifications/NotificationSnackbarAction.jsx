@@ -1,7 +1,7 @@
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 
-const SnackBarAction = ({ handleClose }) => (
+const NotificationSnackBarAction = ({ handleClose }) => (
   <IconButton
     size="small"
     aria-label="close"
@@ -12,4 +12,4 @@ const SnackBarAction = ({ handleClose }) => (
   </IconButton>
 );
 
-export default SnackBarAction;
+export default NotificationSnackBarAction;

@@ -4,7 +4,6 @@ const renderSections = (sectionList, sectionType) => {
   let sortedSectionList = [...sectionList];
 
   sortedSectionList = sortedSectionList.sort((a,b) => a.id - b.id)
-  console.log({ sortedSectionList })
   return ( 
     <List sx={{ bgcolor: theme => theme.palette.common.white,  }}>
       <ListItem>

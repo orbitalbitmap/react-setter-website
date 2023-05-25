@@ -1,3 +1,9 @@
+# CURRENT
+Fixing the notifications system which has caused a need to update the logic for updating an employee
+Fix RTK Query to auto re-fetch when mutations are done
+Move todayFormatted variable to redux
+Updates save properly but the redux state does not reflect the changes
+
 # Upgrades to work
 Add reset functionality when leaving/entering a page (IE if persisting redux state I shouldn't see data for Worcester's metrics if I'm looking at another gym)
 Move data fetches to redux actions instead of calling them directly in the components and update submit buttons to use MUI's LoadingButton
@@ -6,7 +12,7 @@ Upgrade to typescript
 Add comments everywhere (make checklist of files beforehand)
 Move all `submit` functions out to DRY the code up more (`handleSubmit = (url, htmlBody) => {}`) 
 Add tests, E2E (playwright) and unit (jest)
-Add try/catch blocks
+Add try/catch blocks for all gym and external apis
 
   ## src/components/distributions
   Fix distribution tables back to working order

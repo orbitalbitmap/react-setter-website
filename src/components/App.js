@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   BrowserRouter,
   Routes,
@@ -8,7 +7,6 @@ import {
 import './styles.css'
 import history from '../history';
 import AdminDashboardPage from '../pages/admin/AdminDashboardPage';
-import AdminUpdateEmployeePage from '../pages/admin/AdminUpdateEmployeePage';
 import AllEmployeesPage from '../pages/employees/AllEmployeesPage';
 import AllLocations from '../pages/locations/AllLocationsPage';
 import AllLocationsAndSectionsPage from '../pages/sections/AllLocationsAndSectionsPage';
@@ -29,10 +27,13 @@ import SingleLocationPage from '../pages/locations/SingleLocationPage';
 import UpdateEmployeePage from '../pages/employees/UpdateEmployeePage';
 import UpdateLocationPage from '../pages/admin/UpdateLocationInfo';
 import UpdateSectionsPage from '../pages/sections/UpdateSectionsPage';
-import Snackbar from './snackbar/Snackbar';
+import NotificationSnackbar from './notifications/NotificationSnackbar';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 
 function App() {
   return (
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
     <div>
       <BrowserRouter history={history}>
         <Routes>
@@ -43,7 +44,6 @@ function App() {
           {/* Admin paths */}
           <Route exact path="/admin" element={<AdminDashboardPage />} />
           <Route exact path="/admin/employee/new" element={<NewEmployeePage />} />
-          <Route exact path="/admin/employee/:id" element={<AdminUpdateEmployeePage />} />
           <Route exact path="/admin/location/new" element={<NewGymPage />} />
           <Route exact path="/admin/location/:id" element={<UpdateLocationPage />} />
 
@@ -81,9 +81,9 @@ function App() {
         </Routes>
       </BrowserRouter>
       
-      {/* Notifications snackbar */}
-      <Snackbar />
+      <NotificationSnackbar />
     </div>
+    </LocalizationProvider>
   );
 }
 

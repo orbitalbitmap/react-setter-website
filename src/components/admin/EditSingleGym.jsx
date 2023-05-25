@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { FormControl, Grid, TextField } from '@mui/material';
@@ -8,12 +7,18 @@ import Box from '@mui/material/Box';
 import Snackbar from '@mui/material/Snackbar';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
+import { useGetLocationByIdQuery, useUpdateLocationMutation } from '../../services/gym';
 
 const EditSingleGym = () => {
   const urlParams = useParams();
   const [gym, setGym] = useState({});
   const [open, setOpen] = useState(false)
   const [snackbarMessage, setSnackbarMessage] = useState('')
+  const { data } = useGetLocationByIdQuery(urlParams.id);
+  const [
+    updateLocation,
+    { isLoading, isUpdating, }
+  ] = useUpdateLocationMutation();
 
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
@@ -37,7 +42,7 @@ const EditSingleGym = () => {
     event.preventDefault()
 
     try {
-      await axios.post(`${process.env.REACT_APP_API_PATH}/updateGymInfo`, gym)
+      await updateLocation(gym);
       setOpen(true)
       setSnackbarMessage('The gym\'s information has been saved!')
     } catch {
@@ -48,13 +53,12 @@ const EditSingleGym = () => {
 
   useEffect(() => {
     const getInfo = async () => {
-      const { data } = await axios.get(`${process.env.REACT_APP_API_PATH}/gymById/${urlParams.id}`)
 
       setGym(data)
     }
 
     getInfo()
-  }, [urlParams])
+  }, [data])
 
   if (!gym.name) {
     return (<h2>We cannot find the gym you wish to edit.</h2>);

@@ -1,10 +1,12 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { FormControl, Grid, TextField, Button } from '@mui/material';
 import { Paper, Select, MenuItem, InputLabel } from '@mui/material';
 import Snackbar from '@mui/material/Snackbar';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
+
+import { useAddNewGymMutation } from '../../services/gym';
+import { useSelector } from 'react-redux';
 
 const NewGymForm = () => {
   const [name, setName] = useState('');
@@ -14,9 +16,14 @@ const NewGymForm = () => {
   const [facebook, setFacebook] = useState('');
   const [instagram, setInstagram] = useState('');
   const [twitter, setTwitter] = useState('');
-  const [employees, setEmployees] = useState([]);
-  const [open, setOpen] = useState(false)
-  const [snackbarMessage, setSnackbarMessage] = useState('')
+  const employees = useSelector(state => state.employees);
+  const [open, setOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState('');
+
+  const [
+    saveNewGym,
+    { isLoading, isUpdating }
+  ] = useAddNewGymMutation();
 
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
@@ -36,21 +43,11 @@ const NewGymForm = () => {
     </IconButton>
   )
 
-  useEffect(() => {
-    const getInfo = async () =>{
-      const { data } = await axios.get(`${process.env.REACT_APP_API_PATH}/employees`)
-
-      setEmployees(data)
-    }
-
-    getInfo()
-  }, [])
-
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     try {
-      await axios.post(`${process.env.REACT_APP_API_PATH}/saveNewGym`, {
+      await saveNewGym({
         name,
         address,
         phoneNumber,
@@ -59,6 +56,7 @@ const NewGymForm = () => {
         instagram,
         twitter,
       });
+
       setOpen(true)
       setSnackbarMessage('A new gym has been saved!')
     } catch {

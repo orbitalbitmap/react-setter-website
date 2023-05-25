@@ -10,7 +10,7 @@ import {
 } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import { setSnackAlert } from '../../reducers/snackbarReducers';
+import { setNotificationAlert } from '../../reducers/notificationsReducers';
 
 import Copyright from './copyright/Copyright';
 import { setUser, } from '../../reducers/userReducer';
@@ -34,7 +34,7 @@ const SignIn = () => {
 
     try {
       if (enteredPassword.length <= 0 || enteredEmail.length <= 0) {
-        dispatch(setSnackAlert({
+        dispatch(setNotificationAlert({
           alertType: 'Error',
           messageBody: 'Please enter a valid email and valid password.'
         }));
@@ -50,7 +50,7 @@ const SignIn = () => {
       dispatch(setGymPanel());
       navigate("/dashboard");
     } catch(err) {
-      dispatch(setSnackAlert({
+      dispatch(setNotificationAlert({
         alertType: 'Error',
         messageBody: 'There was an error while logging in. Please make sure all information is correct and try again.'
       }));

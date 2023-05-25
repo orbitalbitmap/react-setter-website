@@ -1,7 +1,8 @@
 import { Box, InputLabel, TextField, Typography } from '@mui/material';
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+
+import { useGetDistributionEditFormDataQuery, useUpdateIdealDistributionMutation } from '../../services/gym';
 
 function DistributionEditForm({ path, type }) {
   const urlParams = useParams();
@@ -9,18 +10,23 @@ function DistributionEditForm({ path, type }) {
   const [gymId, setGymId] = useState(0);
   const [gym, setGym] = useState('')
 
+  const { data } = useGetDistributionEditFormDataQuery({path, gymId: urlParams.id});
+  const [
+    updateIdealDistribution,
+    { isLoading, isUpdating }
+  ] = useUpdateIdealDistributionMutation();
+
   useEffect(() => {
     const getInfo = async () => {
-      const { data } = await axios.get(`${process.env.REACT_APP_API_PATH}/${path}/${urlParams.id}`);
-      const { gymId, gym, ...rest } = data;
+        const { gymId, gym, ...rest } = data;
       
-      setDistributionSpread(rest);
-      setGym(gym)
-      setGymId(gymId);
+        setDistributionSpread(rest);
+        setGym(gym)
+        setGymId(gymId);
     };
 
     getInfo();
-  }, [urlParams, path]);
+  }, [data]);
 
   const handleChange = (event) => {
     const newSpread = {
@@ -33,7 +39,13 @@ function DistributionEditForm({ path, type }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    await axios.post(`${process.env.REACT_APP_API_PATH}/saveDistribution/${type}`, { gymId, distributionSpread });
+    await updateIdealDistribution({
+      type,
+      body: {
+        gymId,
+        distributionSpread,
+      },
+    });
   };
 
   return (

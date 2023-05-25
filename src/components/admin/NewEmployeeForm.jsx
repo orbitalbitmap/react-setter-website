@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import {
@@ -18,6 +17,8 @@ import {
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 
+import { useAddNewEmployeeMutation } from '../../services/gym';
+
 const NewEmployeeForm = () => {
   const locations = useSelector(state => state.locations)
   const [firstName, setFirstName] = useState('');
@@ -31,6 +32,11 @@ const NewEmployeeForm = () => {
   const [employeeGymNameList, setEmployeeGymNameList] = useState([]);
   const [open, setOpen] = useState(false)
   const [snackbarMessage, setSnackbarMessage] = useState('')
+
+  const[
+    saveNewEmployee,
+    { isLoading, isUpdating, }
+  ] = useAddNewEmployeeMutation();
 
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
@@ -76,7 +82,7 @@ const NewEmployeeForm = () => {
     }
 
     try {
-      await axios.post(`${process.env.REACT_APP_API_PATH}/saveEmployee`, newUser);
+      await saveNewEmployee(newUser);
       setOpen(true)
       setSnackbarMessage('A new employee has been saved!')
     } catch {

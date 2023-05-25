@@ -9,7 +9,7 @@ import { useSelector } from 'react-redux';
 import GymTabContainer from './gymTabContainer/GymTabContainer';
 
 const Content = () => {
-  const user = useSelector(state => state.user)
+  const user = useSelector(state => state.user);
 
   return (
     <Box

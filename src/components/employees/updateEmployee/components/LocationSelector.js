@@ -1,32 +1,42 @@
-import axios from 'axios';
 import { Button, Typography } from '@mui/material';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import useCurrentLocationNameList from '../../../../hooks/useCurrentLocationNameList';
 import useEmployeeInfo from '../../../../hooks/useEmployeeInfo';
 import useDisableButton from '../../../../hooks/useDisableButton';
-import { setSnackAlert } from '../../../../reducers/snackbarReducers';
+import { setNotificationAlert } from '../../../../reducers/notificationsReducers';
 import { setUser } from '../../../../reducers/userReducer';
 import GymSelector from './GymSelector';
 
+import { useUpdateEmployeeMutation } from '../../../../services/gym';
+
 const LocationSelector = ({ urlId }) => {
+  const user = useSelector(state => state.user);
+
   const dispatch = useDispatch();
   const { currentLocationNameList } = useCurrentLocationNameList();
   const { employee, employeeLocationNameList, handleCheckbox, } = useEmployeeInfo(urlId);
   const {disableSaveButton} = useDisableButton(employee.id, urlId);
 
+  const [
+    updateEmployee,
+    { isLoading, isUpdating},
+  ] = useUpdateEmployeeMutation();
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     try {
-      await axios.post(`${process.env.REACT_APP_API_PATH}/updateEmployee`, employee);
-      dispatch(setSnackAlert({
+      await updateEmployee(employee);
+      dispatch(setNotificationAlert({
         alertType: 'success',
         messageBody: 'Employee info updated!',
       }));
-      dispatch(setUser(employee));
+      if (user.id === employee.id) {
+        dispatch(setUser(employee));
+      }
     } catch {
-      dispatch(setSnackAlert({
+      dispatch(setNotificationAlert({
         alertType: 'error',
         messageBody: 'Employee info could not be updated.  Please, try again.',
       }));

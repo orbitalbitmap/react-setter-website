@@ -32,12 +32,6 @@ export const distributionSlice = createSlice({
       state.routeDistribution = distribution;
     },
     updateDates: updateDistributionDates,
-    updateClimbColor: (state, action) => {
-      const { color, climbId, distributionType } = action.payload
-      const indexToUpdate =  state.routeDistribution.findIndex((climb) => climb.id === climbId);
-
-      state[distributionType][indexToUpdate].color = color;
-    },
   }
 
 });

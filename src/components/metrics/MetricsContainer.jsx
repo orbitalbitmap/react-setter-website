@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { Box, Container, Typography } from '@mui/material';
 import { useEffect, } from 'react';
 import { useParams } from 'react-router-dom';
@@ -11,25 +10,25 @@ import RouteIdealVsCurrent from './partials/RouteIdealVsCurrent';
 import RoutesPerSetter from './partials/RoutesPerSetter';
 import RoutesPerColor from './partials/RoutesPerColor';
 import { setGymMetrics } from '../../reducers/distribution/metricsReducers';
+import { useGetGymMetricsQuery } from '../../services/gym';
 
 function MetricsContainer() {
   const dispatch = useDispatch();
   const gymName = useSelector((state) => state.metrics.gymName);
   const gymMetrics = useSelector((state) => state.metrics.gymMetrics);
   const urlParams = useParams();
+  const {data} = useGetGymMetricsQuery(urlParams.id);
 
   useEffect(() => {
     const getInfo = async () => {
-      const { data } = await axios.get(`${process.env.REACT_APP_API_PATH}/metrics/${urlParams.id}`);
-
       dispatch(setGymMetrics({
-        gymName: data.gym.name,
-        gymMetrics: data.metrics,
+        gymName: data?.gym?.name,
+        gymMetrics: data?.metrics,
       }));
     };
 
     getInfo();
-  }, [urlParams, dispatch]);
+  }, [data, dispatch]);
 
   return (
     <Container sx={{ mt: 12 }}>
