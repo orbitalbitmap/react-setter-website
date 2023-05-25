@@ -6,26 +6,21 @@ Updates save properly but the redux state does not reflect the changes
 
 # Upgrades to work
 Add reset functionality when leaving/entering a page (IE if persisting redux state I shouldn't see data for Worcester's metrics if I'm looking at another gym)
-Move data fetches to redux actions instead of calling them directly in the components and update submit buttons to use MUI's LoadingButton
+MUI's LoadingButton
 Move useEffects out to custom hooks
 Upgrade to typescript
 Add comments everywhere (make checklist of files beforehand)
 Move all `submit` functions out to DRY the code up more (`handleSubmit = (url, htmlBody) => {}`) 
 Add tests, E2E (playwright) and unit (jest)
-Add try/catch blocks for all gym and external apis
 
   ## src/components/distributions
   Fix distribution tables back to working order
     -- Route and Boulder chart:
       -- Fix the api's returned values
       For the boulders, handle the position of a climb
-  Fix backend to update previous setter placard names and/or first names to new ones (what did I mean by this?)
 
   ## src/history.js
   Implement back to working order
-
-  ## src/services/gym.js (rtk api creator)
-  Should this continue to be developed?
 
   ## src/components/placards/boulderBashCard.pug
   Make this a component and not a template file
@@ -38,9 +33,6 @@ Add try/catch blocks for all gym and external apis
 
   ## src/component/metrics/allGym Metrics
   This needs to be implemented at some point
-
-  ## src/components/employees/UpdateEmployee
-  Uncontrolled input warning
 
   ## Redo css
   Turn the main big file into little files that are on a per component basis
