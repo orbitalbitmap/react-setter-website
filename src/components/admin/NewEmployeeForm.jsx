@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   FormControl,
   Grid,
@@ -12,14 +12,13 @@ import {
   OutlinedInput,
   Checkbox,
   ListItemText,
-  Snackbar,
-  IconButton,
 } from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
 
 import { useAddNewEmployeeMutation } from '../../services/gym';
+import { setNotificationAlert } from '../../reducers/notificationsReducers';
 
 const NewEmployeeForm = () => {
+  const dispatch = useDispatch();
   const locations = useSelector(state => state.locations)
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -30,31 +29,12 @@ const NewEmployeeForm = () => {
   const [employeeGymList, setEmployeeGymList] = useState([]);
   const [currentGymNameList, setCurrentGymNameList] = useState([]);
   const [employeeGymNameList, setEmployeeGymNameList] = useState([]);
-  const [open, setOpen] = useState(false)
-  const [snackbarMessage, setSnackbarMessage] = useState('')
 
   const[
     saveNewEmployee,
     { isLoading, isUpdating, }
   ] = useAddNewEmployeeMutation();
 
-  const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-
-    setOpen(false);
-  };
-  const snackBarAction = (
-    <IconButton
-      size="small"
-      aria-label="close"
-      color="inherit"
-      onClick={handleClose}
-    >
-      <CloseIcon fontSize="small" />
-    </IconButton>
-  )
 
   const handleCheckbox = (event) => {
     const {
@@ -83,11 +63,15 @@ const NewEmployeeForm = () => {
 
     try {
       await saveNewEmployee(newUser);
-      setOpen(true)
-      setSnackbarMessage('A new employee has been saved!')
+      dispatch(setNotificationAlert({
+        alertType: 'Success',
+        messageBody: 'A new employee has been saved!',
+      }));
     } catch {
-      setOpen(true)
-      setSnackbarMessage('Oops! Looks like something went wrong. Please Try again.')
+      dispatch(setNotificationAlert({
+        alertType: 'Alert',
+        messageBody: 'Oops! Looks like something went wrong. Please Try again.',
+      }));
     }
   }
 
@@ -194,14 +178,6 @@ const NewEmployeeForm = () => {
         </Grid>
         <Button variant="contained" onClick={handleSubmit} sx={{ mt: 2 }}>Save Employee</Button>
       </Paper>
-      <Snackbar
-          open={open}
-          autoHideDuration={3000}
-          message={snackbarMessage}
-          onClose={handleClose}
-          action={snackBarAction}
-          sx={{ bottom: {xs: 16 } }}
-        />
     </>
   );
 }
