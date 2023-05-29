@@ -1,10 +1,11 @@
 # CURRENT
-Fixing the notifications system which has caused a need to update the logic for updating an employee
+Fixing the notifications system
 Fix RTK Query to auto re-fetch when mutations are done
 Move todayFormatted variable to redux
 Updates save properly but the redux state does not reflect the changes
 
 # Upgrades to work
+Uncontrolled input warning EditSingleGym component
 Add reset functionality when leaving/entering a page (IE if persisting redux state I shouldn't see data for Worcester's metrics if I'm looking at another gym)
 MUI's LoadingButton
 Move useEffects out to custom hooks

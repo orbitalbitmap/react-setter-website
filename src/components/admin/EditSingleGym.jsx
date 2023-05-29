@@ -4,50 +4,34 @@ import { FormControl, Grid, TextField } from '@mui/material';
 import { Paper, Select, MenuItem, InputLabel, Button, Typography } from '@mui/material';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
-import Snackbar from '@mui/material/Snackbar';
-import IconButton from '@mui/material/IconButton';
-import CloseIcon from '@mui/icons-material/Close';
 import { useGetLocationByIdQuery, useUpdateLocationMutation } from '../../services/gym';
+import { setNotificationAlert } from '../../reducers/notificationsReducers';
+import { useDispatch } from 'react-redux';
 
 const EditSingleGym = () => {
+  const dispatch = useDispatch();
   const urlParams = useParams();
   const [gym, setGym] = useState({});
-  const [open, setOpen] = useState(false)
-  const [snackbarMessage, setSnackbarMessage] = useState('')
   const { data } = useGetLocationByIdQuery(urlParams.id);
   const [
     updateLocation,
     { isLoading, isUpdating, }
   ] = useUpdateLocationMutation();
 
-  const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-
-    setOpen(false);
-  };
-  const snackBarAction = (
-    <IconButton
-      size="small"
-      aria-label="close"
-      color="inherit"
-      onClick={handleClose}
-    >
-      <CloseIcon fontSize="small" />
-    </IconButton>
-  )
-
   const handleSubmit = async (event) => {
     event.preventDefault()
 
     try {
       await updateLocation(gym);
-      setOpen(true)
-      setSnackbarMessage('The gym\'s information has been saved!')
+      dispatch(setNotificationAlert({
+        alertType: 'Success',
+        messageBody: 'The gym\'s information has been saved!'
+      }));
     } catch {
-      setOpen(true)
-      setSnackbarMessage('Oops! Looks like something went wrong. Please Try again.')
+      dispatch(setNotificationAlert({
+        alertType: 'Alert',
+        messageBody: 'Oops! Looks like something went wrong. Please Try again.'
+      }));
     }
   }
 
@@ -170,14 +154,6 @@ const EditSingleGym = () => {
           </Paper>
         </Paper>
       </Container>
-      <Snackbar
-        open={open}
-        autoHideDuration={3000}
-        message={snackbarMessage}
-        onClose={handleClose}
-        action={snackBarAction}
-        sx={{ bottom: {xs: 16 } }}
-      />
     </Box>
   );
 }
