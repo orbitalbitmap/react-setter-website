@@ -1,4 +1,4 @@
-import {Snackbar} from '@mui/material';
+import {Alert, Snackbar} from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { resetNotificationAlert } from '../../reducers/notificationsReducers';
 import NotificationAction from './NotificationSnackbarAction';
@@ -19,7 +19,14 @@ const NotificationSnackbar = () => {
       onClose={handleClose}
       action={<NotificationAction handleClose={handleClose}/>}
       sx={{ bottom: {xs: 16 } }}
-    />
+    >
+      <Alert
+        onClose={handleClose}
+        severity={notificationsDetails.alertType} sx={{ width: '100%' }}
+      >
+        {notificationsDetails.messageBody}
+      </Alert>
+    </Snackbar>
   );
 }
 

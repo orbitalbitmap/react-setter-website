@@ -35,7 +35,7 @@ const SignIn = () => {
     try {
       if (enteredPassword.length <= 0 || enteredEmail.length <= 0) {
         dispatch(setNotificationAlert({
-          alertType: 'Error',
+          alertType: 'error',
           messageBody: 'Please enter a valid email and valid password.'
         }));
         return
@@ -51,7 +51,7 @@ const SignIn = () => {
       navigate("/dashboard");
     } catch(err) {
       dispatch(setNotificationAlert({
-        alertType: 'Error',
+        alertType: 'error',
         messageBody: 'There was an error while logging in. Please make sure all information is correct and try again.'
       }));
     }
