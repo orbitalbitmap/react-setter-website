@@ -85,12 +85,12 @@ const BoulderDistributionChart = () => {
     try {
       await saveBoulderDistribution(distribution);
       dispatch(setNotificationAlert({
-        alertType: 'Success',
+        alertType: 'success',
         messageBody: 'The distribution has been saved!'
       }));
     } catch {
       dispatch(setNotificationAlert({
-        alertType: 'Alert',
+        alertType: 'error',
         messageBody: 'There was an issue saving teh distribution, please try again.'
       }));
     }

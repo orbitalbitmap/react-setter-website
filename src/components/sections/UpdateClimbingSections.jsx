@@ -1,19 +1,17 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Box, Button, Container, Typography} from '@mui/material';
-import Snackbar from '@mui/material/Snackbar';
-import IconButton from '@mui/material/IconButton';
-import CloseIcon from '@mui/icons-material/Close';
 
 import SectionForm from './components/SectionForm';
 import { useGetGymWithSectionsQuery, useUpdateSectionsMutation } from '../../services/gym';
+import { useDispatch } from 'react-redux';
+import { setNotificationAlert } from '../../reducers/notificationsReducers';
 
 const UpdateClimbingSections = () => {
+  const dispatch = useDispatch();
   const urlParams = useParams();
   const gymId = urlParams.id;
   const [gym, setGym] = useState({});
-  const [open, setOpen] = useState(false);
-  const [snackbarMessage, setSnackbarMessage] = useState('');
   const {data} = useGetGymWithSectionsQuery(gymId);
 
   const [
@@ -21,24 +19,6 @@ const UpdateClimbingSections = () => {
     // @TODO: set up loading and error handling
     {isLoading, isUpdating}
   ] = useUpdateSectionsMutation();
-
-  const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-
-    setOpen(false);
-  };
-  const snackBarAction = (
-    <IconButton
-      size="small"
-      aria-label="close"
-      color="inherit"
-      onClick={handleClose}
-    >
-      <CloseIcon fontSize="small" />
-    </IconButton>
-  )
   
   useEffect(() => {
     const getInfo = async () => {
@@ -73,11 +53,15 @@ const UpdateClimbingSections = () => {
     try {
       await updateSections({type, sectionToUpdate})
 
-      setOpen(true)
-      setSnackbarMessage('The sections info has been saved!')
+      dispatch(setNotificationAlert({
+    alertType: 'success',
+    messageBody: 'The sections info has been saved!',
+  }));
     } catch {
-      setOpen(true)
-      setSnackbarMessage('Oops! Looks like something went wrong. Please Try again.')
+      dispatch(setNotificationAlert({
+    alertType: 'error',
+    messageBody: 'Oops! Looks like something went wrong. Please Try again.',
+  }));
     }
   };
 
@@ -96,7 +80,6 @@ const UpdateClimbingSections = () => {
 
     setGym(updatedGym);
   };
-
 
   return (
     <Container maxWidth="lg" sx={{ bgcolor: theme => theme.palette.primary.main, mt: 12, mb: 6, minHeight: '40rem', borderRadius: '8px', p: 3}}>
@@ -133,14 +116,6 @@ const UpdateClimbingSections = () => {
           </Box>
         </Container>
       </Box>
-      <Snackbar
-        open={open}
-        autoHideDuration={3000}
-        message={snackbarMessage}
-        onClose={handleClose}
-        action={snackBarAction}
-        sx={{ bottom: {xs: 16 } }}
-      />
     </Container>
   );
 }

@@ -35,7 +35,6 @@ const NewEmployeeForm = () => {
     { isLoading, isUpdating, }
   ] = useAddNewEmployeeMutation();
 
-
   const handleCheckbox = (event) => {
     const {
       target: { value },
@@ -64,12 +63,12 @@ const NewEmployeeForm = () => {
     try {
       await saveNewEmployee(newUser);
       dispatch(setNotificationAlert({
-        alertType: 'Success',
+        alertType: 'success',
         messageBody: 'A new employee has been saved!',
       }));
     } catch {
       dispatch(setNotificationAlert({
-        alertType: 'Alert',
+        alertType: 'error',
         messageBody: 'Oops! Looks like something went wrong. Please Try again.',
       }));
     }

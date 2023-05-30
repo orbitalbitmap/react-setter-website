@@ -24,12 +24,12 @@ const EditSingleGym = () => {
     try {
       await updateLocation(gym);
       dispatch(setNotificationAlert({
-        alertType: 'Success',
+        alertType: 'success',
         messageBody: 'The gym\'s information has been saved!'
       }));
     } catch {
       dispatch(setNotificationAlert({
-        alertType: 'Alert',
+        alertType: 'error',
         messageBody: 'Oops! Looks like something went wrong. Please Try again.'
       }));
     }

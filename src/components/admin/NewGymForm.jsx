@@ -1,14 +1,13 @@
 import { useState } from 'react';
 import { FormControl, Grid, TextField, Button } from '@mui/material';
 import { Paper, Select, MenuItem, InputLabel } from '@mui/material';
-import Snackbar from '@mui/material/Snackbar';
-import IconButton from '@mui/material/IconButton';
-import CloseIcon from '@mui/icons-material/Close';
 
 import { useAddNewGymMutation } from '../../services/gym';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { setNotificationAlert } from '../../reducers/notificationsReducers';
 
 const NewGymForm = () => {
+  const dispatch = useDispatch()
   const [name, setName] = useState('');
   const [address, setAddress] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
@@ -17,31 +16,11 @@ const NewGymForm = () => {
   const [instagram, setInstagram] = useState('');
   const [twitter, setTwitter] = useState('');
   const employees = useSelector(state => state.employees);
-  const [open, setOpen] = useState(false);
-  const [snackbarMessage, setSnackbarMessage] = useState('');
 
   const [
     saveNewGym,
     { isLoading, isUpdating }
   ] = useAddNewGymMutation();
-
-  const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-
-    setOpen(false);
-  };
-  const snackBarAction = (
-    <IconButton
-      size="small"
-      aria-label="close"
-      color="inherit"
-      onClick={handleClose}
-    >
-      <CloseIcon fontSize="small" />
-    </IconButton>
-  )
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -57,11 +36,15 @@ const NewGymForm = () => {
         twitter,
       });
 
-      setOpen(true)
-      setSnackbarMessage('A new gym has been saved!')
+      dispatch(setNotificationAlert({
+        alertType: 'success',
+        messageBody: 'A new employee has been saved!',
+      }));
     } catch {
-      setOpen(true)
-      setSnackbarMessage('Oops! Looks like something went wrong. Please Try again.')
+      dispatch(setNotificationAlert({
+        alertType: 'error',
+        messageBody: 'Oops! Looks like something went wrong. Please Try again.',
+      }));
     }
   }
 
@@ -148,19 +131,9 @@ const NewGymForm = () => {
                 </Select>
               </FormControl>
             </Grid>
-          
-          
         </Grid>
         <Button variant="contained" onClick={handleSubmit} sx={{ mt: 2 }}>Save Gym</Button>
       </Paper>
-      <Snackbar
-        open={open}
-        autoHideDuration={3000}
-        message={snackbarMessage}
-        onClose={handleClose}
-        action={snackBarAction}
-        sx={{ bottom: {xs: 16 } }}
-      />
     </>
   );
 }
