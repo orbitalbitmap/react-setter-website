@@ -23,9 +23,9 @@ const GymSelector = ({ currentLocationNameList, employeeLocationNameList, handle
           input={<OutlinedInput label="Employee's gyms" />}
           renderValue={(selected) => selected.join(', ')}
         >
-          {currentLocationNameList.map((gym) => {
+          {currentLocationNameList.map((gym, index) => {
             return (
-            <MenuItem key={gym} value={gym}>
+            <MenuItem key={`${index}-${gym}`} value={gym}>
               <Checkbox sx={{ '&.Mui-checked': { color: '#fff'} }}
                 checked={employeeLocationNameList?.includes(gym)}
               />
