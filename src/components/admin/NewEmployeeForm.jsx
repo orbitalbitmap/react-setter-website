@@ -163,9 +163,9 @@ const NewEmployeeForm = () => {
               input={<OutlinedInput label="Employee's gyms" />}
               renderValue={(selected) => selected.join(', ')}
             >
-              {currentGymNameList.map((gym) => {
+              {currentGymNameList.map((gym, index) => {
                 return (
-                <MenuItem key={gym} value={gym}>
+                <MenuItem key={`${index}-${gym}`} value={gym}>
                   <Checkbox sx={{ '&.Mui-checked': { color: '#fff'} }}
                   checked={employeeGymNameList.includes(gym)} />
                   <ListItemText primary={gym} />

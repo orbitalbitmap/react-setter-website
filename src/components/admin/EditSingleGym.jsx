@@ -79,7 +79,7 @@ const EditSingleGym = () => {
                 <TextField
                   name="address"
                   label="Address:"
-                  value={gym.address}
+                  value={gym?.address ? gym.address : ''}
                   required
                   onChange={(event) => { setGym({...gym, address: event.target.value})}}
                 />
@@ -89,7 +89,7 @@ const EditSingleGym = () => {
                 <TextField
                   name="phoneNumber"
                   label="Phone number:"
-                  value={gym.phoneNumber}
+                  value={gym?.phoneNumber ? gym.phoneNumber : ''}
                   onChange={(event) => { setGym({...gym, phoneNumber: event.target.value})}}
                 />
               </Grid>
@@ -109,7 +109,7 @@ const EditSingleGym = () => {
                         return (
                           <MenuItem xs={6}
                             key={employee.id}
-                            value={employee.id}
+                            value={employee?.id ? employee.id : ''}
                             sx={{
                               color: (theme) => theme.palette.primary.contrastText
                             }}
@@ -127,7 +127,7 @@ const EditSingleGym = () => {
                 <TextField
                   name="facebook"
                   label="Facebook:"
-                  value={gym.facebook}
+                  value={gym?.facebook ? gym.facebook : ''}
                   onChange={(event) => { setGym({...gym, facebook: event.target.value})}}
                 />
               </Grid>
@@ -136,7 +136,7 @@ const EditSingleGym = () => {
                 <TextField
                   name="instagram"
                   label="Instagram Account:"
-                  value={gym.instagram}
+                  value={gym?.instagram ? gym.instagram : ''}
                   onChange={(event) => { setGym({...gym, instagram: event.target.value})}}
                 />
               </Grid>
@@ -145,7 +145,7 @@ const EditSingleGym = () => {
                 <TextField
                   name="twitter"
                   label="Twitter Account:"
-                  value={gym.twitter}
+                  value={gym?.twitter ? gym.twitter : ''}
                   onChange={(event) => { setGym({...gym, twitter: event.target.value})}}
                 />
               </Grid>

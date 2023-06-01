@@ -18,15 +18,17 @@ function DistributionEditForm({ path, type }) {
 
   useEffect(() => {
     const getInfo = async () => {
-        const { gymId, gym, ...rest } = data;
+        if (data?.gymId) {
+          const { gym, ...rest } = data;
+          setDistributionSpread(rest);
+          setGym(gym)
+          setGymId(gymId);
+        }
       
-        setDistributionSpread(rest);
-        setGym(gym)
-        setGymId(gymId);
     };
 
     getInfo();
-  }, [data]);
+  }, [data, gymId]);
 
   const handleChange = (event) => {
     const newSpread = {
