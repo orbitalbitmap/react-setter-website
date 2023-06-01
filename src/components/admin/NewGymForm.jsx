@@ -39,7 +39,7 @@ const NewGymForm = () => {
 
       dispatch(setNotificationAlert({
         alertType: 'success',
-        messageBody: 'A new employee has been saved!',
+        messageBody: 'A new gym has been saved!',
       }));
     } catch {
       dispatch(setNotificationAlert({
