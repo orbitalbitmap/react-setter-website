@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { DataGrid } from '@mui/x-data-grid';
 import { Box, Button, ButtonGroup, TextField, Typography } from '@mui/material';
+import { LoadingButton } from '@mui/lab';
 import { useDispatch, useSelector } from 'react-redux';
 
 import SectionsList from './SectionsList'
@@ -141,19 +142,20 @@ const BoulderDistributionChart = () => {
           <Box sx={{ mx: '4rem', justifyContent: 'center', }}>
             <ButtonGroup variant="contained" orientation="vertical">
               <Button onClick={addNewClimb}>Add climb</Button>
-              <Button
+              <LoadingButton
+                loading={isLoading}
+                variant="contained"
                 onClick={handleSubmit}
-                type="submit"
                 sx={{
                   borderTop: '1px solid white',
                   borderBottom: '1px solid white',
                 }}
               >
-                Save Distribution
-              </Button>
+                  Save Distribution
+              </LoadingButton>
               <Button component={Link}  to="/placard/boulders">
                   Print Boulder Placard
-                </Button>
+              </Button>
             </ButtonGroup>
           </Box>
 

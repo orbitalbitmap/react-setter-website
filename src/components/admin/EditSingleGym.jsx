@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { FormControl, Grid, TextField } from '@mui/material';
-import { Paper, Select, MenuItem, InputLabel, Button, Typography } from '@mui/material';
+import { Paper, Select, MenuItem, InputLabel, Typography, } from '@mui/material';
+import { LoadingButton } from '@mui/lab';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import { useGetLocationByIdQuery, useUpdateLocationMutation } from '../../services/gym';
@@ -34,6 +35,7 @@ const EditSingleGym = () => {
       }));
     }
   }
+
 
   useEffect(() => {
     const getInfo = async () => {
@@ -150,7 +152,14 @@ const EditSingleGym = () => {
                 />
               </Grid>
             </Grid>
-            <Button variant="contained" onClick={handleSubmit} sx={{ mt: 2 }}>Update Info</Button>
+            <LoadingButton
+              loading={isLoading}
+              variant="contained"
+              onClick={handleSubmit}
+              sx={{ mt: 2 }}
+            >
+              Update Info
+            </LoadingButton>
           </Paper>
         </Paper>
       </Container>

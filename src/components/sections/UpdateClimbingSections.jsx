@@ -6,6 +6,7 @@ import SectionForm from './components/SectionForm';
 import { useGetGymWithSectionsQuery, useUpdateSectionsMutation } from '../../services/gym';
 import { useDispatch } from 'react-redux';
 import { setNotificationAlert } from '../../reducers/notificationsReducers';
+import { LoadingButton } from '@mui/lab';
 
 const UpdateClimbingSections = () => {
   const dispatch = useDispatch();
@@ -112,7 +113,15 @@ const UpdateClimbingSections = () => {
           </Box>
           <Box className="centered-text">
             <Button variant="contained" onClick={(event) => { addNewSection(event, 'boulderSections') }} sx={{ mr: '0.75rem', mt: '1rem', }}>Add New Section</Button>
-            <Button variant="contained" name="Boulder" onClick={handleSubmit} type="submit" sx={{ mt: '1rem', }}>Save Info</Button>
+            <LoadingButton
+              loading={isLoading}
+              name="Boulder"
+              variant="contained"
+              onClick={handleSubmit}
+              sx={{ mt: '1rem', }}
+            >
+                Save Info
+            </LoadingButton>
           </Box>
         </Container>
       </Box>

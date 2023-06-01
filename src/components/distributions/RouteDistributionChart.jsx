@@ -14,6 +14,7 @@ import {
   useGetSpecificRouteSectionsQuery,
   useUpdateRouteDistributionMutation,
 } from '../../services/gym';
+import { LoadingButton } from '@mui/lab';
 
 
 const RouteDistributionChart = () => {
@@ -141,16 +142,17 @@ const RouteDistributionChart = () => {
           <Box sx={{ mx: '4rem', justifyContent: 'center', }}>
             <ButtonGroup variant="contained" orientation="vertical">
               <Button onClick={addNewClimb}>Add climb</Button>
-              <Button
+              <LoadingButton
+                loading={isLoading}
+                variant="contained"
                 onClick={handleSubmit}
-                type="submit"
                 sx={{
                   borderTop: '1px solid white',
                   borderBottom: '1px solid white',
                 }}
               >
-                Save Distribution
-              </Button>
+                  Save Distribution
+              </LoadingButton>
               <Button component={Link}  to="/placard/ropes">
                   Print Route Placard
                 </Button>

@@ -9,6 +9,7 @@ import { setUser } from '../../../../reducers/userReducer';
 import GymSelector from './GymSelector';
 
 import { useUpdateEmployeeMutation } from '../../../../services/gym';
+import { LoadingButton } from '@mui/lab';
 
 const LocationSelector = ({ urlId }) => {
   const user = useSelector(state => state.user);
@@ -51,7 +52,23 @@ const LocationSelector = ({ urlId }) => {
         employeeLocationNameList={employeeLocationNameList} 
         handleCheckbox={handleCheckbox}
       />
-      <Button variant="contained" onClick={handleSubmit} disabled={disableSaveButton}>Save Employee</Button>
+      {
+        disableSaveButton
+          ? null 
+          : (
+              <LoadingButton
+                loading={isLoading}
+                variant="contained"
+                onClick={handleSubmit}
+                sx={{
+                  borderTop: '1px solid white',
+                  borderBottom: '1px solid white',
+                }}
+              >
+                  Save Distribution
+              </LoadingButton>
+          )
+        }
     </>
   );
 };

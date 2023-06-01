@@ -4,7 +4,6 @@ import {
   FormControl,
   Grid,
   TextField ,
-  Button,
   Paper,
   Select,
   MenuItem,
@@ -13,6 +12,7 @@ import {
   Checkbox,
   ListItemText,
 } from '@mui/material';
+import { LoadingButton } from '@mui/lab';
 
 import { useAddNewEmployeeMutation } from '../../services/gym';
 import { setNotificationAlert } from '../../reducers/notificationsReducers';
@@ -175,7 +175,14 @@ const NewEmployeeForm = () => {
             </Select>
           </FormControl>
         </Grid>
-        <Button variant="contained" onClick={handleSubmit} sx={{ mt: 2 }}>Save Employee</Button>
+        <LoadingButton
+          loading={isLoading}
+          variant="contained"
+          onClick={handleSubmit}
+          sx={{ mt: 2 }}
+        >
+          Save Employee
+        </LoadingButton>
       </Paper>
     </>
   );

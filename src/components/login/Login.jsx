@@ -103,7 +103,7 @@ const SignIn = () => {
             />
 
             <LoadingButton
-              load={isLoading || isUpdating ? 1 : 0}
+              loading={isLoading || isUpdating ? true : false}
               fullWidth
               sx={{ mt: 3, mb: 2 }}
               type="submit"

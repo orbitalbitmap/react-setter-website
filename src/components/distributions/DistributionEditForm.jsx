@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { useGetDistributionEditFormDataQuery, useUpdateIdealDistributionMutation } from '../../services/gym';
+import { LoadingButton } from '@mui/lab';
 
 function DistributionEditForm({ path, type }) {
   const urlParams = useParams();
@@ -77,7 +78,17 @@ function DistributionEditForm({ path, type }) {
           })
         }
 
-        <button onClick={handleSubmit} type="submit">Save Distribution</button>
+        <LoadingButton
+          loading={isLoading}
+          variant="contained"
+          onClick={handleSubmit}
+          sx={{
+            borderTop: '1px solid white',
+            borderBottom: '1px solid white',
+          }}
+        >
+            Save Distribution
+        </LoadingButton>
       </form>
     </Box>
   );
