@@ -13,7 +13,7 @@ const EditSingleGym = () => {
   const dispatch = useDispatch();
   const urlParams = useParams();
   const [gym, setGym] = useState({});
-  const { data } = useGetLocationByIdQuery(urlParams.id);
+  const { data, refetch: refetchLocationInfo, isFetching: isFetchingLocationInfo, } = useGetLocationByIdQuery(urlParams.id);
   const [
     updateLocation,
     { isLoading, isUpdating, }
@@ -24,6 +24,8 @@ const EditSingleGym = () => {
 
     try {
       await updateLocation(gym);
+      await refetchLocationInfo();
+
       dispatch(setNotificationAlert({
         alertType: 'success',
         messageBody: 'The gym\'s information has been saved!'
@@ -153,7 +155,7 @@ const EditSingleGym = () => {
               </Grid>
             </Grid>
             <LoadingButton
-              loading={isLoading}
+              loading={isLoading || isFetchingLocationInfo}
               variant="contained"
               onClick={handleSubmit}
               sx={{ mt: 2 }}

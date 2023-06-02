@@ -13,7 +13,7 @@ const UpdateClimbingSections = () => {
   const urlParams = useParams();
   const gymId = urlParams.id;
   const [gym, setGym] = useState({});
-  const {data} = useGetGymWithSectionsQuery(gymId);
+  const { data, isFetching: isFetchingGymWithSections, refetch: refetchGymWithSections,} = useGetGymWithSectionsQuery(gymId);
 
   const [
     updateSections,
@@ -46,6 +46,7 @@ const UpdateClimbingSections = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
     const type = event.target.name;
     const sectionToUpdate = type === 'Boulder'
       ? gym?.boulderSections
@@ -53,7 +54,7 @@ const UpdateClimbingSections = () => {
 
     try {
       await updateSections({type, sectionToUpdate})
-
+      await refetchGymWithSections();
       dispatch(setNotificationAlert({
     alertType: 'success',
     messageBody: 'The sections info has been saved!',
@@ -114,7 +115,7 @@ const UpdateClimbingSections = () => {
           <Box className="centered-text">
             <Button variant="contained" onClick={(event) => { addNewSection(event, 'boulderSections') }} sx={{ mr: '0.75rem', mt: '1rem', }}>Add New Section</Button>
             <LoadingButton
-              loading={isLoading}
+              loading={isLoading || isFetchingGymWithSections}
               name="Boulder"
               variant="contained"
               onClick={handleSubmit}

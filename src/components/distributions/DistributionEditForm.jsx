@@ -1,17 +1,20 @@
 import { Box, InputLabel, TextField, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { LoadingButton } from '@mui/lab';
+import { useDispatch } from 'react-redux';
 
 import { useGetDistributionEditFormDataQuery, useUpdateIdealDistributionMutation } from '../../services/gym';
-import { LoadingButton } from '@mui/lab';
+import { setNotificationAlert } from '../../reducers/notificationsReducers';
 
 function DistributionEditForm({ path, type }) {
+  const dispatch = useDispatch();
   const urlParams = useParams();
   const [distributionSpread, setDistributionSpread] = useState({});
   const [gymId, setGymId] = useState(0);
   const [gym, setGym] = useState('')
 
-  const { data } = useGetDistributionEditFormDataQuery({path, gymId: urlParams.id});
+  const { data, refetch: refetchDistribution, isFetching: isFetchingDistribution } = useGetDistributionEditFormDataQuery({path, gymId: urlParams.id});
   const [
     updateIdealDistribution,
     { isLoading, isUpdating }
@@ -20,7 +23,7 @@ function DistributionEditForm({ path, type }) {
   useEffect(() => {
     const getInfo = async () => {
         if (data?.gymId) {
-          const { gym, ...rest } = data;
+          const { gym, gymId, ...rest } = data;
           setDistributionSpread(rest);
           setGym(gym)
           setGymId(gymId);
@@ -41,14 +44,26 @@ function DistributionEditForm({ path, type }) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    try{
+      await updateIdealDistribution({
+        type,
+        body: {
+          gymId,
+          distributionSpread,
+        },
+      });
+      await refetchDistribution();
 
-    await updateIdealDistribution({
-      type,
-      body: {
-        gymId,
-        distributionSpread,
-      },
-    });
+      dispatch(setNotificationAlert({
+        alertType: 'success',
+        messageBody: 'The distribution has been saved!'
+      }));
+    } catch {
+      dispatch(setNotificationAlert({
+        alertType: 'error',
+        messageBody: 'There was an issue saving the distribution, please try again.'
+      }));
+    }
   };
 
   return (

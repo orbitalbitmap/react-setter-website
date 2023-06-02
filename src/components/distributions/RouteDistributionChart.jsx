@@ -30,9 +30,9 @@ const RouteDistributionChart = () => {
     { isLoading, isUpdating }
   ] = useUpdateRouteDistributionMutation();
 
-  const { data } = useGetRouteDistributionQuery(gymId);
-  const { data: sectionList } = useGetSpecificRouteSectionsQuery(gymId);
-  const { data: gymInfo } = useGetLocationByIdQuery(gymId);
+  const { data, isFetching: isFetchingDistribution, refetch: refetchDistribution, } = useGetRouteDistributionQuery(gymId);
+  const { data: sectionList, } = useGetSpecificRouteSectionsQuery(gymId);
+  const { data: gymInfo, } = useGetLocationByIdQuery(gymId);
   const {employeeList, gymName} = useMemo(() => {
     let employeeList = [];
     let gymName = '';
@@ -98,6 +98,7 @@ const RouteDistributionChart = () => {
 
     try {
       await saveRouteDistribution(distribution);
+      await refetchDistribution();
       dispatch(setNotificationAlert({
         alertType: 'success',
         messageBody: 'The distribution has been saved!'
@@ -105,7 +106,7 @@ const RouteDistributionChart = () => {
     } catch {
       dispatch(setNotificationAlert({
         alertType: 'error',
-        messageBody: 'There was an issue saving teh distribution, please try again.'
+        messageBody: 'There was an issue saving the distribution, please try again.'
       }));
     }
   };
@@ -143,7 +144,7 @@ const RouteDistributionChart = () => {
             <ButtonGroup variant="contained" orientation="vertical">
               <Button onClick={addNewClimb}>Add climb</Button>
               <LoadingButton
-                loading={isLoading}
+                loading={isLoading || isFetchingDistribution}
                 variant="contained"
                 onClick={handleSubmit}
                 sx={{

@@ -28,9 +28,9 @@ const BoulderDistributionChart = () => {
   }, []);
   const urlParams = useParams();
   const gymId = urlParams.id;
-  const { data } = useGetBoulderDistributionQuery(gymId);
-  const { data: sectionList } = useGetSpecificBoulderSectionsQuery(gymId);
-  const { data: gymInfo } = useGetLocationByIdQuery(gymId);
+  const { data, isFetching: isFetchingDistribution, refetch: refetchDistribution } = useGetBoulderDistributionQuery(gymId);
+  const { data: sectionList, } = useGetSpecificBoulderSectionsQuery(gymId);
+  const { data: gymInfo, } = useGetLocationByIdQuery(gymId);
   
   const {employeeList, gymName} = useMemo(() => {
     let employeeList = [];
@@ -85,6 +85,8 @@ const BoulderDistributionChart = () => {
 
     try {
       await saveBoulderDistribution(distribution);
+      await refetchDistribution();
+
       dispatch(setNotificationAlert({
         alertType: 'success',
         messageBody: 'The distribution has been saved!'
@@ -92,7 +94,7 @@ const BoulderDistributionChart = () => {
     } catch {
       dispatch(setNotificationAlert({
         alertType: 'error',
-        messageBody: 'There was an issue saving teh distribution, please try again.'
+        messageBody: 'There was an issue saving the distribution, please try again.'
       }));
     }
   }
@@ -143,7 +145,7 @@ const BoulderDistributionChart = () => {
             <ButtonGroup variant="contained" orientation="vertical">
               <Button onClick={addNewClimb}>Add climb</Button>
               <LoadingButton
-                loading={isLoading}
+                loading={isLoading || isFetchingDistribution}
                 variant="contained"
                 onClick={handleSubmit}
                 sx={{
