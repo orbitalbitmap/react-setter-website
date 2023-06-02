@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { FormControl, Grid, TextField, } from '@mui/material';
 import { Paper, Select, MenuItem, InputLabel } from '@mui/material';
 
@@ -22,6 +22,10 @@ const NewGymForm = () => {
     saveNewGym,
     { isLoading, isUpdating }
   ] = useAddNewGymMutation();
+  
+  const loading = useMemo(() => {
+    return isLoading || isUpdating;
+  }, [isLoading, isUpdating])
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -134,7 +138,7 @@ const NewGymForm = () => {
             </Grid>
         </Grid>
         <LoadingButton
-          loading={isLoading}
+          loading={loading}
           variant="contained"
           onClick={handleSubmit}
           sx={{ mt: 2 }}

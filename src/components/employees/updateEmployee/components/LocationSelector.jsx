@@ -1,4 +1,4 @@
-import { Button, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 
 import useCurrentLocationNameList from '../../../../hooks/useCurrentLocationNameList';
@@ -10,6 +10,7 @@ import GymSelector from './GymSelector';
 
 import { useUpdateEmployeeMutation } from '../../../../services/gym';
 import { LoadingButton } from '@mui/lab';
+import { useMemo } from 'react';
 
 const LocationSelector = ({ urlId }) => {
   const user = useSelector(state => state.user);
@@ -44,6 +45,10 @@ const LocationSelector = ({ urlId }) => {
     }
   }
 
+  const loading = useMemo(() => {
+    return isLoading || isUpdating;
+  }, [isLoading, isUpdating]);
+
   return (
     <>
       <Typography className="centered-text" variant="h4">Locations:</Typography>
@@ -57,7 +62,7 @@ const LocationSelector = ({ urlId }) => {
           ? null 
           : (
               <LoadingButton
-                loading={isLoading}
+                loading={loading}
                 variant="contained"
                 onClick={handleSubmit}
                 sx={{

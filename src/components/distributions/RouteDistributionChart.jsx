@@ -56,6 +56,9 @@ const RouteDistributionChart = () => {
     return ropeColumnDefs;
 }, [sectionList, employeeList]);
 
+const loading = useMemo(() => {
+  return isLoading || isUpdating || isFetchingDistribution;
+}, [isLoading, isUpdating, isFetchingDistribution]);
 
   useEffect(() => {
     if(data?.length > 0) {
@@ -144,7 +147,7 @@ const RouteDistributionChart = () => {
             <ButtonGroup variant="contained" orientation="vertical">
               <Button onClick={addNewClimb}>Add climb</Button>
               <LoadingButton
-                loading={isLoading || isFetchingDistribution}
+                loading={loading}
                 variant="contained"
                 onClick={handleSubmit}
                 sx={{

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Box, Button, Container, Typography} from '@mui/material';
 
@@ -20,6 +20,10 @@ const UpdateClimbingSections = () => {
     // @TODO: set up loading and error handling
     {isLoading, isUpdating}
   ] = useUpdateSectionsMutation();
+
+  const loading = useMemo(() => {
+    return isLoading || isUpdating || isFetchingGymWithSections;
+  }, [isLoading, isUpdating, isFetchingGymWithSections]);
   
   useEffect(() => {
     const getInfo = async () => {
@@ -115,7 +119,7 @@ const UpdateClimbingSections = () => {
           <Box className="centered-text">
             <Button variant="contained" onClick={(event) => { addNewSection(event, 'boulderSections') }} sx={{ mr: '0.75rem', mt: '1rem', }}>Add New Section</Button>
             <LoadingButton
-              loading={isLoading || isFetchingGymWithSections}
+              loading={loading}
               name="Boulder"
               variant="contained"
               onClick={handleSubmit}

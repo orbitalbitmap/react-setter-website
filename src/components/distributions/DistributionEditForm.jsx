@@ -1,5 +1,5 @@
 import { Box, InputLabel, TextField, Typography } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { LoadingButton } from '@mui/lab';
 import { useDispatch } from 'react-redux';
@@ -19,6 +19,10 @@ function DistributionEditForm({ path, type }) {
     updateIdealDistribution,
     { isLoading, isUpdating }
   ] = useUpdateIdealDistributionMutation();
+
+  const loading = useMemo(() => {
+    return isLoading || isUpdating || isFetchingDistribution;
+  }, [isLoading, isUpdating, isFetchingDistribution]);
 
   useEffect(() => {
     const getInfo = async () => {
@@ -94,7 +98,7 @@ function DistributionEditForm({ path, type }) {
         }
 
         <LoadingButton
-          loading={isLoading}
+          loading={loading}
           variant="contained"
           onClick={handleSubmit}
           sx={{

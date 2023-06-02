@@ -1,7 +1,5 @@
 
 # Upgrades to work
-Fix RTK Query to auto re-fetch when mutations are done
-isUpdating handling
 Add reset functionality when leaving/entering a page (IE if persisting redux state I shouldn't see data for Worcester's metrics if I'm looking at another gym)
 Move useEffects out to custom hooks
 Add tests, E2E (playwright) and unit (jest)

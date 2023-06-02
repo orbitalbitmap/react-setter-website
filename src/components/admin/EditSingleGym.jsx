@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { FormControl, Grid, TextField } from '@mui/material';
 import { Paper, Select, MenuItem, InputLabel, Typography, } from '@mui/material';
@@ -19,6 +19,10 @@ const EditSingleGym = () => {
     { isLoading, isUpdating, }
   ] = useUpdateLocationMutation();
 
+  const loading = useMemo(() => {
+    return isLoading || isUpdating || isFetchingLocationInfo;
+  }, [isLoading, isUpdating, isFetchingLocationInfo]);
+
   const handleSubmit = async (event) => {
     event.preventDefault()
 
@@ -37,7 +41,6 @@ const EditSingleGym = () => {
       }));
     }
   }
-
 
   useEffect(() => {
     const getInfo = async () => {
@@ -155,7 +158,7 @@ const EditSingleGym = () => {
               </Grid>
             </Grid>
             <LoadingButton
-              loading={isLoading || isFetchingLocationInfo}
+              loading={loading}
               variant="contained"
               onClick={handleSubmit}
               sx={{ mt: 2 }}

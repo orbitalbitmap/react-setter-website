@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   FormControl,
@@ -35,20 +35,24 @@ const NewEmployeeForm = () => {
     { isLoading, isUpdating, }
   ] = useAddNewEmployeeMutation();
 
+  const loading = useMemo(() => {
+    return isLoading || isUpdating;
+  }, [isLoading, isUpdating]);
+
   const handleCheckbox = (event) => {
     const {
       target: { value },
     } = event;
     
-    const [gymName] = value.filter(gym => !employeeGymNameList.includes(gym)) 
-    const [gymInfo] = gymName !== undefined ? locations.filter(gym => gym.name === gymName) : [null]
+    const [gymName] = value.filter(gym => !employeeGymNameList.includes(gym));
+    const [gymInfo] = gymName !== undefined ? locations.filter(gym => gym.name === gymName) : [null];
 
-    gymInfo !== null && setEmployeeGymList(employeeGymList.concat(gymInfo))
-    setEmployeeGymNameList(value)
+    gymInfo !== null && setEmployeeGymList(employeeGymList.concat(gymInfo));
+    setEmployeeGymNameList(value);
   }
 
   const handleSubmit = async (event) => {
-    event.preventDefault()
+    event.preventDefault();
 
     const newUser = {
       firstName,
@@ -58,7 +62,7 @@ const NewEmployeeForm = () => {
       phoneNumber,
       roleId,
       gyms: employeeGymList,
-    }
+    };
 
     try {
       await saveNewEmployee(newUser);
@@ -75,7 +79,7 @@ const NewEmployeeForm = () => {
   }
 
   useEffect(() => {
-    setCurrentGymNameList(locations.map((gym) => gym.name))
+    setCurrentGymNameList(locations.map((gym) => gym.name));
   }, [locations])
 
   return (
@@ -176,7 +180,7 @@ const NewEmployeeForm = () => {
           </FormControl>
         </Grid>
         <LoadingButton
-          loading={isLoading}
+          loading={loading}
           variant="contained"
           onClick={handleSubmit}
           sx={{ mt: 2 }}
