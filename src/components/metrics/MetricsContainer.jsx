@@ -17,18 +17,28 @@ function MetricsContainer() {
   const gymName = useSelector((state) => state.metrics.gymName);
   const gymMetrics = useSelector((state) => state.metrics.gymMetrics);
   const urlParams = useParams();
-  const {data} = useGetGymMetricsQuery(urlParams.id);
+  const {data} = useGetGymMetricsQuery(urlParams.id, { refetchOnMountOrArgChange: true, });
 
   useEffect(() => {
+    dispatch(setGymMetrics({
+      gymName: '',
+      gymMetrics: undefined,
+    }));
+
     const getInfo = async () => {
       dispatch(setGymMetrics({
-        gymName: data?.gym?.name,
-        gymMetrics: data?.metrics,
+        gymName: gymName || '',
+        gymMetrics: data?.metrics || {},
       }));
     };
 
     getInfo();
-  }, [data, dispatch]);
+  }, [data, dispatch, gymName, urlParams]);
+
+  console.log({
+    gymId: urlParams.id,
+    data,
+  })
 
   return (
     <Container sx={{ mt: 12 }}>
@@ -40,7 +50,7 @@ function MetricsContainer() {
 
       <Box className="idealVsCurrent-wrapper centered-text">
         {
-          gymMetrics.bouldersPerSetter
+          gymMetrics?.bouldersPerSetter?.length
             ? <BouldersPerSetter />
             : <Typography className="centered-text" variant="h6" >No Data Found For Setters Per Boulders</Typography>
         }
@@ -48,7 +58,7 @@ function MetricsContainer() {
 
       <Box className="idealVsCurrent-wrapper centered-text">
         {
-          gymMetrics.routesPerSetter
+          gymMetrics?.routesPerSetter?.length
             ? <RoutesPerSetter />
             : <Typography className="centered-text" variant="h6" >No Data Found For Setters Per Routes</Typography>
         }
@@ -57,7 +67,7 @@ function MetricsContainer() {
       {/* boulders per color */}
       <Box className="idealVsCurrent-wrapper centered-text">
         {
-          gymMetrics.bouldersPerColor
+          gymMetrics?.bouldersPerColor?.length
             ? <BouldersPerColor />
             : <Typography className="centered-text" variant="h6" >No Data Found For Boulders Per Color</Typography>
         }
@@ -66,7 +76,7 @@ function MetricsContainer() {
       {/* routes per color */}
       <Box className="idealVsCurrent-wrapper centered-text">
         {
-          gymMetrics.routesPerColor
+          gymMetrics?.routesPerColor?.length
             ? <RoutesPerColor />
             : <Typography className="centered-text" variant="h6" >No Data Found For Setters Per Routes</Typography>
         }
@@ -75,7 +85,7 @@ function MetricsContainer() {
       {/* ideal vs current boulder */}
       <Box className="idealVsCurrent-wrapper centered-text">
         {
-          (gymMetrics.currentBouldersPerGrade && gymMetrics.idealBouldersPerGrade)
+          (gymMetrics?.currentBouldersPerGrade?.length && gymMetrics?.idealBouldersPerGrade?.length)
             ?  <BoulderIdealVsCurrent />
             : <Typography className="centered-text" variant="h6" >No Data Found For Setters Per Boulders</Typography>
         }
@@ -84,7 +94,7 @@ function MetricsContainer() {
       {/* ideal vs current rope */}
       <Box className="idealVsCurrent-wrapper centered-text">
         {
-          (gymMetrics.currentRoutesPerGrade && gymMetrics.idealRoutesPerGrade)
+          (gymMetrics?.currentRoutesPerGrade?.length && gymMetrics?.idealRoutesPerGrade?.length)
             ? <RouteIdealVsCurrent />
             : <Typography className="centered-text" variant="h6" >No Data Found For Setters Per Routes</Typography>
         }

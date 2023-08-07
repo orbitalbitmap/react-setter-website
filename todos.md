@@ -1,16 +1,13 @@
 
 # Upgrades to work
-Add reset functionality when leaving/entering a page (IE if persisting redux state I shouldn't see data for Worcester's metrics if I'm looking at another gym)
 Move useEffects out to custom hooks
 Add tests, E2E (playwright) and unit (jest)
 Add comments everywhere (make checklist of files beforehand)
 Upgrade to typescript
 
   ## src/components/distributions
-  Fix distribution tables back to working order
-    -- Route and Boulder chart:
+    For the boulders, handle the position of a climb
       -- Fix the api's returned values
-      For the boulders, handle the position of a climb
 
   ## src/history.js
   Implement back to working order
