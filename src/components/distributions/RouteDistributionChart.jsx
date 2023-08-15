@@ -1,126 +1,28 @@
-import { useEffect, useMemo, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, } from 'react-router-dom';
 import { Box, Button, ButtonGroup, TextField, Typography } from '@mui/material';
 import { DataGrid, } from '@mui/x-data-grid';
-import { useDispatch, useSelector } from 'react-redux';
+import { LoadingButton } from '@mui/lab';
 
 import SectionsList from './SectionsList';
-import { setRouteDistribution, updateDates, } from '../../reducers/distribution/distributionReducers';
-import getRopeColumnDefs from './constants/ropeColumnDefs';
-import { setNotificationAlert } from '../../reducers/notificationsReducers';
-import {
-  useGetLocationByIdQuery,
-  useGetRouteDistributionQuery,
-  useGetSpecificRouteSectionsQuery,
-  useUpdateRouteDistributionMutation,
-} from '../../services/gym';
-import { LoadingButton } from '@mui/lab';
+import useRouteDistributionChart from './hooks/useRouteDistributionChart';
 
 
 const RouteDistributionChart = () => {
-  const todayFormatted = useMemo(() => {
-    const today = new Date();
-    return today.toISOString().split('T')[0]
-}, []);
-  const urlParams = useParams();
-  const gymId = urlParams.id;
-  const dispatch = useDispatch();
-  const [
-    saveRouteDistribution,
-    { isLoading, isUpdating }
-  ] = useUpdateRouteDistributionMutation();
-
-  const { data, isFetching: isFetchingDistribution, refetch: refetchDistribution, } = useGetRouteDistributionQuery(gymId);
-  const { data: sectionList, } = useGetSpecificRouteSectionsQuery(gymId);
-  const { data: gymInfo, } = useGetLocationByIdQuery(gymId);
-  const {employeeList, gymName} = useMemo(() => {
-    let employeeList = [];
-    let gymName = '';
-
-    if (gymInfo?.id) {
-      employeeList = gymInfo?.employees;
-      gymName = gymInfo?.name;
-    }
-    return {
-      employeeList,
-      gymName,
-    }
-  }, [gymInfo]);
-
-  const distribution = useSelector(state => state.distribution.routeDistribution);
-  const [selectedSectionId, setSelectedSectionId] = useState(1);
-  const [fullDateChange, setFullDateChange] = useState(todayFormatted);
-  
-  const columns = useMemo(() => {
-    const ropeColumnDefs = getRopeColumnDefs(sectionList, employeeList);
-    return ropeColumnDefs;
-}, [sectionList, employeeList]);
-
-const loading = useMemo(() => {
-  return isLoading || isUpdating || isFetchingDistribution;
-}, [isLoading, isUpdating, isFetchingDistribution]);
-
-  useEffect(() => {
-    if(data?.length > 0) {
-      dispatch(setRouteDistribution(data));
-    }
-  }, [data, dispatch]);
-
-  const filteredDistribution = distribution?.filter(climbInfo => climbInfo.sectionId === selectedSectionId);
-
-  const handleSectionChange = (event) => {
-    const sectionId = parseInt(event.target.id)
-
-    setSelectedSectionId(sectionId)
-  }
-
-  const addNewClimb = () => {
-    const station = filteredDistribution.length
-      ? filteredDistribution[filteredDistribution.length - 1].station
-      : 1
-  
-    const newClimb = {
-      id: distribution.length + 1,
-      gymId: gymId,
-      sectionId: selectedSectionId,
-      station,
-      ropeStyle: 'Top Rope Only',
-      grade: '5.5',
-      color: 'Pink',
-      setter: 'Guest',
-      climbName: '',
-      dateSet: todayFormatted,
-    }
-  
-    const newDistribution = [...distribution, newClimb];
-    dispatch(setRouteDistribution(newDistribution));
-  }
-
-  const handleSubmit = async (event) => {
-    event.preventDefault()
-
-    try {
-      await saveRouteDistribution(distribution);
-      await refetchDistribution();
-      dispatch(setNotificationAlert({
-        alertType: 'success',
-        messageBody: 'The distribution has been saved!'
-      }));
-    } catch {
-      dispatch(setNotificationAlert({
-        alertType: 'error',
-        messageBody: 'There was an issue saving the distribution, please try again.'
-      }));
-    }
-  };
-
-  const onDateChange = (event) => {
-    dispatch(updateDates({
-      type: 'routeDistribution',
-      newDate: fullDateChange,
-      sectionIdToUpdate: selectedSectionId,
-    }));
-  };
+  const {
+    columns,
+    filteredDistribution,
+    fullDateChange,
+    gymName,
+    loading,
+    selectedSectionId,
+    sectionList,
+    addNewClimb,
+    handleSectionChange,
+    handleSubmit,
+    onDateChange,
+    setFullDateChange,
+    
+  } = useRouteDistributionChart();
 
   return (
     <Box sx={{ mx: 'auto', mt: '5rem', width: '100%' }}>

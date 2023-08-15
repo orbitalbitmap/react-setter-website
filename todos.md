@@ -6,8 +6,11 @@ Add comments everywhere (make checklist of files beforehand)
 Upgrade to typescript
 
   ## src/components/distributions
+  Currently displays cached data for a gym that doesn't have a distribution (similar to the metrics issue) (Route/Boulder)
+  Double check that the functionality still works
     For the boulders, handle the position of a climb
       -- Fix the api's returned values
+    
 
   ## src/history.js
   Implement back to working order
@@ -18,6 +21,9 @@ Upgrade to typescript
   ## @TODOs
   Take care of remaining @TODOs
 
+  ## Fix the drawer
+  Currently the drawer covers somethings up when its opened, the actual function should be that the main content shrinks a little so the view has both the main content and side bar completely visible to the user.
+
   ## src/App.js
   Metrics page for all gyms url and page
 
@@ -25,12 +31,10 @@ Upgrade to typescript
   This needs to be implemented at some point
 
   ## Redo css
-  Turn the main big file into little files that are on a per component basis
+  Turn the main big file into little files that are on a per component basis (maybe switch to SASS/LESS)
   This also means reworking the MUI custom theme
   IMPORTANT: This includes dealing with any instance of `!important`
 
-  ## Transitions, Loaders, and Styling
-  Add transitions on tab components
+  ## Transitions and Loaders
   Create and implement loading status bars
-  Continue working on refining the styling
-  Make sure there is no need for any css with the `!important` flag
+  Add transitions on tab components

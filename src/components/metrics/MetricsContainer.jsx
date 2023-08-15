@@ -1,7 +1,4 @@
 import { Box, Container, Typography } from '@mui/material';
-import { useEffect, } from 'react';
-import { useParams } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
 
 import BoulderIdealVsCurrent from './partials/BoulderIdealVsCurrent';
 import BouldersPerSetter from './partials/BouldersPerSetter';
@@ -9,36 +6,13 @@ import BouldersPerColor from './partials/BouldersPerColor';
 import RouteIdealVsCurrent from './partials/RouteIdealVsCurrent';
 import RoutesPerSetter from './partials/RoutesPerSetter';
 import RoutesPerColor from './partials/RoutesPerColor';
-import { setGymMetrics } from '../../reducers/distribution/metricsReducers';
-import { useGetGymMetricsQuery } from '../../services/gym';
+import useMetricsContainer from './hooks/useMetricsContainer';
 
 function MetricsContainer() {
-  const dispatch = useDispatch();
-  const gymName = useSelector((state) => state.metrics.gymName);
-  const gymMetrics = useSelector((state) => state.metrics.gymMetrics);
-  const urlParams = useParams();
-  const {data} = useGetGymMetricsQuery(urlParams.id, { refetchOnMountOrArgChange: true, });
-
-  useEffect(() => {
-    dispatch(setGymMetrics({
-      gymName: '',
-      gymMetrics: undefined,
-    }));
-
-    const getInfo = async () => {
-      dispatch(setGymMetrics({
-        gymName: gymName || '',
-        gymMetrics: data?.metrics || {},
-      }));
-    };
-
-    getInfo();
-  }, [data, dispatch, gymName, urlParams]);
-
-  console.log({
-    gymId: urlParams.id,
-    data,
-  })
+  const {
+    gymMetrics,
+    gymName,
+  } = useMetricsContainer();
 
   return (
     <Container sx={{ mt: 12 }}>

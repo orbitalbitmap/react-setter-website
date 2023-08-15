@@ -1,5 +1,3 @@
-import { useState, useEffect, useMemo } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import {
   FormControl,
   Grid,
@@ -14,73 +12,28 @@ import {
 } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 
-import { useAddNewEmployeeMutation } from '../../services/gym';
-import { setNotificationAlert } from '../../reducers/notificationsReducers';
+import useCurrentGymNameList from './hooks/useNewEmployeeFormInfo';
 
 const NewEmployeeForm = () => {
-  const dispatch = useDispatch();
-  const locations = useSelector(state => state.locations)
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [roleId, setRoleId] = useState(0);
-  const [employeeGymList, setEmployeeGymList] = useState([]);
-  const [currentGymNameList, setCurrentGymNameList] = useState([]);
-  const [employeeGymNameList, setEmployeeGymNameList] = useState([]);
-
-  const[
-    saveNewEmployee,
-    { isLoading, isUpdating, }
-  ] = useAddNewEmployeeMutation();
-
-  const loading = useMemo(() => {
-    return isLoading || isUpdating;
-  }, [isLoading, isUpdating]);
-
-  const handleCheckbox = (event) => {
-    const {
-      target: { value },
-    } = event;
-    
-    const [gymName] = value.filter(gym => !employeeGymNameList.includes(gym));
-    const [gymInfo] = gymName !== undefined ? locations.filter(gym => gym.name === gymName) : [null];
-
-    gymInfo !== null && setEmployeeGymList(employeeGymList.concat(gymInfo));
-    setEmployeeGymNameList(value);
-  }
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-
-    const newUser = {
-      firstName,
-      lastName,
-      email,
-      password,
-      phoneNumber,
-      roleId,
-      gyms: employeeGymList,
-    };
-
-    try {
-      await saveNewEmployee(newUser);
-      dispatch(setNotificationAlert({
-        alertType: 'success',
-        messageBody: 'A new employee has been saved!',
-      }));
-    } catch {
-      dispatch(setNotificationAlert({
-        alertType: 'error',
-        messageBody: 'Oops! Looks like something went wrong. Please Try again.',
-      }));
-    }
-  }
-
-  useEffect(() => {
-    setCurrentGymNameList(locations.map((gym) => gym.name));
-  }, [locations])
+  const {
+    firstName,
+    lastName,
+    email,
+    password,
+    phoneNumber,
+    roleId,
+    currentGymNameList,
+    employeeGymNameList,
+    loading,
+    setFirstName,
+    setLastName,
+    setEmail,
+    setPassword,
+    setPhoneNumber,
+    setRoleId,
+    handleCheckbox,
+    handleSubmit,
+  } = useCurrentGymNameList()
 
   return (
     <>
@@ -141,6 +94,7 @@ const NewEmployeeForm = () => {
                 labelId='role-label'
                 label='Role'
                 value={roleId}
+                defaultValue={'0'}
                 onChange={(event) => setRoleId(event.target.value)}
               >
                 <MenuItem value='0' sx={{ color: '#fff' }}>Please select a role...</MenuItem>
@@ -167,7 +121,7 @@ const NewEmployeeForm = () => {
               input={<OutlinedInput label="Employee's gyms" />}
               renderValue={(selected) => selected.join(', ')}
             >
-              {currentGymNameList.map((gym, index) => {
+              {currentGymNameList?.map((gym, index) => {
                 return (
                 <MenuItem key={`${index}-${gym}`} value={gym}>
                   <Checkbox sx={{ '&.Mui-checked': { color: '#fff'} }}

@@ -1,55 +1,19 @@
-import { useEffect, useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { FormControl, Grid, TextField } from '@mui/material';
 import { Paper, Select, MenuItem, InputLabel, Typography, } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
-import { useGetLocationByIdQuery, useUpdateLocationMutation } from '../../services/gym';
-import { setNotificationAlert } from '../../reducers/notificationsReducers';
-import { useDispatch } from 'react-redux';
+import useGetGymInfo from './hooks/useGetGymInfo';
 
 const EditSingleGym = () => {
-  const dispatch = useDispatch();
   const urlParams = useParams();
-  const [gym, setGym] = useState({});
-  const { data, refetch: refetchLocationInfo, isFetching: isFetchingLocationInfo, } = useGetLocationByIdQuery(urlParams.id);
-  const [
-    updateLocation,
-    { isLoading, isUpdating, }
-  ] = useUpdateLocationMutation();
-
-  const loading = useMemo(() => {
-    return isLoading || isUpdating || isFetchingLocationInfo;
-  }, [isLoading, isUpdating, isFetchingLocationInfo]);
-
-  const handleSubmit = async (event) => {
-    event.preventDefault()
-
-    try {
-      await updateLocation(gym);
-      await refetchLocationInfo();
-
-      dispatch(setNotificationAlert({
-        alertType: 'success',
-        messageBody: 'The gym\'s information has been saved!'
-      }));
-    } catch {
-      dispatch(setNotificationAlert({
-        alertType: 'error',
-        messageBody: 'Oops! Looks like something went wrong. Please Try again.'
-      }));
-    }
-  }
-
-  useEffect(() => {
-    const getInfo = async () => {
-
-      setGym(data)
-    }
-
-    getInfo()
-  }, [data])
+  const {
+    gym,
+    loading,
+    setGym,
+    handleSubmit,
+  } = useGetGymInfo(urlParams?.id);
 
   if (!gym.name) {
     return (<h2>We cannot find the gym you wish to edit.</h2>);
@@ -59,10 +23,9 @@ const EditSingleGym = () => {
     <Box
       component="main"
       sx={{
-        backgroundColor: (theme) =>
-          theme.palette.mode === 'light'
-            ? theme.palette.grey[100]
-            : theme.palette.grey[900],
+        backgroundColor: (theme) => theme.palette.mode === 'light'
+          ? theme.palette.grey[100]
+          : theme.palette.grey[900],
         flexGrow: 1,
         height: '100vh',
         overflow: 'auto',
@@ -157,6 +120,7 @@ const EditSingleGym = () => {
                 />
               </Grid>
             </Grid>
+
             <LoadingButton
               loading={loading}
               variant="contained"
