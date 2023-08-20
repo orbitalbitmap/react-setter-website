@@ -41,9 +41,9 @@ const useBoulderDistributionChart = () => {
   }, [isLoading, isUpdating, isFetchingDistribution]);
   
   useEffect(() => {
-    if(data?.length > 0) {
-      dispatch(setBoulderDistribution(data));
-    }
+    data?.length > 0
+      ? dispatch(setBoulderDistribution(data))
+      : dispatch(setBoulderDistribution(undefined));
   }, [data, dispatch]);
 
 

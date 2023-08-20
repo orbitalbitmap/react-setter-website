@@ -6,11 +6,9 @@ Add comments everywhere (make checklist of files beforehand)
 Upgrade to typescript
 
   ## src/components/distributions
-  Currently displays cached data for a gym that doesn't have a distribution (similar to the metrics issue) (Route/Boulder)
   Double check that the functionality still works
     For the boulders, handle the position of a climb
       -- Fix the api's returned values
-    
 
   ## src/history.js
   Implement back to working order

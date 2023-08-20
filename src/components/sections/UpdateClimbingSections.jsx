@@ -1,91 +1,17 @@
-import { useEffect, useMemo, useState } from 'react';
-import { useParams } from 'react-router-dom';
 import { Box, Button, Container, Typography} from '@mui/material';
 
 import SectionForm from './components/SectionForm';
-import { useGetGymWithSectionsQuery, useUpdateSectionsMutation } from '../../services/gym';
-import { useDispatch } from 'react-redux';
-import { setNotificationAlert } from '../../reducers/notificationsReducers';
 import { LoadingButton } from '@mui/lab';
+import useUpdateClimbingSection from './hooks/useUpdateClimbingSection';
 
 const UpdateClimbingSections = () => {
-  const dispatch = useDispatch();
-  const urlParams = useParams();
-  const gymId = urlParams.id;
-  const [gym, setGym] = useState({});
-  const { data, isFetching: isFetchingGymWithSections, refetch: refetchGymWithSections,} = useGetGymWithSectionsQuery(gymId);
-
-  const [
-    updateSections,
-    // @TODO: set up loading and error handling
-    {isLoading, isUpdating}
-  ] = useUpdateSectionsMutation();
-
-  const loading = useMemo(() => {
-    return isLoading || isUpdating || isFetchingGymWithSections;
-  }, [isLoading, isUpdating, isFetchingGymWithSections]);
-  
-  useEffect(() => {
-    const getInfo = async () => {
-      setGym(data);
-    };
-
-    getInfo();
-  }, [data]);
-
-  const handleChange = (event, sectionType, sectionId) => {
-    const updatedSectionList = [...gym[sectionType]];
-    const updatedSectionId = parseInt(sectionId) - 1;
-
-    updatedSectionList[updatedSectionId] = {
-      ...updatedSectionList[updatedSectionId],
-      name: event.target.value,
-    };
-
-    setGym({
-      ...gym,
-      [sectionType]: updatedSectionList,
-    });
-  };
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-
-    const type = event.target.name;
-    const sectionToUpdate = type === 'Boulder'
-      ? gym?.boulderSections
-      : gym?.routeSections;
-
-    try {
-      await updateSections({type, sectionToUpdate})
-      await refetchGymWithSections();
-      dispatch(setNotificationAlert({
-    alertType: 'success',
-    messageBody: 'The sections info has been saved!',
-  }));
-    } catch {
-      dispatch(setNotificationAlert({
-    alertType: 'error',
-    messageBody: 'Oops! Looks like something went wrong. Please Try again.',
-  }));
-    }
-  };
-
-  const addNewSection = (event, sectionType) => {
-    const newSectionId = gym[sectionType].length + 1;
-    const updatedGym = { ...gym };
-
-    updatedGym[sectionType] = [
-      ...updatedGym[sectionType],
-      {
-        id: newSectionId,
-        gymId: gym?.id,
-        name: '',
-      },
-    ];
-
-    setGym(updatedGym);
-  };
+  const { 
+    gym,
+    loading,
+    addNewSection,
+    handleChange,
+    handleSubmit,
+  } = useUpdateClimbingSection()
 
   return (
     <Container maxWidth="lg" sx={{ bgcolor: theme => theme.palette.primary.main, mt: 12, mb: 6, minHeight: '40rem', borderRadius: '8px', p: 3}}>
