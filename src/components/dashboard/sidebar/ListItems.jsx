@@ -11,7 +11,7 @@ import { Layers, } from '@mui/icons-material';
 import sideNavList from './sideNavList';
 import Logout from '../logout/Logout';
 import AdminLink from '../navAdmin/NavAdmin';
-import useListItems from './hooks/useListitems';
+import useListItems from './hooks/useListItems';
 
 const ItemList = ({ drawerOpen, drawerSetter }) => {
   const {
