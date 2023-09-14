@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
@@ -10,12 +10,15 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ListItems from './sidebar/ListItems';
 import AppBar from './styledComponents/AppBar';
 import Drawer from './styledComponents/Drawer';
+import useSetGymAndEmployeeLists from './hooks/useSetGymAndEmployeeLists';
 
 function DashboardContent({ children }) {
   const [open, setOpen] = useState(false);
   const toggleDrawer = () => {
     setOpen(!open);
   };
+
+  useSetGymAndEmployeeLists();
 
   return (
       <Box sx={{ display: 'flex', }}>
