@@ -1,6 +1,5 @@
-import { axisBottom, axisLeft, group, max, scaleBand, scaleLinear, scaleOrdinal, select } from "d3";
 import { useEffect } from "react";
-
+import { axisBottom, axisLeft, group, max, scaleBand, scaleLinear, scaleOrdinal, select } from "d3";
 
 export const BarChart = ({data, chartId, width, height}) => {
   const marginTop = 10;
@@ -86,18 +85,18 @@ export const BarChart = ({data, chartId, width, height}) => {
     .attr("height", 300)
     .attr("viewBox", [0, 0, 450, 300])
 
-  legend.selectAll("mydots")
+  legend.selectAll("legend-squares")
     .data(types)
     .enter()
     .append("rect")
       .attr("x", 100)
-      .attr("y", function(d,i){ return 100 + i*(size+5)}) // 100 is where the first dot appears. 25 is the distance between dots
+      .attr("y", function(d,i){ return 100 + i*(size+5)}) // 100 is where the first square appears. 25 is the distance between square
       .attr("width", size)
       .attr("height", size)
       .style("fill", function(d){ return color(d)})
   
-  // Add one dot in the legend for each name.
-  legend.selectAll("mylabels")
+  // Add one square in the legend for each name.
+  legend.selectAll("legend-labels")
     .data(types)
     .enter()
     .append("text")
