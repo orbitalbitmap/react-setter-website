@@ -66,11 +66,11 @@ function MetricsContainer() {
       </Box>
 
       {/* ideal vs current rope */}
-      <Box className="centered-text">
+      <Box className="idealVsCurrent-wrapper centered-text">
         {
           (gymMetrics?.currentVsIdealRouteGrades?.length)
             ? <RouteIdealVsCurrent />
-            : <Typography className="idealVsCurrent-wrapper centered-text" variant="h6" >No Data Found For the Ideal vs Current # of Routes</Typography>
+            : <Typography className="centered-text" variant="h6" >No Data Found For the Ideal vs Current # of Routes</Typography>
         }
       </Box>
     </Container>
