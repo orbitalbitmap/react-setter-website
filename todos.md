@@ -1,6 +1,5 @@
 
 # Upgrades to work
-Move useEffects out to custom hooks
 Add tests, E2E (playwright) and unit (jest)
 Add comments everywhere (make checklist of files beforehand)
 Upgrade to typescript
@@ -15,9 +14,6 @@ Upgrade to typescript
 
   ## src/components/placards/boulderBashCard.pug
   Make this a component and not a template file
-
-  ## @TODOs
-  Take care of remaining @TODOs
 
   ## Fix the drawer
   Currently the drawer covers somethings up when its opened, the actual function should be that the main content shrinks a little so the view has both the main content and side bar completely visible to the user.
