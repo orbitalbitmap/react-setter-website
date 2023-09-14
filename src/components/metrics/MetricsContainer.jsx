@@ -1,11 +1,11 @@
 import { Box, Container, Typography } from '@mui/material';
 
-import BoulderIdealVsCurrent from './partials/BoulderIdealVsCurrent';
-import BouldersPerSetter from './partials/BouldersPerSetter';
-import BouldersPerColor from './partials/BouldersPerColor';
-import RouteIdealVsCurrent from './partials/RouteIdealVsCurrent';
-import RoutesPerSetter from './partials/RoutesPerSetter';
-import RoutesPerColor from './partials/RoutesPerColor';
+import BoulderIdealVsCurrent from './components/BoulderIdealVsCurrent';
+import BouldersPerSetter from './components/BouldersPerSetter';
+import BouldersPerColor from './components/BouldersPerColor';
+import RouteIdealVsCurrent from './components/RouteIdealVsCurrent';
+import RoutesPerSetter from './components/RoutesPerSetter';
+import RoutesPerColor from './components/RoutesPerColor';
 import useMetricsContainer from './hooks/useMetricsContainer';
 
 function MetricsContainer() {
@@ -61,16 +61,16 @@ function MetricsContainer() {
         {
           (gymMetrics?.currentBouldersPerGrade?.length && gymMetrics?.idealBouldersPerGrade?.length)
             ?  <BoulderIdealVsCurrent />
-            : <Typography className="centered-text" variant="h6" >No Data Found For Setters Per Boulders</Typography>
+            : <Typography className="centered-text" variant="h6" >No Data Found For the Ideal vs Current # of Boulders</Typography>
         }
       </Box>
 
       {/* ideal vs current rope */}
-      <Box className="idealVsCurrent-wrapper centered-text">
+      <Box className="centered-text">
         {
-          (gymMetrics?.currentRoutesPerGrade?.length && gymMetrics?.idealRoutesPerGrade?.length)
+          (gymMetrics?.currentVsIdealRouteGrades?.length)
             ? <RouteIdealVsCurrent />
-            : <Typography className="centered-text" variant="h6" >No Data Found For Setters Per Routes</Typography>
+            : <Typography className="idealVsCurrent-wrapper centered-text" variant="h6" >No Data Found For the Ideal vs Current # of Routes</Typography>
         }
       </Box>
     </Container>
