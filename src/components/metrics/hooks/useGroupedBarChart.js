@@ -1,7 +1,7 @@
-import { useEffect } from "react";
 import { axisBottom, axisLeft, group, max, scaleBand, scaleLinear, scaleOrdinal, select } from "d3";
+import { useEffect } from "react";
 
-export const BarChart = ({data, chartId, width, height}) => {
+const useGroupedBarChart = (data, chartId, width, height) => {
   const marginTop = 10;
   const marginRight = 10;
   const marginBottom = 20;
@@ -17,7 +17,7 @@ export const BarChart = ({data, chartId, width, height}) => {
 
   useEffect(() => {
     const grades = new Set(data?.map(d => d.label));
-    const types = new Set(data.map(d => d.type));
+    const types = new Set(data?.map(d => d.type));
     // Prepare the scales for positional and color encodings.
     // Fx encodes the state.
     const fx = scaleBand()
@@ -107,14 +107,6 @@ export const BarChart = ({data, chartId, width, height}) => {
       .attr("text-anchor", "left")
       .style("alignment-baseline", "middle")
 }, [data, width, height, chartId])
-
-  return (
-    <div className="chart" width="100%">
-      <svg id={chartId} height={300} width={450}/>
-      <svg id={`${chartId}-legend`} />
-    </div>
-  
-  )
 }
 
-export default BarChart;
+export default useGroupedBarChart;
