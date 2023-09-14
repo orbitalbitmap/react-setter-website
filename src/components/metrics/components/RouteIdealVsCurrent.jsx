@@ -8,7 +8,7 @@ function RouteIdealVsCurrent() {
 
   return (
     <Box>
-      <BarChart data={currentVsIdealRouteGrades} width={1000} height={500} chartId="ideal-vs-current-routes" /> {/* domain={routeGradesArray} */}
+      <BarChart data={currentVsIdealRouteGrades} width={1000} height={500} chartId="ideal-vs-current-routes" />
     </Box>
   )
 }

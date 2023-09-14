@@ -59,7 +59,7 @@ function MetricsContainer() {
       {/* ideal vs current boulder */}
       <Box className="idealVsCurrent-wrapper centered-text">
         {
-          (gymMetrics?.currentBouldersPerGrade?.length && gymMetrics?.idealBouldersPerGrade?.length)
+          (gymMetrics?.currentVsIdealBoulderGrades?.length)
             ?  <BoulderIdealVsCurrent />
             : <Typography className="centered-text" variant="h6" >No Data Found For the Ideal vs Current # of Boulders</Typography>
         }

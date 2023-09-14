@@ -79,11 +79,40 @@ export const BarChart = ({data, chartId, width, height}) => {
       .attr("transform", `translate(${marginLeft},0)`)
       .call(axisLeft(y).ticks(null))
       .call(g => g.selectAll(".domain").remove());
+
+  let size = 20;
+  const legend = select(`#${chartId}-legend`)
+    .attr("width", 450)
+    .attr("height", 300)
+    .attr("viewBox", [0, 0, 450, 300])
+
+  legend.selectAll("mydots")
+    .data(types)
+    .enter()
+    .append("rect")
+      .attr("x", 100)
+      .attr("y", function(d,i){ return 100 + i*(size+5)}) // 100 is where the first dot appears. 25 is the distance between dots
+      .attr("width", size)
+      .attr("height", size)
+      .style("fill", function(d){ return color(d)})
+  
+  // Add one dot in the legend for each name.
+  legend.selectAll("mylabels")
+    .data(types)
+    .enter()
+    .append("text")
+      .attr("x", 100 + size*1.2)
+      .attr("y", function(d,i){ return 100 + i*(size+5) + (size/2)}) // 100 is where the first dot appears. 25 is the distance between dots
+      .style("fill", function(d){ return color(d)})
+      .text(function(d){ return d})
+      .attr("text-anchor", "left")
+      .style("alignment-baseline", "middle")
 }, [data, width, height, chartId])
 
   return (
     <div className="chart" width="100%">
-        <svg id={chartId} />
+      <svg id={chartId} height={300} width={450}/>
+      <svg id={`${chartId}-legend`} />
     </div>
   
   )
