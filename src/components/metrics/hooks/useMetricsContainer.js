@@ -19,7 +19,7 @@ const useMetricsContainer = () => {
 
     const getInfo = async () => {
       dispatch(setGymMetrics({
-        gymName: gymName || '',
+        gymName: data?.gymName || '',
         gymMetrics: data?.metrics || {},
       }));
     };

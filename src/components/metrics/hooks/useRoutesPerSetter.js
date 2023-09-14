@@ -3,12 +3,15 @@ import { useEffect } from "react";
 import { useSelector } from "react-redux";
 
 const useRoutesPerSetter  = () => {
-  const routesPerSetter = useSelector(state => state.metrics.gymMetrics.routesPerSetter);  
+  const routesPerSetter = useSelector(state => state.metrics.gymMetrics.routesPerSetter);
 
-  let toggleClass = (element, toggle) => {
-    select(element.children[0]).classed('highlightBar', toggle);
-    select(element.children[2]).classed('highlightText', toggle);
-  };
+  function mouseOver() {
+    select(this).attr('opacity', .5)
+  }
+
+  function mouseOut() {
+    select(this).attr('opacity', 1)
+  }
 
   useEffect(() => {
   const svg = select("#routes-per-setter")
@@ -22,8 +25,8 @@ const useRoutesPerSetter  = () => {
     .data(routesPerSetter)
       .enter()
     .append("g")
-    .on("mouseover", function () { toggleClass(this, true); })
-    .on("mouseout", function() { toggleClass(this, false); })
+    .on("mouseover", mouseOver)
+    .on("mouseout", mouseOut)
 
   bar.append("rect")
       .attr("fill", "#364784")

@@ -1,5 +1,4 @@
 function Bars({ data, height, scaleX, scaleY }) {
-  console.log(data)
   return (
     <>
       {data.map(({ value, label }) => (

@@ -5,10 +5,13 @@ import { useSelector } from "react-redux";
 const useBouldersPerSetter  = () => {
   const bouldersPerSetter = useSelector(state => state.metrics.gymMetrics.bouldersPerSetter);  
 
-  let toggleClass = (element, toggle) => {
-    select(element.children[0]).classed('highlightBar', toggle);
-    select(element.children[2]).classed('highlightText', toggle);
-  };
+  function mouseOver() {
+    select(this).attr('opacity', .5)
+  }
+
+  function mouseOut() {
+    select(this).attr('opacity', 1)
+  }
 
   useEffect(() => {
   const svg = select("#boulders-per-setter")
@@ -22,8 +25,8 @@ const useBouldersPerSetter  = () => {
     .data(bouldersPerSetter)
       .enter()
     .append("g")
-    .on("mouseover", function () { toggleClass(this, true); })
-    .on("mouseout", function() { toggleClass(this, false); })
+    .on("mouseover", mouseOver)
+    .on("mouseout", mouseOut)
 
   bar.append("rect")
       .attr("fill", "#364784")

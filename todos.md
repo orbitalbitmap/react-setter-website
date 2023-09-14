@@ -1,4 +1,3 @@
-
 # Upgrades to work
 Add tests, E2E (playwright) and unit (jest)
 Add comments everywhere (make checklist of files beforehand)
