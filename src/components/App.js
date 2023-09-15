@@ -3,9 +3,9 @@ import {
   Routes,
   Route,
 } from 'react-router-dom';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
-import './styles.css'
-import history from '../history';
 import AdminDashboardPage from '../pages/admin/AdminDashboardPage';
 import AllEmployeesPage from '../pages/employees/AllEmployeesPage';
 import AllLocations from '../pages/locations/AllLocationsPage';
@@ -28,14 +28,14 @@ import UpdateEmployeePage from '../pages/employees/UpdateEmployeePage';
 import UpdateLocationPage from '../pages/admin/UpdateLocationInfo';
 import UpdateSectionsPage from '../pages/sections/UpdateSectionsPage';
 import NotificationSnackbar from './notifications/NotificationSnackbar';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+
+import './styles.css'
 
 function App() {
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
     <div>
-      <BrowserRouter history={history}>
+      <BrowserRouter>
         <Routes>
           {/* Home paths */}
           <Route exact path="/" element={<LoginPage />} />
