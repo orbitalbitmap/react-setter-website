@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, } from 'react-redux'
 import {
@@ -28,6 +28,10 @@ const SignIn = () => {
     login, 
     {isLoading, isUpdating}
   ] = useLoginMutation();
+
+  const loading = useMemo(() => {
+    return isLoading || isUpdating;
+  }, [isLoading, isUpdating]);
 
   const handleSubmit = async (event) => {
     event.preventDefault()
@@ -103,7 +107,7 @@ const SignIn = () => {
             />
 
             <LoadingButton
-              load={isLoading || isUpdating ? 1 : 0}
+              loading={loading}
               fullWidth
               sx={{ mt: 3, mb: 2 }}
               type="submit"

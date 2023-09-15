@@ -1,4 +1,4 @@
-import { Button, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 
 import useCurrentLocationNameList from '../../../../hooks/useCurrentLocationNameList';
@@ -9,6 +9,8 @@ import { setUser } from '../../../../reducers/userReducer';
 import GymSelector from './GymSelector';
 
 import { useUpdateEmployeeMutation } from '../../../../services/gym';
+import { LoadingButton } from '@mui/lab';
+import { useMemo } from 'react';
 
 const LocationSelector = ({ urlId }) => {
   const user = useSelector(state => state.user);
@@ -43,6 +45,10 @@ const LocationSelector = ({ urlId }) => {
     }
   }
 
+  const loading = useMemo(() => {
+    return isLoading || isUpdating;
+  }, [isLoading, isUpdating]);
+
   return (
     <>
       <Typography className="centered-text" variant="h4">Locations:</Typography>
@@ -51,7 +57,23 @@ const LocationSelector = ({ urlId }) => {
         employeeLocationNameList={employeeLocationNameList} 
         handleCheckbox={handleCheckbox}
       />
-      <Button variant="contained" onClick={handleSubmit} disabled={disableSaveButton}>Save Employee</Button>
+      {
+        disableSaveButton
+          ? null 
+          : (
+              <LoadingButton
+                loading={loading}
+                variant="contained"
+                onClick={handleSubmit}
+                sx={{
+                  borderTop: '1px solid white',
+                  borderBottom: '1px solid white',
+                }}
+              >
+                  Save Distribution
+              </LoadingButton>
+          )
+        }
     </>
   );
 };

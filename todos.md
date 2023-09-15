@@ -1,19 +1,12 @@
-
 # Upgrades to work
-isLoading and isUpdating handling
-Fix RTK Query to auto re-fetch when mutations are done
-Add reset functionality when leaving/entering a page (IE if persisting redux state I shouldn't see data for Worcester's metrics if I'm looking at another gym)
-MUI's LoadingButton
-Move useEffects out to custom hooks
 Add tests, E2E (playwright) and unit (jest)
 Add comments everywhere (make checklist of files beforehand)
 Upgrade to typescript
 
   ## src/components/distributions
-  Fix distribution tables back to working order
-    -- Route and Boulder chart:
+  Double check that the functionality still works
+    For the boulders, handle the position of a climb
       -- Fix the api's returned values
-      For the boulders, handle the position of a climb
 
   ## src/history.js
   Implement back to working order
@@ -21,8 +14,8 @@ Upgrade to typescript
   ## src/components/placards/boulderBashCard.pug
   Make this a component and not a template file
 
-  ## @TODOs
-  Take care of remaining @TODOs
+  ## Fix the drawer
+  Currently the drawer covers somethings up when its opened, the actual function should be that the main content shrinks a little so the view has both the main content and side bar completely visible to the user.
 
   ## src/App.js
   Metrics page for all gyms url and page
@@ -31,12 +24,10 @@ Upgrade to typescript
   This needs to be implemented at some point
 
   ## Redo css
-  Turn the main big file into little files that are on a per component basis
+  Turn the main big file into little files that are on a per component basis (maybe switch to SASS/LESS)
   This also means reworking the MUI custom theme
   IMPORTANT: This includes dealing with any instance of `!important`
 
-  ## Transitions, Loaders, and Styling
-  Add transitions on tab components
+  ## Transitions and Loaders
   Create and implement loading status bars
-  Continue working on refining the styling
-  Make sure there is no need for any css with the `!important` flag
+  Add transitions on tab components

@@ -10,12 +10,15 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ListItems from './sidebar/ListItems';
 import AppBar from './styledComponents/AppBar';
 import Drawer from './styledComponents/Drawer';
+import useSetGymAndEmployeeLists from './hooks/useSetGymAndEmployeeLists';
 
 function DashboardContent({ children }) {
   const [open, setOpen] = useState(false);
   const toggleDrawer = () => {
     setOpen(!open);
   };
+
+  useSetGymAndEmployeeLists();
 
   return (
       <Box sx={{ display: 'flex', }}>

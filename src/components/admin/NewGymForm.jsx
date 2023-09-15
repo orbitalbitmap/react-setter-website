@@ -1,10 +1,11 @@
-import { useState } from 'react';
-import { FormControl, Grid, TextField, Button } from '@mui/material';
+import { useMemo, useState } from 'react';
+import { FormControl, Grid, TextField, } from '@mui/material';
 import { Paper, Select, MenuItem, InputLabel } from '@mui/material';
 
 import { useAddNewGymMutation } from '../../services/gym';
 import { useDispatch, useSelector } from 'react-redux';
 import { setNotificationAlert } from '../../reducers/notificationsReducers';
+import { LoadingButton } from '@mui/lab';
 
 const NewGymForm = () => {
   const dispatch = useDispatch()
@@ -21,6 +22,10 @@ const NewGymForm = () => {
     saveNewGym,
     { isLoading, isUpdating }
   ] = useAddNewGymMutation();
+  
+  const loading = useMemo(() => {
+    return isLoading || isUpdating;
+  }, [isLoading, isUpdating])
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -38,7 +43,7 @@ const NewGymForm = () => {
 
       dispatch(setNotificationAlert({
         alertType: 'success',
-        messageBody: 'A new employee has been saved!',
+        messageBody: 'A new gym has been saved!',
       }));
     } catch {
       dispatch(setNotificationAlert({
@@ -132,7 +137,14 @@ const NewGymForm = () => {
               </FormControl>
             </Grid>
         </Grid>
-        <Button variant="contained" onClick={handleSubmit} sx={{ mt: 2 }}>Save Gym</Button>
+        <LoadingButton
+          loading={loading}
+          variant="contained"
+          onClick={handleSubmit}
+          sx={{ mt: 2 }}
+        >
+          Save Gym
+        </LoadingButton>
       </Paper>
     </>
   );

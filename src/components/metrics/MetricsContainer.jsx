@@ -1,34 +1,18 @@
 import { Box, Container, Typography } from '@mui/material';
-import { useEffect, } from 'react';
-import { useParams } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
 
-import BoulderIdealVsCurrent from './partials/BoulderIdealVsCurrent';
-import BouldersPerSetter from './partials/BouldersPerSetter';
-import BouldersPerColor from './partials/BouldersPerColor';
-import RouteIdealVsCurrent from './partials/RouteIdealVsCurrent';
-import RoutesPerSetter from './partials/RoutesPerSetter';
-import RoutesPerColor from './partials/RoutesPerColor';
-import { setGymMetrics } from '../../reducers/distribution/metricsReducers';
-import { useGetGymMetricsQuery } from '../../services/gym';
+import BoulderIdealVsCurrent from './components/BoulderIdealVsCurrent';
+import BouldersPerSetter from './components/BouldersPerSetter';
+import BouldersPerColor from './components/BouldersPerColor';
+import RouteIdealVsCurrent from './components/RouteIdealVsCurrent';
+import RoutesPerSetter from './components/RoutesPerSetter';
+import RoutesPerColor from './components/RoutesPerColor';
+import useMetricsContainer from './hooks/useMetricsContainer';
 
 function MetricsContainer() {
-  const dispatch = useDispatch();
-  const gymName = useSelector((state) => state.metrics.gymName);
-  const gymMetrics = useSelector((state) => state.metrics.gymMetrics);
-  const urlParams = useParams();
-  const {data} = useGetGymMetricsQuery(urlParams.id);
-
-  useEffect(() => {
-    const getInfo = async () => {
-      dispatch(setGymMetrics({
-        gymName: data?.gym?.name,
-        gymMetrics: data?.metrics,
-      }));
-    };
-
-    getInfo();
-  }, [data, dispatch]);
+  const {
+    gymMetrics,
+    gymName,
+  } = useMetricsContainer();
 
   return (
     <Container sx={{ mt: 12 }}>
@@ -40,7 +24,7 @@ function MetricsContainer() {
 
       <Box className="idealVsCurrent-wrapper centered-text">
         {
-          gymMetrics.bouldersPerSetter
+          gymMetrics?.bouldersPerSetter?.length
             ? <BouldersPerSetter />
             : <Typography className="centered-text" variant="h6" >No Data Found For Setters Per Boulders</Typography>
         }
@@ -48,7 +32,7 @@ function MetricsContainer() {
 
       <Box className="idealVsCurrent-wrapper centered-text">
         {
-          gymMetrics.routesPerSetter
+          gymMetrics?.routesPerSetter?.length
             ? <RoutesPerSetter />
             : <Typography className="centered-text" variant="h6" >No Data Found For Setters Per Routes</Typography>
         }
@@ -57,7 +41,7 @@ function MetricsContainer() {
       {/* boulders per color */}
       <Box className="idealVsCurrent-wrapper centered-text">
         {
-          gymMetrics.bouldersPerColor
+          gymMetrics?.bouldersPerColor?.length
             ? <BouldersPerColor />
             : <Typography className="centered-text" variant="h6" >No Data Found For Boulders Per Color</Typography>
         }
@@ -66,7 +50,7 @@ function MetricsContainer() {
       {/* routes per color */}
       <Box className="idealVsCurrent-wrapper centered-text">
         {
-          gymMetrics.routesPerColor
+          gymMetrics?.routesPerColor?.length
             ? <RoutesPerColor />
             : <Typography className="centered-text" variant="h6" >No Data Found For Setters Per Routes</Typography>
         }
@@ -75,18 +59,18 @@ function MetricsContainer() {
       {/* ideal vs current boulder */}
       <Box className="idealVsCurrent-wrapper centered-text">
         {
-          (gymMetrics.currentBouldersPerGrade && gymMetrics.idealBouldersPerGrade)
+          (gymMetrics?.currentVsIdealBoulderGrades?.length)
             ?  <BoulderIdealVsCurrent />
-            : <Typography className="centered-text" variant="h6" >No Data Found For Setters Per Boulders</Typography>
+            : <Typography className="centered-text" variant="h6" >No Data Found For the Ideal vs Current # of Boulders</Typography>
         }
       </Box>
 
       {/* ideal vs current rope */}
       <Box className="idealVsCurrent-wrapper centered-text">
         {
-          (gymMetrics.currentRoutesPerGrade && gymMetrics.idealRoutesPerGrade)
+          (gymMetrics?.currentVsIdealRouteGrades?.length)
             ? <RouteIdealVsCurrent />
-            : <Typography className="centered-text" variant="h6" >No Data Found For Setters Per Routes</Typography>
+            : <Typography className="centered-text" variant="h6" >No Data Found For the Ideal vs Current # of Routes</Typography>
         }
       </Box>
     </Container>

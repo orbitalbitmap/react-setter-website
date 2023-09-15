@@ -12,6 +12,7 @@ export const metricsSlice = createSlice({
   initialState,
   reducers: {
     setGymMetrics: (state, action) => { 
+      console.log({payload: action.payload})
       state.gymName = action.payload.gymName; 
       state.gymMetrics = {...action.payload.gymMetrics};
     },

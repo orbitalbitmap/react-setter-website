@@ -1,19 +1,20 @@
-import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { Typography } from '@mui/material';
-import * as d3 from 'd3';
-import './highlight.css'
+import { select } from "d3";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
 
-function RoutesPerSetter() {
-  const routesPerSetter = useSelector(state => state.metrics.gymMetrics.routesPerSetter);  
+const useRoutesPerSetter  = () => {
+  const routesPerSetter = useSelector(state => state.metrics.gymMetrics.routesPerSetter);
 
-  let toggleClass = (element, toggle) => {
-    d3.select(element.children[0]).classed('highlightBar', toggle);
-    d3.select(element.children[2]).classed('highlightText', toggle);
-  };
+  function mouseOver() {
+    select(this).attr('opacity', .5)
+  }
+
+  function mouseOut() {
+    select(this).attr('opacity', 1)
+  }
 
   useEffect(() => {
-  const svg = d3.select("#svg")
+  const svg = select("#routes-per-setter")
       .attr("width", 1000)
       .attr("height", 300)
       .attr("font-family", "sans-serif")
@@ -24,8 +25,8 @@ function RoutesPerSetter() {
     .data(routesPerSetter)
       .enter()
     .append("g")
-    .on("mouseover", function () { toggleClass(this, true); })
-    .on("mouseout", function() { toggleClass(this, false); })
+    .on("mouseover", mouseOver)
+    .on("mouseout", mouseOut)
 
   bar.append("rect")
       .attr("fill", "#364784")
@@ -49,13 +50,6 @@ function RoutesPerSetter() {
       .attr("dy", 20)
       .text(d => d.count);
   }, [routesPerSetter])
-
-  return (
-    <>
-      <Typography>Routes Per Setter</Typography>
-      <svg id="svg"></svg>
-    </>
-  )
 }
 
-export default RoutesPerSetter;
+export default useRoutesPerSetter;
