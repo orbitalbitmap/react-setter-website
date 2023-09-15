@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { ThemeProvider } from '@mui/material/styles';
 import { store } from './store';
 import { Provider } from 'react-redux';
@@ -9,13 +8,17 @@ import App from './components/App';
 import theme from './utils/theme';
 // import history from './history'
 
-ReactDOM.render(
+import { createRoot } from 'react-dom/client';
+
+const domNode = document.getElementById('root');
+const root = createRoot(domNode);
+
+root.render(
   <Provider store={store}>
     <CookiesProvider>
       <ThemeProvider theme={theme}>
         <App />
       </ThemeProvider>
     </CookiesProvider>
-  </Provider>,
-  document.getElementById('root'),
-);
+  </Provider>
+  );

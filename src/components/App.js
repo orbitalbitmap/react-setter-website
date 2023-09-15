@@ -5,7 +5,7 @@ import {
 } from 'react-router-dom';
 
 import './styles.css'
-import history from '../history';
+// import history from '../history'
 import AdminDashboardPage from '../pages/admin/AdminDashboardPage';
 import AllEmployeesPage from '../pages/employees/AllEmployeesPage';
 import AllLocations from '../pages/locations/AllLocationsPage';
@@ -35,7 +35,7 @@ function App() {
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
     <div>
-      <BrowserRouter history={history}>
+      <BrowserRouter >  {/* history={history} */}
         <Routes>
           {/* Home paths */}
           <Route exact path="/" element={<LoginPage />} />
