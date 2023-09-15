@@ -48,7 +48,6 @@ const RouteStyleEditCell = ({row, field, id, value, valueOptions}) => {
     >
       {
         valueOptions?.map((ropeStyle) => {
-          console.log({ropeStyle})
           return (
           <MenuItem key={ropeStyle} value={ropeStyle}>{ropeStyle}</MenuItem>
         )})

@@ -8,9 +8,6 @@ Upgrade to typescript
     For the boulders, handle the position of a climb
       -- Fix the api's returned values
 
-  ## src/history.js
-  Implement back to working order
-
   ## src/components/placards/boulderBashCard.pug
   Make this a component and not a template file
 

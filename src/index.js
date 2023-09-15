@@ -6,7 +6,6 @@ import { CookiesProvider } from 'react-cookie';
 
 import App from './components/App';
 import theme from './utils/theme';
-// import history from './history'
 
 import { createRoot } from 'react-dom/client';
 
