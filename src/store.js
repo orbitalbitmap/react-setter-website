@@ -24,8 +24,7 @@ export const store = configureStore({
   },
   // Adding the api middleware enables caching, invalidation, polling,
   // and other useful features of `rtk-query`.
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(gymApi.middleware),
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(gymApi.middleware),
 });
 
 // optional, but required for refetchOnFocus/refetchOnReconnect behaviors

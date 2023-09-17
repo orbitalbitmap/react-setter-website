@@ -1,5 +1,6 @@
 // Need to use the React-specific entry point to import createApi
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { setEmployeeList } from '../reducers/employeeReducers';
 
 const baseUrl = process.env.REACT_APP_API_PATH;
 
@@ -73,6 +74,17 @@ export const gymApi = createApi({
     /*********     Employees queries     **********/
     getAllEmployees: builder.query({
       query: () => 'employees',
+    // dispatch data to keep the store's state up to date when this query finishes
+      async onQueryStarted(id, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled
+          // `onSuccess` side-effect
+          dispatch(setEmployeeList({ employees: data }))
+        } catch (err) {
+          // `onError` side-effect
+          console.log('Failure!')
+        }
+      },
       providesTags: ['Employees'],
     }),
     getEmployeeById: builder.query({
@@ -173,6 +185,7 @@ export const gymApi = createApi({
         url: `saveEmployee`,  
         method: 'POST',
         body,
+        responseHandler: (response) => response.text(),
       }),
       invalidatesTags: ['Employees'],
     }),
@@ -183,13 +196,12 @@ export const gymApi = createApi({
         method: 'POST',
         body,
       }),
-      invalidatesTags: ['Employees'],
+      invalidatesTags: ['Locations'],
     }),
   })
 });
 
-// Export hooks for usage in functional components, which are
-// auto-generated based on the defined endpoints
+// Export hooks for usage in functional components
 export const {
   useGetAllEmployeesAndGymsQuery, 
   useGetAllLocationsQuery,
