@@ -10,9 +10,6 @@ const useSetGymAndEmployeeLists = () => {
   const allEmployeesResponse = useGetAllEmployeesQuery();
   const allGymsResponse = useGetAllLocationsQuery();
 
-  console.log({allGymsResponse, allEmployeesResponse})
-
-
   useEffect(() => {
     if (allEmployeesResponse?.data && allGymsResponse?.data) {
       dispatch(setGymList({ gyms: allGymsResponse.data }));
