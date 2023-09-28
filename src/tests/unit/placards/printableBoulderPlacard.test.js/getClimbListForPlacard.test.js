@@ -1,4 +1,4 @@
-import getClimbListForPlacard from "../../../components/placards/printableBoulderPlacard/utils/getClimbListForPlacard";
+import getClimbListForPlacard from "../../../../components/placards/printableBoulderPlacard/utils/getClimbListForPlacard";
 
 describe("getClimbListForPlacard function", () => {
   it("returns the expected result when passed valid inputs", () => {
