@@ -39,6 +39,7 @@ describe('useEmployeeInfo', () => {
     // checks the returned object contains keys from the hook that are 
     // equal to specific values, specific lengths, or are defined
     expect(result.current.employee.firstName).toBe('Employee1');
+    expect(result.current.employee.lastName).not.toBe('Two');
     expect(result.current.employeeLocationNameList).toHaveLength(1);
     expect(result.current.handleChange).toBeDefined();
     expect(result.current.handleCheckbox).toBeDefined();
