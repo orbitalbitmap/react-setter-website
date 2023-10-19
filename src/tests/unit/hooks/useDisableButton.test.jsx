@@ -6,7 +6,6 @@ import configureStore from 'redux-mock-store';
 import useDisableButton from '../../../hooks/useDisableButton';
 import userReducer from '../../../reducers/userReducer';
 
-
 describe('useDisableButton', () => {
   const mockStore = configureStore({
     reducer: {
@@ -37,8 +36,7 @@ describe('useDisableButton', () => {
       wrapper: ({ children }) => <Provider store={store}>{children}</Provider>,
     });
 
-
-    // checks the state to make sure it the initial values are loaded
+    // checks that the returned value is what is expected
     expect(result.current.disableSaveButton).toBe(false);
   });
 
@@ -65,8 +63,7 @@ describe('useDisableButton', () => {
       wrapper: ({ children }) => <Provider store={store}>{children}</Provider>,
     });
 
-
-    // checks the state to make sure it the initial values are loaded
+    // checks that the returned value is what is expected
     expect(result.current.disableSaveButton).toBe(true);
   });
 });
