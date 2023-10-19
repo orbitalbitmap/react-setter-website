@@ -1,5 +1,5 @@
 import { Box, MenuItem, Select } from "@mui/material";
-import colorOptions from "../../constants/colorOptions";
+import colorOptions from "../../utils/colorOptions";
 import useBoulderColorPicker from "../../hooks/useBoulderColorPicker";
 
 const BoulderColorPicker = ({ row, field, id, value, }) => {

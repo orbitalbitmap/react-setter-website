@@ -6,7 +6,7 @@ export const locationSlice = createSlice({
   name: 'locations',
   initialState,
   reducers: {
-    setGymList: (state, action) => action.payload.gyms,
+    setGymList: (state, action) => { console.log({payload: action.payload }); return action.payload.gyms },
     removeLocationList: (state, action) => initialState,
   },
 });
