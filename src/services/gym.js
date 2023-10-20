@@ -1,7 +1,6 @@
 // Need to use the React-specific entry point to import createApi
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { setEmployeeList } from '../reducers/employeeReducers';
-import { setUser } from '../reducers/userReducer';
 
 const baseUrl = process.env.REACT_APP_API_PATH;
 
