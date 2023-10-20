@@ -1,5 +1,14 @@
 # Upgrades to work
 Add tests, E2E (playwright) and unit (jest)
+  folders with hooks left for unit test:
+    - admin
+    - dashboard
+    - distributions
+    - locations
+    - metrics
+    - placards
+    - sections
+
 Add comments everywhere (make checklist of files beforehand)
 Change currentLocationNameList to a employeeLocationsList
 Upgrade to typescript
