@@ -7,6 +7,7 @@ const useGetGymInfo = (gymId) => {
   const dispatch = useDispatch();
   const [gym, setGym] = useState({});
   const { data, refetch: refetchLocationInfo, isFetching: isFetchingLocationInfo, } = useGetLocationByIdQuery(gymId);
+  console.log({id: gymId })
   const [
     updateLocation,
     { isLoading, isUpdating, }
@@ -39,6 +40,13 @@ const useGetGymInfo = (gymId) => {
   useEffect(() => {
     setGym(data)
   }, [data]);
+
+  console.log({
+    gym,
+    loading,
+    handleSubmit,
+    setGym,
+  })
 
   return {
     gym,
