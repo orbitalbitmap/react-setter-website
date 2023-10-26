@@ -1,5 +1,5 @@
 import { Box, MenuItem, Select } from "@mui/material";
-import colorOptions from "../../constants/colorOptions";
+import colorOptions from "../../utils/colorOptions";
 import useRouteColorPicker from "../../hooks/useRouteColorPicker";
 
 const RouteColorPicker = ({ row, field, id, value, }) => {

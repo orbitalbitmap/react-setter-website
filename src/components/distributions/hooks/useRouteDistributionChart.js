@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { setRouteDistribution, updateDates } from "../../../reducers/distribution/distributionReducers";
 import { setNotificationAlert } from "../../../reducers/notificationsReducers";
-import getRopeColumnDefs from "../constants/ropeColumnDefs";
+import getRopeColumnDefs from "../utils/ropeColumnDefs";
 import { useDispatch, useSelector } from "react-redux";
 import { useGetLocationByIdQuery, useGetRouteDistributionQuery, useGetSpecificRouteSectionsQuery, useUpdateRouteDistributionMutation } from "../../../services/gym";
 import { useParams } from "react-router-dom";

@@ -4,7 +4,7 @@ import { Paper, Select, MenuItem, InputLabel, Typography, } from '@mui/material'
 import { LoadingButton } from '@mui/lab';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
-import useGetGymInfo from './hooks/useGetGymInfo';
+import useGetGymInfo from '../hooks/useGetGymInfo';
 
 const EditSingleGym = () => {
   const urlParams = useParams();

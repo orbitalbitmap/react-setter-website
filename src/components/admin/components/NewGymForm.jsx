@@ -2,9 +2,9 @@ import { useMemo, useState } from 'react';
 import { FormControl, Grid, TextField, } from '@mui/material';
 import { Paper, Select, MenuItem, InputLabel } from '@mui/material';
 
-import { useAddNewGymMutation } from '../../services/gym';
+import { useAddNewGymMutation } from '../../../services/gym';
 import { useDispatch, useSelector } from 'react-redux';
-import { setNotificationAlert } from '../../reducers/notificationsReducers';
+import { setNotificationAlert } from '../../../reducers/notificationsReducers';
 import { LoadingButton } from '@mui/lab';
 
 const NewGymForm = () => {

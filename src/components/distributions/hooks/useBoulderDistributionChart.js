@@ -3,7 +3,7 @@ import { setNotificationAlert } from "../../../reducers/notificationsReducers";
 import { useDispatch, useSelector } from "react-redux";
 import { useGetBoulderDistributionQuery, useGetLocationByIdQuery, useGetSpecificBoulderSectionsQuery, useUpdateBoulderDistributionMutation } from "../../../services/gym";
 import { useParams } from "react-router-dom";
-import getBoulderColumnDefs from "../constants/boulderColumnDefs";
+import getBoulderColumnDefs from "../utils/boulderColumnDefs";
 import { setBoulderDistribution, updateDates } from "../../../reducers/distribution/distributionReducers";
 
 const useBoulderDistributionChart = () => {

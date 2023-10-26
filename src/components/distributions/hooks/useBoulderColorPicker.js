@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useGridApiContext } from "@mui/x-data-grid";
 
 
-const useBoulderColorPicker = (row, field, id, value,) => {
+const useBoulderColorPicker = (row, field, id, value) => {
   const dispatch = useDispatch();
   const [colorName, setColorName] = useState('')
   const apiRef = useGridApiContext();

@@ -12,7 +12,7 @@ import {
 } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 
-import useCurrentGymNameList from './hooks/useNewEmployeeFormInfo';
+import useCurrentGymNameList from '../hooks/useNewEmployeeFormInfo';
 
 const NewEmployeeForm = () => {
   const {

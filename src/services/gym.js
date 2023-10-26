@@ -1,5 +1,6 @@
 // Need to use the React-specific entry point to import createApi
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { setEmployeeList } from '../reducers/employeeReducers';
 
 const baseUrl = process.env.REACT_APP_API_PATH;
 
@@ -8,28 +9,15 @@ export const gymApi = createApi({
   reducerPath: 'gymApi',
   baseQuery: fetchBaseQuery({ baseUrl }),
   tagTypes: [
-    'Locations', 'Employees', 'User', 'Metrics',
-    'Sections', 'RouteDistribution', 'BoulderDistribution'
+    'AllLocations', 'SingleLocation', 'LocationWithSections',
+    'AllEmployees', 'SingleEmployee', 'User', 'LocationMetrics', 
+    'AllSections', 'SingleRouteSection', 'SingleBoulderSection',
+    'LocationSections', 'RouteDistribution', 'BoulderDistribution'
   ],
   endpoints: (builder) => ({
     /***********************************************
     *************       QUERIES       **************
     ***********************************************/
-    
-    /*********     Combo queries     **********/
-    getAllEmployeesAndGyms: builder.query({
-      // queryfn assists with multiple api calls 
-      async queryFn(args, queryApi, extraOptions, fetchWithBQ) {
-        // TODO: add error handling
-        const locationResults = await fetchWithBQ('gyms');
-        const employeeResults = await fetchWithBQ('employees');
-
-        return { data: {
-          locationData: locationResults.data,
-          employeeData: employeeResults.data,
-        }}
-      },
-    }),
 
     /*********     Distributions queries     **********/
     getBoulderDistribution: builder.query({
@@ -48,11 +36,11 @@ export const gymApi = createApi({
     /*********     Locations queries     **********/
     getAllLocations: builder.query({
       query: () => 'gyms',
-      providesTags: ['Locations'], 
+      providesTags: ['AllLocations'], 
     }),
     getLocationById: builder.query({
       query: (gymId) => `gymById/${gymId}`,
-      providesTags: ['Locations'], 
+      providesTags: ['SingleLocation'], 
     }),
     getGymWithSections: builder.query({
       async queryFn(args, queryApi, extraOptions, fetchWithBQ) {
@@ -67,41 +55,52 @@ export const gymApi = createApi({
           routeSections: sortedRouteSections
         }}
       },
-      providesTags: ['Locations'], 
+      providesTags: ['LocationWithSections'], 
     }),
     
     /*********     Employees queries     **********/
     getAllEmployees: builder.query({
       query: () => 'employees',
-      providesTags: ['Employees'],
+    // dispatch data to keep the store's state up to date when this query finishes
+      async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled
+          // `onSuccess` side-effect
+          dispatch(setEmployeeList({ use: data }))
+        } catch (err) {
+          // `onError` side-effect
+          console.log('Failure!')
+        }
+      },
+      providesTags: ['AllEmployees'],
     }),
     getEmployeeById: builder.query({
       query: (employeeId) => `employees/${employeeId}`,
-      providesTags: ['Employees'],
+      providesTags: ['SingleEmployee'],
     }),
 
     /*********     Sections queries     **********/
     getAllSections: builder.query({
       query: () => 'allGymSections',
-      providesTags: ['Sections'],
+      providesTags: ['AllSections'],
     }),
     getSpecificRouteSections: builder.query({
       query: (gymId) => `routeSections/${gymId}`,
-      providesTags: ['Sections'], 
+      providesTags: ['SingleRouteSection'], 
     }),
     getSpecificBoulderSections: builder.query({
       query: (gymId) => `boulderSections/${gymId}`,
-      providesTags: ['Sections'], 
+      providesTags: ['SingleBoulderSection'], 
     }),
     getSectionsForSpecificGym: builder.query({
       query: (gymId) => `gymWithSections/${gymId}`,
-      providesTags: ['Sections'], 
+      providesTags: ['LocationSections'], 
     }),
 
     /*********     Metrics queries     **********/
     getGymMetrics: builder.query({
       query: (gymId) => `metrics/${gymId}`,
-      providesTags: ['Metrics'], 
+      providesTags: ['LocationMetrics'], 
     }),
 
 
@@ -173,6 +172,7 @@ export const gymApi = createApi({
         url: `saveEmployee`,  
         method: 'POST',
         body,
+        responseHandler: (response) => response.text(),
       }),
       invalidatesTags: ['Employees'],
     }),
@@ -183,15 +183,13 @@ export const gymApi = createApi({
         method: 'POST',
         body,
       }),
-      invalidatesTags: ['Employees'],
+      invalidatesTags: ['Locations'],
     }),
   })
 });
 
-// Export hooks for usage in functional components, which are
-// auto-generated based on the defined endpoints
+// Export hooks for usage in functional components
 export const {
-  useGetAllEmployeesAndGymsQuery, 
   useGetAllLocationsQuery,
   useGetAllSectionsQuery,
   useGetAllEmployeesQuery,

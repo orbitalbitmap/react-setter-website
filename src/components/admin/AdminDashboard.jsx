@@ -3,30 +3,11 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
-import Typography from '@mui/material/Typography';
 import { Tabs, Tab } from "@mui/material";
 
-import NewEmployeeForm from './NewEmployeeForm';
-import NewGymForm from './NewGymForm';
-
-function TabPanel({ children, value, index, ...other }) {
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`full-width-tabpanel-${index}`}
-      aria-labelledby={`full-width-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography component="div">{children}</Typography>
-        </Box>
-      )}
-    </div>
-  );
-}
+import NewEmployeeForm from './components/NewEmployeeForm';
+import NewGymForm from './components/NewGymForm';
+import AdminTabPanel from './components/AdminTabPanel';
 
 const AdminDashboard = () => {
   const [value, setValue] = useState(0);
@@ -75,12 +56,12 @@ const AdminDashboard = () => {
               <Tab label="Add New Setter" />
               <Tab label="Add New Gym" />
             </Tabs>
-            <TabPanel value={value} index={0} style={{textAlign: 'center'}}>
+            <AdminTabPanel value={value} index={0} style={{textAlign: 'center'}}>
               <NewEmployeeForm />
-            </TabPanel>
-            <TabPanel value={value} index={1} style={{textAlign: 'center'}}>
+            </AdminTabPanel>
+            <AdminTabPanel value={value} index={1} style={{textAlign: 'center'}}>
               <NewGymForm />
-            </TabPanel>
+            </AdminTabPanel>
           </Paper>
           </Grid>
         </Grid>
