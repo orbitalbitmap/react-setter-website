@@ -25,14 +25,15 @@ const BoulderDistributionChart = () => {
 
   return (
     <Box sx={{ mx: 'auto', mt: '5rem', width: '100%' }}>
-      <Box sx={{ 
-        position: 'fixed',
-        top: '5rem',
-        bgcolor: theme => theme.palette.common.white,
-        zIndex: 900,
-        textAlign: 'center',
-        mx: 'auto',
-        width: '100%'
+      <Box 
+        sx={{ 
+          position: 'fixed',
+          top: '5rem',
+          bgcolor: theme => theme.palette.common.white,
+          zIndex: 900,
+          textAlign: 'center',
+          mx: 'auto',
+          width: '100%'
         }}
       >
         <Typography  variant="h4" sx={{ mb: 4 }} className="centered-text">Distribution Spread for {gymName}</Typography>
@@ -44,7 +45,7 @@ const BoulderDistributionChart = () => {
               : null
           }
 
-          <Box sx={{ mx: '4rem', justifyContent: 'center', }}>
+          <Box sx={{ mx: '4rem', justifyContent: 'center', }} data-testid="button-container">
             <ButtonGroup variant="contained" orientation="vertical">
               <Button onClick={addNewClimb}>Add climb</Button>
               <LoadingButton
@@ -64,7 +65,7 @@ const BoulderDistributionChart = () => {
             </ButtonGroup>
           </Box>
 
-          <Box className="date-updater-container">
+          <Box className="date-updater-container" data-testid="date-updater-container">
             <TextField
               id="date"
               label="Date"
@@ -89,7 +90,11 @@ const BoulderDistributionChart = () => {
       </Box>
     
       
-      <Box className="distribution-container" sx={{ width: '80rem', height: '40rem', mt: '15rem', mx: 'auto', justifyContent: 'center', }}>
+      <Box
+        className="distribution-container"
+        sx={{ width: '80rem', height: '40rem', mt: '15rem', mx: 'auto', justifyContent: 'center', }}
+        data-testid="distribution-container"
+      >
         <DataGrid
           rows={filteredDistribution || []}
           columns={memoizedBoulderColumnDefs}
