@@ -89,7 +89,7 @@ const BoulderDistributionChart = () => {
       </Box>
     
       
-      <Box className="distribution-holder" sx={{ width: '80rem', height: '40rem', mt: '15rem', mx: 'auto', justifyContent: 'center', }}>
+      <Box className="distribution-container" sx={{ width: '80rem', height: '40rem', mt: '15rem', mx: 'auto', justifyContent: 'center', }}>
         <DataGrid
           rows={filteredDistribution || []}
           columns={memoizedBoulderColumnDefs}

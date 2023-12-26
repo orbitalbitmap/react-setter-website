@@ -45,7 +45,7 @@ const RouteDistributionChart = () => {
               : null
           }
 
-          <Box sx={{ mx: '4rem', justifyContent: 'center', }}>
+          <Box sx={{ mx: '4rem', justifyContent: 'center', }} data-testid="button-container">
             <ButtonGroup variant="contained" orientation="vertical">
               <Button onClick={addNewClimb}>Add climb</Button>
               <LoadingButton
@@ -65,7 +65,10 @@ const RouteDistributionChart = () => {
             </ButtonGroup>
           </Box>
 
-          <Box className="date-updater-container">
+          <Box
+            className="date-updater-container"
+            data-testid="date-updater-container"
+          >
             <TextField
               id="date"
               label="Date"
@@ -90,7 +93,11 @@ const RouteDistributionChart = () => {
       </Box>
     
       
-      <Box className="distribution-holder" sx={{ width: '80rem', height: '40rem', mt: '15rem', mx: 'auto', justifyContent: 'center', }}>
+      <Box
+        className="distribution-container"
+        sx={{ width: '80rem', height: '40rem', mt: '15rem', mx: 'auto', justifyContent: 'center', }}
+        data-testid="distribution-container"
+      >
         <DataGrid
           rows={filteredDistribution || []}
           columns={columns}
