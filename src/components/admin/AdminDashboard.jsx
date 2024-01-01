@@ -53,8 +53,8 @@ const AdminDashboard = () => {
               sx={{bgcolor: 'primary.light'}}
               style={{borderRadius: '4px 4px 0 0'}}
             >
-              <Tab label="Add New Setter" />
-              <Tab label="Add New Gym" />
+              <Tab label="Add New Setter" data-testid="new-setter-tab" />
+              <Tab label="Add New Gym" data-testid="new-gym-tab" />
             </Tabs>
             <AdminTabPanel value={value} index={0} style={{textAlign: 'center'}}>
               <NewEmployeeForm />
