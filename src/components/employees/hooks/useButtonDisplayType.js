@@ -1,15 +1,17 @@
 import { useEffect, useState } from "react";
+import useGetUserInfo from "../../../hooks/useGetUserInfo";
 
-const useButtonDisplay = (employee, user) => {
+const useButtonDisplay = (employeeInfo) => {
+  const { userId, userRoleId } = useGetUserInfo();
   const [buttonDisplayType, setButtonDisplayType] = useState('none');
 
   useEffect(() => {
-    const elementDisplayType = employee.id === user.id || user.roleId <= 3
+    const elementDisplayType = (employeeInfo?.id === userId || userRoleId <= 3)
       ? 'block'
       : 'none';
 
     setButtonDisplayType(elementDisplayType)
-  }, [employee, user]);
+  }, [employeeInfo, userId, userRoleId]);
 
   return buttonDisplayType;
 };
