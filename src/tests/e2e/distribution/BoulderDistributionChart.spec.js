@@ -15,4 +15,4 @@ test('loads expected content', async ({page}) => {
   await expect(buttonContainer).toBeVisible();
   await expect(distributionContainer).toBeVisible();
   await expect(dateUpdateContainer).toBeVisible();
-})
+});

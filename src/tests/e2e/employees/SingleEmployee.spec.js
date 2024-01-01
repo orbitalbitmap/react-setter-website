@@ -11,4 +11,4 @@ test('loads expected content', async ({page}) => {
   
   await expect(employeeContainer).toBeVisible();
   await expect(buttonContainer).toBeVisible();
-})
+});

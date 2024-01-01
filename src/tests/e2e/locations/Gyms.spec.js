@@ -11,4 +11,4 @@ test('loads expected content', async ({page}) => {
   
   await expect(mainContainer).toBeVisible();
   await expect(locationsContainer).toBeVisible();
-})
+});

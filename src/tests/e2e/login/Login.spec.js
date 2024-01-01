@@ -8,7 +8,7 @@ test('loads expected content', async ({ page }) => {
 
   const emailInput = page.getByLabel('Email Address');
   const passwordInput = page.getByLabel('Password');
-  const signInButton = page.getByRole('button', { name: 'Sign In' })
+  const signInButton = page.getByRole('button', { name: 'Sign In' });
 
   await expect(emailInput).toBeVisible();
   await expect(passwordInput).toBeVisible();

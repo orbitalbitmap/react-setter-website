@@ -9,4 +9,4 @@ test('loads expected content', async ({page}) => {
   const employeesContainer = page.getByTestId('employees-container');
   
   await expect(employeesContainer).toBeVisible();
-})
+});
