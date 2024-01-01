@@ -14,10 +14,19 @@ const UpdateClimbingSections = () => {
   } = useUpdateClimbingSection()
 
   return (
-    <Container maxWidth="lg" sx={{ bgcolor: theme => theme.palette.primary.main, mt: 12, mb: 6, minHeight: '40rem', borderRadius: '8px', p: 3}}>
+    <Container
+      maxWidth="lg"
+      sx={{ bgcolor: theme => theme.palette.primary.main, mt: 12, mb: 6, minHeight: '40rem', borderRadius: '8px', p: 3}}
+    >
       <Typography variant="h2" className="centered-text" sx={{ color: theme => theme.palette.common.white, mb: 2, }}>{gym?.name}</Typography>
-      <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', bgcolor: theme => theme.palette.common.white, p: 2 }}>
-        <Container className="centered-text">
+      <Box
+        sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', bgcolor: theme => theme.palette.common.white, p: 2 }}
+        data-testid="main-container"
+      >
+        <Container
+          className="centered-text"
+          data-testid="rope-sections-container"
+        >
           <Typography variant="h3" sx={{ mb: 2, }}>Ropes</Typography>
           <Box className="section-details" id="route-sections">
             {
@@ -27,13 +36,19 @@ const UpdateClimbingSections = () => {
             }
           </Box>
 
-          <Box sx={{ textAlign: 'center' }}>
+          <Box
+            className="centered-text"
+            data-testid="rope-buttons-container"
+          >
             <Button variant="contained" type="button" onClick={(event) => { addNewSection(event, 'routeSections') }} sx={{ mr: '0.75rem', mt: '1rem', }}>Add New Section</Button>
             <Button variant="contained" name="Route" onClick={handleSubmit} type="submit" sx={{ mt: '1rem', }}>Save Info</Button>
           </Box>
         </Container>
 
-        <Container className="centered-text">
+        <Container
+          className="centered-text"
+          data-testid="boulder-sections-container"
+        >
           <Typography variant="h3" sx={{ mb: 2, }}>Boulders</Typography>
           <Box className="section-details" id="boulder-sections">
             {
@@ -42,7 +57,10 @@ const UpdateClimbingSections = () => {
                 : (<h2>No Boulder Sections Found.</h2>)
             }
           </Box>
-          <Box className="centered-text">
+          <Box
+            className="centered-text"
+            data-testid="boulder-buttons-container"
+          >
             <Button variant="contained" onClick={(event) => { addNewSection(event, 'boulderSections') }} sx={{ mr: '0.75rem', mt: '1rem', }}>Add New Section</Button>
             <LoadingButton
               loading={loading}
