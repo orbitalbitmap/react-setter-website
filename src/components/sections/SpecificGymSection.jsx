@@ -9,7 +9,10 @@ const SpecificGymSection = () => {
 
   const renderInfo = () => {
     return (
-      <div style={{ margin: '5rem auto 0', width: '50%', }}>
+      <div
+        style={{ margin: '5rem auto 0', width: '50%', }}
+        data-testid="specific-sections-container"
+      >
         <SectionCardsContainer
           key={gym.id}
           boulderSections={gym.boulderSections}
