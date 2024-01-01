@@ -21,7 +21,7 @@ function ClimbSelector({ climbs, name, selectorType, handleClimbSelector, }) {
         >
           <MenuItem name="climb" value="blank">Blank</MenuItem>
           {
-            climbs.map(climb => (
+            climbs?.map(climb => (
               climb.station
                 ? <MenuItem key={climb.id} name="climb" value={climb.id}>{`${climb.station}: ${climb.color} ${climb.grade}`}</MenuItem>
                 : boulderMenuItem(climb)

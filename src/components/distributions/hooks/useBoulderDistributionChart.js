@@ -116,6 +116,7 @@ const useBoulderDistributionChart = () => {
   return {
     filteredDistribution,
     fullDateChange,
+    gymId,
     gymName,
     loading,
     memoizedBoulderColumnDefs,

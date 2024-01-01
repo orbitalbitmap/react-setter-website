@@ -11,6 +11,7 @@ const BoulderDistributionChart = () => {
   const {
     filteredDistribution,
     fullDateChange,
+    gymId,
     gymName,
     loading,
     memoizedBoulderColumnDefs,
@@ -59,7 +60,7 @@ const BoulderDistributionChart = () => {
               >
                   Save Distribution
               </LoadingButton>
-              <Button component={Link}  to="/placard/boulders">
+              <Button component={Link}  to={`/placard/boulders/${gymId}`}>
                   Print Boulder Placard
               </Button>
             </ButtonGroup>
