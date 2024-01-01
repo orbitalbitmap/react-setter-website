@@ -9,7 +9,7 @@ const EmployeeCardContainer = () => {
   return (
     <Grid key="employee-card-list-container" container sx={{ m: '0 auto', }}>
       {
-        employees.map(employeeInfo => {
+        employees?.map(employeeInfo => {
           return (
             <Grid key={employeeInfo.id} item xs={6} sx={{ py: 2 }}>
               <Paper sx={{ width: '30rem', m: '0 auto', pb: 4, }}>
