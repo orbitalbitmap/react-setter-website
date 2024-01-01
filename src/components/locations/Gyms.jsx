@@ -31,7 +31,9 @@ const Gyms = () => (
           bgcolor: theme => theme.palette.primary.light,
           m: '0 auto',
           borderRadius: 2,
-        }}>
+        }}
+        data-testid="main-container"
+      >
         <GymCardContainer />
       </Container>
     </Box>
