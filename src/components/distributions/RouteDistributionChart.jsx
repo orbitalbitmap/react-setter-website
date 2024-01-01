@@ -12,6 +12,7 @@ const RouteDistributionChart = () => {
     columns,
     filteredDistribution,
     fullDateChange,
+    gymId,
     gymName,
     loading,
     selectedSectionId,
@@ -59,7 +60,7 @@ const RouteDistributionChart = () => {
               >
                   Save Distribution
               </LoadingButton>
-              <Button component={Link}  to="/placard/ropes">
+              <Button component={Link}  to={`/placard/ropes/${gymId}`}>
                   Print Route Placard
                 </Button>
             </ButtonGroup>

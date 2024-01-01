@@ -17,7 +17,12 @@ function PrintableRouteCard() {
   return (
     <Box sx={{ mt: 12, ml: '5rem', width: '85rem' }}>
       <Grid container spacing={0} >
-        <Grid item xs={5} className="noprint">
+        <Grid
+          item
+          xs={5}
+          className="noprint"
+          data-testid="climb-selectors-container"
+        >
           <PlacardSelectors
             distribution={distribution}
             handleClimbSelector={handleNonAreteInfo}
@@ -28,7 +33,11 @@ function PrintableRouteCard() {
           />
         </Grid>
 
-        <Grid item xs={6}>
+        <Grid
+          item
+          xs={6}
+          data-testid="route-placard-container"
+        >
           <Box className="route-placard-container centered-text">
             <Box className="route-three-grid-column">
               <RoutePlacard

@@ -1,21 +1,21 @@
-import { useSelector } from 'react-redux';
 import Dashboard from '../../components/dashboard/Dashboard';
 import DashboardContent from '../../components/dashboard/content/Content';
+import useSetGymAndEmployeeLists from '../../components/dashboard/hooks/useSetGymAndEmployeeLists';
+import useGetUserInfo from '../../hooks/useGetUserInfo';
+
 
 const DashboardPage = () => { 
-  const user = useSelector(state => state.user);
+  const {userRoleId} = useGetUserInfo()
 
-  return (
-    <>
-      {
-        user?.loggedIn
-          ? <Dashboard>
-              <DashboardContent />
-            </Dashboard>
-          : <div>Log in failed</div> // TODO: create loading component
-      }
-    </>
-  )
+  useSetGymAndEmployeeLists();
+
+  return userRoleId ? 
+    (
+      <Dashboard>
+        <DashboardContent />
+      </Dashboard>
+    )
+    : <>Loading...</>
 }
 
 export default DashboardPage;

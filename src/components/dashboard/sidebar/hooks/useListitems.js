@@ -3,11 +3,13 @@ import { Collapse, Divider, List, ListItemButton, ListItemIcon, ListItemText, To
 import { Fragment, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import useGetUserInfo from "../../../../hooks/useGetUserInfo";
 
 
 const useListItems = (drawerOpen, drawerSetter) => {
-  const user = useSelector(state => state.user);
+  const { userRoleId } = useGetUserInfo();
   const locations = useSelector(state => state.locations);
+  const {userLocations} = useGetUserInfo();
   const [expandAllLocations, setExpandAllLocations] = useState(false);
   const [expandMetrics, setExpandMetrics] = useState(false);
   const [expandUserLocations, setExpandUserLocations] = useState(false);
@@ -80,7 +82,7 @@ const useListItems = (drawerOpen, drawerSetter) => {
       case 'Locations':
         return renderCollapsableList(listItem, '/locations/', locations, expandAllLocations, setExpandAllLocations)
     case 'Metrics':
-      return renderCollapsableList(listItem, '/metrics/', user?.gyms, expandMetrics, setExpandMetrics)
+      return renderCollapsableList(listItem, '/metrics/', userLocations, expandMetrics, setExpandMetrics)
     default:
       return renderListItemWithLink(listItem)
     }
@@ -96,7 +98,8 @@ const useListItems = (drawerOpen, drawerSetter) => {
 
   return {
     expandUserLocations,
-    user,
+    userRoleId,
+    userLocations,
     renderCollapsableList,
     renderList,
     setExpandUserLocations,

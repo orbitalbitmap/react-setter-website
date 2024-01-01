@@ -38,6 +38,7 @@ const TabPanel = ({ value, index, id, panelInfo, ...other }) => {
                       textDecoration: 'none',
                       fontWeight: 500,
                     }}
+                    name={titles.left}
                   >
                     {titles.left}
                   </Link>
@@ -63,6 +64,7 @@ const TabPanel = ({ value, index, id, panelInfo, ...other }) => {
                       textDecoration: 'none',
                       fontWeight: 500,
                     }}
+                    name={titles.right}
                   >
                       {titles.right}
                   </Link>

@@ -1,5 +1,4 @@
 import { Box, Grid } from '@mui/material';
-import { useSelector } from 'react-redux';
 
 import useBoulderPlacardInfo from './hooks/useBoulderPlacardInfo';
 import BoulderPlacard from './BoulderPlacard';
@@ -10,12 +9,10 @@ import { useGetBoulderDistributionQuery } from '../../../services/gym'
 import { useParams } from 'react-router-dom';
 
 const PrintableBoulderCard = () => {
-  // const distribution = useSelector(state => state.distribution.boulderDistribution)
   const urlParams = useParams();
 
   const {data: distribution } = useGetBoulderDistributionQuery(urlParams.id);
 
-  console.log({distribution})
   const {
     currentSection,
     firstPlacardList,

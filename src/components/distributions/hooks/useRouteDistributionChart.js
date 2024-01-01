@@ -116,6 +116,7 @@ const loading = useMemo(() => {
     columns,
     filteredDistribution,
     fullDateChange,
+    gymId,
     gymName,
     loading,
     selectedSectionId,

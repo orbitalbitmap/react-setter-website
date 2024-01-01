@@ -13,14 +13,14 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { setNotificationAlert } from '../../reducers/notificationsReducers';
 
 import Copyright from './copyright/Copyright';
-import { setUser, } from '../../reducers/userReducer';
-import { setGymPanel } from '../../reducers/gymTabPanelReducers';
 
 import { useLoginMutation } from '../../services/gym';
+import { useCookies } from 'react-cookie';
 
 const SignIn = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [,setCookie] = useCookies(['userId', 'userRoleId', 'userLocations']);
   const [enteredEmail, setEnteredEmail] = useState('')
   const [enteredPassword, setEnteredPassword] = useState('')
 
@@ -42,16 +42,19 @@ const SignIn = () => {
           alertType: 'error',
           messageBody: 'Please enter a valid email and valid password.'
         }));
-        return
       }
+
 
       const {data} = await login({
         email: enteredEmail,
         password: enteredPassword,
       });
 
-      dispatch(setUser(data));
-      dispatch(setGymPanel());
+      setCookie('userId', data.id);
+      setCookie('userRoleId', data.roleId);
+      setCookie('userLocations', data.gyms);
+      
+
       navigate("/dashboard");
     } catch(err) {
       dispatch(setNotificationAlert({

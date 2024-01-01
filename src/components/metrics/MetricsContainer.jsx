@@ -22,7 +22,10 @@ function MetricsContainer() {
         Metrics
       </Typography>
 
-      <Box className="idealVsCurrent-wrapper centered-text">
+      <Box
+        className="idealVsCurrent-wrapper centered-text"
+        data-testid="boulders-per-setter-container"
+      >
         {
           gymMetrics?.bouldersPerSetter?.length
             ? <BouldersPerSetter />
@@ -30,7 +33,10 @@ function MetricsContainer() {
         }
       </Box>
 
-      <Box className="idealVsCurrent-wrapper centered-text">
+      <Box
+        className="idealVsCurrent-wrapper centered-text"
+        data-testid="routes-per-setter-container"
+      >
         {
           gymMetrics?.routesPerSetter?.length
             ? <RoutesPerSetter />
@@ -39,7 +45,10 @@ function MetricsContainer() {
       </Box>
 
       {/* boulders per color */}
-      <Box className="idealVsCurrent-wrapper centered-text">
+      <Box
+        className="idealVsCurrent-wrapper centered-text"
+        data-testid="boulders-per-color-container"
+      >
         {
           gymMetrics?.bouldersPerColor?.length
             ? <BouldersPerColor />
@@ -48,7 +57,10 @@ function MetricsContainer() {
       </Box>
 
       {/* routes per color */}
-      <Box className="idealVsCurrent-wrapper centered-text">
+      <Box
+        className="idealVsCurrent-wrapper centered-text"
+        data-testid="routes-per-color-container"
+      >
         {
           gymMetrics?.routesPerColor?.length
             ? <RoutesPerColor />
@@ -57,7 +69,10 @@ function MetricsContainer() {
       </Box>
 
       {/* ideal vs current boulder */}
-      <Box className="idealVsCurrent-wrapper centered-text">
+      <Box
+        className="idealVsCurrent-wrapper centered-text"
+        data-testid="ideal-vs-current-boulder-container"
+      >
         {
           (gymMetrics?.currentVsIdealBoulderGrades?.length)
             ?  <BoulderIdealVsCurrent />
@@ -66,7 +81,10 @@ function MetricsContainer() {
       </Box>
 
       {/* ideal vs current rope */}
-      <Box className="idealVsCurrent-wrapper centered-text">
+      <Box
+        className="idealVsCurrent-wrapper centered-text"
+        data-testid="ideal-vs-current-route-container"
+      >
         {
           (gymMetrics?.currentVsIdealRouteGrades?.length)
             ? <RouteIdealVsCurrent />

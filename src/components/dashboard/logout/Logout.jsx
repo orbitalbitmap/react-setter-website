@@ -7,7 +7,6 @@ import ListItemText from '@mui/material/ListItemText';
 import Tooltip from "@mui/material/Tooltip";
 import { removeEmployeeList } from "../../../reducers/employeeReducers";
 import { removeLocationList } from "../../../reducers/locationReducers";
-import { removePanel } from "../../../reducers/gymTabPanelReducers";
 import { removeUserInfo } from "../../../reducers/userReducer";
 
 const NavLogout = () => {
@@ -16,7 +15,6 @@ const NavLogout = () => {
   const handleLogout = () => {
     dispatch(removeEmployeeList());
     dispatch(removeLocationList());
-    dispatch(removePanel());
     dispatch(removeUserInfo())
   }
 

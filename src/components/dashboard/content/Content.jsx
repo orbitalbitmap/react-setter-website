@@ -5,11 +5,11 @@ import {
   Paper,
   Typography,
 } from '@mui/material';
-import { useSelector } from 'react-redux';
 import GymTabContainer from './gymTabContainer/GymTabContainer';
+import useGetUserInfo from '../../../hooks/useGetUserInfo';
 
 const Content = () => {
-  const user = useSelector(state => state.user);
+  const { userLocations } = useGetUserInfo();
 
   return (
     <Box
@@ -23,12 +23,14 @@ const Content = () => {
         height: '100vh',
         overflow: 'auto',
       }}
+      data-testid="dashboard-content-component"
     >
-      <Container maxWidth="xl" sx={{ mt: 12, mb: 4, }}>
+      <Container maxWidth="xl" sx={{ mt: 12, mb: 4, }} data-testid="location-tabs-container">
         <Grid container spacing={4}>
           {
-            user?.gyms.map(gym => (
-              <Grid key={gym.id} item xs={6}>
+            userLocations?.map(gym => {
+              return (
+              <Grid key={gym.id} item xs={6} data-testid={`panel-${gym.name}`}>
                 <Paper
                 elevation={24}
                   sx={{
@@ -44,7 +46,8 @@ const Content = () => {
                   <GymTabContainer gym={gym} />
                 </Paper>
               </Grid>
-            ))
+            )
+          })
           }
         </Grid>
       </Container>
