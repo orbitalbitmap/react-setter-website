@@ -46,7 +46,7 @@ const ItemList = ({ drawerOpen, drawerSetter }) => {
       {
         renderCollapsableList(
           { id: 8, title: 'Your Locations'},
-          '/locations/',
+          '/locations',
           userLocations,
           expandUserLocations,
           setExpandUserLocations

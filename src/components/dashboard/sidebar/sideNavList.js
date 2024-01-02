@@ -11,24 +11,24 @@ const sideNavList = [
   {
     id: 2,
     title: 'Dashboard',
-    url: '/dashboard/',
+    url: '/dashboard',
     icon: <DashboardIcon />,
   },
   {
     id: 3,
     title: 'Locations',
-    url: '/locations/',
+    url: '/locations',
   },
   {
     id: 4,
     title: 'Employees',
-    url: '/employees/',
+    url: '/employees',
     icon: <PeopleIcon />,
   },
   {
     id: 5,
     title: 'Metrics',
-    url: '/metrics/',
+    url: '/metrics',
   },
   // {
   //   id: 6,
