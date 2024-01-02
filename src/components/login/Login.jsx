@@ -42,6 +42,7 @@ const SignIn = () => {
           alertType: 'error',
           messageBody: 'Please enter a valid email and valid password.'
         }));
+        return null;
       }
 
 

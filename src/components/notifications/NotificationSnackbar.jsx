@@ -19,6 +19,7 @@ const NotificationSnackbar = () => {
       onClose={handleClose}
       action={<NotificationAction handleClose={handleClose}/>}
       sx={{ bottom: {xs: 16 } }}
+      data-testid="snackbar-notification"
     >
       <Alert
         onClose={handleClose}
