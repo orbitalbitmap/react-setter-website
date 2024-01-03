@@ -50,6 +50,15 @@ const useNewEmployeeFormInfo = () => {
       gyms: employeeGymList,
     };
 
+    if (!firstName.length || !lastName.length || !email.length || !password.length) {
+      dispatch(setNotificationAlert({
+        alertType: 'error',
+        messageBody: 'Missing information, please enter all of the required fields.',
+      }));
+      
+      return;
+    }
+
     try {
       await saveNewEmployee(newUser);
       dispatch(setNotificationAlert({

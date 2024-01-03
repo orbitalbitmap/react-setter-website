@@ -30,6 +30,15 @@ const NewGymForm = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    if (!name.length) {
+      dispatch(setNotificationAlert({
+        alertType: 'error',
+        messageBody: 'Missing information, please enter all of the required fields.',
+      }));
+      
+      return;
+    }
+
     try {
       await saveNewGym({
         name,
