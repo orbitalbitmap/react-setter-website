@@ -18,7 +18,7 @@ setup('authenticate', async ({ page }) => {
   await expect(passwordInput).toBeVisible();
   await passwordInput.fill('test');
   await expect(signInButton).toBeVisible();
-  signInButton.click()
+  signInButton.click();
 
   const heading = page.getByRole('heading', { name: 'Dashboard' })
   await expect(heading).toBeVisible();

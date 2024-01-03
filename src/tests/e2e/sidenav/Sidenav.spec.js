@@ -1,12 +1,16 @@
 /* eslint-disable testing-library/prefer-screen-queries */
 import { test, expect } from '@playwright/test';
+import mockGymList from '../mock-data/mockGymList';
 
 test.beforeEach('navigates to the dashboard page', async ({ page }) => {
+  await page.route('*/**/api/gyms', async route => {
+    await route.fulfill({ json: mockGymList });
+  });
   await page.goto('dashboard');
   
   const heading = page.getByRole('heading', { name: 'Dashboard' });
   await expect(heading).toBeVisible();
-})
+});
 
 // render test
 test('loads expected content', async ({ page }) => {
@@ -32,7 +36,6 @@ test('will show/hide content for the collapsable location list when clicked and 
   const locationsLink = page.getByLabel('Locations', { exact: true });
   const locationsListContainer = page.getByTestId('locations-list');
 
-
   await expect(locationsListContainer).not.toBeVisible();
   // expands the list
   await locationsLink.click();
@@ -53,7 +56,7 @@ test('will show/hide content for the collapsable location list when clicked and 
   await locationsLink.click();
   await expect(locationsListContainer).toBeVisible();
 
-  const singleLocationLink = locationsListContainer.getByLabel("Worcester");
+  const singleLocationLink = locationsListContainer.getByLabel(mockGymList[0].name);
   await singleLocationLink.click();
   await expect(page.url()).toBe(`${baseURL}/locations/1`);
 });
@@ -74,9 +77,11 @@ test('will show/hide content for the collapsable metrics list when clicked and c
   await metricsLink.click();
   await expect(metricsListContainer).toBeVisible();
 
-  const singleLocationLink = metricsListContainer.getByLabel("Worcester");
+  const singleLocationLink = metricsListContainer.getByLabel(mockGymList[0].name);
+  const singleMetricsHeading = page.getByRole('heading', { name: `${mockGymList[0].name} Metrics`});
   await singleLocationLink.click();
   await expect(page.url()).toBe(`${baseURL}/metrics/1`);
+  await expect(singleMetricsHeading).toBeVisible();
 
   // expands to test the list item's link to the all locations page
   await metricsLink.click();
