@@ -1,19 +1,22 @@
 import { test as setup, expect } from '@playwright/test';
+import mockUser from './mock-data/mockUser';
 
 const authFile = './playwright/.auth/user.json';
-const userEmail = process.env.REACT_APP_TEST_EMAIL;
-const userPassword = process.env.REACT_APP_TEST_PASSWORD;
 
 setup('authenticate', async ({ page }) => {
+  await page.route('*/**/api/login', async route => {
+    await route.fulfill({ json: mockUser });
+  });
+
   await page.goto('/');
   const emailInput = page.getByLabel('Email Address');
   const passwordInput = page.getByLabel('Password');
   const signInButton = page.getByRole('button', { name: 'Sign In' })
 
   await expect(emailInput).toBeVisible();
-  await emailInput.fill(userEmail)
+  await emailInput.fill('test@test.com')
   await expect(passwordInput).toBeVisible();
-  await passwordInput.fill(userPassword);
+  await passwordInput.fill('test');
   await expect(signInButton).toBeVisible();
   signInButton.click()
 
