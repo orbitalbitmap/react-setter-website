@@ -11,7 +11,13 @@ const EmployeeCardContainer = () => {
       {
         employees?.map(employeeInfo => {
           return (
-            <Grid key={employeeInfo.id} item xs={6} sx={{ py: 2 }}>
+            <Grid
+              key={employeeInfo.id}
+              item
+              xs={6}
+              sx={{ py: 2 }}
+              data-testid="employee-card-container"
+            >
               <Paper sx={{ width: '30rem', m: '0 auto', pb: 4, }}>
                 <Typography variant="h5" className="centered-text" sx={{pt: 2}}>
                   <Link to={`/employees/${employeeInfo.id}`}>{`${employeeInfo.firstName} ${employeeInfo.lastName}`}</Link>
