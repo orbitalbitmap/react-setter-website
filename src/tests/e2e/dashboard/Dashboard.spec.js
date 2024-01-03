@@ -16,6 +16,9 @@ test.beforeEach('mock the necessary api paths before navigating to the AdminDash
   await page.route('*/**/api/gyms', async route => {
     await route.fulfill({ json: mockGymList });
   });
+  await page.route(`*/**/api/gymById/${mockSingleGym.id}`, async route => {
+    await route.fulfill({ json: mockSingleGym });
+  });
   
   page.goto('dashboard');
 
@@ -38,9 +41,6 @@ test('make sure the ropes tab panel is visible and the links work as expected', 
   });
   await page.route(`*/**/api/routeSections/${mockSingleGym.id}`, async route => {
     await route.fulfill({ json: mockSingleGym.routeSections });
-  });
-  await page.route(`*/**/api/gymById/${mockSingleGym.id}`, async route => {
-    await route.fulfill({ json: mockSingleGym });
   });
   await page.route(`*/**/api/idealRouteGradesById/${mockSingleGym.id}`, async route => {
     await route.fulfill({ json: mockIdealRopeDistribution });
@@ -71,9 +71,6 @@ test('make sure the boulders tab panel is visible and the links work as expected
   });
   await page.route(`*/**/api/boulderSections/${mockSingleGym.id}`, async route => {
     await route.fulfill({ json: mockSingleGym.boulderSections });
-  });
-  await page.route(`*/**/api/gymById/${mockSingleGym.id}`, async route => {
-    await route.fulfill({ json: mockSingleGym });
   });
   await page.route(`*/**/api/idealBoulderGradesById/${mockSingleGym.id}`, async route => {
     await route.fulfill({ json: mockIdealBoulderDistribution });
