@@ -23,7 +23,7 @@ const mockCurrentRopeDistribution = [
     id: 2,
     gymId: 1,
     station: '1',
-    sectionId: 1,
+    sectionId: 2,
     ropeStyle: 'TR/Lead',
     grade: '5.8',
     color: 'Red',
