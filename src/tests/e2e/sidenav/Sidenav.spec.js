@@ -4,7 +4,7 @@ import mockGymList from '../../mock-data/mockGymList';
 import mockEmployeeList from '../../mock-data/mockEmployeeList';
 import mockMetrics from '../../mock-data/mockMetrics';
 
-test.beforeEach('navigates to the dashboard page', async ({ page }) => {
+test.beforeEach('mock the necessary api paths before navigating to the Dashboard page', async ({ page }) => {
   await page.route('*/**/api/gyms', async route => {
     await route.fulfill({ json: mockGymList });
   });
