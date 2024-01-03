@@ -9,7 +9,8 @@ const initialState = {
       titles: {
         left: 'Current Rope Climbs',
         right: 'Ideal Rope Distribution',
-      }
+      },
+      type: "ropes",
     },
     boulderPanel: {
       links: {
@@ -20,6 +21,7 @@ const initialState = {
         left: 'Current Boulder Problems',
         right: 'Ideal Boulder Distribution',
       },
+      type: "boulders",
     },
     sectionPanel: {
       links: {
@@ -30,6 +32,7 @@ const initialState = {
         left: 'View Sections',
         right: 'Edit sections',
       },
+      type: "sections",
     }
   };
 

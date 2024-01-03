@@ -7,7 +7,7 @@ dotenv.config();
 
 // @see https://playwright.dev/docs/test-configuration
 module.exports = defineConfig({
-  testDir: './src/tests/e2e',
+  testDir: './src/tests/e2e/',
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */

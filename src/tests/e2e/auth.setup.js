@@ -1,5 +1,5 @@
 import { test as setup, expect } from '@playwright/test';
-import mockUser from './mock-data/mockUser';
+import mockUser from '../mock-data/mockUser';
 
 const authFile = './playwright/.auth/user.json';
 

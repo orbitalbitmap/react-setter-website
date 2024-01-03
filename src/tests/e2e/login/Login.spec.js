@@ -1,8 +1,8 @@
 /* eslint-disable testing-library/prefer-screen-queries */
 import { test, expect } from '@playwright/test';
-import mockUser from '../mock-data/mockUser';
-import mockEmployeeList from '../mock-data/mockEmployeeList';
-import mockGymList from '../mock-data/mockGymList';
+import mockUser from '../../mock-data/mockUser';
+import mockEmployeeList from '../../mock-data/mockEmployeeList';
+import mockGymList from '../../mock-data/mockGymList';
 
 // render test
 test('loads expected content', async ({ page }) => {

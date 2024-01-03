@@ -1,7 +1,7 @@
 /* eslint-disable testing-library/prefer-screen-queries */
 import { test, expect } from '@playwright/test';
-import mockEmployeeList from '../mock-data/mockEmployeeList';
-import mockGymList from '../mock-data/mockGymList';
+import mockEmployeeList from '../../mock-data/mockEmployeeList';
+import mockGymList from '../../mock-data/mockGymList';
 
 test.beforeEach('mock the necessary api paths before navigating to the AdminDashboard page', async ({ page }) => {
   await page.route('*/**/api/employees', async route => {
@@ -12,9 +12,8 @@ test.beforeEach('mock the necessary api paths before navigating to the AdminDash
   });
   
   page.goto('admin');
-})
+});
 
-// render test
 test('make sure the new employee form works as expected', async ({ page }) => {
   await page.route('*/**/api/saveEmployee', async route => {
     await route.fulfill({ status: 200});
@@ -144,7 +143,7 @@ test('make sure the new gym form works as expected', async ({ page }) => {
   await expect(newGymForm).toBeVisible();
 
   await expect(nameInput).toBeVisible();
-  await nameInput.fill('Test');
+  await nameInput.fill('CRG Cragstead');
 
   await expect(addressInput).toBeVisible();
   await addressInput.fill('111 Teton Heights Ave Cragstead, MA 00001');

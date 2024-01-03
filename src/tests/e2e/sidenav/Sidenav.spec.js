@@ -1,6 +1,6 @@
 /* eslint-disable testing-library/prefer-screen-queries */
 import { test, expect } from '@playwright/test';
-import mockGymList from '../mock-data/mockGymList';
+import mockGymList from '../../mock-data/mockGymList';
 
 test.beforeEach('navigates to the dashboard page', async ({ page }) => {
   await page.route('*/**/api/gyms', async route => {
