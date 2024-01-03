@@ -1,13 +1,13 @@
 const mockGymList = [
   {
     id: 1,
-    name: "Worcester",
-    address: "299 Barber Avenue Worcester, MA 01606",
-    phoneNumber: "508-852-7625",
+    name: "CRG Cragstead",
+    address: "111 Teton Heights Ave Cragstead, MA 00001",
+    phoneNumber: "111-111-1111",
     headSetterId: 1,
-    facebook: "crgWooTown!",
-    instagram: "@crgWorcester",
-    twitter: "centralWorcester"
+    facebook: "CRG Cragstead",
+    instagram: "@crgcragstead",
+    twitter: "crgCragstead"
   },
   {
     id: 2,
