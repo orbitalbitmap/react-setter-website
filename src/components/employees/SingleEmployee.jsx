@@ -36,7 +36,7 @@ const {buttonDisplayType} = useButtonDisplay(employee, user);
 
         <Typography variant="h4" className="centered-text" sx={{ mt: 6,  }}>Locations:</Typography>
         
-        <Container sx={{ textAlign: 'center', p: 2, }}>
+        <Container sx={{ textAlign: 'center', p: 2, }} data-testid="employee-locations-container">
           {
             employee?.gyms ? getLocationString(employee?.gyms) : null
           }
