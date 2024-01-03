@@ -5,7 +5,6 @@ import mockGymList from '../../mock-data/mockGymList';
 
 const mockSingleEmployee = mockEmployeeList[0];
 
-
 test.beforeEach('', async ({ page }) => {
   await page.route('*/**/api/employees', async route => {
     await route.fulfill({ json: mockEmployeeList });
