@@ -1,3 +1,5 @@
+import mockGymList from './mockGymList'
+
 const mockUser = {
   id: 1,
   firstName: "test",
@@ -12,16 +14,7 @@ const mockUser = {
     role: "Director of Routesetting",
     deletedAt: null
   },
-  gyms: [
-    {
-      id: 1,
-      name: "Worcester",
-      address: "299 Barber Avenue Worcester, MA 01606",
-      phoneNumber: "508-852-7625",
-      headSetterId: 1,
-      deletedAt: null
-    },
-  ],
+  gyms: mockGymList,
 };
 
 

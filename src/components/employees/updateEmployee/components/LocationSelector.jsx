@@ -30,7 +30,7 @@ const LocationSelector = ({ urlId }) => {
 
     try {
       const { error } = await updateEmployee(employee);
-      if (error.status === 500) {
+      if (error?.status === 500) {
         throw error;
       }
 

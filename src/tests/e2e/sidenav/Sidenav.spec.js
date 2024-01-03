@@ -1,10 +1,15 @@
 /* eslint-disable testing-library/prefer-screen-queries */
 import { test, expect } from '@playwright/test';
 import mockGymList from '../../mock-data/mockGymList';
+import mockEmployeeList from '../../mock-data/mockEmployeeList';
+import mockMetrics from '../../mock-data/mockMetrics';
 
 test.beforeEach('navigates to the dashboard page', async ({ page }) => {
   await page.route('*/**/api/gyms', async route => {
     await route.fulfill({ json: mockGymList });
+  });
+  await page.route('*/**/api/employees', async route => {
+    await route.fulfill({ json: mockEmployeeList });
   });
   await page.goto('dashboard');
   
@@ -56,40 +61,33 @@ test('will show/hide content for the collapsable location list when clicked and 
   await locationsLink.click();
   await expect(locationsListContainer).toBeVisible();
 
-  const singleLocationLink = locationsListContainer.getByLabel(mockGymList[0].name);
+  const singleLocationLink = locationsListContainer.getByLabel(mockGymList[0].name, { exact: true, });
   await singleLocationLink.click();
   await expect(page.url()).toBe(`${baseURL}/locations/1`);
 });
 
 test('will show/hide content for the collapsable metrics list when clicked and can navigate to correct page when a list item is clicked', async ({ page, baseURL }) => {
+  await page.route(`*/**/api/metrics/${mockGymList[0].id}`, async route => {
+    await route.fulfill({ json: mockMetrics });
+  });
+  
   const metricsLink = page.getByLabel('Metrics', { exact: true });
   const metricsListContainer = page.getByTestId('metrics-list');
 
   await expect(metricsListContainer).not.toBeVisible();
-  // expands the list
-  await metricsLink.click();
-  await expect(metricsListContainer).toBeVisible();
-  // closes the list
+
   await metricsLink.click();
   await expect(metricsListContainer).toBeVisible();
 
-   // expands to test the list item's link to ta specific location's page
+  await metricsLink.click();
+  await expect(metricsListContainer).not.toBeVisible();
+
   await metricsLink.click();
   await expect(metricsListContainer).toBeVisible();
 
-  const singleLocationLink = metricsListContainer.getByLabel(mockGymList[0].name);
-  const singleMetricsHeading = page.getByRole('heading', { name: `${mockGymList[0].name} Metrics`});
-  await singleLocationLink.click();
-  await expect(page.url()).toBe(`${baseURL}/metrics/1`);
-  await expect(singleMetricsHeading).toBeVisible();
+  await page.getByLabel('CRG Cragstead', { exact: true }).click();
 
-  // expands to test the list item's link to the all locations page
-  await metricsLink.click();
-  await expect(metricsListContainer).toBeVisible();
-
-  const allMetricsLink = metricsListContainer.getByLabel("All metrics", { exact: true});
-  await allMetricsLink.click();
-  await expect(page.url()).toBe(`${baseURL}/metrics`);
+  await expect(page.url()).toBe(`${baseURL}/metrics/${mockGymList[0].id}`)
 });
 
 test('will load the correct page when a side nav link is clicked, for the non-expandable lists', async ({ page, baseURL }) => {

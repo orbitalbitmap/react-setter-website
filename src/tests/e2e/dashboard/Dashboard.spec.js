@@ -47,9 +47,9 @@ test('make sure the ropes tab panel is visible and the links work as expected', 
   });
   
 
-  const ropePanelContent = page.getByTestId('ropes-container');
-  const currentRopesDistributionLink = page.getByRole('link', { name: 'Current Rope Climbs' });
-  const idealRopesDistributionLink = page.getByRole('link', { name: 'Ideal Rope Distribution' });
+  const ropePanelContent = page.getByTestId('ropes-container').first();
+  const currentRopesDistributionLink = page.getByRole('link', { name: 'Current Rope Climbs' }).first();
+  const idealRopesDistributionLink = page.getByRole('link', { name: 'Ideal Rope Distribution' }).first();
   const dashboardNavLink = page.getByLabel('Dashboard', { exact: true });
   
 
@@ -76,7 +76,7 @@ test('make sure the boulders tab panel is visible and the links work as expected
     await route.fulfill({ json: mockIdealBoulderDistribution });
   });
 
-  const bouldersTab = page.getByRole('tab', { name: 'Boulders' });
+  const bouldersTab = page.getByRole('tab', { name: 'Boulders' }).first();
   const boulderPanelContent = page.getByTestId('boulders-container');
   const currentBoulderDistributionLink = page.getByRole('link', { name: 'Current Boulder Problems' });
   const idealBoulderDistributionLink = page.getByRole('link', { name: 'Ideal Boulder Distribution' });
@@ -106,7 +106,7 @@ test('make sure the sections tab panel is visible and the links work as expected
   });
   
 
-  const sectionsTab = page.getByRole('tab', { name: 'Sections' });
+  const sectionsTab = page.getByRole('tab', { name: 'Sections' }).first();
   const sectionsPanelContent = page.getByTestId('sections-container');
   const viewSectionsLink = page.getByRole('link', { name: 'View Sections' });
   const editSectionsLink = page.getByRole('link', { name: 'Edit Sections' });
