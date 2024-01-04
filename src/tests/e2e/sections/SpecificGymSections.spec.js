@@ -4,14 +4,17 @@ import mockFullEmployeeList from '../../mock-data/mockFullEmployeeList';
 import mockGymList from '../../mock-data/mockGymList';
 import mockSingleGym from '../../mock-data/mockSingleGym';
 
-// render test
-test('loads expected content', async ({page}) => {
+test.beforeEach('mocks the necessary api paths for all the tests', async ({ page }) => {
   await page.route('*/**/api/employees', async route => {
     await route.fulfill({ json: mockFullEmployeeList });
   });
   await page.route('*/**/api/gyms', async route => {
     await route.fulfill({ json: mockGymList });
   });
+});
+
+// render test
+test('loads expected content', async ({ page }) => {
   await page.route(`*/**/api/gymWithSections/${mockSingleGym.id}`, async route => {
     await route.fulfill({ json: mockSingleGym });
   });
@@ -29,9 +32,11 @@ test('loads expected content', async ({page}) => {
   const routeSectionsContainer = page.getByTestId('route-section-container');
   const routeSectionNameList = page.getByTestId('route-section-name');
   const emptyRouteSectionContainer = page.getByTestId('empty-route-container');
+  const editLink = page.getByRole('link', { name: 'Edit sections' })
 
   await expect(mainContainer).toBeVisible();
   await expect(sectionContainer).toBeVisible();
+  await expect(editLink).toBeVisible();
   await expect(boulderSectionsContainer).toBeVisible();
   await expect(emptyBoulderSectionContainer).not.toBeVisible();
   await expect(boulderSectionNameList).toHaveCount(boulderSections.length);
@@ -40,18 +45,12 @@ test('loads expected content', async ({page}) => {
   await expect(routeSectionNameList).toHaveCount(routeSections.length);
 });
 
-test('loads expected content when no sub-sections are found in a section', async ({page}) => {
+test('loads expected content when no sub-sections are found in a section', async ({ page }) => {
   const gymWithEmptySections = {
     ...mockSingleGym,
     boulderSections: [],
     routeSections: [],
   };
-  await page.route('*/**/api/employees', async route => {
-    await route.fulfill({ json: mockFullEmployeeList });
-  });
-  await page.route('*/**/api/gyms', async route => {
-    await route.fulfill({ json: mockGymList });
-  });
   await page.route(`*/**/api/gymWithSections/${mockSingleGym.id}`, async route => {
     await route.fulfill({ json: gymWithEmptySections });
   });
