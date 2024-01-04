@@ -4,8 +4,6 @@ import mockFullEmployeeList from '../../mock-data/mockFullEmployeeList';
 import mockGymList from '../../mock-data/mockGymList';
 import mockSingleGym from '../../mock-data/mockSingleGym';
 
-
-// render test
 test('loads expected content', async ({page}) => {
   await page.route('*/**/api/employees', async route => {
     await route.fulfill({ json: mockFullEmployeeList });

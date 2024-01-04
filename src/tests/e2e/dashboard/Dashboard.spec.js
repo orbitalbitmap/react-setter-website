@@ -8,7 +8,6 @@ import mockSingleGym from '../../mock-data/mockSingleGym';
 import mockCurrentBoulderDistribution from '../../mock-data/mockCurrentBoulderDistribution';
 import mockIdealBoulderDistribution from '../../mock-data/mockIdealBoulderDistribution';
 
-
 test.beforeEach('mock the necessary api paths before navigating to the AdminDashboard page', async ({ page }) => {
   await page.route('*/**/api/employees', async route => {
     await route.fulfill({ json: mockFullEmployeeList });

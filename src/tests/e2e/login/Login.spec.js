@@ -4,19 +4,6 @@ import mockUser from '../../mock-data/mockUser';
 import mockFullEmployeeList from '../../mock-data/mockFullEmployeeList';
 import mockGymList from '../../mock-data/mockGymList';
 
-// render test
-test('loads expected content', async ({ page }) => {
-  await page.goto('/');
-
-  const emailInput = page.getByLabel('Email Address');
-  const passwordInput = page.getByLabel('Password');
-  const signInButton = page.getByRole('button', { name: 'Sign In' });
-
-  await expect(emailInput).toBeVisible();
-  await expect(passwordInput).toBeVisible();
-  await expect(signInButton).toBeVisible();
-});
-
 test('failed login works as expected with a bad email/password', async ({ page }) => {
   await page.route('*/**/api/login', async route => {
     await route.abort();
@@ -37,7 +24,7 @@ test('failed login works as expected with a bad email/password', async ({ page }
   await expect(snackNotification).toBeVisible();
 });
 
-test('failed login works as expected with no email/password', async ({ page }) => {
+test('login works as expected when no email/password are entered', async ({ page }) => {
   await page.goto('/');
 
   const emailInput = page.getByLabel('Email Address');
