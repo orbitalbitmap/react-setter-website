@@ -9,12 +9,12 @@ const GymCardsContainer = () => {
     <Grid 
       key="gym-card-list-container"
       container sx={{ m: '0 auto', }}
-      data-testid="location-card-container"
+      data-testid="location-cards-container"
     >
       {
         locations?.map(gymInfo => {
           return (
-            <Grid key={gymInfo?.id} item xs={6} sx={{ py: 2 }}>
+            <Grid key={gymInfo?.id} item xs={6} sx={{ py: 2 }} data-testid="location-card">
               <Paper sx={{ width: '30rem', m: '0 auto', pb: 2, }}>
                 <Typography variant="h5" key={gymInfo?.name} className="centered-text" sx={{pt: 2}}>
                   <Link to={`/locations/${gymInfo?.id}`}>{gymInfo?.name}</Link>
