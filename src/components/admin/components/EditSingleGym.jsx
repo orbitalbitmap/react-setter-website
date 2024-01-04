@@ -15,7 +15,7 @@ const EditSingleGym = () => {
     handleSubmit,
   } = useGetGymInfo(urlParams?.id);
 
-  if (!gym.name) {
+  if (!gym?.name) {
     return (<h2>We cannot find the gym you wish to edit.</h2>);
   }
 
@@ -31,6 +31,7 @@ const EditSingleGym = () => {
         overflow: 'auto',
         mt: 8
       }}
+      data-testid="main-container"
     >
       <Container sx={{ mt: '7rem', width: "80rem"}} >
         <Paper
@@ -44,7 +45,12 @@ const EditSingleGym = () => {
         >
           <Typography className="centered-text" variant="h3">Edit {gym.name}'s Gym Information</Typography>
           <Paper className="centered-text" elevation={12} component="div" sx={{ pb: '0.5rem', pt: '1rem' }}>
-            <Grid container rowSpacing="1rem" sx={{ m: '0 auto'}}>
+            <Grid
+              container
+              rowSpacing="1rem"
+              sx={{ m: '0 auto'}}
+              data-testid="edit-container"
+            >
               <Grid item xs={6}>
                 <TextField
                   name="address"
@@ -71,20 +77,20 @@ const EditSingleGym = () => {
                     name="headSetterId"
                     labelId="headSetterId"
                     label="Head Setter:"
-                    value={gym.headSetterId || 0}
+                    value={gym?.headSetterId || 0}
                     onChange={(event) => { setGym({...gym, headSetterId: parseInt(event.target.value)})}}
                   >
                     {
-                      gym.employees.map(employee => {
+                      gym?.employees?.map(employee => {
                         return (
                           <MenuItem xs={6}
-                            key={employee.id}
+                            key={employee?.id}
                             value={employee?.id ? employee.id : ''}
                             sx={{
                               color: (theme) => theme.palette.primary.contrastText
                             }}
                           >
-                            {`${employee.firstName} ${employee.lastName}`}
+                            {`${employee?.firstName} ${employee?.lastName}`}
                           </MenuItem>
                         )
                       })
