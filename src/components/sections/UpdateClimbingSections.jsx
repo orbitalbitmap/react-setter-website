@@ -32,7 +32,7 @@ const UpdateClimbingSections = () => {
             {
               gym?.routeSections
                 ? SectionForm(gym?.routeSections, 'route', handleChange)
-                : (<h2>No Route Sections Found.</h2>)
+                : (<h2 data-testid="empty-route-sections">No Route Sections Found.</h2>)
             }
           </Box>
 
@@ -54,7 +54,7 @@ const UpdateClimbingSections = () => {
             {
               gym?.boulderSections
                 ? SectionForm(gym?.boulderSections, 'boulder', handleChange)
-                : (<h2>No Boulder Sections Found.</h2>)
+                : (<h2 data-testid="empty-boulder-sections">No Boulder Sections Found.</h2>)
             }
           </Box>
           <Box
