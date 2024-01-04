@@ -24,7 +24,11 @@ const renderNoSection = (sectionType) => {
   return (
     <List sx={{ bgcolor: theme=> theme.palette.common.white, p: 0, }}>
       <ListItem style={{ marginBottom: '.25rem' }}>
-        <ListItemText className="centered-text" sx={{color: theme => theme.palette.common.black, }}>
+        <ListItemText
+          className="centered-text"
+          sx={{color: theme => theme.palette.common.black, }}
+          data-testid={`empty-${sectionType.toLowerCase()}-container`}
+        >
           No {sectionType.toLowerCase()} sections found.
         </ListItemText>
       </ListItem>
