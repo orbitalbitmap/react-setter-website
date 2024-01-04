@@ -1,13 +1,13 @@
 /* eslint-disable testing-library/prefer-screen-queries */
 import { test, expect } from '@playwright/test';
-import mockEmployeeList from '../../mock-data/mockEmployeeList';
+import mockFullEmployeeList from '../../mock-data/mockFullEmployeeList';
 import mockGymList from '../../mock-data/mockGymList';
 
-const mockSingleEmployee = mockEmployeeList[0];
+const mockSingleEmployee = mockFullEmployeeList[0];
 
 test.beforeEach('mock the necessary api paths before navigating to the UpdateEmployee page', async ({ page }) => {
   await page.route('*/**/api/employees', async route => {
-    await route.fulfill({ json: mockEmployeeList });
+    await route.fulfill({ json: mockFullEmployeeList });
   });
   await page.route('*/**/api/gyms', async route => {
     await route.fulfill({ json: mockGymList });

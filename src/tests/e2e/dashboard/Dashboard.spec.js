@@ -1,6 +1,6 @@
 /* eslint-disable testing-library/prefer-screen-queries */
 import { test, expect } from '@playwright/test';
-import mockEmployeeList from '../../mock-data/mockEmployeeList';
+import mockFullEmployeeList from '../../mock-data/mockFullEmployeeList';
 import mockGymList from '../../mock-data/mockGymList';
 import mockCurrentRopeDistribution from '../../mock-data/mockCurrentRopeDistribution';
 import mockIdealRopeDistribution from '../../mock-data/mockIdealRopeDistribution';
@@ -11,7 +11,7 @@ import mockIdealBoulderDistribution from '../../mock-data/mockIdealBoulderDistri
 
 test.beforeEach('mock the necessary api paths before navigating to the AdminDashboard page', async ({ page }) => {
   await page.route('*/**/api/employees', async route => {
-    await route.fulfill({ json: mockEmployeeList });
+    await route.fulfill({ json: mockFullEmployeeList });
   });
   await page.route('*/**/api/gyms', async route => {
     await route.fulfill({ json: mockGymList });

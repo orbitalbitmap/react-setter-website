@@ -1,4 +1,4 @@
-import mockEmployeeList from './mockEmployeeList';
+import mockFullEmployeeList from './mockFullEmployeeList';
 import mockGymList from './mockGymList';
 
 const mockMetrics = {
@@ -44,15 +44,15 @@ const mockMetrics = {
     ],
     bouldersPerSetter: [
       {
-        name: mockEmployeeList[0],
+        name: mockFullEmployeeList[0],
         count: 1
       },
       {
-        name: mockEmployeeList[1],
+        name: mockFullEmployeeList[1],
         count: 6
       },
       {
-        name: mockEmployeeList[2],
+        name: mockFullEmployeeList[2],
         count: 10
       }
     ],
@@ -96,15 +96,15 @@ const mockMetrics = {
     ],
     routesPerSetter: [
       {
-        name: mockEmployeeList[0],
+        name: mockFullEmployeeList[0],
         count: 1
       },
       {
-        name: mockEmployeeList[1],
+        name: mockFullEmployeeList[1],
         count: 6
       },
       {
-        name: mockEmployeeList[2],
+        name: mockFullEmployeeList[2],
         count: 10
       }
     ],

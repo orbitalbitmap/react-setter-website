@@ -1,11 +1,11 @@
 /* eslint-disable testing-library/prefer-screen-queries */
 import { test, expect } from '@playwright/test';
 import mockGymList from '../../mock-data/mockGymList';
-import mockEmployeeList from '../../mock-data/mockEmployeeList';
+import mockFullEmployeeList from '../../mock-data/mockFullEmployeeList';
 
 test('loads expected content', async ({ page }) => {
   await page.route('*/**/api/employees', async route => {
-    await route.fulfill({ json: mockEmployeeList });
+    await route.fulfill({ json: mockFullEmployeeList });
   });
   await page.route('*/**/api/gyms', async route => {
     await route.fulfill({ json: mockGymList });

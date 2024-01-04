@@ -1,7 +1,7 @@
 /* eslint-disable testing-library/prefer-screen-queries */
 import { test, expect } from '@playwright/test';
 import mockUser from '../../mock-data/mockUser';
-import mockEmployeeList from '../../mock-data/mockEmployeeList';
+import mockFullEmployeeList from '../../mock-data/mockFullEmployeeList';
 import mockGymList from '../../mock-data/mockGymList';
 
 // render test
@@ -68,7 +68,7 @@ test('successful login works as expected', async ({ page }) => {
     await route.fulfill({ json: mockUser });
   });
   await page.route('*/**/api/employees', async route => {
-    await route.fulfill({ json: mockEmployeeList });
+    await route.fulfill({ json: mockFullEmployeeList });
   });
   await page.route('*/**/api/gyms', async route => {
     await route.fulfill({ json: mockGymList });

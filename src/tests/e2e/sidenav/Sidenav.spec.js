@@ -1,7 +1,7 @@
 /* eslint-disable testing-library/prefer-screen-queries */
 import { test, expect } from '@playwright/test';
 import mockGymList from '../../mock-data/mockGymList';
-import mockEmployeeList from '../../mock-data/mockEmployeeList';
+import mockFullEmployeeList from '../../mock-data/mockFullEmployeeList';
 import mockMetrics from '../../mock-data/mockMetrics';
 
 test.beforeEach('mock the necessary api paths before navigating to the Dashboard page', async ({ page }) => {
@@ -9,7 +9,7 @@ test.beforeEach('mock the necessary api paths before navigating to the Dashboard
     await route.fulfill({ json: mockGymList });
   });
   await page.route('*/**/api/employees', async route => {
-    await route.fulfill({ json: mockEmployeeList });
+    await route.fulfill({ json: mockFullEmployeeList });
   });
   await page.goto('dashboard');
   

@@ -1,5 +1,5 @@
 import mockSingleGym from "./mockSingleGym";
-import mockEmployeeList from "./mockEmployeeList";
+import mockFullEmployeeList from "./mockFullEmployeeList";
 
 const mockCurrentBoulderDistribution = [
   {
@@ -7,8 +7,8 @@ const mockCurrentBoulderDistribution = [
     gymId: 1,
     grade: "V10",
     color: "White",
-    setterId: mockEmployeeList[2].id,
-    setter: mockEmployeeList[2].placardName,
+    setterId: mockFullEmployeeList[2].id,
+    setter: mockFullEmployeeList[2].placardName,
     holds: null,
     style: null,
     sectionId: 1,
@@ -22,8 +22,8 @@ const mockCurrentBoulderDistribution = [
     gymId: 1,
     grade: "V2",
     color: "Green",
-    setterId: mockEmployeeList[1].id,
-    setter: mockEmployeeList[1].placardName,
+    setterId: mockFullEmployeeList[1].id,
+    setter: mockFullEmployeeList[1].placardName,
     holds: null,
     style: null,
     sectionId: 1,
@@ -37,8 +37,8 @@ const mockCurrentBoulderDistribution = [
     gymId: 1,
     grade: "V5",
     color: "Red",
-    setterId: mockEmployeeList[0].id,
-    setter: mockEmployeeList[0].placardName,
+    setterId: mockFullEmployeeList[0].id,
+    setter: mockFullEmployeeList[0].placardName,
     holds: null,
     style: null,
     sectionId: 1,
@@ -52,8 +52,8 @@ const mockCurrentBoulderDistribution = [
     gymId: 1,
     grade: "VB",
     color: "Black",
-    setterId: mockEmployeeList[1].id,
-    setter: mockEmployeeList[1].placardName,
+    setterId: mockFullEmployeeList[1].id,
+    setter: mockFullEmployeeList[1].placardName,
     holds: null,
     style: null,
     sectionId: 1,

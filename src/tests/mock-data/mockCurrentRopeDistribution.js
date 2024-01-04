@@ -1,5 +1,5 @@
 import mockSingleGym from "./mockSingleGym";
-import mockEmployeeList from "./mockEmployeeList";
+import mockFullEmployeeList from "./mockFullEmployeeList";
 
 const mockCurrentRopeDistribution = [
   {
@@ -10,8 +10,8 @@ const mockCurrentRopeDistribution = [
     ropeStyle: 'Top Rope Only',
     grade: '5.11-',
     color: 'Purple',
-    setterId: mockEmployeeList[0].id,
-    setter: mockEmployeeList[0].placardName,
+    setterId: mockFullEmployeeList[0].id,
+    setter: mockFullEmployeeList[0].placardName,
     climbName: '',
     holds: '',
     style: '',
@@ -27,8 +27,8 @@ const mockCurrentRopeDistribution = [
     ropeStyle: 'TR/Lead',
     grade: '5.8',
     color: 'Red',
-    setterId: mockEmployeeList[1].id,
-    setter: mockEmployeeList[1].placardName,
+    setterId: mockFullEmployeeList[1].id,
+    setter: mockFullEmployeeList[1].placardName,
     climbName: '',
     holds: '',
     style: '',
@@ -44,8 +44,8 @@ const mockCurrentRopeDistribution = [
     ropeStyle: 'Lead Only',
     grade: '5.12-',
     color: 'Blue',
-    setterId: mockEmployeeList[0].id,
-    setter: mockEmployeeList[0].placardName,
+    setterId: mockFullEmployeeList[0].id,
+    setter: mockFullEmployeeList[0].placardName,
     climbName: '',
     holds: '',
     style: '',
@@ -61,8 +61,8 @@ const mockCurrentRopeDistribution = [
     ropeStyle: 'Lead Only',
     grade: '5.10+',
     color: 'Green',
-    setterId: mockEmployeeList[2].id,
-    setter: mockEmployeeList[2].placardName,
+    setterId: mockFullEmployeeList[2].id,
+    setter: mockFullEmployeeList[2].placardName,
     climbName: '',
     holds: '',
     style: '',

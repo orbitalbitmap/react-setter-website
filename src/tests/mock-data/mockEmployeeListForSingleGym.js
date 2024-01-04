@@ -1,6 +1,6 @@
 import mockGymList from "./mockGymList";
 
-const mockEmployeeList = [
+const mockEmployeeListFromSingleGym = [
   {
     id: 1,
     firstName: 'test-admin',
@@ -40,4 +40,4 @@ const mockEmployeeList = [
   },
 ];
 
-export default mockEmployeeList;
+export default mockEmployeeListFromSingleGym;
