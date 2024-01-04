@@ -64,7 +64,7 @@ function MetricsContainer() {
         {
           gymMetrics?.routesPerColor?.length
             ? <RoutesPerColor />
-            : <Typography className="centered-text" variant="h6" >No Data Found For Setters Per Routes</Typography>
+            : <Typography className="centered-text" variant="h6" >No Data Found For Routes Per Colors</Typography>
         }
       </Box>
 
