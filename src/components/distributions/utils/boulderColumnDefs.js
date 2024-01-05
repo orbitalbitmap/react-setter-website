@@ -110,7 +110,8 @@ const getBoulderColumnDefs = (sectionInfoList, setterInfoList) => {
           formattedValue={params.formattedValue}
           valueOptions={params.colDef.valueOptions}
         />
-      )
+      ), 
+      valueFormatter: params => params.value,
     },
     { 
       align: 'center',
