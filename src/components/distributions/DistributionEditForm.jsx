@@ -27,7 +27,11 @@ function DistributionEditForm({ path, type }) {
               : grade;
             const numberOfGrade = distributionSpread[grade];
             return (
-              <Box key={grade} sx={{ display: 'flex', flexDirection: 'column', m: 3, width: '4rem', }}>
+              <Box
+                key={grade}
+                sx={{ display: 'flex', flexDirection: 'column', m: 3, width: '4rem', }}
+                data-testid="form-input-container"
+              >
                 <InputLabel sx={{ textAlign: 'center', }}>{displayedGrade}</InputLabel>
                 <TextField
                   onChange={handleChange}
