@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom'
 import { DataGrid } from '@mui/x-data-grid';
-import { Box, Button, ButtonGroup, TextField, Typography } from '@mui/material';
+import { Box, Button, ButtonGroup, Typography } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
+import DateUpdater from './components/DateUpdater';
 
 import SectionsList from './SectionsList'
 import useBoulderDistributionChart from './hooks/useBoulderDistributionChart';
@@ -65,28 +66,13 @@ const BoulderDistributionChart = () => {
               </Button>
             </ButtonGroup>
           </Box>
-
-          <Box className="date-updater-container" data-testid="date-updater-container">
-            <TextField
-              id="date"
-              label="Date"
-              type="date"
-              name="dateSet"
-              value={fullDateChange}
-              onChange={(event) => setFullDateChange(event.target.value)}
-              sx={{ width: '11rem',  }}
-              inputProps={{ height: '15rem', }}
+            
+            <DateUpdater
+              fullDateChange={fullDateChange}
+              onDateChange={onDateChange}
+              setFullDateChange={setFullDateChange}
             />
-            <Button
-              variant="contained"
-              className="date-updater button"
-              type="button"
-              onClick={onDateChange}
-              sx={{ height: '15rem', }}
-            >
-              Set Current Dates
-            </Button>
-          </Box>
+
         </Box>
       </Box>
     

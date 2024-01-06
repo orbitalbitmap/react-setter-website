@@ -136,6 +136,42 @@ test('makes sure the print boulder placard button works as expected', async ({ p
   await expect(page.url()).toBe(`${baseURL}/placard/boulders/${mockSingleGym.id}`);
 });
 
+test('makes sure the full date change container works as expected', async ({ page }) => {
+  await page.route(`*/**/api/currentBoulderGrades/${mockSingleGym.id}`, async route => {
+    await route.fulfill({ json: mockCurrentBoulderDistribution });
+  });
+  await page.goto(`distribution/current/boulders/${mockSingleGym.id}`);
+
+  const today = dayjs();
+  const newDate = today.date() < 20 ? today.add(5, 'day') : today.subtract(5, 'day');
+  const firstSectionClimbs = mockCurrentBoulderDistribution.filter(climbInfo => climbInfo.sectionId === mockSingleGym.boulderSections[0].id);
+
+  
+  const distributionContainer = page.getByTestId('distribution-container');
+  const displayedClimbList = distributionContainer.locator('.MuiDataGrid-row');
+  const dateUpdateContainer = page.getByTestId('date-updater-container');
+  const dateUpdateButton = dateUpdateContainer.getByRole('button', { name: "Set Current Dates"});
+
+  await expect(distributionContainer).toBeVisible();
+  await expect(dateUpdateContainer).toBeVisible();
+  await dateUpdateContainer.getByLabel('Choose date').click();
+  await page.getByRole('gridcell', { name: newDate.date(), exact: true }).click();
+
+  await expect(displayedClimbList.nth(0)).toContainText(firstSectionClimbs[0].dateSet);
+  await expect(displayedClimbList.nth(0)).not.toContainText(newDate.format('YYYY-MM-DD'));
+  await expect(displayedClimbList.nth(1)).toContainText(firstSectionClimbs[1].dateSet);
+  await expect(displayedClimbList.nth(1)).not.toContainText(newDate.format('YYYY-MM-DD'));
+
+  
+  await expect(dateUpdateButton).toBeVisible();
+  await dateUpdateButton.click();
+
+  await expect(displayedClimbList.nth(0)).not.toContainText(firstSectionClimbs[0].dateSet);
+  await expect(displayedClimbList.nth(0)).toContainText(newDate.format('YYYY-MM-DD'));
+  await expect(displayedClimbList.nth(1)).not.toContainText(firstSectionClimbs[1].dateSet);
+  await expect(displayedClimbList.nth(1)).toContainText(newDate.format('YYYY-MM-DD'));
+});
+
 test('makes sure the BoulderDistributionChart grade updates as expected', async ({ page }) => {
   await page.route(`*/**/api/currentBoulderGrades/${mockSingleGym.id}`, async route => {
     await route.fulfill({ json: mockCurrentBoulderDistribution });

@@ -69,10 +69,11 @@ const useBoulderDistributionChart = () => {
   const onDateChange = (event) => {
     dispatch(updateDates({
       type: 'boulderDistribution',
-      newDate: fullDateChange,
+      newDate: fullDateChange.format('YYYY-MM-DD'),
       sectionIdToUpdate: selectedSectionId,
     }));
   };
+
 
   const handleSubmit = async (event) => {
     event.preventDefault()
