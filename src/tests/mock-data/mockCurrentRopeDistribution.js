@@ -1,5 +1,8 @@
+import dayjs from "dayjs";
 import mockSingleGym from "./mockSingleGym";
 import mockFullEmployeeList from "./mockFullEmployeeList";
+
+const today = dayjs();
 
 const mockCurrentRopeDistribution = [
   {
@@ -10,12 +13,12 @@ const mockCurrentRopeDistribution = [
     ropeStyle: 'Top Rope Only',
     grade: '5.11-',
     color: 'Purple',
-    setterId: mockFullEmployeeList[0].id,
-    setter: mockFullEmployeeList[0].placardName,
+    setterId: mockFullEmployeeList[1].id,
+    setter: mockFullEmployeeList[1].placardName,
     climbName: '',
     holds: '',
     style: '',
-    dateSet: '2023-05-24',
+    dateSet: today.format('YYYY-MM-DD'),
     deletedAt: null,
     gym: mockSingleGym,
   },
@@ -32,7 +35,7 @@ const mockCurrentRopeDistribution = [
     climbName: '',
     holds: '',
     style: '',
-    dateSet: '2023-05-24',
+    dateSet: today.format('YYYY-MM-DD'),
     deletedAt: null,
     gym: mockSingleGym,
   },
@@ -49,7 +52,7 @@ const mockCurrentRopeDistribution = [
     climbName: '',
     holds: '',
     style: '',
-    dateSet: '2023-05-24',
+    dateSet: today.format('YYYY-MM-DD'),
     deletedAt: null,
     gym: mockSingleGym,
   },
@@ -66,7 +69,7 @@ const mockCurrentRopeDistribution = [
     climbName: '',
     holds: '',
     style: '',
-    dateSet: '2023-05-24',
+    dateSet: today.format('YYYY-MM-DD'),
     deletedAt: null,
     gym: mockSingleGym,
   },

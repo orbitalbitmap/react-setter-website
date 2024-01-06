@@ -107,7 +107,7 @@ const loading = useMemo(() => {
   const onDateChange = (event) => {
     dispatch(updateDates({
       type: 'routeDistribution',
-      newDate: fullDateChange,
+      newDate: fullDateChange.format('YYYY-MM-DD'),
       sectionIdToUpdate: selectedSectionId,
     }));
   };

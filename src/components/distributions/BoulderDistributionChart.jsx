@@ -2,9 +2,9 @@ import { Link } from 'react-router-dom'
 import { DataGrid } from '@mui/x-data-grid';
 import { Box, Button, ButtonGroup, Typography } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
-import DateUpdater from './components/DateUpdater';
 
 import SectionsList from './SectionsList'
+import DateUpdater from './components/DateUpdater';
 import useBoulderDistributionChart from './hooks/useBoulderDistributionChart';
 
 
