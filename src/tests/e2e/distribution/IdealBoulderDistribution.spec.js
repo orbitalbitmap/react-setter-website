@@ -14,8 +14,6 @@ test.beforeEach('mocks the necessary api paths for all the tests', async ({ page
   });
 });
 
-
-// render test
 test('loads expected content', async ({page}) => {
   await page.route(`*/**/api/idealBoulderGradesById/${mockSingleGym.id}`, async route => {
     await route.fulfill({ json: mockIdealBoulderDistribution });
