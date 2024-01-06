@@ -35,7 +35,7 @@ const getBoulderColumnDefs = (sectionInfoList, setterInfoList) => {
         <BoulderGradeEditCell
           row={params.row}
           field={params.field}
-          id={params.row.id}
+          id={params.id}
           value={params.value}
           valueOptions={params.colDef.valueOptions}
         />

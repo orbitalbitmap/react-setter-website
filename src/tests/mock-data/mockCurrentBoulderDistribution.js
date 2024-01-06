@@ -1,5 +1,9 @@
+import dayjs from "dayjs";
+
 import mockSingleGym from "./mockSingleGym";
 import mockFullEmployeeList from "./mockFullEmployeeList";
+
+const today = dayjs();
 
 const mockCurrentBoulderDistribution = [
   {
@@ -12,7 +16,7 @@ const mockCurrentBoulderDistribution = [
     holds: null,
     style: null,
     sectionId: 1,
-    dateSet: "2023-08-15",
+    dateSet: today.format('YYYY-MM-DD'),
     position: null,
     deletedAt: null,
     gym: mockSingleGym,
@@ -27,7 +31,7 @@ const mockCurrentBoulderDistribution = [
     holds: null,
     style: null,
     sectionId: 1,
-    dateSet: "2023-08-15",
+    dateSet: today.format('YYYY-MM-DD'),
     position: null,
     deletedAt: null,
     gym: mockSingleGym,
@@ -42,7 +46,7 @@ const mockCurrentBoulderDistribution = [
     holds: null,
     style: null,
     sectionId: 2,
-    dateSet: "2023-08-15",
+    dateSet: today.format('YYYY-MM-DD'),
     position: null,
     deletedAt: null,
     gym: mockSingleGym,
@@ -57,7 +61,7 @@ const mockCurrentBoulderDistribution = [
     holds: null,
     style: null,
     sectionId: 3,
-    dateSet: "2023-08-15",
+    dateSet: today.format('YYYY-MM-DD'),
     position: null,
     deletedAt: null,
     gym: mockSingleGym,
