@@ -173,8 +173,8 @@ test('make sure the new gym form works as expected', async ({ page }) => {
 });
 
 test('make sure that new gym cannot be saved until all required fields are filled', async ({ page }) => {
-  await page.route('*/**/api/saveEmployee', async route => {
-    await route.fulfill({ status: 200});
+  await page.route('*/**/api/saveNewGym', async route => {
+    await route.fulfill({ status: 200 });
   });
 
   const newGymTab = page.getByTestId('new-gym-tab');

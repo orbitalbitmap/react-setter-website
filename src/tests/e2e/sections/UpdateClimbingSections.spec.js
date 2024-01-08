@@ -17,6 +17,9 @@ test('makes sure the UpdateClimbingSections rope portion works as expected', asy
   await page.route(`*/**/api/gymWithSections/${mockSingleGym.id}`, async route => {
     await route.fulfill({ json: mockSingleGym });
   });
+  await page.route(`*/**/api/updateRouteSectionNames`, async route => {
+    await route.fulfill({ status: 200 });
+  });
 
   await page.goto(`sections/edit/${mockSingleGym.id}`);
 
@@ -52,6 +55,9 @@ test('makes sure the UpdateClimbingSections rope portion works as expected', asy
 test('makes sure the UpdateClimbingSections boulder portion works as expected', async ({ page }) => {
   await page.route(`*/**/api/gymWithSections/${mockSingleGym.id}`, async route => {
     await route.fulfill({ json: mockSingleGym });
+  });
+  await page.route(`*/**/api/updateBoulderSectionNames`, async route => {
+    await route.fulfill({ status: 200 });
   });
 
   await page.goto(`sections/edit/${mockSingleGym.id}`);

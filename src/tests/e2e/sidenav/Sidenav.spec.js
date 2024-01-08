@@ -3,6 +3,8 @@ import { test, expect } from '@playwright/test';
 import mockGymList from '../../mock-data/mockGymList';
 import mockFullEmployeeList from '../../mock-data/mockFullEmployeeList';
 import mockMetrics from '../../mock-data/mockMetrics';
+import mockSingleGym from '../../mock-data/mockSingleGym';
+
 
 test.beforeEach('mock the necessary api paths before navigating to the Dashboard page', async ({ page }) => {
   await page.route('*/**/api/gyms', async route => {
@@ -37,6 +39,10 @@ test('loads expected content', async ({ page }) => {
 });
 
 test('will show/hide content for the collapsable location list when clicked and can navigate to correct page when a list item is clicked', async ({ page, baseURL }) => {  
+  await page.route(`*/**/api/gymById/${mockSingleGym.id}`, async route => {
+    await route.fulfill({ json: mockSingleGym });
+  });
+
   const locationsLink = page.getByLabel('Locations', { exact: true });
   const locationsListContainer = page.getByTestId('locations-list');
 

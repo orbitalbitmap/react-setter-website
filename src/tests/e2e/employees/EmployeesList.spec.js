@@ -10,6 +10,9 @@ test('make sure the EmployeeList page loads the expected count and works correct
   await page.route('*/**/api/gyms', async route => {
     await route.fulfill({ json: mockGymList });
   });
+  await page.route('*/**/api/employees/1', async route => {
+    await route.fulfill({ json: mockFullEmployeeList[0] });
+  });
 
   await page.goto('employees');
   
@@ -27,4 +30,5 @@ test('make sure the EmployeeList page loads the expected count and works correct
 
   await expect(page.url()).toBe(`${baseURL}/employees/${mockFullEmployeeList[0].id}`);
   await expect(employeeContainer).toBeVisible();
+  await expect(employeeContainer).toContainText(mockFullEmployeeList[0].email);
 });

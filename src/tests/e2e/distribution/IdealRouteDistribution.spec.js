@@ -18,7 +18,7 @@ test('loads expected content', async ({page}) => {
   await page.route(`*/**/api/idealRouteGradesById/${mockSingleGym.id}`, async route => {
     await route.fulfill({ json: mockIdealRopeDistribution });
   });
-  await page.route('*/**/api/saveDistribution/ropes', async route => {
+  await page.route('*/**/api/saveDistribution/routes', async route => {
     await route.fulfill({ status: 200 });
   });
   await page.goto(`distribution/ideal/ropes/${mockSingleGym.id}`);
