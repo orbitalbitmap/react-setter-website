@@ -5,7 +5,7 @@ import mockGymList from '../../mock-data/mockGymList';
 
 const mockSingleEmployee = mockFullEmployeeList[0];
 
-test('loads expected content', async ({page}) => {
+test('makes sure the SingleEmployee page loads the expected content', async ({page}) => {
   await page.route('*/**/api/employees', async route => {
     await route.fulfill({ json: mockFullEmployeeList });
   });

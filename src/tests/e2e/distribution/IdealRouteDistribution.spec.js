@@ -14,7 +14,7 @@ test.beforeEach('mocks the necessary api paths for all the tests', async ({ page
   });
 });
 
-test('loads expected content', async ({page}) => {
+test('makes sure the IdealRouteDistribution page works as expected', async ({page}) => {
   await page.route(`*/**/api/idealRouteGradesById/${mockSingleGym.id}`, async route => {
     await route.fulfill({ json: mockIdealRopeDistribution });
   });

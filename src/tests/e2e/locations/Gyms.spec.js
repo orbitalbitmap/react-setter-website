@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test';
 import mockGymList from '../../mock-data/mockGymList';
 import mockFullEmployeeList from '../../mock-data/mockFullEmployeeList';
 
-test('loads expected content', async ({ page }) => {
+test('makes sure the Gyms page loads expected content', async ({ page }) => {
   await page.route('*/**/api/employees', async route => {
     await route.fulfill({ json: mockFullEmployeeList });
   });

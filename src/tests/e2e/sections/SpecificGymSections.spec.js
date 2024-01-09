@@ -13,7 +13,7 @@ test.beforeEach('mocks the necessary api paths for all the tests', async ({ page
   });
 });
 
-test('loads expected content', async ({ page }) => {
+test('makes sure the SpecificGymSections page loads expected content', async ({ page }) => {
   await page.route(`*/**/api/gymWithSections/${mockSingleGym.id}`, async route => {
     await route.fulfill({ json: mockSingleGym });
   });
@@ -44,7 +44,7 @@ test('loads expected content', async ({ page }) => {
   await expect(routeSectionNameList).toHaveCount(routeSections.length);
 });
 
-test('loads expected content when no sub-sections are found in a section', async ({ page }) => {
+test('makes sure the SpecificGymSections page loads expected content when no sub-sections are found in a section', async ({ page }) => {
   const gymWithEmptySections = {
     ...mockSingleGym,
     boulderSections: [],
