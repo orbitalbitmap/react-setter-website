@@ -19,7 +19,7 @@ test.beforeEach('mock the necessary api paths before navigating to the Dashboard
   await expect(heading).toBeVisible();
 });
 
-test('loads expected content', async ({ page }) => {
+test('makes sure the SideNav component loads the expected content', async ({ page }) => {
   const adminDashboardLink = page.getByLabel('Admin Dashboard', { exact: true });
   const dashboardLink = page.getByLabel('Dashboard', { exact: true });
   const locationsLink = page.getByLabel('Locations', { exact: true });
