@@ -1,11 +1,11 @@
 /* eslint-disable testing-library/prefer-screen-queries */
+import dayjs from 'dayjs';
 import { test, expect } from '@playwright/test';
 import mockSingleGym from '../../mock-data/mockSingleGym';
 import mockGymList from '../../mock-data/mockGymList';
 import mockFullEmployeeList from '../../mock-data/mockFullEmployeeList';
 import mockBoulderSections from '../../mock-data/mockBoulderSections';
 import mockCurrentBoulderDistribution from '../../mock-data/mockCurrentBoulderDistribution';
-import dayjs from 'dayjs';
 
 test.beforeEach('mock the necessary api paths before navigating to the Dashboard page', async ({ page }) => {
   await page.route('*/**/api/gyms', async route => {
