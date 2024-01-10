@@ -10,6 +10,7 @@ function AreteSelector({ name, onChange, }) {
           name={name}
           defaultValue="1"
           sx={{ height: '1.5rem' }}
+          data-testid="arete-selector"
         >
           <MenuItem value="1">None</MenuItem>
           <MenuItem value="2">On</MenuItem>

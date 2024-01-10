@@ -14,13 +14,13 @@ const PlacardSelectors =({
   let slotNumber = startingSlotNum;
 
   return (
-    <Box className={className} sx={{ width: '40rem', }} >
+    <Box className={className} sx={{ width: '40rem', }}>
       <Grid container>
         {
           nameList.map((climbName) => {
             slotNumber++;
             return (
-              <Grid item xs={5} key={climbName}>
+              <Grid item xs={5} key={climbName} data-testid="climb-selector-container">
                 <Box className={`${selectorType}-selectors`}>
                   <Typography>Slot #{slotNumber}</Typography>
                   <Box sx={{ border: '1px solid gray', p: 2}} >

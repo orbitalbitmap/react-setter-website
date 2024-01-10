@@ -12,7 +12,6 @@ const BoulderPlacard = ({ climbList, climbsToDisplay, numberOfClimbsClass, }) =>
           climbsToDisplay.map(climbToDisplay => {
             slotId++
             const climb = climbList[climbToDisplay]
-
             return (
               <BoulderSlot
                 key={slotId}

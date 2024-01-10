@@ -2,6 +2,7 @@ import { useEffect, useMemo, useReducer, useState } from "react";
 
 import { useGetSpecificBoulderSectionsQuery } from "../../../../services/gym";
 import getClimbListForPlacard from "../utils/getClimbListForPlacard";
+import dayjs from "dayjs";
 
 const useBoulderPlacardInfo = (distribution, gymId) => {
   const {data: sectionList} = useGetSpecificBoulderSectionsQuery(gymId);
@@ -170,7 +171,7 @@ const useBoulderPlacardInfo = (distribution, gymId) => {
     const climbInDistribution = parseInt(event.target.value) - (distribution[0]?.id);
     const { color, setter, grade, dateSet } = distribution[climbInDistribution];
 
-    const dateSetFormatted = new Date(dateSet).toLocaleDateString('en-us');
+    const dateSetFormatted = dayjs(dateSet).format('MM/DD/YYYY');
 
     dispatchSelectedClimbs({ type: event.target.name, payload: { color, setter, grade, dateSet: dateSetFormatted } });
   };
