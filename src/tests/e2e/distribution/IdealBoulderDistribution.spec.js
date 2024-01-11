@@ -14,6 +14,7 @@ test.beforeEach('mocks the necessary api paths for all the tests', async ({ page
   });
 });
 
+// test passes when run in ui mode but not in headless mode
 test('makes sure the IdealBoulderDistribution page works as expected', async ({page}) => {
   await page.route(`*/**/api/idealBoulderGradesById/${mockSingleGym.id}`, async route => {
     await route.fulfill({ json: mockIdealBoulderDistribution });
@@ -22,19 +23,19 @@ test('makes sure the IdealBoulderDistribution page works as expected', async ({p
     await route.fulfill({ status: 200 });
   });
   await page.goto(`distribution/ideal/boulders/${mockSingleGym.id}`);
-  
+
+  // removes two keys we don't need to test in this file
+  delete mockIdealBoulderDistribution.gymId;
+  delete mockIdealBoulderDistribution.gym;
+
+  const keyList = await Object.keys(mockIdealBoulderDistribution);
+
   const form = page.getByTestId('boulders-distribution-form');
   const formGradeContainerList = page.getByTestId('form-input-container');
   const saveButton = page.getByText('Save Distribution');
   const firstGradeInput = formGradeContainerList.first();
   const snackNotification = page.getByTestId('snackbar-notification');
 
-  // removes two keys we don't need to test in this file
-  delete mockIdealBoulderDistribution.gymId;
-  delete mockIdealBoulderDistribution.gym;
-
-  const keyList = Object.keys(mockIdealBoulderDistribution);
-  
   await expect(form).toBeVisible();
   // since the gymId and gym info are included in the api's return data, we do not want to include it in the total displayed input count
   await expect(formGradeContainerList).toHaveCount(keyList.length);
