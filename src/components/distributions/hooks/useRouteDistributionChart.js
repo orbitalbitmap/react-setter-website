@@ -12,7 +12,7 @@ const useRouteDistributionChart = () => {
   const gymId = urlParams.id;
   const todayFormatted = useMemo(() => {
     const today = new dayjs();
-    return today.toISOString().split('T')[0]
+    return today.format('MM/DD/YYYY');
 }, []);
   
   const dispatch = useDispatch();
