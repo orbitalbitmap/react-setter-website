@@ -156,7 +156,6 @@ test('makes sure the full date change container works as expected', async ({ pag
   await expect(dateUpdateContainer).toBeVisible();
   await dateUpdateContainer.getByLabel('Choose date').click();
   await page.getByRole('gridcell', { name: newDate.date(), exact: true }).click();
-console.log(firstSectionClimbs[0].dateSet)
   await expect(displayedClimbList.nth(0)).toContainText(firstSectionClimbs[0].dateSet);
   await expect(displayedClimbList.nth(0)).not.toContainText(newDate.format('YYYY-MM-DD'));
 

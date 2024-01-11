@@ -12,22 +12,20 @@ test.beforeEach('mocks the necessary api paths for all the tests', async ({ page
   await page.route('*/**/api/gyms', async route => {
     await route.fulfill({ json: mockGymList });
   });
-});
-
-// test passes when run in ui mode but not in headless mode
-test('makes sure the IdealBoulderDistribution page works as expected', async ({page}) => {
   await page.route(`*/**/api/idealBoulderGradesById/${mockSingleGym.id}`, async route => {
     await route.fulfill({ json: mockIdealBoulderDistribution });
   });
   await page.route('*/**/api/saveDistribution/boulders', async route => {
     await route.fulfill({ status: 200 });
   });
-  await page.goto(`distribution/ideal/boulders/${mockSingleGym.id}`);
-
-  // removes two keys we don't need to test in this file
+  // this: { waitUntil: 'networkidle' } was the only solution found so far to allow this test to run properly in headed mode
+  // with out this option, the test works in ui mode but doesn't find anything past the form in when not run in ui mode
+  await page.goto(`distribution/ideal/boulders/${mockSingleGym.id}`, { waitUntil: 'networkidle' });
+});
+test('makes sure the IdealBoulderDistribution page works as expected', async ({page}) => {
+ // since the gymId and gym info are included in the api's return data but not required for the test, they are removed
   delete mockIdealBoulderDistribution.gymId;
   delete mockIdealBoulderDistribution.gym;
-
   const keyList = await Object.keys(mockIdealBoulderDistribution);
 
   const form = page.getByTestId('boulders-distribution-form');
@@ -37,7 +35,6 @@ test('makes sure the IdealBoulderDistribution page works as expected', async ({p
   const snackNotification = page.getByTestId('snackbar-notification');
 
   await expect(form).toBeVisible();
-  // since the gymId and gym info are included in the api's return data, we do not want to include it in the total displayed input count
   await expect(formGradeContainerList).toHaveCount(keyList.length);
   await expect(saveButton).toBeVisible();
 
