@@ -5,12 +5,13 @@ import getRopeColumnDefs from "../utils/ropeColumnDefs";
 import { useDispatch, useSelector } from "react-redux";
 import { useGetLocationByIdQuery, useGetRouteDistributionQuery, useGetSpecificRouteSectionsQuery, useUpdateRouteDistributionMutation } from "../../../services/gym";
 import { useParams } from "react-router-dom";
+import dayjs from "dayjs";
 
 const useRouteDistributionChart = () => {
   const urlParams = useParams();
   const gymId = urlParams.id;
   const todayFormatted = useMemo(() => {
-    const today = new Date();
+    const today = new dayjs();
     return today.toISOString().split('T')[0]
 }, []);
   

@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import { useReducer, } from "react";
 
 const useRoutePlacardInfo = (distribution) => {
@@ -82,7 +83,7 @@ const useRoutePlacardInfo = (distribution) => {
       color, setter, grade, dateSet, ropeStyle, climbName,
     } = distribution[climbInArray];
 
-    const dateSetFormatted = new Date(dateSet).toLocaleDateString('en-us');
+    const dateSetFormatted = dayjs(dateSet).format('MM/DD/YYYY');
 
     dispatch({
       type: event.target.name,

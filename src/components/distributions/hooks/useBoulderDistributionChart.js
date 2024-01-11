@@ -5,6 +5,7 @@ import { useGetBoulderDistributionQuery, useGetLocationByIdQuery, useGetSpecific
 import { useParams } from "react-router-dom";
 import getBoulderColumnDefs from "../utils/boulderColumnDefs";
 import { setBoulderDistribution, updateDates } from "../../../reducers/distribution/distributionReducers";
+import dayjs from "dayjs";
 
 const useBoulderDistributionChart = () => {
   const dispatch = useDispatch();
@@ -13,7 +14,7 @@ const useBoulderDistributionChart = () => {
     { isLoading, isUpdating }
   ] = useUpdateBoulderDistributionMutation();
   const todayFormatted = useMemo(() => {
-    const today = new Date();
+    const today = new dayjs();
     return today.toISOString().split('T')[0];
   }, []);
   const urlParams = useParams();

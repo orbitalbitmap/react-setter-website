@@ -1,13 +1,16 @@
-import { useSelector } from 'react-redux';
 import { Box, Grid, } from '@mui/material';
 
 import useRoutePlacardInfo from './hooks/useRoutePlacardInfo';
 import PlacardSelectors from '../components/PlacardSelectors';
 import RoutePlacard from './RoutePlacard';
 import SocialsContainer from './components/SocialsContainer';
+import { useGetRouteDistributionQuery } from '../../../services/gym';
+import { useParams } from 'react-router-dom';
 
 function PrintableRouteCard() {
-  const distribution = useSelector(state => state.distribution.routeDistribution);
+  const urlParams = useParams();
+  const { data: distribution } = useGetRouteDistributionQuery(urlParams.id);
+
   const {
     selectedClimbs,
     handleAreteInfo,
