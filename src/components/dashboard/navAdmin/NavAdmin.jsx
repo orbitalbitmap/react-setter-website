@@ -1,5 +1,4 @@
-import { useSelector } from "react-redux"
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
 import { 
   ListItemButton,
   ListItemIcon,
@@ -7,10 +6,12 @@ import {
   Tooltip,
 } from '@mui/material';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
+import useGetUserInfo from "../../../hooks/useGetUserInfo";
 
 const AdminLink = () => {
-  const user = useSelector(state => state.user)
-  if (user?.roleId <= 3) {
+  const { userRoleId } = useGetUserInfo();
+
+  if (userRoleId <= 3) {
     return (
       <Link to="/admin" style={{textDecoration: 'none'}}>
         <Tooltip title="Admin Dashboard" disableInteractive>
@@ -25,7 +26,7 @@ const AdminLink = () => {
     )
   }
 
-  return null
+  return null;
 }
 
-export default AdminLink
+export default AdminLink;

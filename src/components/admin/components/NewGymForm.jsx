@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { FormControl, Grid, TextField, } from '@mui/material';
+import { Box, FormControl, Grid, TextField, } from '@mui/material';
 import { Paper, Select, MenuItem, InputLabel } from '@mui/material';
 
 import { useAddNewGymMutation } from '../../../services/gym';
@@ -30,6 +30,15 @@ const NewGymForm = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    if (!name.length) {
+      dispatch(setNotificationAlert({
+        alertType: 'error',
+        messageBody: 'Missing information, please enter all of the required fields.',
+      }));
+      
+      return;
+    }
+
     try {
       await saveNewGym({
         name,
@@ -55,7 +64,7 @@ const NewGymForm = () => {
 
 
   return ( 
-    <>
+    <Box data-testid="new-gym-form">
       <h1 className='centered-text'>New's Gym Information</h1>
       <Paper elevation={12} component='div' sx={{ pb: '0.5rem', pt: '1rem' }}>
         <Grid container columnSpacing='2rem' rowSpacing='1rem'  sx={{ ml: '-1rem' }}>
@@ -146,7 +155,7 @@ const NewGymForm = () => {
           Save Gym
         </LoadingButton>
       </Paper>
-    </>
+    </Box>
   );
 }
 

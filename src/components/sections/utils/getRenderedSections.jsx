@@ -5,13 +5,13 @@ const renderSections = (sectionList, sectionType) => {
 
   sortedSectionList = sortedSectionList.sort((a,b) => a.id - b.id)
   return ( 
-    <List sx={{ bgcolor: theme => theme.palette.common.white,  }}>
+    <List sx={{ bgcolor: theme => theme.palette.common.white,  }} data-testid={`${sectionType.toLowerCase()}-section-container`}>
       <ListItem>
-        <Typography variant="h6" sx={{ margin: '0 auto'}}>{sectionType}s:</Typography>
+        <Typography variant="h6" sx={{ margin: '0 auto'}}>{sectionType.toLowerCase()}s:</Typography>
       </ListItem>
       {
         sortedSectionList?.map(section => (
-          <Typography variant="body1" key={section.id} className="centered-text" sx={{pt: 2}}>
+          <Typography variant="body1" key={section.id} className="centered-text" sx={{pt: 2}} data-testid={`${sectionType.toLowerCase()}-section-name`}>
             {section.name}
           </Typography>
         ))
@@ -24,7 +24,11 @@ const renderNoSection = (sectionType) => {
   return (
     <List sx={{ bgcolor: theme=> theme.palette.common.white, p: 0, }}>
       <ListItem style={{ marginBottom: '.25rem' }}>
-        <ListItemText className="centered-text" sx={{color: theme => theme.palette.common.black, }}>
+        <ListItemText
+          className="centered-text"
+          sx={{color: theme => theme.palette.common.black, }}
+          data-testid={`empty-${sectionType.toLowerCase()}-container`}
+        >
           No {sectionType.toLowerCase()} sections found.
         </ListItemText>
       </ListItem>

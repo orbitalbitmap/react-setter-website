@@ -11,6 +11,7 @@ const SectionCardsContainer = ({ boulderSections, routeSections, gymName, gymId 
         mt: 2,
         pb: 1,
       }}
+      data-testid={`${gymName}-sections-container`}
     >    
       <Link to={`/locations/${gymId}`} style={{ textDecoration: 'none' }}>
         <Typography

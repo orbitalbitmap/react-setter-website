@@ -10,9 +10,9 @@ const RoutePlacard = ({ climbs, nameList, }) => {
               <Typography variant="body" className="route-grade-value">{climbs[climbName].grade}</Typography>
               <Typography variant="body" className="route-name">{climbs[climbName].name}</Typography>
               <Typography variant="body" className="route-arete">{climbs[climbName].areteMessage}</Typography>
-              <Typography variant="body" className="route-placard-info">{climbs[climbName].ropeStyle}</Typography>
-              <Typography variant="body" className="route-placard-info">{climbs[climbName].dateSet}</Typography>
-              <Typography variant="body" className="route-placard-info">{climbs[climbName].setter}</Typography>
+              <Typography variant="body" className="route-placard-info route-style">{climbs[climbName].ropeStyle}</Typography>
+              <Typography variant="body" className="route-placard-info route-date-set">{climbs[climbName].dateSet}</Typography>
+              <Typography variant="body" className="route-placard-info route-setter">{climbs[climbName].setter}</Typography>
             </Box>
           )
         })

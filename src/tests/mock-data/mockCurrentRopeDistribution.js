@@ -1,0 +1,78 @@
+import dayjs from "dayjs";
+import mockSingleGym from "./mockSingleGym";
+import mockFullEmployeeList from "./mockFullEmployeeList";
+
+const today = dayjs();
+
+const mockCurrentRopeDistribution = [
+  {
+    id: 1,
+    gymId: 1,
+    station: '1',
+    sectionId: 1,
+    ropeStyle: 'Top Rope Only',
+    grade: '5.11-',
+    color: 'Purple',
+    setterId: mockFullEmployeeList[1].id,
+    setter: mockFullEmployeeList[1].placardName,
+    climbName: '',
+    holds: '',
+    style: '',
+    dateSet: today.format('YYYY-MM-DD'),
+    deletedAt: null,
+    gym: mockSingleGym,
+  },
+  {
+    id: 2,
+    gymId: 1,
+    station: '1',
+    sectionId: 2,
+    ropeStyle: 'TR/Lead',
+    grade: '5.8',
+    color: 'Red',
+    setterId: mockFullEmployeeList[1].id,
+    setter: mockFullEmployeeList[1].placardName,
+    climbName: '',
+    holds: '',
+    style: '',
+    dateSet: today.format('YYYY-MM-DD'),
+    deletedAt: null,
+    gym: mockSingleGym,
+  },
+  {
+    id: 3,
+    gymId: 1,
+    station: '1',
+    sectionId: 3,
+    ropeStyle: 'Lead Only',
+    grade: '5.12-',
+    color: 'Blue',
+    setterId: mockFullEmployeeList[0].id,
+    setter: mockFullEmployeeList[0].placardName,
+    climbName: '',
+    holds: '',
+    style: '',
+    dateSet: today.format('YYYY-MM-DD'),
+    deletedAt: null,
+    gym: mockSingleGym,
+  },
+  {
+    id: 4,
+    gymId: 1,
+    station: '1',
+    sectionId: 3,
+    ropeStyle: 'Lead Only',
+    grade: '5.10+',
+    color: 'Green',
+    setterId: mockFullEmployeeList[2].id,
+    setter: mockFullEmployeeList[2].placardName,
+    climbName: '',
+    holds: '',
+    style: '',
+    dateSet: today.format('YYYY-MM-DD'),
+    deletedAt: null,
+    gym: mockSingleGym,
+  },
+];
+
+export default mockCurrentRopeDistribution;

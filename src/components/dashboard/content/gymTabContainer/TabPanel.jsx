@@ -15,7 +15,7 @@ const TabPanel = ({ value, index, id, panelInfo, ...other }) => {
       {...other}
     >
       {value === index && (
-        <Box sx={{ p: 3 }}>
+        <Box sx={{ p: 3 }} data-testid={`${panelInfo.type}-container`}>
           <Typography component="div">
             <Grid container spacing={12}>
               <Grid item xs={6}>
@@ -38,6 +38,7 @@ const TabPanel = ({ value, index, id, panelInfo, ...other }) => {
                       textDecoration: 'none',
                       fontWeight: 500,
                     }}
+                    name={titles.left}
                   >
                     {titles.left}
                   </Link>
@@ -63,6 +64,7 @@ const TabPanel = ({ value, index, id, panelInfo, ...other }) => {
                       textDecoration: 'none',
                       fontWeight: 500,
                     }}
+                    name={titles.right}
                   >
                       {titles.right}
                   </Link>

@@ -9,6 +9,7 @@ const SectionForm = (sections, type, handleChange) => sections
         onChange={(event) => { handleChange(event, `${type}Sections`, section.id) }}
         value={section.name !== null ? section.name : ''}
         placeholder="Enter section name..."
+        inputProps={{ 'data-testid':  `${type.toLowerCase()}-section-input`}}
       />
     </Box>
   ))

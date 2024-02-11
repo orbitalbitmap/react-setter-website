@@ -15,7 +15,11 @@ function DistributionEditForm({ path, type }) {
   return (
     <Box sx={{ mt: 12, mx: 'auto', width: '40rem' }}>
       <Typography variant="h2" sx={{ textAlign: 'center', }}>{`${gym?.name}'s ${type}`}</Typography>
-      <form id="distribution-form" style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', padding: '1rem', width: '30rem' }}>
+      <form
+        id="distribution-form"
+        style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', padding: '1rem', width: '30rem' }}
+        data-testid={`${type}-distribution-form`}
+      >
         {
           Object.keys(distributionSpread).map((grade) => {
             const displayedGrade = type === 'routes'
@@ -23,7 +27,11 @@ function DistributionEditForm({ path, type }) {
               : grade;
             const numberOfGrade = distributionSpread[grade];
             return (
-              <Box key={grade} sx={{ display: 'flex', flexDirection: 'column', m: 3, width: '4rem', }}>
+              <Box
+                key={grade}
+                sx={{ display: 'flex', flexDirection: 'column', m: 3, width: '4rem', }}
+                data-testid="form-input-container"
+              >
                 <InputLabel sx={{ textAlign: 'center', }}>{displayedGrade}</InputLabel>
                 <TextField
                   onChange={handleChange}

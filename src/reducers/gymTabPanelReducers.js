@@ -2,39 +2,6 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   ropePanel: {
-    links: {
-      left: null,
-      right: null,
-    },
-    titles: {
-      left: null,
-      right: null,
-    }, 
-  },
-  boulderPanel: {
-    links: {
-      left: null,
-      right: null,
-    },
-    titles: {
-      left: null,
-      right: null,
-    }, 
-  },
-  sectionPanel: {
-    links: {
-      left: null,
-      right: null,
-    },
-    titles: {
-      left: null,
-      right: null,
-    }, 
-  },
-};
-
-const setGymPanelInfo = (state, action) => {
-    state.ropePanel = {
       links: {
         left: '/distribution/current/ropes/',
         right: '/distribution/ideal/ropes/',
@@ -42,9 +9,10 @@ const setGymPanelInfo = (state, action) => {
       titles: {
         left: 'Current Rope Climbs',
         right: 'Ideal Rope Distribution',
-      }
-    };
-    state.boulderPanel = {
+      },
+      type: "ropes",
+    },
+    boulderPanel: {
       links: {
         left: '/distribution/current/boulders/',
         right: '/distribution/ideal/boulders/',
@@ -53,8 +21,9 @@ const setGymPanelInfo = (state, action) => {
         left: 'Current Boulder Problems',
         right: 'Ideal Boulder Distribution',
       },
-    };
-    state.sectionPanel = {
+      type: "boulders",
+    },
+    sectionPanel: {
       links: {
         left: '/sections/',
         right: '/sections/edit/',
@@ -63,19 +32,14 @@ const setGymPanelInfo = (state, action) => {
         left: 'View Sections',
         right: 'Edit sections',
       },
-    };
-    state.loaded = true;
+      type: "sections",
+    }
   };
 
 export const gymTabPanelSlice = createSlice({
   name: 'gym tab panel info',
   initialState,
-  reducers: {
-    setGymPanel: setGymPanelInfo,
-    removePanel: (state, action) => initialState,
-  },
+  reducers: {},
 });
-
-export const { setGymPanel, removePanel } = gymTabPanelSlice.actions;
 
 export default gymTabPanelSlice.reducer;

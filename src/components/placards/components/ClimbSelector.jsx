@@ -8,8 +8,8 @@ function ClimbSelector({ climbs, name, selectorType, handleClimbSelector, }) {
     : <MenuItem name="climb" value="blank">Blank</MenuItem>
   }
   return (
-    <Box>
-      <FormControl sx={{ width: '12rem'}}>
+    <Box >
+      <FormControl sx={{ width: '12rem' }}>
         <InputLabel>Climb: </InputLabel>
         <Select
           label="Climb: "
@@ -18,10 +18,11 @@ function ClimbSelector({ climbs, name, selectorType, handleClimbSelector, }) {
           name={name}
           defaultValue="blank"
           sx={{ height: '1.5rem' }}
+          data-testid="climb-selector"
         >
           <MenuItem name="climb" value="blank">Blank</MenuItem>
           {
-            climbs.map(climb => (
+            climbs?.map(climb => (
               climb.station
                 ? <MenuItem key={climb.id} name="climb" value={climb.id}>{`${climb.station}: ${climb.color} ${climb.grade}`}</MenuItem>
                 : boulderMenuItem(climb)

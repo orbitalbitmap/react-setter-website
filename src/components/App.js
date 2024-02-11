@@ -58,8 +58,8 @@ function App() {
           <Route exact path="/distribution/ideal/ropes/:id" element={<IdealRopeDistributionPage />} />
 
           {/* Printable Placard paths */}
-          <Route exact path="/placard/boulders" element={<PrintableBoulderPlacardPage />} />
-          <Route exact path="/placard/ropes" element={<PrintableRoutePlacardPage />} />
+          <Route exact path="/placard/boulders/:id" element={<PrintableBoulderPlacardPage />} />
+          <Route exact path="/placard/ropes/:id" element={<PrintableRoutePlacardPage />} />
 
           {/* Employee paths */}
           <Route exact path="/employees" element={<AllEmployeesPage />} />

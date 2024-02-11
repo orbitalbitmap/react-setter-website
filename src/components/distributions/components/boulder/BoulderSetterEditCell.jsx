@@ -50,7 +50,7 @@ const BoulderSetterEditCell = ({row, field, id, value, valueOptions, formattedVa
     >
       {
         valueOptions?.map((setterInfo) => {
-          const displayName = setterInfo.placardName !== null ? setterInfo.placardName : setterInfo.firstName
+          const displayName = setterInfo.placardName?.length > 0 ? setterInfo.placardName : setterInfo.firstName
           return (
             <MenuItem key={setterInfo.id} value={displayName}>{displayName}</MenuItem>
           )

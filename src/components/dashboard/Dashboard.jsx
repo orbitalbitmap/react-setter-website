@@ -12,7 +12,7 @@ import AppBar from './styledComponents/AppBar';
 import Drawer from './styledComponents/Drawer';
 import useSetGymAndEmployeeLists from './hooks/useSetGymAndEmployeeLists';
 
-function DashboardContent({ children }) {
+function Dashboard({ children }) {
   const [open, setOpen] = useState(false);
   const toggleDrawer = () => {
     setOpen(!open);
@@ -21,7 +21,7 @@ function DashboardContent({ children }) {
   useSetGymAndEmployeeLists();
 
   return (
-      <Box sx={{ display: 'flex', }}>
+      <Box sx={{ display: 'flex', }}  data-testid="dashboard-component">
         <AppBar position="fixed" open={open} className="noprint">
           <Toolbar
             sx={{
@@ -57,6 +57,7 @@ function DashboardContent({ children }) {
           sx={{ height: '100%', position: 'fixed', zIndex: 999}}
           PaperProps={{ sx: { bgcolor: '#202A56' } }}
           className="noprint"
+          data-testid="drawer-component"
         >
           <Toolbar
             sx={{
@@ -69,7 +70,7 @@ function DashboardContent({ children }) {
             </IconButton>
           </Toolbar>
           <Divider />
-          <List component="nav" >
+          <List component="nav" data-testid="side-bar-component">
             <ListItems drawerOpen={open} drawerSetter={setOpen}/>
           </List>
         </Drawer>
@@ -78,4 +79,4 @@ function DashboardContent({ children }) {
   );
 }
 
-export default DashboardContent
+export default Dashboard;

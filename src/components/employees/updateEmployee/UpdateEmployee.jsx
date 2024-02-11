@@ -27,7 +27,7 @@ const UpdateEmployee = () => {
         width: '100%',
       }}
     >
-      <Container maxWidth="xl" sx={{ mt: '7rem', }} >
+      <Container maxWidth="xl" sx={{ mt: '7rem', }} data-testid="update-employee-container">
         <Grid container spacing={4}>
           <Grid item xs={8} sx={{ mx: 'auto' }}>
             <Paper

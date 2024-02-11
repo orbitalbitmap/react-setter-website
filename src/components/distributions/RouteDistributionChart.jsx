@@ -1,9 +1,10 @@
 import { Link, } from 'react-router-dom';
-import { Box, Button, ButtonGroup, TextField, Typography } from '@mui/material';
+import { Box, Button, ButtonGroup, Typography } from '@mui/material';
 import { DataGrid, } from '@mui/x-data-grid';
 import { LoadingButton } from '@mui/lab';
 
 import SectionsList from './SectionsList';
+import DateUpdater from './components/DateUpdater';
 import useRouteDistributionChart from './hooks/useRouteDistributionChart';
 
 
@@ -12,6 +13,7 @@ const RouteDistributionChart = () => {
     columns,
     filteredDistribution,
     fullDateChange,
+    gymId,
     gymName,
     loading,
     selectedSectionId,
@@ -45,7 +47,7 @@ const RouteDistributionChart = () => {
               : null
           }
 
-          <Box sx={{ mx: '4rem', justifyContent: 'center', }}>
+          <Box sx={{ mx: '4rem', justifyContent: 'center', }} data-testid="button-container">
             <ButtonGroup variant="contained" orientation="vertical">
               <Button onClick={addNewClimb}>Add climb</Button>
               <LoadingButton
@@ -59,38 +61,26 @@ const RouteDistributionChart = () => {
               >
                   Save Distribution
               </LoadingButton>
-              <Button component={Link}  to="/placard/ropes">
+              <Button component={Link}  to={`/placard/ropes/${gymId}`}>
                   Print Route Placard
                 </Button>
             </ButtonGroup>
           </Box>
 
-          <Box className="date-updater-container">
-            <TextField
-              id="date"
-              label="Date"
-              type="date"
-              name="dateSet"
-              value={fullDateChange}
-              onChange={(event) => setFullDateChange(event.target.value)}
-              sx={{ width: '11rem',  }}
-              inputProps={{ height: '15rem', }}
-            />
-            <Button
-              variant="contained"
-              className="date-updater button"
-              type="button"
-              onClick={onDateChange}
-              sx={{ height: '15rem', }}
-            >
-              Set Current Dates
-            </Button>
-          </Box>
+          <DateUpdater
+            fullDateChange={fullDateChange}
+            onDateChange={onDateChange}
+            setFullDateChange={setFullDateChange}
+          />
         </Box>
       </Box>
     
       
-      <Box className="distribution-holder" sx={{ width: '80rem', height: '40rem', mt: '15rem', mx: 'auto', justifyContent: 'center', }}>
+      <Box
+        className="distribution-container"
+        sx={{ width: '80rem', height: '40rem', mt: '15rem', mx: 'auto', justifyContent: 'center', }}
+        data-testid="distribution-container"
+      >
         <DataGrid
           rows={filteredDistribution || []}
           columns={columns}

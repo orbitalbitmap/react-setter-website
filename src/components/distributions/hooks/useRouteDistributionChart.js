@@ -5,13 +5,14 @@ import getRopeColumnDefs from "../utils/ropeColumnDefs";
 import { useDispatch, useSelector } from "react-redux";
 import { useGetLocationByIdQuery, useGetRouteDistributionQuery, useGetSpecificRouteSectionsQuery, useUpdateRouteDistributionMutation } from "../../../services/gym";
 import { useParams } from "react-router-dom";
+import dayjs from "dayjs";
 
 const useRouteDistributionChart = () => {
   const urlParams = useParams();
   const gymId = urlParams.id;
   const todayFormatted = useMemo(() => {
-    const today = new Date();
-    return today.toISOString().split('T')[0]
+    const today = new dayjs();
+    return today.format('MM/DD/YYYY');
 }, []);
   
   const dispatch = useDispatch();
@@ -107,7 +108,7 @@ const loading = useMemo(() => {
   const onDateChange = (event) => {
     dispatch(updateDates({
       type: 'routeDistribution',
-      newDate: fullDateChange,
+      newDate: fullDateChange.format('YYYY-MM-DD'),
       sectionIdToUpdate: selectedSectionId,
     }));
   };
@@ -116,6 +117,7 @@ const loading = useMemo(() => {
     columns,
     filteredDistribution,
     fullDateChange,
+    gymId,
     gymName,
     loading,
     selectedSectionId,

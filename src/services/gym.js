@@ -10,7 +10,7 @@ export const gymApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl }),
   tagTypes: [
     'AllLocations', 'SingleLocation', 'LocationWithSections',
-    'AllEmployees', 'SingleEmployee', 'User', 'LocationMetrics', 
+    'AllEmployees', 'SingleEmployee', 'LocationMetrics', 
     'AllSections', 'SingleRouteSection', 'SingleBoulderSection',
     'LocationSections', 'RouteDistribution', 'BoulderDistribution'
   ],
@@ -121,6 +121,7 @@ export const gymApi = createApi({
         method: 'POST',
         body,
       }),
+      invalidatesTags: ['AllLocations', 'SingleLocation', 'LocationWithSections', 'LocationMetrics']
     }),
 
     updateSections: builder.mutation({
@@ -129,6 +130,7 @@ export const gymApi = createApi({
         method: 'POST',
         body: sectionToUpdate,
       }),
+      invalidatesTags: ['AllSections'],
     }),
 
     updateEmployee: builder.mutation({
@@ -137,7 +139,7 @@ export const gymApi = createApi({
         method: 'POST',
         body,
       }),
-      invalidatesTags: ['Locations', 'Employees', 'User']
+      invalidatesTags: ['AllEmployees'],
     }),
 
     updateBoulderDistribution: builder.mutation({
@@ -183,7 +185,7 @@ export const gymApi = createApi({
         method: 'POST',
         body,
       }),
-      invalidatesTags: ['Locations'],
+      invalidatesTags: ['AllLocations', 'SingleLocation', 'LocationWithSections', 'LocationMetrics'],
     }),
   })
 });

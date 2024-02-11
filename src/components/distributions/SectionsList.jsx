@@ -2,7 +2,7 @@ import { Box, FormControl, InputLabel, MenuItem, Select } from '@mui/material'
 
 const SectionsList = ({ currentSelectedId, sectionList, onClick, }) => {
   return (
-  <Box>
+  <Box data-testid="sections-list">
     <FormControl sx={{ width: '15rem' }}>
       <InputLabel>Section</InputLabel>
       <Select
@@ -10,6 +10,7 @@ const SectionsList = ({ currentSelectedId, sectionList, onClick, }) => {
         labelId="Section"
         style={{ color: theme => theme.palette.common.black }}
         value={currentSelectedId}
+        data-testid="section-selector"
       >
         <MenuItem
           key={0}

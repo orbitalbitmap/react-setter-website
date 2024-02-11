@@ -3,11 +3,13 @@ import { Collapse, Divider, List, ListItemButton, ListItemIcon, ListItemText, To
 import { Fragment, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import useGetUserInfo from "../../../../hooks/useGetUserInfo";
 
 
 const useListItems = (drawerOpen, drawerSetter) => {
-  const user = useSelector(state => state.user);
+  const { userRoleId } = useGetUserInfo();
   const locations = useSelector(state => state.locations);
+  const {userLocations} = useGetUserInfo();
   const [expandAllLocations, setExpandAllLocations] = useState(false);
   const [expandMetrics, setExpandMetrics] = useState(false);
   const [expandUserLocations, setExpandUserLocations] = useState(false);
@@ -30,7 +32,7 @@ const useListItems = (drawerOpen, drawerSetter) => {
       setter(true)
     }
 
-  const renderCollapsableList = (listItem, baseUrl, subList, opener, setter) => {
+  const renderCollapsableList = (listItem, baseUrl, subList, isOpen, setter) => {
     if (!subList) {
       return [];
     }
@@ -38,18 +40,18 @@ const useListItems = (drawerOpen, drawerSetter) => {
     return (
       <Fragment key={listItem.id}>
         <Tooltip key={listItem.id} title={listItem.title} disableInteractive>
-          <ListItemButton key={listItem.id} onClick={() => {!drawerOpen ? toggleDrawerAndList(setter) : setter(!opener)}}>
+          <ListItemButton key={listItem.id} onClick={() => {!drawerOpen ? toggleDrawerAndList(setter) : setter(!isOpen)}}>
               <ListItemIcon>
-                {opener ? <ExpandLess /> : <ExpandMore />}
+                {isOpen ? <ExpandLess /> : <ExpandMore />}
               </ListItemIcon>
               <ListItemText primary={listItem.title} />
           </ListItemButton>
         </Tooltip>
-        <Collapse in={opener} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding>
+        <Collapse in={isOpen} timeout="auto" unmountOnExit>
+          <List component="div" disablePadding data-testid={`${listItem.title.toLowerCase()}-list`} >
             <Divider sx={{ my: 1 }} />
               <Link to={baseUrl} style={{textDecoration: 'none'}}>
-                <Tooltip title="All locations" disableInteractive>
+                <Tooltip title={`All ${listItem.title.toLowerCase()}`} disableInteractive>
                   <ListItemButton sx={{ pl: 4 }}>
                     <ListItemText primary="All" sx={{textAlign: 'center'}} />
                   </ListItemButton>
@@ -58,7 +60,7 @@ const useListItems = (drawerOpen, drawerSetter) => {
               {
                 subList?.map(gym => {
                   return (
-                    <Link key={gym.id} to={`${baseUrl}${gym.id}`} style={{textDecoration: 'none'}}>
+                    <Link key={gym.id} to={`${baseUrl}/${gym.id}`} style={{textDecoration: 'none'}}>
                       <Tooltip title={gym.name} disableInteractive>
                         <ListItemButton sx={{ pl: 4 }}>
                           <ListItemText primary={gym.name} sx={{textAlign: 'center'}} />
@@ -78,9 +80,9 @@ const useListItems = (drawerOpen, drawerSetter) => {
   const renderList = (list) => list.map((listItem) => {
     switch (listItem.title) {
       case 'Locations':
-        return renderCollapsableList(listItem, '/locations/', locations, expandAllLocations, setExpandAllLocations)
+        return renderCollapsableList(listItem, '/locations', locations, expandAllLocations, setExpandAllLocations)
     case 'Metrics':
-      return renderCollapsableList(listItem, '/metrics/', user?.gyms, expandMetrics, setExpandMetrics)
+      return renderCollapsableList(listItem, '/metrics', userLocations, expandMetrics, setExpandMetrics)
     default:
       return renderListItemWithLink(listItem)
     }
@@ -96,7 +98,8 @@ const useListItems = (drawerOpen, drawerSetter) => {
 
   return {
     expandUserLocations,
-    user,
+    userRoleId,
+    userLocations,
     renderCollapsableList,
     renderList,
     setExpandUserLocations,

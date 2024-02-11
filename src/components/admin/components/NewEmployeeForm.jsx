@@ -1,4 +1,5 @@
 import {
+  Box,
   FormControl,
   Grid,
   TextField ,
@@ -36,7 +37,7 @@ const NewEmployeeForm = () => {
   } = useCurrentGymNameList()
 
   return (
-    <>
+    <Box data-testid="new-setter-form">
       <h1 className='centered-text'>New Employee Information</h1>
       <Paper elevation={12} component='div' sx={{ pb: '0.5rem', pt: '1rem' }}>
         <Grid container columnSpacing='2rem' rowSpacing='1rem'  sx={{ pl: '1.5rem' }}>
@@ -142,7 +143,7 @@ const NewEmployeeForm = () => {
           Save Employee
         </LoadingButton>
       </Paper>
-    </>
+    </Box>
   );
 }
 

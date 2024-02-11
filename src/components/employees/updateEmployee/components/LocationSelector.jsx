@@ -29,7 +29,11 @@ const LocationSelector = ({ urlId }) => {
     event.preventDefault();
 
     try {
-      await updateEmployee(employee);
+      const { error } = await updateEmployee(employee);
+      if (error?.status === 500) {
+        throw error;
+      }
+
       dispatch(setNotificationAlert({
         alertType: 'success',
         messageBody: 'Employee info updated!',
@@ -70,7 +74,7 @@ const LocationSelector = ({ urlId }) => {
                   borderBottom: '1px solid white',
                 }}
               >
-                  Save Distribution
+                  Save Employee
               </LoadingButton>
           )
         }

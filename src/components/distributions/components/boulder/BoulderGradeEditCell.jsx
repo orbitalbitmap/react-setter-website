@@ -25,14 +25,16 @@ const BoulderGradeEditCell = ({row, field, id, value, valueOptions}) => {
 
     newDistribution.sort((climbA, climbB) => climbA.id - climbB.id);
 
-    await apiRef.current.setEditCellValue({
+    const isValid =  await apiRef.current.setEditCellValue({
       id: id,
       field: field,
       value: event.target.value,
     });
   
+    if (isValid) {
       dispatch(setBoulderDistribution(newDistribution));
       apiRef.current.stopCellEditMode({ id: id, field: field });
+    }
   }
 
 

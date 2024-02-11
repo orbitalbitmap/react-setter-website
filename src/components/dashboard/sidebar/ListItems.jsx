@@ -14,13 +14,15 @@ import AdminLink from '../navAdmin/NavAdmin';
 import useListItems from './hooks/useListItems';
 
 const ItemList = ({ drawerOpen, drawerSetter }) => {
+  
   const {
     expandUserLocations,
-    user,
+    userLocations,
+    userRoleId,
     renderCollapsableList,
     renderList,
     setExpandUserLocations,
-  } = useListItems(drawerOpen, drawerSetter);
+  } = useListItems (drawerOpen, drawerSetter);
 
   return (
 
@@ -29,7 +31,7 @@ const ItemList = ({ drawerOpen, drawerSetter }) => {
       {
         renderList(sideNavList)
       }
-      <Link key={6} to={`/employees/edit/${user.id}`} style={{textDecoration: 'none'}}>
+      <Link key={6} to={`/employees/edit/${userRoleId}`} style={{textDecoration: 'none'}}>
         <Tooltip title="Profile" disableInteractive >
           <ListItemButton>
             <ListItemIcon>
@@ -44,8 +46,8 @@ const ItemList = ({ drawerOpen, drawerSetter }) => {
       {
         renderCollapsableList(
           { id: 8, title: 'Your Locations'},
-          '/locations/',
-          user?.gyms,
+          '/locations',
+          userLocations,
           expandUserLocations,
           setExpandUserLocations
         )
